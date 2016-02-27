@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-net-ldap-utils" default="build-net-ldap-utils">
+		<description>
+			Builds the LDAP net utilities JAR $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+		<property name="module.base.target.name" value="net-ldap"/>
+	    <dirname property="base.net.root.dir" file="${module.root.folder}"/>
+
+		<import file="${base.net.root.dir}${file.separator}build-base.xml"/>
+
+		<target name="build-net-ldap-utils" depends="jar-base-net-module-files" description="Builds the LDAP net utilitites JAR"/>
+		<target name="clean-net-ldap-utils" depends="clean-base-net-module-build" description="Removes the LDAP net utilities object files and JAR"/>
+	</project>

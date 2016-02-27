@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE beans SYSTEM "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+ 													   
+ <beans>
+ 
+ 	<!-- The Java code to start the Spring framework is
+	
+		public static final BeanFactoryReference getBeanFactory ()
+		{
+			final BeanFactoryLocator bfl = SingletonBeanFactoryLocator.getInstance();
+			final BeanFactoryReference bf = bfl.useBeanFactory(...);
+			return bf;
+		}
+
+ 	-->
+
+   <bean id="com.emc.fiji.service"
+         class="org.springframework.context.support.ClassPathXmlApplicationContext">
+     <constructor-arg>
+       <list>
+         <value>classpath:applicationContext.xml</value>
+         <value>classpath:applicationContext-acegi-security.xml</value>
+         <value>classpath:applicationContext-hibernate.xml</value>
+         <value>classpath:applicationContext-security-utils.xml</value>
+         <value>classpath:applicationContext-jamon.xml</value>
+       </list>
+     </constructor-arg>
+   </bean>
+ 
+ </beans>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-gui" default="build-gui">
+		<description>
+			Builds various JEE libraries helpers JAR(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+
+		<target name="build-gui-awt" depends="gui-base" unless="skip.build.gui.awt" description="Builds common AWT GUI classes">
+			<ant dir="${module.root.folder}${file.separator}awt" target="build-gui-awt" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.gui.awt" value="true"/>
+		</target>
+
+		<target name="build-gui-swing" depends="build-gui-awt" unless="skip.build.gui.swing" description="Builds common SWING GUI classes">
+			<ant dir="${module.root.folder}${file.separator}swing" target="build-gui-swing" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.gui.swing" value="true"/>
+		</target>
+
+		<target name="build-gui-helpers" depends="build-gui-swing" unless="skip.build.gui.helpers" description="Builds derived helpers GUI classes">
+			<ant dir="${module.root.folder}${file.separator}helpers" target="build-gui-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.gui.helpers" value="true"/>
+		</target>
+
+		<target name="build-gui-components" depends="build-gui-helpers" unless="skip.build.gui.components" description="Builds derived components GUI classes">
+			<ant dir="${module.root.folder}${file.separator}components" target="build-gui-components" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.gui.components" value="true"/>
+		</target>
+
+		<target name="build-gui"
+				depends="build-gui-components"
+				description="Builds various GUI libraries helpers"/>
+
+		<target name="clean-gui" description="Cleans the GUI helpers JAR(s)">
+			<ant dir="${module.root.folder}${file.separator}awt" target="clean-gui-awt" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}swing" target="clean-gui-swing" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}helpers" target="clean-gui-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+		</target>
+	</project>

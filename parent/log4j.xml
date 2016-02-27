@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+	<!-- ================ -->
+	<!-- Define appenders -->
+	<!-- ================ -->
+	<appender name="FILE" class="net.community.chest.apache.log4j.appender.DefaultRollingFileAppender">
+		<param name="LogPath" value="${java.io.tmpdir}${file.separator}log"/>
+		<param name="Extension" value=".csv"/>
+		<param name="IOBufSizeKB" value="4"/>
+		<param name="MaxAgeDays" value="7"/>
+		<param name="MaxSizeKB" value="512"/>
+		<param name="AppendTimeDiff" value="96400000"/>
+		<param name="RollAtMidnight" value="true"/>
+		<param name="FileNamePrefix" value="test"/>
+		<layout class="net.community.chest.apache.log4j.BaseLayout">
+			<param name="Header" value="Date,Time,Msec,Level,Thread,Package,Class,Unique,Message,Exception,Cause"/>
+			       <!--
+                       %k - log event originating class pac(k)age name
+
+                       %e{N} - exception stack (if any) - where N is the stack depth - if none specified
+                             the default (set by the 'com.cti2.log4j.throwable.stack.depth' system property) is used
+
+                             Note:
+                             - a <=0 value means no exception logging
+                             - a non-numerical value will cause exceptions (!)
+
+			           for the rest of options see log4j PatternLayout...
+                   -->
+			<param name="ConversionPattern" value='"%d{dd-MM-yyyy}","%d{HH:mm:ss}","%d{SSS}","%-5p","%t","%k","%c{1}","%x","%m","%e","%E"'/>
+		</layout>
+	</appender>
+
+		<!-- you can use this appender via Chainsaw application (e.g.) and
+			by defining a SocketHubReceiver using the SAME port
+			as the one configured here
+			
+			see http://logging.apache.org/log4j/docs/api/org/apache/log4j/chainsaw/package-summary.html
+		-->
+	<appender name="SOCKET-HUB" class="org.apache.log4j.net.SocketHubAppender">
+			<!-- default=4560
+		<param name="Port" value="5678"/>
+			-->
+
+			<!-- CAVEAT EMPTOR: set to TRUE at your own peril -->
+		<param name="LocationInfo" value="false"/>
+	</appender>
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="debug"/>
+		<param name="Target" value="System.out"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<!-- The default pattern: Date Priority [Category] Message\n -->
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%t] [%c{3}] %m%n"/>
+		</layout>
+	</appender>
+	<!-- ================ -->
+	<!-- Limit categories -->
+	<!-- ================ -->
+	<category name="net.community.chest" additivity="true">
+		<priority value="info"/>
+	</category>
+	<!-- ======================= -->
+	<!-- Setup the Root category -->
+	<!-- ======================= -->
+	<root>
+		<priority value="info"/>
+		<appender-ref ref="CONSOLE"/>
+		<appender-ref ref="FILE"/>
+	</root>
+</log4j:configuration>

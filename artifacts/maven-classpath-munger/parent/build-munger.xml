@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="munger-base" default="munger-base">
+	<description>
+    	Holds common imported definitions for ANT build.xml file(s)
+    	that build/generate munger specific artifacts artifacts
+    </description>
+
+	<dirname property="module.root.folder" file="${ant.file}" />
+	<property name="munger.parent.folder" value="${module.root.folder}" />
+	<import file="${munger.parent.folder}${file.separator}build-compile.xml" />
+	<property name="workspace.servers.folder" value="${workspace.root.folder}${file.separator}Servers" />
+	<property name="workspace.servers.target.dir" value="${workspace.servers.folder}${file.separator}${target.sub.folder.name}" />
+    <property name="munger.integration.tests.folder"
+              value="${workspace.root.folder}${file.separator}tests${file.separator}integration${file.separator}integration-tests" />
+    <property name="tcserver.installation.zips.folder"
+                  value="${munger.integration.tests.folder}${file.separator}env${file.separator}containers" />
+    <property name="integration.tests.env.folder" value="${munger.integration.tests.folder}${file.separator}env" />
+    <property name="integration.tests.apps.folder" value="${integration.tests.env.folder}${file.separator}apps" />
+
+	<property name="munger.artifacts.root.folder" value="${maven.local.repository.folder}${file.separator}com${file.separator}vmware{file.separator}munger" />
+	<property name="munger.version" value="${project.version}" />
+
+	<target name="munger-base" depends="compile-base" />
+
+	<!-- ############## some generic helper tasks ############## -->
+
+	<target name="deploy-module-artifact">
+		<fail message="Missing ${module.artifact.jar.path}">
+			<condition>
+				<not>
+					<available file="${module.artifact.jar.path}" type="file" />
+				</not>
+			</condition>
+		</fail>
+
+		<mkdir dir="${deploy.module.artifact.target}" />
+		<copy preservelastmodified="true" verbose="true" 
+			  todir="${deploy.module.artifact.target}"
+			  file="${module.artifact.jar.path}"
+			/>
+	</target>
+
+	<target name="deploy-collection-plugin">
+		<antcall target="deploy-module-artifact">
+			<param name="deploy.module.artifact.target" value="${deploy.module.munger.target}${file.separator}collection-plugins" />
+		</antcall>
+	</target>
+
+	<target name="undeploy-collection-plugin">
+		<delete quiet="true" verbose="true"
+			    file="${deploy.module.munger.target}${file.separator}collection-plugins${file.separator}${module.artifact.jar.name}" />
+	</target>
+
+    <target name="deploy-module-war">
+        <fail message="Missing ${deploy.module.war.target}">
+            <condition>
+                <not>
+                    <available file="${deploy.module.war.target}" type="dir" />
+                </not>
+            </condition>
+        </fail>
+
+        <copy preservelastmodified="true" verbose="true"
+              file="${module.artifact.war.path}"
+        	  tofile="${deploy.module.war.target}${file.separator}${module.artifact.war.deploy.file}"
+            />
+        <delete dir="${deploy.module.war.target}${file.separator}${module.artifact.war.deploy.name}" quiet="true" verbose="true" />
+    </target>
+
+    <target name="undeploy-module-war">
+        <fail message="Missing ${deploy.module.war.target}">
+            <condition>
+                <not>
+                    <available file="${deploy.module.war.target}" type="dir" />
+                </not>
+            </condition>
+        </fail>
+    	<delete file="${deploy.module.war.target}${file.separator}${module.artifact.war.deploy.file}" quiet="true" verbose="true" />
+        <delete dir="${deploy.module.war.target}${file.separator}${module.artifact.war.deploy.name}" quiet="true" />
+    </target>
+
+        	   <!-- ############## Tomcat related configuration ############## -->
+	<condition property="tomcat.installation.version" value="${tomcat.major.version}.${tomcat.minor.version}.${tomcat.release.number}">
+		<and>
+			<isset property="tomcat.major.version" />
+			<isset property="tomcat.minor.version" />
+			<isset property="tomcat.release.number" />
+		</and>
+	</condition>
+	<condition property="tomcat.dist.name" value="apache-tomcat-${tomcat.installation.version}">
+		<isset property="tomcat.installation.version" />
+	</condition>
+
+	<property name="tomcat.installations.root.dir" value="${workspace.servers.folder}" />
+	<condition property="tomcat.home" value="${tomcat.installations.root.dir}${file.separator}${tomcat.dist.name}">
+		<and>
+			<isset property="tomcat.installations.root.dir" />
+			<isset property="tomcat.dist.name" />
+		</and>
+	</condition>
+	<condition property="tomcat.munger.root.folder" value="${tomcat.home}${file.separator}munger">
+		<isset property="tomcat.home" />
+	</condition>
+    <condition property="tomcat.munger.config.folder" value="${tomcat.munger.root.folder}${file.separator}conf">
+        <isset property="tomcat.munger.root.folder" />
+    </condition>
+
+	<property name="tomcat.dist.site" value="http://archive.apache.org/dist/tomcat" />
+	<condition property="tomcat.download.url" value="${tomcat.dist.site}/tomcat-${tomcat.major.version}/v${tomcat.installation.version}/bin/${tomcat.dist.name}.zip">
+		<and>
+			<isset property="tomcat.major.version" />
+			<isset property="tomcat.dist.name" />
+		</and>
+	</condition>
+
+	<condition property="tomcat.available" value="true">
+		<and>
+			<isset property="tomcat.home" />
+			<available file="${tomcat.home}" type="dir" />
+		</and>
+	</condition>
+	<target name="warn-tomcat-not-found" unless="tomcat.available">
+		<echo level="warn" message="${tomcat.home} not found or undefined" />
+	</target>
+
+	<target name="deploy-tomcat-plugin-artifact" if="tomcat.available">
+		<antcall target="deploy-collection-plugin">
+			<param name="deploy.module.munger.target" value="${tomcat.munger.root.folder}" />
+		</antcall>
+	</target>
+	<target name="undeploy-tomcat-plugin-artifact" if="tomcat.available">
+		<antcall target="undeploy-collection-plugin">
+			<param name="deploy.module.munger.target" value="${tomcat.munger.root.folder}" />
+		</antcall>
+	</target>
+
+	<condition property="tomcat.bin.folder" value="${tomcat.home}${file.separator}${bin.sub.folder.name}">
+		<isset property="tomcat.home" />
+	</condition>
+    <condition property="tomcat.webapps.folder" value="${tomcat.home}${file.separator}webapps">
+        <isset property="tomcat.home" />
+    </condition>
+	<condition property="tomcat.lib.folder"
+		       value="${tomcat.home}${file.separator}common${file.separator}${lib.sub.folder.name}"
+		       else="${tomcat.home}${file.separator}${lib.sub.folder.name}">
+		<matches pattern="^5\..*" string="${tomcat.installation.version}" />
+	</condition>
+</project>

@@ -1,0 +1,16 @@
+<html>
+	<head>
+		<title>Read-only JMX access via HTTP servlet</title>
+	</head>
+	<body>
+		<ul>
+			<li><a href="./ExposedJMXServlet?req=agents">List all registered JMX agents</a></li>
+			<li><a href="./ExposedJMXServlet?req=list">List current MBeans</a></li>
+			<li><a href="./ExposedJMXServlet?req=list&attributes=true">List currently available MBeans attributes</a></li>
+			<li><a href="./ExposedJMXServlet?req=list&attributes=true&values=true&null=true">Show all MBeans attributes values</a></li>
+			<li><a href="./ExposedJMXServlet?req=all">Show all MBeans information</a></li>
+			<li><a href="./ExposedJMXServlet?req=sysprops">Show current system properties</a></li>
+			<li><a href="./ExposedJMXServlet?req=env">Show current environment</a></li>
+		</ul>
+	</body>
+</html>

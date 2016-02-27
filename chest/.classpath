@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="base-utils/io/target/classes" path="base-utils/io/src/main/java"/>
+	<classpathentry kind="src" output="base-utils/jdk/target/classes" path="base-utils/jdk/src/main/java"/>
+	<classpathentry kind="src" output="base-utils/jmx/target/classes" path="base-utils/jmx/src/main/java"/>
+	<classpathentry kind="src" output="base-utils/jndi/target/classes" path="base-utils/jndi/src/main/java"/>
+	<classpathentry kind="src" output="base-utils/logging/target/classes" path="base-utils/logging/src/main/java"/>
+	<classpathentry kind="src" output="base-utils/math/target/classes" path="base-utils/math/src/main/java"/>
+	<classpathentry kind="src" output="base-utils/reflect/target/classes" path="base-utils/reflect/src/main/java"/>
+	<classpathentry kind="src" output="base-utils/xml/xpath/target/classes" path="base-utils/xml/xpath/src/main/java"/>
+	<classpathentry kind="src" output="3rd-party/apache/ant/target/classes" path="3rd-party/apache/ant/src/main/java"/>
+	<classpathentry kind="src" output="3rd-party/apache/http-client/target/classes" path="3rd-party/apache/http-client/src/main/java"/>
+	<classpathentry kind="src" output="3rd-party/apache/log4j/target/classes" path="3rd-party/apache/log4j/src/main/java"/>
+	<classpathentry kind="src" output="3rd-party/apache/maven/target/classes" path="3rd-party/apache/maven/src/main/java"/>
+	<classpathentry kind="src" output="3rd-party/eclipse/target/classes" path="3rd-party/eclipse/src/main/java"/>
+	<classpathentry kind="src" output="3rd-party/hibernate/core/target/classes" path="3rd-party/hibernate/core/src/main/java"/>
+	<classpathentry kind="src" output="3rd-party/jfree/jcommon/target/classes" path="3rd-party/jfree/jcommon/src/main/java"/>
+	<classpathentry kind="src" output="3rd-party/jfree/jfreechart/target/classes" path="3rd-party/jfree/jfreechart/src/main/java"/>
+	<classpathentry kind="src" output="3rd-party/spring/core/target/classes" path="3rd-party/spring/core/src/main/java"/>
+	<classpathentry kind="src" output="db/target/classes" path="db/src/main/java"/>
+	<classpathentry kind="src" output="gui/awt/target/classes" path="gui/awt/src/main/java"/>
+	<classpathentry kind="src" output="gui/swing/target/classes" path="gui/swing/src/main/java"/>
+	<classpathentry kind="src" output="gui/helpers/target/classes" path="gui/helpers/src/main/java"/>
+	<classpathentry kind="src" output="gui/components/target/classes" path="gui/components/src/main/java"/>
+	<classpathentry kind="src" output="jee/ejb/target/classes" path="jee/ejb/src/main/java"/>
+	<classpathentry kind="src" output="jee/jax-rs/target/classes" path="jee/jax-rs/src/main/java"/>
+	<classpathentry kind="src" output="jee/jms/target/classes" path="jee/jms/src/main/java"/>
+	<classpathentry kind="src" output="jee/jta/target/classes" path="jee/jta/src/main/java"/>
+	<classpathentry kind="src" output="mail/target/classes" path="mail/src/main/java"/>
+	<classpathentry kind="src" output="net/common/target/classes" path="net/common/src/main/java"/>
+	<classpathentry kind="src" output="net/imap4/target/classes" path="net/imap4/src/main/java"/>
+	<classpathentry kind="src" output="net/jmx/target/classes" path="net/jmx/src/main/java"/>
+	<classpathentry kind="src" output="net/ldap/target/classes" path="net/ldap/src/main/java"/>
+	<classpathentry kind="src" output="net/native/target/classes" path="net/native/src/main/java"/>
+	<classpathentry kind="src" output="net/pop3/target/classes" path="net/pop3/src/main/java"/>
+	<classpathentry kind="src" output="net/rmi/target/classes" path="net/rmi/src/main/java"/>
+	<classpathentry kind="src" output="net/smtp/target/classes" path="net/smtp/src/main/java"/>
+	<classpathentry kind="src" output="net/snmp/target/classes" path="net/snmp/src/main/java"/>
+	<classpathentry kind="src" output="net/snmp/target/classes" path="net/snmp/src/main/resources"/>
+	<classpathentry kind="src" output="net/svnkit/target/classes" path="net/svnkit/src/main/java"/>
+	<classpathentry kind="src" output="tools/jarsign/target/classes" path="tools/jarsign/src/main/java"/>
+	<classpathentry kind="src" output="tools/javadoc/target/classes" path="tools/javadoc/src/main/java"/>
+	<classpathentry kind="src" output="web/jnlp-servlet/target/classes" path="web/jnlp-servlet/src/main/java"/>
+	<classpathentry kind="src" output="web/servlet/target/classes" path="web/servlet/src/main/java"/>
+	<classpathentry kind="src" output="windows/core/target/classes" path="windows/core/src/main/java"/>
+	<classpathentry kind="src" output="3rd-party/apache/ant/target/test-classes" path="3rd-party/apache/ant/src/test/java"/>
+	<classpathentry kind="src" output="3rd-party/apache/http-client/target/test-classes" path="3rd-party/apache/http-client/src/test/java"/>
+	<classpathentry kind="src" output="3rd-party/apache/log4j/target/test-classes" path="3rd-party/apache/log4j/src/test/java"/>
+	<classpathentry kind="src" output="3rd-party/apache/maven/target/test-classes" path="3rd-party/apache/maven/src/test/java"/>
+	<classpathentry kind="src" output="3rd-party/eclipse/target/test-classes" path="3rd-party/eclipse/src/test/java"/>
+	<classpathentry kind="src" output="3rd-party/iText/core/target/test-classes" path="3rd-party/iText/core/src/test/java"/>
+	<classpathentry kind="src" output="3rd-party/spring/core/target/test-classes" path="3rd-party/spring/core/src/test/java"/>
+	<classpathentry kind="src" output="3rd-party/spring/core/target/test-classes" path="3rd-party/spring/core/src/test/resources"/>
+	<classpathentry kind="src" output="base-utils/io/target/test-classes" path="base-utils/io/src/test/java"/>
+	<classpathentry kind="src" output="base-utils/jdk/target/test-classes" path="base-utils/jdk/src/test/java"/>
+	<classpathentry kind="src" output="base-utils/jmx/target/test-classes" path="base-utils/jmx/src/test/java"/>
+	<classpathentry kind="src" output="base-utils/logging/target/test-classes" path="base-utils/logging/src/test/java"/>
+	<classpathentry kind="src" output="base-utils/math/target/test-classes" path="base-utils/math/src/test/java"/>
+	<classpathentry kind="src" output="base-utils/math/target/test-classes" path="base-utils/math/src/test/resources"/>
+	<classpathentry kind="src" path="base-utils/reflect/src/test/java"/>
+	<classpathentry kind="src" output="base-utils/xml/xpath/target/test-classes" path="base-utils/xml/xpath/src/test/java"/>
+	<classpathentry kind="src" output="db/target/test-classes" path="db/src/test/java"/>
+	<classpathentry kind="src" output="gui/helpers/target/test-classes" path="gui/helpers/src/test/java"/>
+	<classpathentry kind="src" output="gui/swing/target/test-classes" path="gui/swing/src/test/java"/>
+	<classpathentry kind="src" output="mail/target/test-classes" path="mail/src/test/java"/>
+	<classpathentry kind="src" output="net/common/target/test-classes" path="net/common/src/test/java"/>
+	<classpathentry kind="src" output="net/imap4/target/test-classes" path="net/imap4/src/test/java"/>
+	<classpathentry kind="src" output="net/pop3/target/test-classes" path="net/pop3/src/test/java"/>
+	<classpathentry kind="src" output="net/rmi/target/test-classes" path="net/rmi/src/test/java"/>
+	<classpathentry kind="src" output="net/smtp/target/test-classes" path="net/smtp/src/test/java"/>
+	<classpathentry kind="src" output="net/snmp/target/test-classes" path="net/snmp/src/test/java"/>
+	<classpathentry kind="src" output="net/snmp/target/test-classes" path="net/snmp/src/test/resources"/>
+	<classpathentry kind="src" output="windows/core/target/test-classes" path="windows/core/src/test/java"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/ant/ant/1.8.1/ant-1.8.1.jar" sourcepath="M2_REPO/org/apache/ant/ant/1.8.1/ant-1.8.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/ant/ant-nodeps/1.8.1/ant-nodeps-1.8.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/httpcomponents/httpcore/4.1.2/httpcore-4.1.2.jar" sourcepath="M2_REPO/org/apache/httpcomponents/httpcore/4.1.2/httpcore-4.1.2-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/httpcomponents/httpclient/4.1.2/httpclient-4.1.2.jar" sourcepath="M2_REPO/org/apache/httpcomponents/httpclient/4.1.2/httpclient-4.1.2-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/httpcomponents/httpmime/4.1.2/httpmime-4.1.2.jar" sourcepath="M2_REPO/org/apache/httpcomponents/httpmime/4.1.2/httpmime-4.1.2-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" sourcepath="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/commons-dbcp/commons-dbcp/1.4/commons-dbcp-1.4.jar" sourcepath="M2_REPO/commons-dbcp/commons-dbcp/1.4/commons-dbcp-1.4-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://commons.apache.org/dbcp/api-1.4/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.8/commons-codec-1.8.jar" sourcepath="M2_REPO/commons-codec/commons-codec/1.8/commons-codec-1.8-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://commons.apache.org/codec/api-release/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar" sourcepath="M2_REPO/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://commons.apache.org/collections/api-release/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar" sourcepath="M2_REPO/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://hc.apache.org/httpclient-3.x/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/commons-io/commons-io/2.4/commons-io-2.4.jar" sourcepath="M2_REPO/commons-io/commons-io/2.4/commons-io-2.4-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://commons.apache.org/io/api-release/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" sourcepath="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://commons.apache.org/logging/commons-logging-1.1.1/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/commons-pool/commons-pool/1.5.6/commons-pool-1.5.6.jar" sourcepath="M2_REPO/commons-pool/commons-pool/1.5.6/commons-pool-1.5.6-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://commons.apache.org/pool/api-1.5.6/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" sourcepath="M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/javax/ejb/ejb-api/3.0/ejb-api-3.0.jar" sourcepath="M2_REPO/javax/ejb/ejb-api/3.0/ejb-api-3.0-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/hibernate/hibernate-annotations/3.5.5-Final/hibernate-annotations-3.5.5-Final.jar" sourcepath="M2_REPO/org/hibernate/hibernate-annotations/3.5.5-Final/hibernate-annotations-3.5.5-Final-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/hibernate/hibernate-commons-annotations/3.2.0.Final/hibernate-commons-annotations-3.2.0.Final.jar" sourcepath="M2_REPO/org/hibernate/hibernate-commons-annotations/3.2.0.Final/hibernate-commons-annotations-3.2.0.Final-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/hibernate/hibernate-core/3.6.10.Final/hibernate-core-3.6.10.Final.jar" sourcepath="M2_REPO/org/hibernate/hibernate-core/3.6.10.Final/hibernate-core-3.6.10.Final-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="https://www.hibernate.org/hib_docs/v3/api/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.0.Final/hibernate-jpa-2.0-api-1.0.0.Final.jar" sourcepath="M2_REPO/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.0.Final/hibernate-jpa-2.0-api-1.0.0.Final-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/hibernate/hibernate-validator/4.1.0.Final/hibernate-validator-4.1.0.Final.jar" sourcepath="M2_REPO/org/hibernate/hibernate-validator/4.1.0.Final/hibernate-validator-4.1.0.Final-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/hsqldb/hsqldb/2.0.0/hsqldb-2.0.0.jar" sourcepath="M2_REPO/org/hsqldb/hsqldb/2.0.0/hsqldb-2.0.0-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/lowagie/itext/2.1.7/itext-2.1.7.jar" sourcepath="M2_REPO/com/lowagie/itext/2.1.7/itext-2.1.7-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/javassist/javassist/3.9.0.GA/javassist-3.9.0.GA.jar" sourcepath="M2_REPO/javassist/javassist/3.9.0.GA/javassist-3.9.0.GA-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/javax/inject/javax.inject/1/javax.inject-1.jar" sourcepath="M2_REPO/javax/inject/javax.inject/1/javax.inject-1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/jboss/resteasy/jaxrs-api/1.2.1.GA/jaxrs-api-1.2.1.GA.jar" sourcepath="M2_REPO/org/jboss/resteasy/jaxrs-api/1.2.1.GA/jaxrs-api-1.2.1.GA-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://download.oracle.com/javaee/6/api/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/org/jfree/jcommon/1.0.17/jcommon-1.0.17.jar" sourcepath="M2_REPO/org/jfree/jcommon/1.0.17/jcommon-1.0.17-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://www.jfree.org/jcommon/api/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/org/jfree/jfreechart/1.0.15/jfreechart-1.0.15.jar" sourcepath="M2_REPO/org/jfree/jfreechart/1.0.15/jfreechart-1.0.15-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://www.jfree.org/jfreechart/api/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/javax/transaction/jta/1.1/jta-1.1.jar" sourcepath="M2_REPO/javax/transaction/jta/1.1/jta-1.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://download.oracle.com/javaee/6/api/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/javax/jms/jms/1.1/jms-1.1.jar" sourcepath="M2_REPO/javax/jms/jms/1.1/jms-1.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://download.oracle.com/javaee/6/api/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/junit/junit/4.11/junit-4.11.jar" sourcepath="M2_REPO/junit/junit/4.11/junit-4.11-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://junit.sourceforge.net/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.17/log4j-1.2.17.jar" sourcepath="M2_REPO/log4j/log4j/1.2.17/log4j-1.2.17-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://logging.apache.org/log4j/1.2/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar" sourcepath="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://tomcat.apache.org/tomcat-5.5-doc/servletapi/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.7.10/slf4j-api-1.7.10.jar" sourcepath="M2_REPO/org/slf4j/slf4j-api/1.7.10/slf4j-api-1.7.10-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://www.slf4j.org/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-log4j12/1.7.10/slf4j-log4j12-1.7.10.jar" sourcepath="M2_REPO/org/slf4j/slf4j-log4j12/1.7.10/slf4j-log4j12-1.7.10-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/slide/slide-webdavlib/2.1/slide-webdavlib-2.1.jar" sourcepath="M2_REPO/slide/slide-webdavlib/2.1/slide-webdavlib-2.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-aop/4.1.6.RELEASE/spring-aop-4.1.6.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-aop/4.1.6.RELEASE/spring-aop-4.1.6.RELEASE-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-beans/4.1.6.RELEASE/spring-beans-4.1.6.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-beans/4.1.6.RELEASE/spring-beans-4.1.6.RELEASE-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/4.1.6.RELEASE/spring-context-4.1.6.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-context/4.1.6.RELEASE/spring-context-4.1.6.RELEASE-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-core/4.1.6.RELEASE/spring-core-4.1.6.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-core/4.1.6.RELEASE/spring-core-4.1.6.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://static.springsource.org/spring/docs/3.2.x/javadoc-api/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-expression/4.1.6.RELEASE/spring-expression-4.1.6.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-expression/4.1.6.RELEASE/spring-expression-4.1.6.RELEASE-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-jdbc/4.1.6.RELEASE/spring-jdbc-4.1.6.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-jdbc/4.1.6.RELEASE/spring-jdbc-4.1.6.RELEASE-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-orm/4.1.6.RELEASE/spring-orm-4.1.6.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-orm/4.1.6.RELEASE/spring-orm-4.1.6.RELEASE-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-tx/4.1.6.RELEASE/spring-tx-4.1.6.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-tx/4.1.6.RELEASE/spring-tx-4.1.6.RELEASE-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/tmatesoft/svnkit/svnkit/1.3.4/svnkit-1.3.4.jar" sourcepath="M2_REPO/org/tmatesoft/svnkit/svnkit/1.3.4/svnkit-1.3.4-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA.jar" sourcepath="M2_REPO/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-sources.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="base-utils/extra/target/classes"/>
+</classpath>

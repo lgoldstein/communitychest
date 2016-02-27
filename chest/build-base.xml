@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+                    <!-- NOTE: the 'antlib' requires the maven-ant-tasks JAR to be installed in the ANT 'lib' folder
+                               and defined in the 'Global Entries' section of the Eclipse in
+                               Window -> Preferences -> ANT -> Runtime -> Classpath
+                     -->
+	<project name="chest-base" default="chest-base" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Serves as 'base' inclusion file with common definitions for the CHEST
+			sub-project $Rev: 576 $
+		</description>
+
+			<!-- Preamble definitions -->
+        <dirname property="project.root.dir" file="${ant.file}"/>
+		<dirname property="community.root.dir" file="${project.root.dir}"/>
+		<property name="parent.folder.dir" value="${community.root.dir}${file.separator}parent" />
+		<property name="parent.root.dir" value="${community.root.dir}"/>
+		<property name="module.root.folder" value="${project.root.dir}"/>
+		<property name="module.base.target.name" value="chest"/>
+
+		<import file="${parent.folder.dir}${file.separator}build-base.xml"/>
+
+		<property name="chest.base.utils.root.folder" value="${project.root.dir}${file.separator}base-utils"/>
+		<property name="chest.base.pkg.name" value="${community.base.pkg.name}.chest"/>
+
+        <target name="chest-base" depends="community-base" unless="skip.chest.base.target">
+			<mkdir dir="${project.build.dir}"/>
+            <property name="skip.chest.base.target" value="true"/>
+        </target>
+
+		    <!-- Default target(s) from which modules should derive their own -->
+		<target name="jar-project-module-files" depends="chest-base,jar-module-files,zip-module-sources"/>
+		<target name="clean-project-module-build" depends="chest-base,clean-module-target-build"/>
+	</project>

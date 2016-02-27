@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-b64xlate" default="build-b64xlate">
+		<description>
+			Builds the BASE64 translator application $Rev: 585 $
+		</description>
+		
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+		<property name="tools.apps.root.dir" value="${parent.root.dir}"/>
+		<property name="module.base.target.name" value="b64xlate"/>
+
+		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
+		<property name="module.application.base.pkg.name" value="${tools.apps.base.pkg.name}.${module.application.sub.pkg.name}"/>
+
+		<property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
+			  										  ${community.base.pkg.name}-io.${jar.file.suffix},
+		  											  ${community.base.pkg.name}-mail.${jar.file.suffix},
+													  ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
+			  										  ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
+													  ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
+													  ${community.base.pkg.name}-gui-components.${jar.file.suffix},
+		  											  ${community.base.pkg.name}-apps-common.${jar.file.suffix}"
+			/>
+
+		<target name="copy-extra-b64xlate-files" depends="tools-apps-base">
+				<!-- copy some extra files -->
+			<mkdir dir="${module.application.folder}"/>
+			<copy preservelastmodified="true" verbose="true" todir="${module.application.folder}">
+				<fileset dir="${module.assembly.folder}" includes="${module.base.target.name}.*"/>
+			</copy>
+		</target>
+
+		<target name="build-b64xlate"
+				depends="jar-tools-app-module-files,
+						 copy-extra-b64xlate-files,
+						 jar-application-files"
+				description="Builds b64xlate application"/>
+
+		<target name="clean-b64xlate"
+				depends="clean-tools-app-module-build"
+				description="Removes the b64xlate object files and JAR"/>
+	</project>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections>
+	<section name="SVNStatusTypeEnum">
+		<value name="added" 	icon="Added.ico"/>
+		<value name="modified"	icon="FileModified.ico"/>
+		<value name="normal"	icon="Normal.ico"/>
+	</section>
+
+</sections>

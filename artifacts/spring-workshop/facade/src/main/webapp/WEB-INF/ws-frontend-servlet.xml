@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    	xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:sws="http://www.springframework.org/schema/web-services"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans.xsd
+							http://www.springframework.org/schema/context
+        					http://www.springframework.org/schema/context/spring-context.xsd
+    						http://www.springframework.org/schema/web-services
+    						http://www.springframework.org/schema/web-services/web-services.xsd">
+
+		<!-- Facilitates the scans for annotated @Endpoint in the classpath -->
+	<context:annotation-config/>
+		<!-- detects and handles the @Endpoint, @PayloadRoot annotations -->
+	<sws:annotation-driven marshaller="oxmMarshaller" unmarshaller="oxmMarshaller" />
+
+	<context:component-scan base-package="com.vmware.spring.workshop.facade.ws" />
+
+		<!-- add interceptors --> 
+	<sws:interceptors>
+		<bean id="loggingInterceptor"
+	    	  class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor" />
+	</sws:interceptors>
+
+		<!-- The bean ID is used to generate the path for exposing the
+			WSDL - in this case: http://localhost:8080/workshop-facade/ws/SOAPTier.wsdl
+		-->
+	<sws:static-wsdl id="SOAPTier" location="/WEB-INF/wsdl/SOAPTier.wsdl"/>
+	
+</beans>

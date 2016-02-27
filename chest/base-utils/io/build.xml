@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-io-utils" default="build-io-utils">
+		<description>
+			Builds the JDK JAR $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+		<property name="module.base.target.name" value="io"/>
+		<property name="module.vcproj.name" value="chestio"/>
+	    <dirname property="base.utils.root.dir" file="${module.root.folder}"/>
+
+		<import file="${base.utils.root.dir}${file.separator}build-base.xml"/>
+
+		<target name="build-io-utils"
+				depends="jar-base-utils-module-files,build-local-products"
+				description="Builds the I/O JAR"/>
+		<target name="clean-io-utils"
+                        depends="clean-base-utils-module-build,clean-local-products"
+                        description="Removes the I/O object files and JAR"/>
+	</project>
+

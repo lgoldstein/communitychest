@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-xml-utils" default="build-xml-utils">
+		<description>
+			Builds various XML libraries helpers JAR(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+
+       	<target name="build-xpath-utils" depends="xml-utils-base" unless="skip.build.xpath.utils" description="Builds XPATH helpers classes">
+			<ant dir="${module.root.folder}${file.separator}xpath" target="build-xpath-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.xpath.utils" value="true"/>
+		</target>
+
+		<target name="build-xml-utils"
+				depends="build-xpath-utils"
+				description="Builds various XML utilities libraries helpers"/>
+
+		<target name="clean-xml-utils" description="Cleans the XML utilities JAR(s)">
+			<ant dir="${module.root.folder}${file.separator}xpath" target="clean-xpath-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+		</target>
+	</project>

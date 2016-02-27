@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="maven-apps-base" default="maven-apps-base" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Serves as 'base' inclusion file with common definitions for the Maven applications
+		</description>
+
+			<!-- Preamble definitions -->
+        <dirname property="maven.apps.root.dir" file="${ant.file}"/>
+		<dirname property="apache.apps.root.dir" file="${maven.apps.root.dir}"/>
+		<property name="parent.root.dir" value="${apache.apps.root.dir}"/>
+		<property name="module.root.folder" value="${amaven.apps.root.dir}"/>
+		<property name="module.base.target.name" value="apache-maven-apps"/>
+
+		<import file="${apache.apps.root.dir}${file.separator}build-base.xml"/>
+		<property name="maven.apps.base.pkg.name" value="${apache.apps.base.pkg.name}.maven"/>
+
+        <target name="maven-apps-base" depends="apache-apps-base" unless="skip.maven.apps.base.target">
+            <property name="skip.maven.apps.base.target" value="true"/>
+        </target>
+
+			<!-- Default target(s) from which modules should derive their own -->
+		<target name="jar-maven-app-module-files" depends="maven-apps-base,jar-apache-app-module-files"/>
+		<target name="clean-maven-app-module-build" depends="maven-apps-base,clean-apache-app-module-build"/>
+
+		<target name="jar-maven-app-application-files" depends="maven-apps-base,jar-apache-app-application-files"/>
+		<target name="clean-maven-app-application-build" depends="maven-apps-base,clean-apache-app-application-build"/>
+	</project>

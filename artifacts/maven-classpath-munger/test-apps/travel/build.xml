@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="travel" default="install" xmlns:xmltask="antlib:com.oopsconsultancy.xmltask">
+    <description>
+        Provides some useful ANT tasks involving the entire project
+    </description>
+
+    <dirname property="module.root.folder" file="${ant.file}" />
+    <dirname property="test-apps.root.folder" file="${module.root.folder}" />
+    <property name="module.artifact.name" value="${ant.project.name}" />
+    <import file="${test-apps.root.folder}${file.separator}build-test-apps.xml" />
+
+    <target name="deploy-tomcat-artifact" depends="warn-tomcat-not-found" if="tomcat.available"
+            description="Copies the WAR file to the Tomcat server">
+        <antcall target="deploy-module-war">
+            <param name="deploy.module.war.target" value="${tomcat.webapps.folder}" />
+        </antcall>
+    </target>
+
+    <target name="clean-tomcat-deployment" depends="warn-tomcat-not-found"  if="tomcat.available"
+            description="Remove the WAR file from the Tomcat server">
+        <antcall target="undeploy-module-war">
+            <param name="deploy.module.war.target" value="${tomcat.webapps.folder}" />
+        </antcall>
+    </target>
+
+    <target name="install" depends="compile,deploy-tomcat-artifact"
+            description="Compiles (including all the tests) and deploys the required artifacts" />
+    <target name="clean" depends="uncompile,clean-tomcat-deployment,clean-repackaging" description="Removes the artifact" />
+
+    <target name="re-install" depends="clean,install"
+            description="Re-creates and deploys the artifact" />
+</project>

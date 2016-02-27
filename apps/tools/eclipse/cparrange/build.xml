@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-cparrange" default="build-cparrange">
+		<description>
+			Builds the Eclipse CLASSPATH file arranger application $Rev: 561 $
+		</description>
+		
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="eclipse.apps.root.dir" value="${parent.root.dir}"/>
+		<dirname property="tools.apps.root.dir" file="${eclipse.apps.root.dir}"/>
+		<property name="module.base.target.name" value="cparrange"/>
+
+		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
+		<property name="module.application.base.pkg.name" value="${tools.apps.base.pkg.name}.${module.application.sub.pkg.name}"/>
+
+		<property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
+			  										  ${community.base.pkg.name}-io.${jar.file.suffix},
+													  ${community.base.pkg.name}-logging.${jar.file.suffix},
+													  ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
+													  ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
+			  										  ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
+													  ${community.base.pkg.name}-gui-components.${jar.file.suffix},
+			  										  ${community.base.pkg.name}-eclipse.${jar.file.suffix},
+													  ${community.base.pkg.name}-apps-common.${jar.file.suffix}"
+			/>
+
+		<target name="copy-extra-cparranger-files" depends="eclipse-apps-base">
+				<!-- copy some extra files -->
+			<mkdir dir="${module.application.folder}"/>
+			<copy preservelastmodified="true" todir="${module.application.folder}">
+				<fileset dir="${module.root.folder}" includes="cparrange.bat,cparrange.jnlp,cparrange.html"/>
+			</copy>
+		</target>
+
+		<target name="build-cparrange"
+				depends="jar-eclipse-app-module-files,
+						 copy-extra-cparranger-files,
+						 jar-eclipse-app-application-files"
+				description="Builds cparrange application"/>
+
+		<target name="build-jws-cparrange" depends="build-cparrange,war-jws-file" description="Builds a signed JAR(s) application"/>
+
+		<target name="clean-cparrange"
+				depends="clean-eclipse-app-module-build"
+				description="Removes the cparrange object files and JAR"/>
+	</project>

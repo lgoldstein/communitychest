@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frame	name="svnsync-main-frame"
+		title="SVN Synchronizer"
+		defaultCloseOperation="EXIT"
+		relativePreferredSize="50,60"
+		relativeSize="50,60">
+
+	<layout class="border"/>
+
+		<!-- defines the main-menu -->
+	<menu name="main-menu">
+		<!-- NOTE: assigned commands MUST match what the application expects -->
+		<menu text="File" mnemonic="VK_F" actionCommand="file">
+			<accessibleContext description="Manages the synchronization locations" />
+			<item 	text="Load source folder"
+					mnemonic="VK_S"
+					actionCommand="load"
+					accelerator="control O"
+					icon="Open.gif"
+				/>
+			<item 	text="Load destination folder"
+					mnemonic="VK_D"
+					actionCommand="save"
+					accelerator="control S"
+					icon="Save.gif"
+				/>
+			<separator/>
+			<item 	text="Edit confirmations"
+					mnemonic="VK_E"
+					actionCommand="confirm"
+					accelerator="control N"
+					toolTipText="Edit regexp(s) used to ask for synchronization confirmation(s)"
+				/>
+			<item 	text="Authentication"
+					mnemonic="VK_T"
+					actionCommand="authenticate"
+					toolTipText="Edit authentication data"
+				/>
+			<separator/>
+			<item	text="Run"
+					mnemonic="VK_R"
+					actionCommand="run"
+					accelerator="F5"
+					icon="Run.gif"
+				/>
+			<item	text="Stop"
+					mnemonic="VK_R"
+					actionCommand="stop"
+					accelerator="control C"
+					icon="Stop.gif"
+				/>
+			<separator/>
+			<item	text="Exit"
+					mnemonic="VK_X"
+					actionCommand="exit"
+					accelerator="alt F4"
+				/>
+		</menu>
+		<menu text="View" actionCommand="view">
+			<accessibleContext description="Manages the view" />
+			<item	text="Clear"
+					mnemonic="VK_C"
+					actionCommand="clear"
+				/>
+		</menu>
+		<menu text="Help" actionCommand="help" icon="Help.gif">
+			<accessibleContext description="Shows various information about the application" />
+			<item	text="About"
+					mnemonic="VK_A"
+					actionCommand="about"
+					accelerator="F1"
+				/>
+		</menu>
+	</menu>
+	
+			<!-- ########### some internal UI components ########### -->
+		<!-- Synchronization folders chooser -->
+	<section name="load-file-dialog"
+			 fileSelectionMode="folders"
+			 dialogTitle="Select Source Folder" />
+	<section name="save-file-dialog"
+			 fileSelectionMode="folders"
+			 dialogTitle="Select Destination Folder" />
+
+		<!-- Synchronization source path -->
+	<section name="sync-source" title="Source path" buttonLeftPos="true"/>
+		<!-- Target working copy path -->
+	<section name="wc-target" title="Target path" buttonLeftPos="true"/>
+		<!-- Checkbox for seeing skipped targets -->
+	<section name="show-skipped" text="Show skipped targets" selected="false" />
+		<!-- Checkbox for skipping properties synchronization -->
+	<section name="skip-props" text="Skip properties synchronization" selected="false" />
+		<!-- Checkbox for using merge for different files -->
+	<section name="use-merge" text="Merge differences" selected="false" />
+
+	<section name="log-msgs-area" eolStyle="LF" maxTextSize="65534">
+		<border class="titled"
+				title="Messages"
+				position="ABOVE_TOP"
+				justification="LEFT"
+			>
+			<border class="line" value="black, 2" />
+		</border>
+
+		<logLevelsMap>
+			<level class="ERROR" 	foreground="red"	bold="true"/>
+			<level class="WARNING" 	foreground="orange"	bold="true"/>
+			<level class="INFO" 	foreground="blue"	bold="true"/>
+			<level class="DEBUG" 	foreground="black"	bold="false"/>
+				<!-- Used for DELETE operations -->
+			<level class="VERBOSE"	foreground="blue"	bold="true" strikeThrough="true" />
+		</logLevelsMap>
+	</section>
+
+	<section name="sync-action-icon">
+		<action name="ADD" 				icon="FileAdded.ico" />
+		<action name="DELETE" 			icon="FileDeleted.ico" />
+		<action name="UPDATE_EXISTS" 	icon="FileModified.ico" />
+		<action name="UPDATE_REPLACE" 	icon="Properties.ico" />
+		<action name="SKIP" 			icon="Commit.ico" />
+		<action name="MERGE_COMPLETE"	icon="FileMerged.ico" />
+	</section>
+
+	<section name="main-toolbar" floatable="false">
+		<button actionCommand="stop" 	enabled="false" tooltipText="Stop synchronization"/>
+		<button actionCommand="run"  	enabled="false" tooltipText="Run synchronization"/>
+		<button actionCommand="clear"  					tooltipText="Clear log messages"/>
+	</section>
+</frame>

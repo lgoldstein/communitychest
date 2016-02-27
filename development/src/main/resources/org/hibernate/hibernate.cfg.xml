@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+<!--		<property name="dialect">org.hibernate.dialect.Oracle9Dialect</property>		-->
+<!-- 		<property name="dialect">org.hibernate.dialect.SybaseAnywhereDialect</property> -->
+		<property name="dialect">org.hibernate.dialect.SybaseAnywhere10Dialect</property>
+		<property name="hbm2ddl.auto">update</property>
+
+		<!-- Set the debug level of org.hibernate.SQL in log4j.xml instead of enabling this-->
+ 		<property name="show_sql">false</property>
+		<property name="format_sql">false</property>
+
+		<property name="hibernate.transaction.auto_close_session">false</property>
+		<property name="hibernate.connection.autocommit">false</property>
+ 		<property name="hibernate.connection.release_mode">on_close</property>
+
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+		<!--
+		<property name="hibernate.connection.release_mode">after_transaction</property>
+		<property name="cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
+		<property name="cache.use_query_cache">true</property>-->
+		-->
+
+			<!-- @Entity annotated classes -->
+		<mapping class="my.pacakge.Entity1"/>
+		<mapping class="my.pacakge.Entity2"/>
+
+		<!--
+		<listener type="save-update" class="my.package.MyListener"/>
+
+		<event type="post-update">
+            <listener class="my.package.MyListener"/>
+        </event>
+        <event type="post-insert">
+            <listener class="my.package.MyListener"/>
+        </event>
+        <event type="post-delete">
+            <listener class="my.package.MyListener"/>
+        </event>
+        -->
+	</session-factory>
+</hibernate-configuration>
+
+

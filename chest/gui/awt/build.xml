@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-gui-awt" default="build-gui-awt">
+		<description>
+			Builds the GUI AWT JAR $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+		<property name="module.base.target.name" value="gui-awt"/>
+	    <dirname property="gui.root.dir" file="${module.root.folder}"/>
+		
+		<import file="${gui.root.dir}${file.separator}build-base.xml"/>
+		
+		<target name="build-gui-awt" depends="jar-gui-module-files" description="Builds the GUI AWT JAR"/>
+		<target name="clean-gui-awt" depends="clean-gui-module-build" description="Removes the GUI AWT object files and JAR"/>
+	</project>
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			 xsi:schemaLocation="
+			 	http://java.sun.com/xml/ns/persistence
+				http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+		<!-- the database-related properties will be available to the
+			EntityManagerFactory via a dependency-injected
+			data source provided in the Spring configuration -->
+	<persistence-unit name="eclipseLinkTest" transaction-type="RESOURCE_LOCAL">
+			<!-- Required in order to automatically scan for JPA annotated
+				classes and not have to list them here
+			-->
+			<!-- There seems to be a bug in org.springframework.orm.jpa.persistenceunit.PersistenceUnitReader#parsePersistenceUnitInfo
+				in which the very appearance of this XML element is interpreted as 'true' regardless of the
+				actual specified value
+			-->
+		<!-- exclude-unlisted-classes>false</exclude-unlisted-classes -->
+	</persistence-unit>
+</persistence>

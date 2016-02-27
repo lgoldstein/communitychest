@@ -1,0 +1,6 @@
+<aspectj>
+    <!-- -verbose -showWeaveInfo  -->
+    <weaver options="-Xlint:ignore">
+    </weaver>
+</aspectj>
+    

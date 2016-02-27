@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-3rd-party-libs" default="build-3rd-party-libs">
+		<description>
+			Builds various 3rd party libraries helpers JAR(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+
+		<target name="build-apache-libs" depends="3rd-party-base" unless="skip.build.apache.libs" description="Builds the Apache libraries helpers JAR(s)">
+			<ant dir="${module.root.folder}${file.separator}apache" target="build-apache-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.apache.libs" value="true"/>
+		</target>
+
+		<target name="build-eclipse-libs" depends="3rd-party-base" unless="skip.build.eclipse.libs" description="Builds the Apache libraries helpers JAR(s)">
+			<ant dir="${module.root.folder}${file.separator}eclipse" target="build-eclipse-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.eclipse.libs" value="true"/>
+		</target>
+
+		<!--
+		<target name="build-rrd4j-libs" depends="3rd-party-base" unless="skip.build.rrd4j.libs" description="Builds the RRD4J libraries helpers JAR(s)">
+			<ant dir="${module.root.folder}${file.separator}rrd4j" target="build-rrd4j-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.rrd4j.libs" value="true"/>
+		</target>
+		-->
+
+		<target name="build-jfree-libs" depends="3rd-party-base" unless="skip.build.jfree.libs" description="Builds the jFree libraries helpers JAR(s)">
+			<ant dir="${module.root.folder}${file.separator}jfree" target="build-jfree-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.jfree.libs" value="true"/>
+		</target>
+
+		<target name="build-hibernate-libs" depends="3rd-party-base" unless="skip.build.hibernate.libs" description="Builds the Hibernate libraries helpers JAR(s)">
+			<ant dir="${module.root.folder}${file.separator}hibernate" target="build-hibernate-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.hibernate.libs" value="true"/>
+		</target>
+
+		<!--
+		<target name="build-jinterop-libs" depends="3rd-party-base" unless="skip.build.jinterop.libs" description="Builds the jInterop libraries helpers JAR(s)">
+			<ant dir="${module.root.folder}${file.separator}jinterop" target="build-jinterop-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.jinterop.libs" value="true"/>
+		</target>
+		-->
+
+		<target name="build-3rd-party-libs"
+				depends="build-apache-libs,
+						 build-eclipse-libs,
+						 build-hibernate-libs,
+						 build-jfree-libs"
+				description="Builds various 3rd party libraries helpers JAR(s)"/>
+		
+		<target name="clean-3rd-party-libs" depends="3rd-party-base" description="Deletes generated 3rd party libraries">
+			<ant dir="${module.root.folder}${file.separator}apache" target="clean-apache-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}eclipse" target="clean-eclipse-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<!--
+			<ant dir="${module.root.folder}${file.separator}rrd4j" target="clean-rrd4j-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			-->
+			<ant dir="${module.root.folder}${file.separator}jfree" target="clean-jfree-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<!--
+			<ant dir="${module.root.folder}${file.separator}hibernate" target="clean-hibernate-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			-->
+			<!--
+			<ant dir="${module.root.folder}${file.separator}jinterop" target="clean-jinterop-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			-->
+		</target>
+	</project>

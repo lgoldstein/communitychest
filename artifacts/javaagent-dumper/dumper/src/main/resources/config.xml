@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<configuration>
+	<filters>
+		<exclude>
+			<patterns>
+					<!--  highly recommended -->
+				<pattern value="java.*" />
+				<pattern value="javax.*" />
+				<pattern value="com.sun.*" />
+				<pattern value="sun.*" />
+			</patterns>
+		</exclude>
+	</filters>
+</configuration>

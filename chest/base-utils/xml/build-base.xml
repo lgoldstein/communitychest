@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="xml-utils-base" default="xml-utils-base" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Serves as 'base' inclusion file with common definitions for the CHEST
+			XML utils JAR(s) sub-project(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+        <dirname property="xml.utils.root.dir" file="${ant.file}"/>
+		<basename property="xml.utils.base.name" file="${base.utils.root.dir}"/>
+        <dirname property="base.utils.root.dir" file="${xml.utils.root.dir}"/>
+		<property name="parent.root.dir" value="${base.utils.root.dir}"/>
+		<property name="module.root.folder" value="${xml.utils.root.dir}"/>
+		<property name="module.base.target.name" value="${xml.utils.base.name}"/>
+
+		<import file="${base.utils.root.dir}${file.separator}build-base.xml"/>
+
+		<target name="xml-utils-base" depends="base-utils-base" unless="skip.xml.utils.base.target">
+			<property name="skip.xml.utils.base.target" value="true"/>
+		</target>
+
+			<!-- Default target(s) from which modules should derive their own -->
+		<target name="jar-xml-utils-module-files" depends="xml-utils-base,jar-base-utils-module-files"/>
+		<target name="clean-xml-utils-module-build" depends="xml-utils-base,clean-base-utils-module-build"/>
+	</project>

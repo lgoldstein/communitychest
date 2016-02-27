@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+		<!-- Note: query must be tailored so that text is 1st and count 2nd -->
+
+		<query title="Hosts by status">
+			SELECT lut.description, counts.itemsCount
+			FROM (
+   				SELECT COUNT(bdt.id) AS itemsCount, bdt.discovery_status
+   				FROM base_ad_task bdt
+				GROUP BY bdt.discovery_status) counts
+			INNER JOIN lut_host_status lut ON lut.id = counts.discovery_status
+		</query>
+
+		<query title="Tasks by state">
+			SELECT lut.state_name, counts.itemsCount
+			FROM (
+    			SELECT COUNT(bdt.id) AS itemsCount, bdt.state
+    			FROM base_ad_task bdt
+  				GROUP BY bdt.state) counts
+			INNER JOIN lut_base_adtask_state lut ON lut.id = counts.state
+		</query>
+
+		<query title="Hosts by access profile">
+			SELECT pi.display_name, counts.itemsCount
+			FROM (
+				SELECT v.protocol_id,count(v.host_id) AS itemsCount
+				FROM v_host2opt_protocol v
+		  		GROUP BY v.protocol_id) counts
+			INNER JOIN protocol_info pi ON pi.id = counts.protocol_id
+		</query>
+
+		<query title="Hosts by OAP protocol type">
+			SELECT lut.protocol_name, counts.itemsCount
+			FROM (
+				SELECT ppi.protocol_type_id, count(v.host_id) AS itemsCount
+				FROM v_host2opt_protocol v
+				INNER JOIN protocol_info ppi ON ppi.id = v.protocol_id
+				INNER JOIN lut_ap_protocol lap ON lap.id = ppi.protocol_type_id 
+		  		GROUP BY ppi.protocol_type_id ) counts
+			INNER JOIN lut_ap_protocol lut ON lut.id = counts.protocol_type_id
+		</query>
+		
+		<query title="Core entities by discovery result source">
+			SELECT drs.key, count(ce.id)
+			FROM core_entity ce
+			INNER JOIN discovery_result_source drs ON drs.id = ce.discovery_result_source_id
+			GROUP BY drs.key
+		</query>
+
+		<query title="Hosts by policies">
+			SELECT bdp.name, counts.itemsCount
+			FROM (
+  				SELECT v.policy_id, COUNT(v.host_id) AS itemsCount
+  				FROM v_task2host2policy v
+  				GROUP BY v.policy_id) counts
+			INNER JOIN base_discovery_policy bdp ON bdp.id = counts.policy_id
+		</query>
+</queries>

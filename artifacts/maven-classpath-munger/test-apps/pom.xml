@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>test-apps</artifactId>
+	<packaging>pom</packaging>
+	<name>org.apache.maven.classpath.munger:test-apps</name>
+	
+	<parent>
+		<groupId>org.apache.maven.classpath.munger</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.0.0-CI-SNAPSHOT</version>
+		<relativePath>../parent/pom.xml</relativePath>
+	</parent>
+
+	<!-- Sub-modules (in preferred compilation order) -->
+	<modules>
+		<module>travel</module>
+		<module>petclinic</module>
+	</modules>
+
+	<repositories>
+        <!-- This is for xmltask -->
+        <repository>
+            <id>atlassian-developer-site</id>
+            <name>Atlassian Maven 2 Contributor Repository</name>
+            <url>http://maven.atlassian.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.oopsconsultancy</groupId>
+			<artifactId>xmltask</artifactId>
+			<version>1.16</version>
+			<scope>test</scope>	<!-- NOT really just so it is downloaded -->
+		</dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>2.2.2</version>
+			<scope>test</scope>	<!-- NOT really just so it is downloaded -->
+        </dependency>
+            
+        </dependencies>
+</project>

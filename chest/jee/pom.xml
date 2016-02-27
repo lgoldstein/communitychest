@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Super POM included by all other J2EE sub-POM(s) $Rev: 739 $ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+			     http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>net.community.chest</groupId>
+		<artifactId>chest</artifactId>
+		<version>1.8.1.0</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.community.chest.j2ee</groupId>
+	<artifactId>parent</artifactId>
+	<packaging>pom</packaging>
+	<name>Community Chest J2EE Parent POM</name>
+
+		<!-- Sub-modules (in preferred compilation order) -->
+	<modules>
+		<module>./jax-rs</module>
+		<module>./jta</module>
+		<module>./ejb</module>
+		<module>./jms</module>
+	</modules>
+</project>

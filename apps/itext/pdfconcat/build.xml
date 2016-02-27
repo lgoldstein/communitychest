@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-pdfconcat" default="build-pdfconcat" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds the files synchronization application $Rev: 594 $
+		</description>
+		
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+		<property name="itext.apps.root.dir" value="${parent.root.dir}"/>
+		<property name="module.base.target.name" value="pdfconcat"/>
+        <property name="default.classpath.ref.name" value="pdf.helpers.path"/>
+
+		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
+		<property name="module.application.base.pkg.name" value="${itext.apps.base.pkg.name}.${module.application.sub.pkg.name}"/>
+
+		<mvn:dependencies 	pathId="itext.dependencies.path" useScope="compile"
+							settingsFile="${maven.settings.file.path}"
+				>
+            <localRepository path="${maven.local.repository.folder}" layout="default"/>
+
+			<dependency groupId="com.lowagie"
+						artifactId="itext"
+						version="${itext.jar.version}"
+						scope="compile"/>
+		</mvn:dependencies>
+
+		<path id="pdf.helpers.path">
+        	<path refid="community.modules.jars"/>
+        	<path refid="itext.dependencies.path"/>
+		</path>
+
+		<property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
+		  											  ${community.base.pkg.name}-io.${jar.file.suffix},
+													  ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
+			  										  ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
+													  ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
+													  ${community.base.pkg.name}-gui-components.${jar.file.suffix},
+		  											  ${community.base.pkg.name}-apps-common.${jar.file.suffix}"
+			/>
+
+		<target name="copy-extra-pdfconcat-files" depends="itext-apps-base">
+				<!-- copy some extra files -->
+			<mkdir dir="${module.application.folder}"/>
+			<copy preservelastmodified="true" verbose="true" todir="${module.application.folder}">
+				<fileset dir="${module.root.folder}" includes="${module.base.target.name}.*"/>
+			</copy>
+		</target>
+
+		<target name="build-pdfconcat"
+				depends="jar-itext-app-module-files,
+						 copy-extra-pdfconcat-files,
+						 jar-application-files"
+				description="Builds pdfconcat application"/>
+
+		<target name="clean-pdfconcat"
+				depends="clean-itext-app-module-build"
+				description="Removes the pdfconcat object files and JAR"/>
+	</project>

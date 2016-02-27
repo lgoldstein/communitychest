@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-http-xmlinjct" default="build-http-xmlinjct" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds the HTTP/XML injection application
+		</description>
+		
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+		<property name="module.base.target.name" value="xmlinjct"/>
+        <property name="default.classpath.ref.name" value="xmlinjct.helpers.path"/>
+		<property name="http.client.apps.root.dir" value="${parent.root.dir}"/>
+
+		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
+		<property name="module.application.base.pkg.name" value="${http.client.apps.base.pkg.name}.${module.application.sub.pkg.name}"/>
+
+        <path id="xmlinjct.helpers.path">
+        	<path refid="community.modules.jars"/>
+			<fileset dir="${maven.local.repository.folder}"
+					 includes="commons-httpclient${file.separator}commons-httpclient${file.separator}${commons.httpclient.jar.version}${file.separator}commons-httpclient-${commons.httpclient.jar.version}.${jar.file.suffix}"/>
+		</path>
+
+		<property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
+			  										  ${community.base.pkg.name}-io.${jar.file.suffix},
+			  										  ${community.base.pkg.name}-logging.${jar.file.suffix},
+			  										  ${community.base.pkg.name}-net-common.${jar.file.suffix},
+			  										  ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
+			  										  ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
+			  										  ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
+													  ${community.base.pkg.name}-gui-components.${jar.file.suffix},
+			 										  ${community.base.pkg.name}-log4j-helpers.${jar.file.suffix},
+													  ${community.base.pkg.name}-http-client.${jar.file.suffix},
+													  ${community.base.pkg.name}-apps-common.${jar.file.suffix}"
+			/>
+
+		<target name="copy-extra-http-xmlinjct-files" depends="http-client-apps-base">
+				<!-- copy some extra files -->
+			<mkdir dir="${module.application.folder}"/>
+			<copy preservelastmodified="true" verbose="true" todir="${module.application.folder}">
+				<fileset dir="${module.root.folder}" includes="xmlinjct.bat"/>
+			</copy>
+				<!-- copy from repository -->
+			<mkdir dir="${module.application.lib.folder}"/>
+
+			<copy preservelastmodified="true" verbose="true" todir="${module.application.lib.folder}">
+				<fileset dir="${maven.local.repository.folder}${file.separator}log4j${file.separator}log4j${file.separator}${log4j.jar.version}"
+						 includes="log4j-${log4j.jar.version}.${jar.file.suffix}"/>
+				<fileset dir="${maven.local.repository.folder}${file.separator}commons-logging${file.separator}commons-logging${file.separator}${commons.logging.jar.version}"
+						 includes="commons-logging-${commons.logging.jar.version}.${jar.file.suffix}"/>
+				<fileset dir="${maven.local.repository.folder}${file.separator}commons-codec${file.separator}commons-codec${file.separator}${commons.codec.jar.version}"
+						 includes="commons-codec-${commons.codec.jar.version}.${jar.file.suffix}"/>
+				<fileset dir="${maven.local.repository.folder}${file.separator}commons-httpclient${file.separator}commons-httpclient${file.separator}${commons.httpclient.jar.version}"
+						 includes="commons-httpclient-${commons.httpclient.jar.version}.${jar.file.suffix}"/>
+			</copy>
+		</target>
+
+		<target name="build-http-xmlinjct"
+				depends="jar-http-client-app-module-files,
+						 copy-extra-http-xmlinjct-files,
+						 jar-application-files"
+				description="Builds XML injection application"/>
+
+		<target name="clean-http-xmlinjct"
+				depends="clean-http-client-app-module-build,clean-http-client-app-application-build"
+				description="Removes the XML injection object files and JAR"/>
+	</project>

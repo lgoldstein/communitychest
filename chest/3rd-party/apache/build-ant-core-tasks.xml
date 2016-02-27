@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-ant-core-tasks" default="build-ant-core-tasks">
+		<description>
+			Builds the deployable ANT tasks JAR(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<property name="module.base.target.name" value="ant-core-tasks"/>
+		<property name="module.target.folder" value="${module.root.folder}${file.separator}${module.base.target.name}"/>
+		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+
+		<property name="jdk.utils.root.folder" value="${chest.base.utils.root.folder}${file.separator}jdk"/>
+		<property name="jdk.utils.src.folder" value="${jdk.utils.root.folder}${file.separator}${module.java.sub.folder.path}"/>
+
+		<property name="maven.utils.src.folder" value="${apache.maven.helpers.root.folder}${file.separator}${module.java.sub.folder.path}"/>
+		<property name="ant.utils.src.folder" value="${apache.ant.helpers.root.folder}${file.separator}${module.java.sub.folder.path}"/>
+
+		<target name="compile-ant-core-tasks" depends="apache-libs-base">
+	        	<!-- make sure target folder exists -->
+			<mkdir dir="${module.classes.folder}"/>
+	
+			<javac	sourcepath=""
+					srcdir="${jdk.utils.src.folder}:${maven.utils.src.folder}:${ant.utils.src.folder}"
+					destdir="${module.classes.folder}"
+					debug="${compile.debug}"
+					source="${javac.source.version}"
+					target="${javac.target.version}"
+					verbose="${compile.verbose}"
+					deprecation="${compile.deprecation}"
+					optimize="${compile.optimize}">
+                <compilerarg compiler="org.eclipse.jdt.core.JDTCompilerAdapter" line="${ecj.compiler.args}"/>
+			</javac>
+		</target>
+
+		<target name="copy-ant-core-tasks-resources" depends="apache-libs-base">
+            <antcall target="copy-resource-files">
+                <param name="pkg.source.res.location" value="${jdk.utils.src.folder}"/>
+                <param name="pkg.target.res.location" value="${module.classes.folder}"/>
+            </antcall>
+            <antcall target="copy-resource-files">
+                <param name="pkg.source.res.location" value="${maven.utils.src.folder}"/>
+                <param name="pkg.target.res.location" value="${module.classes.folder}"/>
+            </antcall>
+            <antcall target="copy-resource-files">
+                <param name="pkg.source.res.location" value="${ant.utils.src.folder}"/>
+                <param name="pkg.target.res.location" value="${module.classes.folder}"/>
+            </antcall>
+		</target>
+
+		<target name="jar-ant-core-tasks"
+				depends="compile-ant-core-tasks,
+						 copy-ant-core-tasks-resources,
+						 check-module-manifest-uptodate,
+				         create-module-manifest-file,
+        				 check-module-target-jar-uptodate"
+				unless="pkg.jar.build.skip">
+            <antcall target="jar-target-files">
+                     <param name="pkg.target.classes.dir" value="${module.classes.folder}"/>
+                     <param name="pkg.target.jar.location" value="${module.target.jar.file.path}"/>
+                     <param name="pkg.jar-manifset.file.path" value="${module.manifest.file.path}"/>
+            </antcall>
+		</target>
+
+		<target name="check-ant-core-sources-uptodate"
+				depends="apache-libs-base"
+				unless="ant.core.tasks.src.zip.build.skip">
+			<condition property="ant.core.tasks.src.zip.build.skip" value="true">
+				<and>
+			    	    <!-- does the zip file exist ? -->
+			     	<available file="${module.sources.zip.file.path}" type="file"/>
+
+			               <!-- is any of the source files newer than its zip ? -->
+				    <uptodate>
+						<srcfiles dir="${jdk.utils.src.folder}" includes="**${file.separator}*"/>
+						<srcfiles dir="${maven.utils.src.folder}" includes="**${file.separator}*"/>
+						<srcfiles dir="${ant.utils.src.folder}" includes="**${file.separator}*"/>
+			  			<mapper type="merge" to="${module.sources.zip.file.path}"/>
+					</uptodate>
+			    </and>
+			</condition>
+		</target>
+
+		<target name="zip-ant-core-tasks-sources"
+				depends="check-ant-core-sources-uptodate"
+				unless="ant.core.tasks.src.zip.build.skip">
+            <zip destfile="${module.sources.zip.file.path}"
+                 duplicate="fail"
+                 whenempty="fail">
+				<fileset dir="${jdk.utils.src.folder}" includes="**${file.separator}*"/>
+				<fileset dir="${maven.utils.src.folder}" includes="**${file.separator}*"/>
+				<fileset dir="${ant.utils.src.folder}" includes="**${file.separator}*"/>
+			</zip>
+		</target>
+
+		<target name="build-ant-core-tasks"
+				depends="jar-ant-core-tasks,zip-ant-core-tasks-sources"
+				description="Build core ANT tasks JAR">
+		</target>
+		<target name="clean-ant-core-tasks" depends="clean-apache-libs-module-build" description="Cleans up the ANT core tasks JAR and intermediate files"/>
+	</project>

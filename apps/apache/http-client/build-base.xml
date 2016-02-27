@@ -1,0 +1,27 @@
+	<project name="http-client-apps-base" default="http-client-apps-base" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Serves as 'base' inclusion file with common definitions for the HTTP-client
+			applications
+		</description>
+
+			<!-- Preamble definitions -->
+        <dirname property="http.client.apps.root.dir" file="${ant.file}"/>
+		<dirname property="apache.apps.root.dir" file="${http.client.apps.root.dir}"/>
+		<property name="parent.root.dir" value="${apache.apps.root.dir}"/>
+		<property name="module.root.folder" value="${http.client.apps.root.dir}"/>
+		<property name="module.base.target.name" value="http"/>
+
+		<import file="${apache.apps.root.dir}${file.separator}build-base.xml"/>
+		<property name="http.client.apps.base.pkg.name" value="${apache.apps.base.pkg.name}.http"/>
+
+        <target name="http-client-apps-base" depends="apache-apps-base" unless="skip.http.client.apps.base.target">
+            <property name="skip.http.client.apps.base.target" value="true"/>
+        </target>
+
+			<!-- Default target(s) from which modules should derive their own -->
+		<target name="jar-http-client-app-module-files" depends="http-client-apps-base,jar-apache-app-module-files"/>
+		<target name="clean-http-client-app-module-build" depends="http-client-apps-base,clean-apache-app-module-build"/>
+
+		<target name="jar-http-client-app-application-files" depends="http-client-apps-base,jar-apache-app-application-files"/>
+		<target name="clean-http-client-app-application-build" depends="http-client-apps-base,clean-apache-app-application-build"/>
+	</project>

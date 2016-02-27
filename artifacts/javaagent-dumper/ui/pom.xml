@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+			     http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>net.community.chest.artifacts</groupId>
+		<artifactId>javaagent</artifactId>
+		<version>1.8.1.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.community.chest.artifacts.javaagent.dumper</groupId>
+	<artifactId>chest-javaagent-ui</artifactId>
+	<packaging>jar</packaging>
+	<name>Generates Insight aspect(s) from the dumper's files</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>net.community.chest.artifacts.javaagent.dumper</groupId>
+			<artifactId>chest-javaagent-dumper</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.community.chest.gui</groupId>
+			<artifactId>chest-gui-awt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.community.chest.gui</groupId>
+			<artifactId>chest-gui-swing</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.community.chest.gui</groupId>
+			<artifactId>chest-gui-helpers</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.community.chest.gui</groupId>
+			<artifactId>chest-gui-components</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.community.apps</groupId>
+			<artifactId>chest-apps-common</artifactId>
+			<exclusions>
+				<exclusion>	<!-- excluded since not needed -->
+					<groupId>net.community.chest.base-utils</groupId>
+					<artifactId>chest-db</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+	
+	<build/>
+</project>

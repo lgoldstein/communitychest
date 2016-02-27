@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="jfree-libs-base" default="jfree-libs-base" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Serves as 'base' inclusion file with common definitions for the CHEST
+			jFree helper JAR(s) sub-project(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="jfree.libs.root.dir" file="${ant.file}"/>
+        <dirname property="3rd.party.root.dir" file="${jfree.libs.root.dir}"/>
+		<property name="parent.root.dir" value="${3rd.party.root.dir}"/>
+		<property name="module.root.folder" value="${jfree.libs.root.dir}"/>
+		<basename property="module.base.target.name" file="${jfree.libs.root.dir}"/>
+
+		<import file="${3rd.party.root.dir}${file.separator}build-base.xml"/>
+
+		<target name="jfree-libs-base" depends="3rd-party-base" unless="skip.jfree.libs.base.target">
+			<property name="skip.jfree.libs.base.target" value="true"/>
+		</target>
+
+			<!-- Default target(s) from which modules should derive their own -->
+		<target name="jar-jfree-libs-module-files" depends="jfree-libs-base,jar-3rd-party-module-files"/>
+		<target name="clean-jfree-libs-module-build" depends="jfree-libs-base,clean-3rd-party-module-build"/>
+	</project>

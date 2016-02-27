@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="community-root" default="install">
+	<description>
+			Builds all projects $$
+		</description>
+
+	<dirname property="community.root.dir" file="${ant.file}"/>
+	<property name="module.root.folder" value="${community.root.dir}"/>
+	<property name="parent.folder.dir" value="${community.root.dir}${file.separator}parent" />
+	<import file="${parent.folder.dir}${file.separator}build-maven.xml"/>
+	
+	<target name="install-parent-pom-file" depends="maven-base" description="Installs the parent POM file">
+		<dirname property="parent.pom.folder" file="${community.parent.pom.file.path}" />
+		<dirname property="parent.pom.install.run.folder" file="${parent.pom.folder}" />
+		<antcall target='run-mvn'>
+			<param name='mvn.run.dir' value='${parent.pom.install.run.folder}' />
+			<param name='mvn.run.opts' value='${maven.module.options}'/>
+			<param name='mvn.arg.line' value='install:install-file -DpomFile=${community.parent.pom.file.path} -Dfile=${community.parent.pom.file.path}'/>
+		</antcall>
+	</target>
+	
+	<target name="mvn-install" depends="install-parent-pom-file,run-module-mvn" description="Runs mvn install" />
+	<target name="mvn-clean" depends="clean-module-mvn" description="Runs mvn clean" />
+	<target name="mvn-uninstall" depends="maven-base" description="Uninstalls all published artifacts">
+		<antcall target='run-mvn'>
+			<param name='mvn.run.dir' value='${module.root.folder}' />
+			<param name='mvn.run.opts' value='${maven.module.options}'/>
+			<param name='mvn.arg.line' value='build-helper:remove-project-artifact -DremoveAll=true'/>
+		</antcall>
+	</target>
+	<target name="mvn-reinstall" depends="mvn-clean,mvn-uninstall,mvn-install" description="Cleans up the repository and re-installs" />
+	
+	<target name="install" depends="mvn-install" description="Runs Maven build" />
+	<target name="uninstall" depends="mvn-uninstall" description="Runs Maven un-install of artifacts" />
+	<target name="clean" depends="mvn-clean,mvn-uninstall" description="Runs Maven cleanup" />
+	<target name="reinstall" depends="clean,install" description="Runs cleanup followed by install" />
+</project>

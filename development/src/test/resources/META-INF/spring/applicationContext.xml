@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/tx 
+     	   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/jdbc
+           http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+		<!-- Enabled annotation-based beans definitions -->               
+	<context:annotation-config />
+
+		<!-- Automatically scan classes for @Component, @Service, @Controller, @Component -->
+	<context:component-scan base-package="net.community.chest.eclipselink.test"/>
+
+		<!-- Import properties from a file - not all beans know how to use
+			 a Properties accessor (see below) -->
+	<context:property-placeholder location="classpath:/META-INF/spring/application.properties" />
+
+		<!-- (Re-)read into Properties so we can also use Spring @Value annotation -->
+	<util:properties id="appProperties" location="classpath:/META-INF/spring/application.properties"/>
+
+	<bean id="dataSource"
+		  class="org.apache.commons.dbcp.BasicDataSource"
+		  destroy-method="close"
+    		p:driverClassName="#{appProperties['jdbc.driverClassName']}"
+    		p:url="#{appProperties['jdbc.url']}"
+    		p:username="#{appProperties['jdbc.username']}"
+    		p:password="#{appProperties['jdbc.password']}" />
+
+		<!-- create initial tables structure -->
+	<jdbc:initialize-database data-source="dataSource">
+		<jdbc:script location="${jdbc.initLocation}"/>
+	</jdbc:initialize-database>
+
+		<!-- see org.eclipse.persistence.config.TargetDatabase for available values -->
+		<!-- TODO consider using
+			<util:constant static-field="org.eclipse.persistence.config.TargetDatabase.XXX"/>
+		 -->
+	<bean id="jpaVendorAdapter"
+		  class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter"
+   			p:databasePlatform="#{appProperties['jpa.db.platform']}"
+   			p:showSql="#{appProperties['jpa.show.sql']}"
+   		/>
+
+    <bean id="loadTimeWeaver"
+    	  class="org.springframework.instrument.classloading.SimpleLoadTimeWeaver"
+    	/>
+
+	<bean id="entityManagerFactory"
+		  class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+	    	p:dataSource-ref="dataSource"
+	    	p:persistenceUnitName="${jpa.persistence.unit.name}"
+	    	p:jpaVendorAdapter-ref="jpaVendorAdapter"
+	    	p:loadTimeWeaver-ref="loadTimeWeaver"
+	  	/>
+
+	<bean id="transactionManager"
+		  class="org.springframework.orm.jpa.JpaTransactionManager"
+		  	p:entityManagerFactory-ref="entityManagerFactory"
+	      	p:dataSource-ref="dataSource"
+	   	/>
+
+		<!-- enable the configuration of transactional behavior based on annotations -->
+  	<tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-maven-apps" default="build-maven-apps" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds MAVEN applications
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+
+		<target name="build-pom2cpsync" depends="maven-apps-base" unless="skip.build.pom2cpsync" description="Builds POM/CLASSPATH file(s) synchronizer">
+			<ant dir="${module.root.folder}${file.separator}pom2cpsync" target="build-pom2cpsync" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.pom2cpsync" value="true"/>
+		</target>
+
+		<target name="build-pomrunner" depends="maven-apps-base" unless="skip.build.pomrunner" description="Builds POM runner">
+			<ant dir="${module.root.folder}${file.separator}pomrunner" target="build-pomrunner" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.pomrunner" value="true"/>
+		</target>
+
+		<target name="build-conv2maven" depends="maven-apps-base" unless="skip.build.conv2maven" description="Builds M2E fixer">
+			<ant dir="${module.root.folder}${file.separator}conv2maven" target="build-conv2maven" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.conv2maven" value="true"/>
+		</target>
+
+		<target name="build-maven-apps" description="Builds MAVEN applications"
+				depends="build-pom2cpsync,build-pomrunner,build-conv2maven"
+			/>
+
+		<target name="clean-maven-apps" depends="maven-apps-base" description="Cleans up MAVEN applications">
+			<ant dir="${module.root.folder}${file.separator}pom2cpsync" target="clean-pom2cpsync" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}pomrunner" target="clean-pomrunner" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}conv2maven" target="clean-conv2maven" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+		</target>
+	</project>

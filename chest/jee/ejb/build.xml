@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-ejb-helpers" default="build-ejb-helpers" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds the EJB helpers JAR(s) $Rev: 561 $
+		</description>
+		
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+		<property name="jee.root.dir" value="${parent.root.dir}"/>
+        <property name="default.classpath.ref.name" value="ejb.helpers.path"/>
+		<property name="module.base.target.name" value="ejb-helpers"/>
+		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
+
+	    	<!-- define dependencies -->
+		<mvn:dependencies 	pathId="ejb.dependencies.path" useScope="compile"
+							settingsFile="${maven.settings.file.path}"
+				>
+	        <localRepository path="${maven.local.repository.folder}" layout="default"/>
+
+			<dependency groupId="javax.ejb" artifactId="ejb-api" version="${ejb.api.jar.version}" scope="compile"/>
+			<dependency groupId="javax.transaction" artifactId="jta" version="${jta.jar.version}" scope="compile"/>
+		</mvn:dependencies>
+
+	    <path id="ejb.helpers.path">
+	    	<path refid="community.modules.jars"/>
+			<path refid="ejb.dependencies.path"/>
+		</path>
+
+		<target name="build-ejb-helpers" depends="jar-jee-module-files" description="Builds the EJB helpers JAR(s)"/>
+		<target name="clean-ejb-helpers" depends="clean-jee-module-build" description="Cleans up the EJB helpers JAR(s)"/>
+	</project>

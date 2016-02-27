@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="svn-ant-access" default="svn-ant-access" xmlns:antcontrib="antlib:net.sf.antcontrib">
+		<description>
+			SVN related useful built targets
+			
+			NOTE !!! requires ant-contrib >= 0.6 JAR in the classpath
+		</description>
+		<!-- for ANTCONTRIB <= 0.5 un-comment the following definition
+		<taskdef uri="antlib:net.sf.antcontrib"
+		              resource="net/sf/antcontrib/antcontrib.properties"/>
+		-->
+
+			<!-- import the environment -->
+		<property environment="env"/>
+
+		<dirname property="ant.file.folder" file="${ant.file}"/>
+
+		<property name="svn.propset.options" value=""/>
+		<target name="run-svn-propset">
+			<dirname property="svn.target.folder" file="${svn.target.file.path}"/>
+			<basename property="svn.target.file" file="${svn.target.file.path}"/>
+			<exec executable="svn" dir="${svn.target.folder}" searchpath="true">
+				<arg line="propset ${svn.propset.options} ${svn.propname} ${svn.propvalue} ${svn.target.file}"/>
+			</exec>
+		</target>
+
+		<target name="run-svn-eol-style-propset">
+			<antcall target="run-svn-propset">
+				<param name="svn.propname" value="svn:eol-style"/>
+				<param name="svn.propvalue" value="native"/>
+			</antcall>
+		</target>
+
+		<target name="run-svn-mime-type-propset">
+			<antcall target="run-svn-propset">
+				<param name="svn.propname" value="svn:mime-type"/>
+				<param name="svn.propvalue" value="${svn.mime.type.value}"/>
+			</antcall>
+		</target>
+			<!-- #### call an SVN related target recursively
+
+				SYNOPSIS:
+					<antcall target="recursive-svn-target-execute">
+						<param name="recursive.svn.target.name" value="xxx"/>
+						<param name="recursive.svn.param.name" value="yyy"/>
+						<param name="recursive.svn.root.folder" value="zzz"/>
+						<param name="recursive.svn.inclusion.pattern" value="www"/>
+					</antcall>
+			-->
+		<target name="recursive-svn-target-execute">
+			<antcontrib:foreach target="${recursive.svn.target.name}" param="${recursive.svn.param.name}">
+				<path>
+			    	<fileset dir="${recursive.svn.root.folder}" includes="${recursive.svn.inclusion.pattern}"/>
+			  	</path>
+			</antcontrib:foreach>
+		</target>
+		
+		<target name="svn-ant-access">
+			<fail message="This XML was generated for inclusion purposes"/>
+		</target>
+	</project>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-db" default="build-db"
+			 xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds the DB JAR $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="project.root.dir" value="${parent.root.dir}"/>
+		<property name="module.base.target.name" value="db"/>
+        <property name="default.classpath.ref.name" value="db.extra.jars.path"/>
+
+		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
+
+	    	<!-- define dependencies -->
+		<mvn:dependencies 	pathId="db.dependencies.path" useScope="compile"
+							settingsFile="${maven.settings.file.path}"
+				>
+	    	<localRepository path="${maven.local.repository.folder}" layout="default"/>
+	
+			<!-- Temporary replacement until persistence-api 2.0.0 is published -->
+			<dependency groupId="org.hibernate.javax.persistence"
+						artifactId="hibernate-jpa-2.0-api"
+						version="1.0.0.Final"
+						scope="compile"/>
+		</mvn:dependencies>
+	
+		<path id="db.extra.jars.path">
+			<path refid="community.modules.jars"/>
+			<path refid="db.dependencies.path"/>
+		</path>
+
+		<target name="build-db" depends="jar-project-module-files" description="Builds the DB JAR"/>
+		<target name="clean-db" depends="clean-project-module-build" description="Removes the DB object files and JAR"/>
+	</project>

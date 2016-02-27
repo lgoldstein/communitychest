@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-jaxrs-helpers" default="build-jaxrs-helpers" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds the JAX-RS helpers JAR(s) $Rev$
+		</description>
+		
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+		<property name="jee.root.dir" value="${parent.root.dir}"/>
+        <property name="default.classpath.ref.name" value="jaxrs.helpers.path"/>
+		<property name="module.base.target.name" value="jaxrs-helpers"/>
+		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
+
+	    	<!-- define dependencies -->
+		<mvn:dependencies 	pathId="jaxrs.dependencies.path" useScope="compile"
+							settingsFile="${maven.settings.file.path}"
+				>
+	        <localRepository path="${maven.local.repository.folder}" layout="default"/>
+
+			<dependency groupId="org.jboss.resteasy" artifactId="jaxrs-api" version="${jaxrs.jar.version}" scope="compile"/>
+		</mvn:dependencies>
+
+	    <path id="jaxrs.helpers.path">
+	    	<path refid="community.modules.jars"/>
+			<path refid="jaxrs.dependencies.path"/>
+		</path>
+
+		<target name="build-jaxrs-helpers" depends="jar-jee-module-files" description="Builds the JAX-RS helpers JAR(s)"/>
+		<target name="clean-jaxrs-helpers" depends="clean-jee-module-build" description="Cleans up the JAX-RS helpers JAR(s)"/>
+	</project>

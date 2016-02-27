@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.springsource.insight.tests.tomcat</groupId>
+	<artifactId>6-7</artifactId>
+	<version>1.7.0.CI-SNAPSHOT</version>
+	<name>com.springsource.insight.tests.tomcat:6-7</name>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>com.springsource.insight</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.7.0.CI-SNAPSHOT</version>
+		<relativePath>../../../../../parent</relativePath>
+	</parent>
+
+	<properties>
+		<containers.root.dir>../../containers</containers.root.dir>
+		<dist.root.dir>../../../../../dist</dist.root.dir>
+		<tomcat.major.version>6</tomcat.major.version>
+		<tomcat.version>${tomcat.major.version}.0.32</tomcat.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.springsource.insight.dist</groupId>
+			<artifactId>springsource-insight-tomcat-6-7-agent-javaagent</artifactId>
+			<version>${project.version}</version>
+			<type>zip</type>
+		</dependency>
+
+			<!-- dummy dependency just to be able to deploy it -->
+		<dependency>
+			<groupId>org.springframework.samples</groupId>
+			<artifactId>travel</artifactId>
+			<version>3.0.3</version>
+			<type>war</type>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/travel.war</systemPath>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>prepare-tomcat</id>
+						<phase>integration-test</phase>
+						<configuration>
+							<tasks>
+								<unzip src="${dist.root.dir}/tomcat/springsource-insight-tomcat-${project.artifactId}-agent/target/springsource-insight-tomcat-${project.artifactId}-agent-javaagent-${project.version}.zip"
+									   dest="${project.build.directory}" />
+
+									<!-- detect type of O/S -->
+								<condition property="win32.local.shell" value="true" else="false">
+									<contains string="${os.name}" substring="windows" casesensitive="false" />
+								</condition>
+								<condition property="linux.local.shell" value="true" else="false">
+									<isfalse value="${win32.local.shell}" />
+								</condition>
+								<condition property="shell.script.suffix" value="sh" else="bat">
+									<isfalse value="${win32.local.shell}" />
+								</condition>
+								
+								<exec executable="install.${shell.script.suffix}" failonerror="true"
+									  dir="./target/springsource-insight-tomcat-${project.artifactId}-agent-javaagent-${project.version}">
+									<arg value="./target/cargo/installs/apache-tomcat-${tomcat.version}/apache-tomcat-${tomcat.version}" />
+									<arg value="default" />
+									<arg value="127.0.0.1" />
+								</exec>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+					<!-- TODO add this to parent POM pluginManagement section and remove the version -->
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo-maven2-plugin</artifactId>
+				<configuration>
+					<container>
+						<containerId>tomcat${tomcat.major.version}x</containerId>
+						<zipUrlInstaller>
+								<!-- can also download from http://archive.apache.org/dist/tomcat/ -->
+							<url>file:${containers.root.dir}/apache-tomcat-${tomcat.version}.zip</url>
+						</zipUrlInstaller>
+						<log>${project.build.directory}/cargo/cargo.output.log</log>
+						<output>${project.build.directory}/cargo/tomcat.output.log</output>
+					</container>
+					<configuration>
+						<type>standalone</type>
+						<deployables>
+								<!-- test application -->
+							<deployable>
+								<groupId>org.springframework.samples</groupId>
+								<artifactId>travel</artifactId>
+								<!-- location>${project.basedir}/src/main/resources/travel.war</location -->
+								<type>war</type>
+							</deployable>
+						</deployables>
+					</configuration>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans SYSTEM "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="properties">
+			<props>
+				<prop key="jdbc.url">${ITCASE_DB_NAME}</prop>
+			</props>
+		</property>
+		<property name="systemPropertiesModeName">
+			<value>SYSTEM_PROPERTIES_MODE_OVERRIDE</value>
+		</property>
+	</bean>
+
+	<bean id="dataSource" class="com.emc.fiji.server.persistence.DaoDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>
+		<property name="url" value="jdbc:sybase:Tds:${jdbc.dbhost}:${jdbc.dbport}/${ITCASE_DB_NAME}"/>
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="25" />
+		<property name="validationQuery" value="select 1;" />
+		<property name="testOnBorrow" value="true"/>
+		<property name="maxWait" value="30000" />
+		<property name="minIdle" value="2" />
+		<property name="maxActive" value="-1" />		 
+	</bean>
+
+	<bean id="dataSourceJAMon" class="com.jamonapi.proxy.JAMonDataSource">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+	<!--
+		// TODO:
+		Consider proxying the DataSource with a LazyConnectionDataSourceProxy.
+		http://static.springframework.org/spring/docs/2.0.1/api/org/springframework/orm/hibernate/LocalSessionFactoryBean.html#setDataSource(javax.sql.DataSource)
+	-->
+
+	<bean id="defaultLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" lazy-init="true"/>
+
+	<!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="com.emc.fiji.server.persistence.infra.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceJAMon"/>
+		<property name="lobHandler" ref="defaultLobHandler"/>
+		<property name="configLocation" value="classpath:org/hibernate/hibernate.cfg.xml" />
+		<!--
+			<property name="entityInterceptor" ref="auditInterceptor" />
+		-->
+		<property name="eventListeners">
+			<map>
+				<entry key="pre-delete">
+					<ref local="CRUDListener" />
+				</entry>
+				<entry key="post-delete">
+					<ref local="CRUDListener" />
+				</entry>
+				<entry key="post-insert">
+					<ref local="CRUDListener" />
+				</entry>
+				<entry key="post-update">
+					<ref local="CRUDListener" />
+				</entry>
+				<entry key="post-collection-update">
+					<ref local="CRUDListener" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="CRUDListener"
+		class="com.emc.fiji.server.service.changelog.CRUDListener">
+		<!-- TODO: The two line below fails due to circular reference -->
+		<!--property name="changeListener" ref="changeListenerService" /-->
+		<!--property name="sessionFactory" ref="sessionFactory" /-->
+	</bean>
+
+	<!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="nestedTransactionAllowed" value="true"/>
+	</bean>
+
+	<bean id="hibernateTemplate"
+		class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="policyGroupDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.PolicyGroupDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="parameterValueDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.ParameterValueDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="policyDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.PolicyDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="policyRuleDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.PolicyRuleDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="ruleDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.RuleDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="breachDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.BreachDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="pendingBreachDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.PendingBreachDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="scopeDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.ScopeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="elementDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.ElementDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="criteriaDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.CriteriaDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="changeEventDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.ChangeEventDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<!--property name="hibernateTemplate" ref="hibernateTemplate"></property-->
+	</bean>
+	<bean id="snmpTrapDestinationsDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.SnmpTrapDestinationsDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="userProfileDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.UserProfileDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="cstDao" ref="cstDao"/>
+	</bean>
+
+	<bean id="rolesDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.RolesDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+<!--<bean id="xmlDs" class="com.emc.fiji.server.util.XmlDsImpl">
+		<property name="classPathResourceLocation"
+			value="data/PolicyData.xml">
+		</property>
+	</bean>
+-->
+	<bean id="ldapSettingsDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.LdapSettingsDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="systemSettingsDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.SystemSettingsDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="elementPropertyDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.ElementPropertyDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="noteDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.NoteDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="cstDao" class="com.emc.fiji.server.security.cst.CSTDao">
+		<property name="bootstrapPath" value="${CST_CONFIG_FOLDER}"></property>
+		<property name="authorityName" value="LocalDirectoryItcase"></property>
+		<property name="defaultUserName" value="admin"></property>
+		<property name="defaultPassword" value="123456qw"></property>
+		<property name="defaultPassphrase" value="1Passphrase!"></property>
+	</bean>
+
+	<bean id="policyRetentionDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.PolicyRetentionDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="dbSchedulerDao"
+		class="com.emc.fiji.server.persistence.dao.hibernate.DbSchedulerDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="configValueDao" class="com.emc.fiji.server.persistence.dao.hibernate.ConfigValueDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<bean id="configGroupDao" class="com.emc.fiji.server.persistence.dao.hibernate.ConfigGroupDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<bean id="complianceInfoDao" class="com.emc.fiji.server.persistence.dao.hibernate.ComplianceInfoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<bean id="logMessageEntryDao" class="com.emc.fiji.server.persistence.dao.hibernate.LogMessageEntryDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="complianceInProgressDao" class="com.emc.fiji.server.persistence.dao.hibernate.ComplianceInProgressDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+</beans>

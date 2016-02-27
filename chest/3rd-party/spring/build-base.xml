@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="spring-libs-base" default="spring-libs-base" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Serves as 'base' inclusion file with common definitions for the CHEST
+			Spring helper JAR(s) sub-project(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="spring.libs.root.dir" file="${ant.file}"/>
+        <dirname property="3rd.party.root.dir" file="${spring.libs.root.dir}"/>
+		<property name="parent.root.dir" value="${3rd.party.root.dir}"/>
+		<property name="module.root.folder" value="${spring.libs.root.dir}"/>
+		<basename property="module.base.target.name" file="${spring.libs.root.dir}"/>
+
+		<import file="${3rd.party.root.dir}${file.separator}build-base.xml"/>
+
+		<target name="spring-libs-base" depends="3rd-party-base" unless="skip.spring.libs.base.target">
+			<property name="skip.spring.libs.base.target" value="true"/>
+		</target>
+
+			<!-- Default target(s) from which modules should derive their own -->
+		<target name="jar-spring-libs-module-files" depends="spring-libs-base,jar-3rd-party-module-files"/>
+		<target name="clean-spring-libs-module-build" depends="spring-libs-base,clean-3rd-party-module-build"/>
+	</project>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-jnlp-servlet-test" default="build-jnlp-servlet-test"
+		 	xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds JNLP servlet test
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="project.root.dir" file="${ant.file}"/>
+		<dirname property="artifacts.root.dir" file="${project.root.dir}"/>
+		<property name="module.root.folder" value="${project.root.dir}"/>
+		<property name="module.base.target.name" value="jnlp-servlet-test"/>
+		<property name="default.classpath.ref.name" value="jnlp.servlet.path"/>
+		<import file="${artifacts.root.dir}${file.separator}build-base.xml"/>
+
+	    	<!-- define dependencies -->
+		<mvn:dependencies 	pathId="jnlp.servlet.dependencies.path" useScope="compile"
+							settingsFile="${maven.settings.file.path}"
+				>
+	        <localRepository path="${maven.local.repository.folder}" layout="default"/>
+	
+			<dependency groupId="javax.servlet"
+						artifactId="servlet-api"
+						version="${servlet.api.jar.version}"
+						scope="compile"/>
+		</mvn:dependencies>
+	
+	    <path id="jnlp.servlet.path">
+	    	<path refid="community.modules.jars"/>
+			<path refid="jnlp.servlet.dependencies.path"/>
+		</path>
+
+		<property name="signed.test.jars.folder" value="${community.root.dir}${file.separator}signed"/>
+		<target name="build-jnlp-servlet-test" depends="community-base" description="Build JNLP test servlet">
+			<mkdir dir="${signed.test.jars.folder}"/>
+			<copy preservelastmodified="true" flatten="true" todir="${signed.test.jars.folder}">
+				<fileset dir="${community.lib.folder}" includes="**/*.${jar.file.suffix}"/>
+				<fileset dir="${maven.local.repository.folder}" includes="**/*.${jar.file.suffix}"/>
+			</copy>
+
+			<delete>
+				<fileset dir="${signed.test.jars.folder}"
+						 includes="*-sources.${jar.file.suffix},*-javadoc.${jar.file.suffix}"/>
+			</delete>
+
+			<signjar	alias="${sign.keystore.alias}"
+						storepass="${sign.keystore.password}"
+						keystore="${sign.keystore.location}"
+						lazy="true"
+				>
+				<path>
+					<fileset dir="${signed.test.jars.folder}" includes="*.${jar.file.suffix}"/>
+				</path>
+			</signjar>
+		</target>
+
+		<target name="clean-jnlp-servlet-test" depends="clean-module-target-build" description="Cleans the JMX Tomcat servlet">
+			<delete dir="${signed.test.jars.folder}"/>
+		</target>
+	</project>

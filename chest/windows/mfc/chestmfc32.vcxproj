@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E29FF6C3-63DB-4498-B540-575ED6C61B16}</ProjectGuid>
+    <RootNamespace>chestmfc32</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>NotSet</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\lib\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">target\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\lib\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">target\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\base-utils\jdk\src\main\include;..\..\base-utils\io\src\main\include;..\core\src\main\include;src\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName)d.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..\..\base-utils\jdk\src\main\include;..\..\base-utils\io\src\main\include;..\core\src\main\include;src\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main\cpp\mfcutl\cctrls\GradientProgressCtrl.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\cctrls\HistogramCtrl.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\cctrls\hyperlink.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\cctrls\KCBusyProgressCtrl.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\cctrls\LineChartCtrl.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\cctrls\MemDC.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\cctrls\PieChartCtrl.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\cctrls\RoundProgressCtrl.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\cstatic\ColorStaticST.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\dialogs\aboutDlg.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\dialogs\errmbox.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\dialogs\fchoice.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\dialogs\fields.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\dialogs\ratedlg.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\general\ColorNames.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\general\dtpickers.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\general\fldtitles.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\general\imglist.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\general\wndgnrl.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\general\wndtexts.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\listctrl\cboxPopl.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\listctrl\cmfcutllistctrl.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\listctrl\emptylist.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\listctrl\InputList.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\listctrl\itemEdit.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\listctrl\lboxPopl.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\listctrl\listCtrl.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\listctrl\multicol.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\menus\iconmenu.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\menus\menucmdui.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\menus\menunames.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\shell\fileicon.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\shell\fldrbrws.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\splitters\SplitterBar.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\statusbar\addbar.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\treectrl\dumchild.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\treectrl\nodepath.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\treectrl\treeitems.cpp" />
+    <ClCompile Include="src\main\cpp\mfcutl\treectrl\treepopl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\main\include\mfc\cctrls.h" />
+    <ClInclude Include="src\main\include\mfc\cstatic.h" />
+    <ClInclude Include="src\main\include\mfc\dialogs.h" />
+    <ClInclude Include="src\main\include\mfc\general.h" />
+    <ClInclude Include="src\main\include\mfc\imglist.h" />
+    <ClInclude Include="src\main\include\mfc\listctrl.h" />
+    <ClInclude Include="src\main\include\mfc\menus.h" />
+    <ClInclude Include="src\main\include\mfc\mfcutl.h" />
+    <ClInclude Include="src\main\include\mfc\mfcutlbase.h" />
+    <ClInclude Include="src\main\include\mfc\shell.h" />
+    <ClInclude Include="src\main\include\mfc\splitters.h" />
+    <ClInclude Include="src\main\include\mfc\statusbar.h" />
+    <ClInclude Include="src\main\include\mfc\treectrl.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

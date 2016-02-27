@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!-- RRD Graph definitions file $Rev: 561 $ -->
+	<RrdGraphDef filename="${java.io.tmpdir}server.png"
+				 imageFormat="PNG"
+				 width="600" height="400"
+				 step="1m"
+				 valueAxis="1000,10"
+				 color="GRID,YELLOW"
+				 startTime="15/01/2008 00:00:00"
+				 endTime="now+1H">
+		<TimeAxis minorUnit="H" minorUnitCount="1"
+				  majorUnit="d" majorUnitCount="1"
+				  labelUnit="d" labelUnitCount="1" labelSpan="0" format="dd-MMM-yy"
+			/>
+		<Def name="FreeMemory" rrdPath="${java.io.tmpdir}server.rrd" dsName="FreeMemory" ConsolFun="AVERAGE"/>
+		<Line srcName="FreeMemory" legend="Free memory" color="blue" width="2"/> 
+	</RrdGraphDef>

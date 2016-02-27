@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd">
+
+		<!-- Automatically scan classes for @Component, @Repository -->
+	<context:component-scan base-package="com.vmware.spring.workshop.dao.impl.jpa"/>
+
+	<bean id="dataSource"
+		  class="org.apache.commons.dbcp.BasicDataSource"
+		  destroy-method="close"
+    		p:driverClassName="${jdbc.driverClassName}"
+    		p:url="${jdbc.url}jpa"
+    		p:username="${jdbc.username}"
+    		p:password="${jdbc.password}"
+    		p:maxActive="${jdbc.max.active.conns}"
+    		p:initialSize="${jdbc.initial.active.conns}"
+    		p:maxWait="${jdbc.max.conn.wait}" />
+
+	<bean id="jpaAdapter"
+		  class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter"
+	   		p:databasePlatform="org.eclipse.persistence.platform.database.HSQLPlatform"
+	   		p:showSql="true"
+	   	/>
+
+		<!-- NOTE: We are NOT using a persistence.xml but rather "simulate" it
+			 and provide an initialized data source instead
+			  -->
+	<bean id="jpaPersistenceUnitManager"
+			class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager"
+				p:defaultPersistenceUnitName="workshop"
+				p:defaultDataSource-ref="dataSource"
+				p:packagesToScan="com.vmware.spring.workshop.model"
+		/>
+
+	<bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect" />
+
+	<util:properties id="jpaProperties">
+ 		<prop key="#{ T(org.eclipse.persistence.config.PersistenceUnitProperties).TRANSACTION_TYPE }">RESOURCE_LOCAL</prop>
+ 		<prop key="#{ T(org.eclipse.persistence.config.PersistenceUnitProperties).WEAVING }">false</prop>
+ 		<prop key="#{ T(org.eclipse.persistence.config.PersistenceUnitProperties).LOGGING_LEVEL }">INFO</prop>
+ 		<prop key="#{ T(org.eclipse.persistence.config.PersistenceUnitProperties).LOGGING_LOGGER }">org.springframework.eclipse.persistence.logging.Slf4jSessionLogger</prop>
+	</util:properties>
+
+	<bean id="jpaEntityManagerFactory"
+			class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+			p:persistenceUnitManager-ref="jpaPersistenceUnitManager"
+			p:jpaProperties-ref="jpaProperties"
+			p:jpaDialect-ref="jpaDialect"
+			p:jpaVendorAdapter-ref="jpaAdapter"
+		/>
+
+		<!-- bean post-processor(s) for JPA persistence annotations -->
+  	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<bean id="transactionManager"
+		  class="org.springframework.orm.jpa.JpaTransactionManager"
+		  	p:entityManagerFactory-ref="jpaEntityManagerFactory"
+		/>
+</beans>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-jee-libs" default="build-jee-libs">
+		<description>
+			Builds various JEE libraries helpers JAR(s) $Rev: 592 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+
+		<target name="build-jta-helpers" depends="jee-base" unless="skip.build.jta.helpers" description="Builds JTA helpers classes">
+			<ant dir="${module.root.folder}${file.separator}jta" target="build-jta-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.jta.helpers" value="true"/>
+		</target>
+
+		<target name="build-jms-helpers" depends="build-jta-helpers" unless="skip.build.jms.helpers" description="Builds JMS helpers classes">
+			<ant dir="${module.root.folder}${file.separator}jms" target="build-jms-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.jms.helpers" value="true"/>
+		</target>
+
+		<target name="build-ejb-helpers" depends="build-jta-helpers" unless="skip.build.ejb.helpers" description="Builds EJB helpers classes">
+			<ant dir="${module.root.folder}${file.separator}ejb" target="build-ejb-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.ejb.helpers" value="true"/>
+		</target>
+
+		<target name="build-jaxrs-helpers" depends="jee-base" unless="skip.build.jaxrs.helpers" description="Builds JAX-RS helpers classes">
+			<ant dir="${module.root.folder}${file.separator}jax-rs" target="build-jaxrs-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.jaxrs.helpers" value="true"/>
+		</target>
+
+		<target name="build-jee-libs"
+				depends="build-jms-helpers,build-ejb-helpers,build-jaxrs-helpers"
+				description="Builds various JEE libraries helpers"/>
+
+		<target name="clean-jee-libs" description="Cleans the JEE helpers JAR(s)">
+			<ant dir="${module.root.folder}${file.separator}jta" target="clean-jta-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}jms" target="clean-jms-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}ejb" target="clean-ejb-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}jax-rs" target="clean-jaxrs-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+		</target>
+	</project>

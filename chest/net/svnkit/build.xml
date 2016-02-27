@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-net-svnkit-utils" default="build-net-svnkit-utils" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds the SVNKit net utilities JAR $Rev: 571 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+		<property name="module.base.target.name" value="net-svnkit"/>
+	    <dirname property="base.net.root.dir" file="${module.root.folder}"/>
+        <property name="default.classpath.ref.name" value="svnkit.helpers.path"/>
+
+		<import file="${base.net.root.dir}${file.separator}build-base.xml"/>
+
+	    	<!-- define dependencies -->
+		<mvn:dependencies 	pathId="svnkit.dependencies.path" useScope="compile"
+							settingsFile="${maven.settings.file.path}"
+				>
+	        <localRepository path="${maven.local.repository.folder}" layout="default"/>
+	
+			<dependency groupId="org.tmatesoft.svnkit"
+						artifactId="svnkit"
+						version="${svnkit.jar.version}"
+						scope="compile"
+				/>
+		</mvn:dependencies>
+	
+	    <path id="svnkit.helpers.path">
+	    	<path refid="community.modules.jars"/>
+			<path refid="svnkit.dependencies.path"/>
+		</path>
+
+		<target name="build-net-svnkit-utils" depends="jar-base-net-module-files" description="Builds the SVNKit net utilitites JAR"/>
+		<target name="clean-net-svnkit-utils" depends="clean-base-net-module-build" description="Removes the SVNKit net utilities object files and JAR"/>
+	</project>
+

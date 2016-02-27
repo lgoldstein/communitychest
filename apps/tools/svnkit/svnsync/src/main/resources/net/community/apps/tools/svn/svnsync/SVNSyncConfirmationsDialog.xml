@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialog name="SVNSyncConfirmationsDialog"
+		modal="true"
+		resizable="true"
+		title="Confirmation locations patterns"
+		defaultCloseOperation="DISPOSE"
+		relativePreferredSize="15,30"
+		relativeSize="15,30">		>
+	<layout class="border" hgap="5" vgap="5" />
+
+	<section name="patterns-list" selectionMode="MULTIPLE"
+		/>
+
+	<buttonsPanel>
+		<button	name="okBtn" actionCommand="OK" text="OK" />
+	</buttonsPanel>
+</dialog>

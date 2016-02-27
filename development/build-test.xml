@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-dev-test" default="build-dev-test"
+				xmlns:antcontrib="antlib:net.sf.antcontrib"
+				xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Various build-tests
+		</description>
+
+			<!-- import the environment -->
+		<property environment="env"/>
+
+		<dirname property="ant.file.folder" file="${ant.file}"/>
+		<import file="${ant.file.folder}${file.separator}build-svn-ant-access-base.xml"/>
+
+		<dirname property="community.root.dir" file="${ant.file.folder}"/>
+		<import file="${community.root.dir}${file.separator}build-base.xml"/>
+
+		<property name="apps.root.folder" value="${community.root.dir}${file.separator}apps"/>
+		<property name="chest.root.folder" value="${community.root.dir}${file.separator}chest"/>
+		<property name="development.root.folder" value="${community.root.dir}${file.separator}development"/>
+
+		<target name="development-init">
+			<mvn:dependencies 	pathId="development.dependencies.path" useScope="compile"
+						settingsFile="${maven.settings.file.path}"
+				>
+        		<localRepository path="${maven.local.repository.folder}" layout="default"/>
+
+				<dependency groupId="org.tmatesoft.svnkit"
+							artifactId="svnkit"
+							version="${svnkit.jar.version}"
+							scope="compile"/>
+
+			</mvn:dependencies>
+		</target>
+
+		<target name="test-svn-propset" description="Executes SVN PROPSET command on all specified file pattern(s)">
+			<antcall target="recursive-svn-target-execute">
+				<param name="recursive.svn.target.name" value="run-svn-eol-style-propset"/>
+				<param name="recursive.svn.param.name" value="svn.target.file.path"/>
+				<param name="recursive.svn.root.folder" value="${community.root.dir}"/>
+				<param name="recursive.svn.inclusion.pattern" value="**/*.xml"/>
+			</antcall>
+
+			<!--
+			<antcall target="recursive-svn-target-execute">
+				<param name="recursive.svn.target.name" value="run-svn-mime-type-propset"/>
+				<param name="recursive.svn.param.name" value="svn.target.file.path"/>
+				<param name="recursive.svn.root.folder" value="${apps.root.folder}"/>
+				<param name="recursive.svn.inclusion.pattern" value="**/*.gif"/>
+				<param name="svn.mime.type.value" value="image/gif"/>
+			</antcall>
+			-->
+		</target>
+
+		<property name="maven.build.pom.file.path" value="${community.root.dir}${file.separator}pom.xml"/>
+		<target name="mvn-execute-test" description="Executes a Maven build">
+			<mvn:mvn	pom="${maven.build.pom.file.path}"
+						mavenHome="${env.M2_HOME}"
+						fork="true"
+				>
+		        <localRepository path="${maven.local.repository.folder}" layout="default"/>
+			</mvn:mvn>
+		</target>
+
+		<target name="deploy-maven-artifact">
+			<basename property="artifact.base.name" file="${artifact.file.path}" suffix=".jar"/> 
+			<dirname property="artifact.folder.location" file="${artifact.file.path}"/>
+			<property name="artifact.base.file.location" value="${artifact.folder.location}${file.separator}${artifact.base.name}"/>
+			<property name="artifact.pom.file.location" value="${artifact.base.file.location}.pom"/>
+			<antcontrib:if>
+					<available file="${artifact.pom.file.location}" type="file"/>
+				<then>
+					<echo level="info">
+						<![CDATA[
+							<mvn:deploy pom="${artifact.pom.file.location}"
+										settingsFile="${maven.settings.file.path}"
+										file="${artifact.file.path}"
+									>
+				        		<localRepository path="${maven.local.repository.folder}" layout="default"/>
+								<attachedArtifact file="${artifact.base.file.location}-sources.jar" classifier="sources"/>
+								<attachedArtifact file="${artifact.base.file.location}-javadoc.jar" classifier="javadoc"/>
+							</mvn:deploy>
+						]]>
+					</echo>
+				</then>
+			</antcontrib:if>
+		</target>
+
+		<property name="local.deployment.root.folder" value="${maven.local.repository.folder}${file.separator}net${file.separator}community"/>
+		<target name="recursive-maven-deploy" description="Deploys the Maven artifacts">
+			<antcontrib:foreach target="deploy-maven-artifact" param="artifact.file.path">
+				<path>
+			    	<fileset dir="${local.deployment.root.folder}" includes="**/*.jar"/>
+			  	</path>
+			</antcontrib:foreach>
+		</target>
+
+		<!-- ############################## Apache => Insight converter ########################## -->
+		<property name="insight.release.location" value="C:${file.separator}Projects${file.separator}insight${file.separator}springsource-tc-server-developer-2.1.0.RELEASE" />
+		<property name="tomcat.release.location" value="${java.io.tmpdir}apache-tomcat-6.0.29" />
+
+		<property name="insight.templates.location" value="${insight.release.location}${file.separator}templates${file.separator}insight" />
+
+		<target name="ensure-conversion-folders-exist">
+			<fail message="Missing ${insight.release.location}">
+				<condition>
+					<not><available file="${insight.release.location}" type="dir" /></not>
+				</condition>
+			</fail>
+			<fail message="Missing ${tomcat.release.location}">
+				<condition>
+					<not><available file="${tomcat.release.location}" type="dir" /></not>
+				</condition>
+			</fail>
+			<fail message="Missing ${insight.templates.location}">
+				<condition>
+					<not><available file="${insight.templates.location}" type="dir" /></not>
+				</condition>
+			</fail>
+		</target>
+
+		<target name="prepare-insight-jars" depends="ensure-conversion-folders-exist"
+				description="Copies the required extra JAR(s) to the Tomcat installation">
+			<copy todir="${tomcat.release.location}${file.separator}lib" verbose="true">
+				<fileset dir="${insight.templates.location}${file.separator}lib" includes="*.jar" />
+			</copy>
+			<copy todir="${tomcat.release.location}${file.separator}bin" verbose="true">
+				<fileset dir="${insight.templates.location}${file.separator}bin" includes="*.jar" />
+			</copy>
+
+			<mkdir dir="${tomcat.release.location}${file.separator}insight" />
+			<copy todir="${tomcat.release.location}${file.separator}insight" verbose="true">
+				<fileset dir="${insight.templates.location}${file.separator}insight" includes="**/*" />
+			</copy>
+			
+			<copy file="${insight.templates.location}${file.separator}webapps${file.separator}insight.war"
+				  todir="${tomcat.release.location}${file.separator}webapps"
+			 	  verbose="true"
+				/>
+		</target>
+
+		<condition property="windows.env" value="true">
+			<contains string="${os.name}" substring="windows" casesensitive="false"/>
+		</condition>
+
+		<target name="prepare-windows-insight-environment" if="windows.env">
+				<!-- NOTE: this works only if run on Windows -->
+			<pathconvert property="extra.insight.windows.classpath.jars" targetos="windows" setonempty="false">
+				<path>
+					<fileset dir="${tomcat.release.location}${file.separator}bin" includes="insight-bootstrap-tcserver-*.jar" />
+					<fileset dir="${tomcat.release.location}${file.separator}lib" includes="aspectjweaver-*.jar" />
+				</path>
+				<map from="${tomcat.release.location}" to="%CBASE%"/>
+			</pathconvert>
+			<fail message="No Insight JAR(s) classpath found">
+				<condition>
+					<not><isset property="extra.insight.windows.classpath.jars" /></not>
+				</condition>
+			</fail>
+
+			<echo level="info" file="${tomcat.release.location}${file.separator}bin${file.separator}setenv.bat" append="false">@echo off
+rem Edit this file to CATALINA_BASE/bin/setenv.bat to set custom options
+rem Tomcat accepts two parameters JAVA_OPTS and CATALINA_OPTS
+rem JAVA_OPTS are used during START/STOP/RUN
+rem CATALINA_OPTS are used during START/RUN
+rem For ERS layout, set CATALINA_BASE here as well
+
+rem Must contain all JVM Options.  Used by AMS.
+
+set GENERAL_JVM_OPTS="-Xmx512m"
+
+rem JVM Sun specific settings
+rem For a complete list http://blogs.sun.com/watt/resource/jvm-options-list.html
+set SUN_JVM_OPTS="-XX:MaxPermSize=276m"
+
+set "JVM_OPTS=%GENERAL_JVM_OPTS% %SUN_JVM_OPTS%"
+set "CATALINA_OPTS=%JVM_OPTS% %APPLICATION_OPTS% -Djava.awt.headless=true -Dgemfire.disableShutdownHook=true"
+
+rem set JAVA_HOME=setme
+rem set JRE_HOME=setme
+
+if "%CATALINA_BASE%" == "" goto noCatalinaBase
+set "CBASE=%CATALINA_BASE%"
+goto setClassPath
+
+:noCatalinaBase
+set "CBASE=%CATALINA_HOME%"
+
+:setClassPath
+set "CATALINA_OPTS=%CATALINA_OPTS% -Dinsight.base=%CBASE%\insight"
+set "CLASSPATH=%CLASSPATH%;${extra.insight.windows.classpath.jars}
+			</echo>
+			<echo level="info" message="Created Windows environment setter script" />
+		</target>
+
+		<target name="prepare-linux-insight-environment" unless="windows.env">
+				<!-- NOTE: this works only if run on Linux -->
+			<pathconvert property="extra.insight.linux.classpath.jars" setonempty="false">
+				<path>
+					<fileset dir="${tomcat.release.location}${file.separator}bin" includes="insight-bootstrap-tcserver-*.jar" />
+					<fileset dir="${tomcat.release.location}${file.separator}lib" includes="aspectjweaver-*.jar" />
+				</path>
+				<map from="${tomcat.release.location}" to="$CBASE"/>
+			</pathconvert>
+			<fail message="No Insight JAR(s) classpath found">
+				<condition>
+					<not><isset property="extra.insight.linux.classpath.jars" /></not>
+				</condition>
+			</fail>
+
+			<echo level="info" file="${tomcat.release.location}${file.separator}bin${file.separator}setenv.sh" append="false">#!/bin/sh
+# Edit this file to CATALINA_BASE/bin/setenv.sh to set custom options
+# Tomcat accepts two parameters JAVA_OPTS and CATALINA_OPTS
+# JAVA_OPTS are used during START/STOP/RUN
+# CATALINA_OPTS are used during START/RUN
+
+# JVM memory settings – general
+GENERAL_JVM_OPTS="-Xmx512m"
+
+# JVM Sun specific settings
+# For a complete list http://blogs.sun.com/watt/resource/jvm-options-list.html
+#SUN_JVM_OPTS="-XX:MaxPermSize=192m \
+#              -XX:NewSize=128m \
+#              -XX:MaxNewSize=256m \
+#              -XX:MaxGCPauseMillis=500 \
+#              -XX:HeapDumpOnOutOfMemoryError \
+#              -XX:+PrintGCApplicationStoppedTime \
+#              -XX:+PrintGCTimeStamps \
+#              -XX:+PrintGCDetails \
+#              -XX:+PrintHeapAtGC \
+#              -Xloggc:gc.log"
+SUN_JVM_OPTS="-XX:MaxPermSize=276m"
+              
+# JVM IBM specific settings
+#IBM_JVM_OPTS=""
+
+# Set any custom application options here
+#APPLICATION_OPTS=""
+
+# Must contain all JVM Options.  Used by AMS.
+JVM_OPTS="$GENERAL_JVM_OPTS $SUN_JVM_OPTS"
+
+CATALINA_OPTS="$JVM_OPTS $APPLICATION_OPTS -Djava.awt.headless=true -Dgemfire.disableShutdownHook=true"
+
+#JAVA_HOME=setme
+#JRE_HOME=setme
+
+CBASE="$CATALINA_BASE"
+if [ "$CBASE" = "" ] ; then
+    CBASE="$CATALINA_HOME"
+fi
+
+CATALINA_OPTS="$CATALINA_OPTS –Dinsight.base=$CBASE/insight”
+CLASSPATH="$CLASSPATH:${extra.insight.linux.classpath.jars}"
+export CLASSPATH
+			</echo>
+			<echo level="info" message="Created Linux environment setter script" />
+			<chmod file="${tomcat.release.location}${file.separator}bin${file.separator}setenv.sh" perm="a+x" />
+		</target>
+
+		<target name="prepare-insight-environment"
+				depends="prepare-windows-insight-environment,prepare-linux-insight-environment"
+				description="Creates the setenv files">
+		</target>
+
+		<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" />
+		<target name="update-insight-context"
+				description="Modifies the Tomcat's context.xml file">
+			<copy file="${tomcat.release.location}${file.separator}conf${file.separator}context.xml"
+				  toFile="${tomcat.release.location}${file.separator}conf${file.separator}context.xml.bak"
+				  preservelastmodified="true"
+				  verbose="true"
+				/>
+				<!-- make sure no leftovers if re-editing the file -->
+			<xmltask
+					source="${tomcat.release.location}${file.separator}conf${file.separator}context.xml"
+					dest="${tomcat.release.location}${file.separator}conf${file.separator}context.xml"
+					failWithoutMatch="false"
+					encoding="UTF-8"
+					>
+				<remove path="/Context/Loader[@loaderClass='com.springsource.insight.collection.tcserver.ltw.TomcatWeavingInsightClassLoader']" />
+				<remove path="/Context/Valve[@className='com.springsource.insight.collection.tcserver.request.HttpRequestOperationCollectionValve']" />
+			</xmltask>
+
+			<xmltask
+					source="${tomcat.release.location}${file.separator}conf${file.separator}context.xml"
+					dest="${tomcat.release.location}${file.separator}conf${file.separator}context.xml"
+					failWithoutMatch="true"
+					encoding="UTF-8"
+					>
+				<insert path="/Context" position="under">
+					<![CDATA[
+						<!-- Added by Lyor G's script -->
+					<Loader loaderClass="com.springsource.insight.collection.tcserver.ltw.TomcatWeavingInsightClassLoader" useSystemClassLoaderAsParent="false" />
+						<!-- Added by Lyor G's script -->
+					<Valve className="com.springsource.insight.collection.tcserver.request.HttpRequestOperationCollectionValve" />
+					]]> 
+				</insert>
+			</xmltask>
+			<echo level="info" message="Updated Tomcat context" />
+		</target>
+
+		<target name="update-tomcat-users"
+				description="Adds the required Insight users and roles">
+			<copy file="${tomcat.release.location}${file.separator}conf${file.separator}tomcat-users.xml"
+				  toFile="${tomcat.release.location}${file.separator}conf${file.separator}tomcat-users.bak"
+				  preservelastmodified="true"
+				  verbose="true"
+				/>
+				<!-- make sure no leftovers if re-editing the file -->
+			<xmltask
+					source="${tomcat.release.location}${file.separator}conf${file.separator}tomcat-users.xml"
+					dest="${tomcat.release.location}${file.separator}conf${file.separator}tomcat-users.xml"
+					failWithoutMatch="false"
+					encoding="UTF-8"
+					>
+				<remove path="tomcat-users/role[@rolename='insight']" />
+				<remove path="tomcat-users/role[@rolename='insight_admin']" />
+				<remove path="tomcat-users/user[contains(@roles, 'insight')]" />
+			</xmltask>
+
+			<xmltask
+					source="${tomcat.release.location}${file.separator}conf${file.separator}tomcat-users.xml"
+					dest="${tomcat.release.location}${file.separator}conf${file.separator}tomcat-users.xml"
+					failWithoutMatch="true"
+					encoding="UTF-8"
+					>
+				<insert path="/tomcat-users" position="under">
+					<![CDATA[
+							<!-- Added by Lyor G. script -->
+						<role rolename="insight"/> <!-- allows simple access to insight console -->
+					  	<role rolename="insight_admin"/>    <!-- allows administrative access to insight console -->
+					  	<user password="insight" roles="insight,insight_admin" username="admin"/>
+					]]> 
+				</insert>
+			</xmltask>
+			<echo level="info" message="Updated Tomcat users" />
+		</target>
+
+		<target name="update-insight-properties-file" description="Make some necessary changes to the insight.properties file">
+			<copy file="${tomcat.release.location}${file.separator}insight${file.separator}insight.properties"
+				  toFile="${tomcat.release.location}${file.separator}insight${file.separator}insight.properties.bak"
+				  preservelastmodified="true"
+				  verbose="true"
+				/>
+				<!-- NOTE: requires ANT 1.8.x - otherwise need to remove the 'jdkproperties' setting
+						which causes the loss of the comments
+					-->
+			<propertyfile file="${tomcat.release.location}${file.separator}insight${file.separator}insight.properties"
+			    		  comment="Modified by Lyor G. script"
+						  jdkproperties="false"
+					>
+				<entry key="dashboard.jms.bind.uri" operation="=" value="nio://0.0.0.0:21234" /> 
+			</propertyfile>
+		</target>
+
+		<target name="convert-apache-to-insight" description="Converts an Apache 6.x into an Insight 1.1 server"
+				depends="prepare-insight-jars,
+						 prepare-insight-environment,
+				 		 update-insight-context,
+				 		 update-tomcat-users" />
+		<target name="build-dev-test" description="Runs the default test" depends="convert-apache-to-insight" >
+			<echo level="info">Done</echo>
+		</target>
+	</project>

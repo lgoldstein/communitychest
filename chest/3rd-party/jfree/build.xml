@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-jfree-libs" default="build-jfree-libs" xmlns:mvn="antlib:org.jfree.maven.artifact.ant">
+		<description>
+			Builds the Apache libraries helpers JAR(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="jfree.libs.root.dir" file="${ant.file}"/>
+		<property name="module.root.folder" value="${jfree.libs.root.dir}"/>
+		<import file="${jfree.libs.root.dir}${file.separator}build-base.xml"/>
+
+		<target name="build-jcommon-helpers" depends="jfree-libs-base" unless="skip.build.jcommon.helpers" description="Builds jCommon helpers classes">
+			<ant dir="${module.root.folder}${file.separator}jcommon" target="build-jcommon-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.jcommon.helpers" value="true"/>
+		</target>
+
+			<!-- requires the maven-helpers because of mvnsync task -->
+		<target name="build-jfreechart-helpers" depends="build-jcommon-helpers" unless="skip.build.jfreechart.helpers" description="Builds jFreechart helpers classes">
+			<ant dir="${module.root.folder}${file.separator}jfreechart" target="build-jfreechart-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.jfreechart.helpers" value="true"/>
+		</target>
+
+		<target name="build-jfree-libs"
+				depends="build-jfreechart-helpers"
+				description="Builds the jFree libraries helpers JAR(s)"/>
+
+		<target name="clean-jfree-libs" depends="jfree-libs-base" description="Deletes the compiled jFree helpers classes">
+			<ant dir="${module.root.folder}${file.separator}jfreechart" target="clean-jfreechart-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}jcommon" target="clean-jcommon-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+		</target>
+	</project>

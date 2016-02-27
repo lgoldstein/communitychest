@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+			     http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>net.community.chest.base-utils</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.8.1.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>chest-jdk</artifactId>
+	<packaging>jar</packaging>
+	<name>JDK Common Utilities</name>
+
+	<dependencies>
+	</dependencies>
+	
+	<build>
+		<plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+									<!-- publish the test sources -->
+								<goal>test-jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jboss.maven.plugins</groupId>
+                <artifactId>maven-injection-plugin</artifactId>
+                <configuration>
+                    <bytecodeInjections>
+                        <bytecodeInjection>
+                            <expression>${project.version}</expression>
+                            <targetMembers>
+                            	<methodBodyReturn>
+                            	    <className>net.community.chest.Version</className>
+                            	    <methodName>getVersionString</methodName>
+                            	</methodBodyReturn>
+                            </targetMembers>
+                        </bytecodeInjection>
+                        <bytecodeInjection>
+                            <expression>${project.properties.buildtimestamp}</expression>
+                            <targetMembers>
+                            	<methodBodyReturn>
+                            	    <className>net.community.chest.Version</className>
+                            	    <methodName>getBuildTimestampString</methodName>
+                            	</methodBodyReturn>
+                            </targetMembers>
+                        </bytecodeInjection>
+                    </bytecodeInjections>
+                </configuration>
+            </plugin>
+
+			<!-- publish the test-jar since it contains some
+                    classes used by other artifacts tests
+                 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+		</plugins>
+	</build>
+</project>

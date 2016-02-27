@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-jinterop-libs" default="build-jinterop-libs" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds some helper J-Interop classes $Rev: 561 $
+		</description>
+
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<property name="module.base.target.name" value="jinterop-libs"/>
+		<property name="jinterop.libs.root.dir" value="${module.root.folder}"/>
+		<property name="parent.root.dir" value="${jinterop.libs.root.dir}"/>
+		<import file="${jinterop.libs.root.dir}${file.separator}build-base.xml"/>
+
+		<target name="build-jinterop-core" depends="jinterop-libs-base"
+				unless="skip.build.jinterop.core.helpers"
+				description="Builds helper jInterop core classes">
+			<ant dir="${module.root.folder}${file.separator}core" target="build-hibernate-core-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.jinterop.core.helpers" value="true"/>
+		</target>
+
+		<target name="build-jinterop-libs"
+				description="Builds the jInterop helpers JAR(s)"
+				depends="build-jinterop-core"/>
+
+		<target name="clean-hibernate-libs" depends="jinterop-libs-base"
+				description="Cleans up helper jInterop classes and JAR">
+			<ant dir="${module.root.folder}${file.separator}core" target="clean-jinterop-core" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+		</target>
+	</project>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+			     http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>net.community.chest</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.8.1.0</version>
+		<relativePath>../parent/pom.xml</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.community.chest.artifacts</groupId>
+	<artifactId>parent</artifactId>
+	<packaging>pom</packaging>
+	<name>Various exported artifacts</name>
+
+	<!-- Sub-modules (in preferred compilation order) -->
+	<modules>
+		<module>jmx-tomcat</module>
+		<module>cl-helper</module>
+		<module>rest-webapp</module>
+		<module>javaagent-dumper</module>
+		<module>spring-workshop</module>
+	</modules>
+</project>

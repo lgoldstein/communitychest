@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-jndi-utils" default="build-jndi-utils">
+		<description>
+			Builds the common JNDI utilities JAR $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+		<property name="module.base.target.name" value="jndi"/>
+	    <dirname property="base.utils.root.dir" file="${module.root.folder}"/>
+		
+		<import file="${base.utils.root.dir}${file.separator}build-base.xml"/>
+		
+		<target name="build-jndi-utils" depends="jar-base-utils-module-files" description="Builds the common JNDI utilities JAR"/>
+		<target name="clean-jndi-utils" depends="clean-base-utils-module-build" description="Removes the common JNDI utilities files and JAR"/>
+	</project>
+

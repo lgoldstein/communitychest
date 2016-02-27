@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+			     http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>net.community.chest.3rd-party.hibernate</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.8.1.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>chest-hibernate-core</artifactId>
+	<packaging>jar</packaging>
+	<name>Hibernate Core Utilities</name>
+
+	<dependencies>
+		<dependency> <!-- Required by Hibernate core -->
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>net.community.chest.base-utils</groupId>
+			<artifactId>chest-jdk</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.community.chest.base-utils</groupId>
+			<artifactId>chest-db</artifactId>
+		</dependency>
+	</dependencies>
+</project>

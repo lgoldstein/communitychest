@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+			     http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>net.community.chest.j2ee</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.8.1.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>chest-j2ee-jaxrs</artifactId>
+	<packaging>jar</packaging>
+	<name>JAX-RS 1.1 Common Utilities</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>jaxrs-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>net.community.chest.base-utils</groupId>
+			<artifactId>chest-jdk</artifactId>
+		</dependency>
+	</dependencies>
+</project>

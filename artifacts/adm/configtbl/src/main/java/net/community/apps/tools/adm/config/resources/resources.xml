@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+		<!-- holds various GUI resources specifications $Rev: 613 $ -->
+	<resources>
+		<section 	name="main-frame"
+					title="Configuration editor"
+					defaultCloseOperation="EXIT"
+					relativePreferredSize="30,50"
+					relativeSize="30,50"
+					iconImage="Configurator.gif"
+				>
+			<layout class="border"/>
+				<!-- defines the main-menu -->
+			<menu name="main-menu">
+					<!-- NOTE: assigned commands MUST match what the application expects -->
+				<menu text="Configuration" mnemonic="VK_F" actionCommand="file">
+					<accessibleContext description="Loads a configuration view"/>
+					<item text="Connect" mnemonic="VK_C" actionCommand="connect" accelerator="control O" icon="Open.gif"/>
+					<item text="Refresh" mnemonic="VK_E" actionCommand="refresh" accelerator="F5" icon="Refresh.gif"/>
+					<item text="Disconnect" mnemonic="VK_D" actionCommand="disconnect" accelerator="control W" icon="Close.gif"/>
+					<separator/>
+					<item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
+				</menu>
+				<menu text="Help" actionCommand="help" icon="Help.gif">
+					<accessibleContext description="Shows various information about the application"/>
+					<item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
+				</menu>
+			</menu>
+		</section>
+
+		<section 	name="sections-list"
+					layoutOrientation="vertical"
+					selectionMode="single"
+					enabled="false"
+					opaque="true"
+				/>
+
+			<!-- Columns for the values table -->
+		<section name="values-table-model">
+				<!-- see ValuesTableColumn enum -->
+			<column identifier="NAME" 	name="Name"		width="50"/>
+			<column identifier="VALUE"	name="Value"	width="25"/>
+			<!--
+			<column identifier="SOURCE"	name="Original"	width="25"/>
+			-->
+		</section>
+
+			<!-- Values table configuration -->
+		<section	name="values-table-instance"
+					selectionMode="MULTIPLE"
+					showGrid="false"
+					fillsViewportHeight="true"
+					enabled="false"
+					opaque="true"
+			/>
+
+			<!-- dialog used to show the manifest -->
+		<section name="show-manifest-dialog" title="Manifest" modal="true">
+			<column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
+			<column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
+		</section>
+
+		<section name="main-fonts">
+			<font id="default-font" name="Tahoma" style="plain" size="11"/>
+			<font id="log-msgs-font" refid="default-font"/>
+			<font id="public-targets-font" refid="default-font"/>
+			<font id="private-targets-font" refid="public-targets-font" style="italic"/>
+			<font id="default-target-font" refid="public-targets-font" style="bold"/>
+		</section>
+
+		<section name="main-toolbar">
+			<button actionCommand="connect"  icon="Open.gif"		tooltipText="Connects to a configuration instance"/>
+			<button actionCommand="refresh"  icon="Refresh.gif"		tooltipText="Refresh the current view"/>
+			<button actionCommand="disconnect"  icon="Close.gif"	tooltipText="Closes the current view"/>
+		</section>
+
+		<section	name="db-connect-dialog"
+					relativePreferredSize="35,25"
+					relativeSize="35,25"
+					title="Enter connection parameters"
+					modal="true"
+				 >
+			<buttonsPanel>
+				<button text="OK" actionCommand="ok" enabled="false"/>
+			</buttonsPanel>
+				<!-- LR labeled text fields - NOTE: name is assumed to be the
+					DBAccessConfig attribute name (to be used for reflection
+					API access) 
+				-->
+			<field name="driverClass"	title="Driver class"/>
+			<field name="url" 			title="URL"/>
+			<field name="user" 			title="Username"/>
+			<field name="password" 		title="Password"/>
+		</section>
+
+		<section	name="value-edit-dialog"
+					relativePreferredSize="15,10"
+					relativeSize="15,10"
+					title="Edit parameter value"
+					modal="true"
+				 >
+			<buttonsPanel>
+				<button text="OK" actionCommand="ok" enabled="false"/>
+			</buttonsPanel>
+				<!-- LR labeled text fields - NOTE: name is assumed to be the
+					DBAccessConfig attribute name (to be used for reflection
+					API access) 
+				-->
+			<field name="name"	title="Name" />
+			<field name="value" title="Value"/>
+		</section>
+	</resources>

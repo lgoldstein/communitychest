@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="rest-webapp" default="install">
+	<description>
+		Provides some useful ANT tasks involving the entire project
+    </description>
+
+	<dirname property="module.root.folder" file="${ant.file}" />
+	<dirname property="insight.core.folder" file="${module.root.folder}" />
+	<dirname property="insight.root.folder" file="${insight.core.folder}" />
+	<property name="insight.parent.folder" value="${insight.root.folder}${file.separator}parent" />
+	<property name="module.artifact.name" value="${ant.project.name}" />
+	<import file="${insight.parent.folder}${file.separator}build-insight.xml" />
+
+	<target name="compile" depends="run-module-mvn" description="Runs the mvn install command - including all the tests" />
+	<target name="uncompile" depends="clean-module-mvn" description="Runs the mvn clean command - including un-install the artifact from Maven local repository" />
+
+		<!-- ############### Generic targets ############## -->
+
+	<target name="deploy-tomcat-application" if="tomcat.available">
+		<copy file="${module.target.folder}${file.separator}${module.artifact.name}.${war.file.suffix}"
+			  tofile="${tomcat.home}${file.separator}webapps${file.separator}${module.artifact.name}.${war.file.suffix}"
+			  preservelastmodified="true" verbose="true" />
+	</target>
+	<target name="deploy-jboss-application" if="jboss.available">
+		<copy file="${module.target.folder}${file.separator}${module.artifact.name}.${war.file.suffix}"
+			  todir="${jboss.deploy.target.folder}" preservelastmodified="true" verbose="true" />
+	</target>
+
+	<target name="deploy-application"
+			depends="deploy-tomcat-application" />
+	<target name="install" depends="compile,deploy-application"
+			description="Compiles (including all the tests) and deploys the required artifacts" />
+
+	<target name="undeploy-tomcat-application" if="tomcat.available">
+		<delete dir="${tomcat.home}${file.separator}webapps${file.separator}${module.artifact.name}" quiet="true" verbose="true" />
+		<delete file="${tomcat.home}${file.separator}webapps${file.separator}${module.artifact.name}.${war.file.suffix}" quiet="true" verbose="true" />
+	</target>
+	<target name="undeploy-jboss-application" if="jboss.available">
+		<delete file="${jboss.deploy.target.folder}${file.separator}${module.artifact.name}.${war.file.suffix}" quiet="true" verbose="true" />
+	</target>
+
+	<target name="undeploy-application"
+			depends="undeploy-tomcat-application" />
+	<target name="clean"
+			depends="clean-module-mvn,undeploy-application"
+			description="Runs the mvn clean command + undeploys the generated artifacts" />
+
+	<target name="reinstall" depends="clean,install"
+			description="Cleans the artifacts and re-creates them from scratch (including all the tests)" />
+</project>

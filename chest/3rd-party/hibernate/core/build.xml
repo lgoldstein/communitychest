@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-hibernate-core-helpers" default="build-hibernate-core-helpers" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds some helper Hibernate core classes $Rev: 561 $
+		</description>
+
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<property name="module.base.target.name" value="hibernate-core-helpers"/>
+		<dirname property="hibernate.libs.root.dir" file="${module.root.folder}"/>
+		<property name="parent.root.dir" value="${hibernate.libs.root.dir}"/>
+        <property name="default.classpath.ref.name" value="hibernate.core.helpers.path"/>
+
+		<import file="${hibernate.libs.root.dir}${file.separator}build-base.xml"/>
+
+        	<!-- define dependencies -->
+		<mvn:dependencies 	pathId="hibernate.core.dependencies.path" useScope="compile"
+							settingsFile="${maven.settings.file.path}"
+				>
+            <localRepository path="${maven.local.repository.folder}" layout="default"/>
+
+			<dependency groupId="org.hibernate"
+						artifactId="hibernate-core"
+						version="${hibernate.core.jar.version}"
+						scope="compile"/>
+				<!-- Not really needed for compilation but use this
+					occasion to download them -->
+			<dependency groupId="org.hibernate"
+						artifactId="hibernate-annotations"
+						version="${hibernate.annotations.jar.version}"
+						scope="compile"/>
+			<dependency groupId="org.hibernate"
+						artifactId="hibernate-commons-annotations"
+						version="${hibernate.commons.annotations.jar.version}"
+						scope="compile"/>
+				<!-- used by Hibernate -->
+			<dependency groupId="org.slf4j"
+						artifactId="slf4j-api"
+						version="${slf4j.api.jar.version}"
+						scope="compile"/>
+		</mvn:dependencies>
+
+        <path id="hibernate.core.helpers.path">
+        	<path refid="community.modules.jars"/>
+    		<path refid="hibernate.core.dependencies.path"/>
+		</path>
+
+		<target name="build-hibernate-core-helpers" depends="jar-hibernate-libs-module-files" description="Builds helper Hibernate core classes"/>
+		<target name="clean-hibernate-core-helpers" depends="clean-hibernate-libs-module-build" description="Cleans up helper Hibernate core classes and JAR"/>
+	</project>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="tools-apps-base" default="tools-apps-base">
+		<description>
+			Serves as 'base' inclusion file with common definitions for the
+			tools applications $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+        <dirname property="tools.apps.root.dir" file="${ant.file}"/>
+		<dirname property="project.root.dir" file="${tools.apps.root.dir}"/>
+		<property name="parent.root.dir" value="${project.root.dir}"/>
+		<property name="module.root.folder" value="${apache.apps.root.dir}"/>
+		<property name="module.base.target.name" value="tools-apps"/>
+
+		<import file="${project.root.dir}${file.separator}build-base.xml"/>
+		<property name="tools.apps.base.pkg.name" value="${apps.base.pkg.name}.tools"/>
+
+        <target name="tools-apps-base" depends="apps-base" unless="skip.tools.apps.base.target">
+            <property name="skip.tools.apps.base.target" value="true"/>
+        </target>
+
+			<!-- Default target(s) from which modules should derive their own -->
+		<target name="jar-tools-app-module-files" depends="tools-apps-base,jar-project-module-files"/>
+		<target name="clean-tools-app-module-build" depends="tools-apps-base,clean-project-module-build"/>
+
+		<target name="jar-tools-app-application-files" depends="tools-apps-base,jar-application-files"/>
+		<target name="clean-tools-app-application-build" depends="tools-apps-base,clean-module-application"/>
+	</project>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-win32-core-utils" default="build-win32-core-utils">
+		<description>
+			Builds the Win32 core utilities JAR and LIB $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+		<property name="base.win32.root.dir" value="${parent.root.dir}"/>
+		<property name="module.base.target.name" value="win32-core"/>
+		<property name="module.vcproj.name" value="chestwin"/>
+
+		<import file="${base.win32.root.dir}${file.separator}build-base.xml"/>
+
+		<target name="build-win32-core-utils"
+				depends="build-local-products"
+				description="Builds the WIN32 core utilitites JAR and LIB"/>
+		<target name="clean-win32-core-utils"
+				depends="clean-base-win32-module-build,clean-local-products"
+				description="Removes the WIN32 core utilities object files and JAR"/>
+	</project>

@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{20EECF3D-2722-4E6F-A4D4-F750809E600A}</ProjectGuid>
+    <RootNamespace>chestbase32</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>NotSet</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\lib\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">target\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\lib\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">target\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>src\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName)d.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>src\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main\cpp\util\arg2b.cpp" />
+    <ClCompile Include="src\main\cpp\util\arg2dw.cpp" />
+    <ClCompile Include="src\main\cpp\util\arg2mem.cpp" />
+    <ClCompile Include="src\main\cpp\util\arg2w.cpp" />
+    <ClCompile Include="src\main\cpp\util\b2arg.cpp" />
+    <ClCompile Include="src\main\cpp\util\bdt2asc.cpp" />
+    <ClCompile Include="src\main\cpp\util\bharray.cpp" />
+    <ClCompile Include="src\main\cpp\util\boolchar.cpp" />
+    <ClCompile Include="src\main\cpp\util\cases.cpp" />
+    <ClCompile Include="src\main\cpp\util\cbarg.cpp" />
+    <ClCompile Include="src\main\cpp\util\cdwarg.cpp" />
+    <ClCompile Include="src\main\cpp\util\confname.cpp" />
+    <ClCompile Include="src\main\cpp\util\cwarg.cpp" />
+    <ClCompile Include="src\main\cpp\util\dw2arg.cpp" />
+    <ClCompile Include="src\main\cpp\util\dwharray.cpp" />
+    <ClCompile Include="src\main\cpp\util\exc2arg.cpp" />
+    <ClCompile Include="src\main\cpp\util\excl2str.cpp" />
+    <ClCompile Include="src\main\cpp\util\fhexadr.cpp" />
+    <ClCompile Include="src\main\cpp\util\fndstr.cpp" />
+    <ClCompile Include="src\main\cpp\util\fpath.cpp" />
+    <ClCompile Include="src\main\cpp\util\hbarray.cpp" />
+    <ClCompile Include="src\main\cpp\util\hdwarray.cpp" />
+    <ClCompile Include="src\main\cpp\util\hwarray.cpp" />
+    <ClCompile Include="src\main\cpp\util\mem2arg.cpp" />
+    <ClCompile Include="src\main\cpp\util\p2arg.cpp" />
+    <ClCompile Include="src\main\cpp\util\qp2asc.cpp" />
+    <ClCompile Include="src\main\cpp\util\revstr.cpp" />
+    <ClCompile Include="src\main\cpp\util\srchstr.cpp" />
+    <ClCompile Include="src\main\cpp\util\strauxf.cpp" />
+    <ClCompile Include="src\main\cpp\util\strins.cpp" />
+    <ClCompile Include="src\main\cpp\util\strlbld.cpp" />
+    <ClCompile Include="src\main\cpp\util\strlfns.cpp" />
+    <ClCompile Include="src\main\cpp\util\strmap.cpp" />
+    <ClCompile Include="src\main\cpp\util\utf8enc.cpp" />
+    <ClCompile Include="src\main\cpp\util\ver2arg.cpp" />
+    <ClCompile Include="src\main\cpp\util\w2arg.cpp" />
+    <ClCompile Include="src\main\cpp\util\wharray.cpp" />
+    <ClCompile Include="src\main\cpp\util\x2b.cpp" />
+    <ClCompile Include="src\main\cpp\internet\base64.cpp" />
+    <ClCompile Include="src\main\cpp\internet\qpenc.cpp" />
+    <ClCompile Include="src\main\cpp\memory\arch.cpp" />
+    <ClCompile Include="src\main\cpp\memory\Base16.cpp" />
+    <ClCompile Include="src\main\cpp\memory\bufhash.cpp" />
+    <ClCompile Include="src\main\cpp\memory\cmpfns.cpp" />
+    <ClCompile Include="src\main\cpp\memory\datacoll.cpp" />
+    <ClCompile Include="src\main\cpp\memory\fndfns.cpp" />
+    <ClCompile Include="src\main\cpp\memory\ibufbase.cpp" />
+    <ClCompile Include="src\main\cpp\memory\mrgfns.cpp" />
+    <ClCompile Include="src\main\cpp\memory\revbuf.cpp" />
+    <ClCompile Include="src\main\cpp\memory\rfndfns.cpp" />
+    <ClCompile Include="src\main\cpp\memory\rmrgfns.cpp" />
+    <ClCompile Include="src\main\cpp\memory\rsfndfns.cpp" />
+    <ClCompile Include="src\main\cpp\memory\rskipfns.cpp" />
+    <ClCompile Include="src\main\cpp\memory\setfns.cpp" />
+    <ClCompile Include="src\main\cpp\memory\sfndfns.cpp" />
+    <ClCompile Include="src\main\cpp\memory\skipfns.cpp" />
+    <ClCompile Include="src\main\cpp\memory\xlate.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\main\include\_types.h" />
+    <ClInclude Include="src\main\include\util\Base16.h" />
+    <ClInclude Include="src\main\include\util\errors.h" />
+    <ClInclude Include="src\main\include\util\math.h" />
+    <ClInclude Include="src\main\include\util\memory.h" />
+    <ClInclude Include="src\main\include\util\string.h" />
+    <ClInclude Include="src\main\include\util\tables.h" />
+    <ClInclude Include="src\main\include\util\time.h" />
+    <ClInclude Include="src\main\include\util\utf8enc.h" />
+    <ClInclude Include="src\main\include\internet\base64.h" />
+    <ClInclude Include="src\main\include\internet\qpenc.h" />
+    <ClInclude Include="src\main\include\futils\general.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

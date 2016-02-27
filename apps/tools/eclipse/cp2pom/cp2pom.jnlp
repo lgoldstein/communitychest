@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- JNLP File for Eclipse classpath file arranger -->
+<jnlp spec="1.0+" codebase="$$codebase" href="$$name">
+   <information>
+      	<title>CP2POM</title>
+      	<vendor>Net-Community-Chest: Lyor G.</vendor>
+      	<description>Creates a Maven dependencies XML from an Eclipse classpath file</description>
+      	<homepage href="http://java.sun.com/docs/books/tutorial/deployment/webstart/running.html"/>
+      	<description kind="short">Creates a Maven dependencies XML from an Eclipse classpath file</description>
+		<offline-allowed/>
+   </information>
+   <security>
+        <all-permissions/>
+   </security>
+   <resources>
+   		<jar href="bin/net.community-cp2pom.jar"/>
+   		<jar href="lib/net.community-apps-common.jar"/>
+   		<jar href="lib/net.community-maven-helpers.jar"/>
+   		<jar href="lib/net.community-eclipse.jar"/>
+   		<jar href="lib/net.community-gui-helpers.jar"/>   
+   		<jar href="lib/net.community-gui-awt.jar"/>   
+   		<jar href="lib/net.community-gui-swing.jar"/>   
+   		<jar href="lib/net.community-gui-components.jar"/>   
+   		<jar href="lib/net.community-logging.jar"/>   
+   		<jar href="lib/net.community-io.jar"/>   
+   		<jar href="lib/net.community-jdk.jar"/>
+		<j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+   </resources>
+   <application-desc main-class="net.community.apps.eclipse.cp2pom.Main"/>
+</jnlp>

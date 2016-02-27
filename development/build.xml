@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-development" default="build-development" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds the development core JAR(s) $Rev: 576 $
+		</description>
+
+			<!-- Preamble definitions -->
+        <dirname property="project.root.dir" file="${ant.file}"/>
+		<dirname property="community.root.dir" file="${project.root.dir}"/>
+		<property name="parent.folder.dir" value="${community.root.dir}${file.separator}parent" />
+		<property name="parent.root.dir" value="${community.root.dir}"/>
+		<property name="module.root.folder" value="${project.root.dir}"/>
+		<property name="module.base.target.name" value="development"/>
+        <property name="default.classpath.ref.name" value="development.helpers.path"/>
+
+		<property file="${module.root.folder}${file.separator}build.development.properties"/>
+
+		<import file="${parent.folder.dir}${file.separator}build-base.xml"/>
+
+	    	<!-- define dependencies -->
+		<mvn:dependencies 	pathId="development.dependencies.path"
+							useScope="compile"
+						  	settingsFile="${maven.settings.file.path}"
+				>
+	        <localRepository	path="${maven.local.repository.folder}"
+								layout="default"/>
+
+			<dependency groupId="org.hibernate"
+						artifactId="hibernate-core"
+						version="${hibernate.core.jar.version}"
+						scope="compile"/>
+			<dependency groupId="org.slf4j"
+						artifactId="slf4j-api"
+						version="${slf4j.api.jar.version}"
+						scope="compile"/>
+
+			<dependency groupId="commons-fileupload"
+						artifactId="commons-fileupload"
+						version="${commons.fileupload.jar.version}"
+						scope="compile"/>
+			<dependency groupId="javax.media"
+						artifactId="jai-core"
+						version="${jai.core.jar.version}"
+						scope="compile"/>
+			<dependency groupId="org.tmatesoft.svn"
+						artifactId="svnkit"
+						version="${svnkit.jar.version}"
+						scope="compile"/>
+			<dependency groupId="com.jcraft"
+						artifactId="jsch"
+						version="${jsch.jar.version}"
+						scope="compile"/>
+			<dependency groupId="org.apache.maven"
+						artifactId="maven-ant-tasks"
+						version="${maven.ant.tasks.jar.version}"
+						scope="compile"/>
+			<dependency groupId="org.apache.maven"
+						artifactId="maven-plugin-api"
+						version="${maven.release.jar.version}"
+						scope="compile"/>
+			<dependency groupId="org.apache.maven"
+						artifactId="maven-model"
+						version="${maven.release.jar.version}"
+						scope="compile"/>
+			<dependency groupId="org.apache.maven"
+						artifactId="maven-project"
+						version="${maven.release.jar.version}"
+						scope="compile"/>
+			<dependency groupId="org.apache.maven"
+						artifactId="maven-artifact"
+						version="${maven.release.jar.version}"
+						scope="compile"/>
+			<dependency groupId="com.trilead"
+						artifactId="ssh2"
+						version="${trilead.ssh2.version}"
+						scope="compile"/>
+		</mvn:dependencies>
+	
+	    <path id="development.helpers.path">
+	    	<path refid="community.modules.jars"/>
+			<path refid="development.dependencies.path"/>
+		</path>
+
+	    <target name="build-development" depends="community-base" unless="skip.development.target">
+			<mkdir dir="${project.build.dir}"/>
+	        <property name="skip.chest.base.target" value="true"/>
+	    </target>
+	</project>

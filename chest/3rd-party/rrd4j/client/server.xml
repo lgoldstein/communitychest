@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <!-- RRD definitions file $Rev: 561 $ -->
+<mbeans>
+        <!-- step values same as heartbeat for data sources (see below) -->
+    <mbean name="Fiji.server:service=Manager,type=Server" path="${java.io.tmpdir}server.rrd" step="1m">
+          <!-- DsDef element:
+               dsName - data source name - also default MBean attribute name,
+                   unless the 'name' attribute is specified.
+
+                   NOTE: max. DS name is limited to 20 characters that's why the
+                   'name' attribute override may be required. If missing then 'dsName'
+                   is used
+
+               name - the MBean attribute name to use - if missing then 'dsName'
+                   is used (see note for it)
+
+               DsType - DS type - available values are (case insensitive):
+
+                   GAUGE, COUNTER, DERIVE, ABSOLUTE
+
+               heartbeat - if the database does not receive a new value within
+                   the specified heartbeat period then an UNKNOWN is assumed.
+                   The heartbeat must be specified using time units (which will
+                   be converted to the correct RRD4J value - seconds):
+
+                   s - seconds     d - days          y - years
+                   m - minutes     w - weeks
+                   H - hours       M - months
+
+                     examples: 1H (1 hour), 3H30m (3 hours and 30 minutes)
+
+               min/max - min./max. (double) values - if either (or both) is
+                   missing then (U)nknown/(U)nlimited is assumed
+
+           -->
+        <DsDef dsName="FreeMemory" DsType="GAUGE" heartbeat="2m" min="0"/>
+
+        <!-- ArcDef element
+
+            ConsolFun - the consolidation function (case insensitive) - values are:
+
+                AVERAGE, MIN, MAX, LAST, FIRST, TOTAL
+            
+            xff - If more than this factor PDP(s) are UNKNOWN then the CDP
+                value is also declared to be UNKNOWN
+
+            steps - The number of PDP(s) to use as input to the consolidation function
+                in order to create a CDP
+
+            rows - The number of CDP(s) to store in the archive
+        -->
+           <!-- save the raw data for the last 48 hours -->
+        <ArcDef ConsolFun="AVERAGE" xff="0.5" steps="1" rows="2880"/>
+           <!-- Average the last hour and keep it for 1 week -->
+        <ArcDef ConsolFun="AVERAGE" xff="0.5" steps="60" rows="168"/>
+           <!-- Average the last day and keep it for a month -->
+        <ArcDef ConsolFun="AVERAGE" xff="0.5" steps="1440" rows="30"/>
+    </mbean>
+</mbeans>

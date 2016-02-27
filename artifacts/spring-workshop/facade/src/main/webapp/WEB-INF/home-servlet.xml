@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    	xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+			http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd">
+
+	<!-- Configures the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven conversion-service="conversionService" />
+
+		<!-- Automatically registers the @Controller's request mappings -->
+	<context:component-scan base-package="com.vmware.spring.workshop.facade.web" />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently
+		serving up static resources in the ${webappRoot}/resources
+		directory -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+		<!-- Maps view names to Tiles Definitions with support for partial re-rendering -->
+	<bean 	id="viewResolver"
+			class="org.springframework.js.ajax.AjaxUrlBasedViewResolver"
+			p:viewClass="org.springframework.webflow.mvc.view.FlowAjaxTilesView"
+		/>
+
+		<!-- Configures Web Flow to use the "viewResolver" instance already defined for Spring MVC views in servlet-context.xml -->
+	<bean	id="viewFactoryCreator"
+			class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator"
+			p:viewResolvers-ref="viewResolver"
+		/>
+		
+		<!-- Initializes the Apache Tiles CompositeView system -->
+	<bean	id="tilesConfigurer"
+			class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
+			p:definitions="/WEB-INF/**/tiles.xml"
+		/>
+
+		<!-- File upload via multipart form post resolve 
+			one of the properties available; the maximum file size in bytes -->
+	<bean id="multipartResolver"
+		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		 />
+
+	<bean	id="jspViewResolver"
+			class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+			p:viewClass="org.springframework.web.servlet.view.JstlView"
+			p:prefix="WEB-INF/views/"
+			p:suffix=".jsp" 
+		/>
+
+		<!-- initialize the flows registry -->
+	<webflow:flow-registry id="flowRegistry" base-path="/WEB-INF/flows">
+	    <webflow:flow-location-pattern value="/**/*-flow.xml" />
+	</webflow:flow-registry>
+
+		<!-- Make sure we are using the same conversion service and view factory as MVC -->
+	<webflow:flow-builder-services id="flowBuilderServices"
+			    view-factory-creator="viewFactoryCreator"
+		/>
+
+		<!-- see http://static.springsource.org/spring-webflow/docs/2.3.x/reference/html/ch10s05.html -->
+	<webflow:flow-executor id="flowExecutor" flow-registry="flowRegistry">
+	    <webflow:flow-execution-repository max-executions="5" max-execution-snapshots="30" />
+	</webflow:flow-executor>
+	
+		<!-- Enables FlowHandler URL mapping -->
+	<bean	class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter"
+			p:flowExecutor-ref="flowExecutor"
+		 />
+
+	<!-- Maps request paths to flows in the flowRegistry;
+     		e.g. a path of /hotels/booking looks for a flow with id "hotels/booking" -->		
+	<bean 	class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping"
+    		p:flowRegistry-ref="flowRegistry"
+    		p:order="0"
+    	/>
+
+</beans>

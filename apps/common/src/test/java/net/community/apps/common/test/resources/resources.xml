@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+		<!-- holds various GUI resources specifications $Rev: 561 $ -->
+	<resources>
+		<section 	name="main-frame"
+					title="Test"
+					defaultCloseOperation="EXIT"
+					relativePreferredSize="50,30"
+					relativeSize="50,30"
+				>
+			<layout class="border"/>
+				<!-- defines the main-menu -->
+			<menu name="main-menu">
+					<!-- NOTE: assigned commands MUST match what the application expects -->
+				<menu text="File" mnemonic="VK_F" actionCommand="file">
+					<accessibleContext description="Loads the test file"/>
+					<item text="Load" mnemonic="VK_L" actionCommand="load" accelerator="control O"/>
+					<separator/>
+					<item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
+				</menu>
+				<menu text="Actions" actionCommand="actions">
+					<accessibleContext description="Refresh/Update the information"/>
+					<item text="Refresh" mnemonic="VK_R" actionCommand="refresh" accelerator="F5"/>
+				</menu>
+				<menu text="Help" actionCommand="help">
+					<accessibleContext description="Shows various information about the application"/>
+					<item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
+				</menu>
+			</menu>
+		</section>
+
+			<!-- dialog used to show the manifest -->
+		<section name="show-manifest-dialog" title="Manifest" modal="true">
+			<column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
+			<column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
+		</section>
+
+		<section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select file"/>
+	</resources>

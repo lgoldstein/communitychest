@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Super POM included by all other sub-POM(s) $Rev: 739 $ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+			     http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>net.community.chest</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.8.1.0</version>
+		<relativePath>../../parent/pom.xml</relativePath>
+	</parent>
+
+	<groupId>net.community.chest.base-utils</groupId>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>parent</artifactId>
+	<packaging>pom</packaging>
+	<name>Community Chest Base Utilities Parent POM</name>
+
+		<!-- Sub-modules (in preferred compilation order) -->
+	<modules>
+		<module>./jdk</module>
+		<module>./io</module>
+		<module>./jmx</module>
+		<module>./jndi</module>
+		<module>./logging</module>
+		<module>./reflect</module>
+		<module>./xml</module>
+		<module>./math</module>
+	</modules>
+</project>

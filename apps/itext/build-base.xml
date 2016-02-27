@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="itext-apps-base" default="itext-apps-base" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Serves as 'base' inclusion file with common definitions for the iText
+			applications $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+        <dirname property="itext.apps.root.dir" file="${ant.file}"/>
+		<dirname property="project.root.dir" file="${itext.apps.root.dir}"/>
+		<property name="parent.root.dir" value="${project.root.dir}"/>
+		<property name="module.root.folder" value="${itext.apps.root.dir}"/>
+		<property name="module.base.target.name" value="itext-apps"/>
+
+		<import file="${project.root.dir}${file.separator}build-base.xml"/>
+		<property name="itext.apps.base.pkg.name" value="${apps.base.pkg.name}.itext"/>
+
+        <target name="itext-apps-base" depends="apps-base" unless="skip.itext.apps.base.target">
+            <property name="skip.itext.apps.base.target" value="true"/>
+        </target>
+
+			<!-- Default target(s) from which modules should derive their own -->
+		<target name="jar-itext-app-module-files" depends="itext-apps-base,jar-project-module-files"/>
+		<target name="clean-itext-app-module-build" depends="itext-apps-base,clean-project-module-build"/>
+
+		<target name="jar-itext-app-application-files" depends="itext-apps-base,jar-application-files"/>
+		<target name="clean-itext-app-application-build" depends="itext-apps-base,clean-module-application"/>
+	</project>

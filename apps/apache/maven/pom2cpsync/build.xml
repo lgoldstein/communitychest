@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-pom2cpsync" default="build-pom2cpsync" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds the pom2cpsync application
+		</description>
+		
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<dirname property="maven.apps.root.dir" file="${module.root.folder}"/>
+		<property name="parent.root.dir" value="${maven.apps.root.dir}"/>
+		<property name="module.base.target.name" value="pom2cpsync"/>
+
+		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
+		<property name="module.application.base.pkg.name" value="${maven.apps.base.pkg.name}.${module.application.sub.pkg.name}"/>
+
+		<property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
+			  										  ${community.base.pkg.name}-io.${jar.file.suffix},
+													  ${community.base.pkg.name}-logging.${jar.file.suffix},
+													  ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
+			  										  ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
+													  ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
+													  ${community.base.pkg.name}-gui-components.${jar.file.suffix},
+													  ${community.base.pkg.name}-maven-helpers.${jar.file.suffix},
+			  										  ${community.base.pkg.name}-eclipse.${jar.file.suffix},
+													  ${community.base.pkg.name}-apps-common.${jar.file.suffix}"
+			/>
+
+		<target name="copy-extra-pom2cpsync-files" depends="maven-apps-base">
+				<!-- copy some extra files -->
+			<mkdir dir="${module.application.folder}"/>
+			<copy preservelastmodified="true" verbose="true" todir="${module.application.folder}">
+				<fileset dir="${module.root.folder}" includes="pom2cpsync.bat"/>
+			</copy>
+		</target>
+
+		<target name="build-pom2cpsync"
+				depends="jar-maven-app-module-files,
+						 copy-extra-pom2cpsync-files,
+						 jar-application-files"
+				description="Builds POM/CLASSPATH file(s) synchronizer application"/>
+
+		<target name="clean-pom2cpsync"
+				depends="clean-maven-app-module-build,clean-maven-app-application-build"
+				description="Removes the POM/CLASSPATH file(s) synchronizer object files and JAR"/>
+	</project>

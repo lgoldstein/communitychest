@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions	targetNamespace="urn:SpringWorkshop"
+					xmlns="http://schemas.xmlsoap.org/wsdl/"
+					xmlns:apachesoap="http://xml.apache.org/xml-soap"
+					xmlns:impl="urn:SpringWorkshop"
+					xmlns:intf="urn:SpringWorkshop"
+					xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+					xmlns:tns1="http://spring.workshop.vmware.com"
+					xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+					xmlns:wsen="http://schemas.xmlsoap.org/ws/2004/09/enumeration"
+					xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+					xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<schema targetNamespace="urn:SpringWorkshop" xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+			<complexType name="UserDTO">
+				<sequence>
+					<element name="id" nillable="false" type="xsd:long"/>
+					<element name="name" nillable="false" type="xsd:string"/>
+					<element name="loginName" nillable="false" type="xsd:string"/>
+					<element name="password" nillable="false" type="xsd:string"/>
+					<element name="role" nillable="false" type="xsd:string"/>
+					<element name="homeAddress" nillable="false" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="UserDTOList">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="impl:UserDTO[]"/>
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="AccountDTO">
+				<sequence>
+					<element name="id" nillable="false" type="xsd:long"/>
+					<element name="ownerId" nillable="false" type="xsd:long"/>
+					<element name="branchId" nillable="false" type="xsd:long"/>
+					<element name="accountNumber" nillable="false" type="xsd:string"/>
+					<element name="amount" nillable="false" type="xsd:int"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="AccountDTOList">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="impl:AccountDTO[]"/>
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="BranchDTO">
+				<sequence>
+					<element name="id" nillable="false" type="xsd:long"/>
+					<element name="name" nillable="false" type="xsd:string"/>
+					<element name="bankId" nillable="false" type="xsd:long"/>
+					<element name="branchCode" nillable="false" type="xsd:int"/>
+					<element name="location" nillable="false" type="xsd:string"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="BranchDTOList">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="impl:BranchDTO[]"/>
+					</restriction>
+				</complexContent>
+			</complexType>
+		</schema>
+	</wsdl:types>
+
+	<wsdl:message name="userAccountsRequest">
+		<wsdl:part name="userId" type="xsd:long"/>
+	</wsdl:message>
+	<wsdl:message name="userAccountsResponse">
+		<wsdl:part name="userAccounts" type="impl:BranchDTOList"/>
+	</wsdl:message>
+
+	<wsdl:message name="bankBranchesRequest">
+		<wsdl:part name="bankId" type="xsd:long"/>
+	</wsdl:message>
+	<wsdl:message name="bankBranchesResponse">
+		<wsdl:part name="branches" type="impl:BranchDTOList"/>
+	</wsdl:message>
+
+	<wsdl:portType name="SOAPTier">
+		<wsdl:operation name="queryBankBranches" parameterOrder="bankBranchesRequest">
+			<wsdl:input message="impl:bankBranchesRequest" name="bankBranchesRequest"/>
+			<wsdl:output message="impl:bankBranchesResponse" name="bankBranchesResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="SOAPTierSoapBinding" type="impl:SOAPTier">
+		<wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="queryBankBranches" parameterOrder="bankBranchesRequest">
+			<wsdlsoap:operation soapAction=""/>
+			<wsdl:input name="bankBranchesRequest">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:SpringWorkshop" use="encoded"/>
+			</wsdl:input>
+			<wsdl:output name="bankBranchesResponse">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:SpringWorkshop" use="encoded"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="SOAPTierService">
+		<wsdl:port binding="impl:SOAPTierSoapBinding" name="SOAPTier">
+			<wsdlsoap:address location="http://localhost:8080/workshop-facade/ws/SOAPTier"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="munger-parent" default="install">
+	<description>
+		Useful targets for full project build/clean
+    </description>
+
+	<dirname property="module.root.folder" file="${ant.file}" />
+	<property name="munger.parent.folder" value="${module.root.folder}" />
+	<import file="${munger.parent.folder}${file.separator}build-install.xml" />
+
+	
+	<!-- Helper ANT target that runs the build command using the root folder
+			and allowing to specify the extra options. Usage:
+			
+			<antcall target="run-full-build">
+				<param name="run.full.build.options" value="...whatever maven options" />
+			</antcall>
+		-->
+	<target name="run-full-build" depends="compile-base">
+		<antcall target="run-build">
+			<param name="build.run.dir" value="${munger.root.folder}" />
+			<param name="build.run.opts" value="${build.run.opts.value}"/>
+			<param name="build.arg.line" value="${run.full.build.options}"/>
+		</antcall>
+	</target>
+
+	<target name="install" description="Runs the mvn install command - including all the tests">
+		<antcall target="run-full-build">
+			<param name="run.full.build.options" value="${build.run.buildargs.value}"/>
+		</antcall>
+	</target>
+
+	<target name="clean" description="Runs the mvn clean command + removes the generated artifacts">
+		<antcall target="run-full-build">
+			<param name="run.full.build.options" value="${build.run.cleanargs.value}"/>
+		</antcall>
+	</target>
+
+	<target name="re-install" depends="clean,install" description="Re-installs the artifacts from scratch" />
+</project>

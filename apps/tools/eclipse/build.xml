@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-eclipse-tools" default="build-eclipse-tools">
+		<description>
+			Builds Eclipse tools applications $Rev: 561 $
+		</description>
+		
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+
+		<target name="build-cparrange" depends="eclipse-apps-base" unless="skip.build.apps.eclipse.cparrange" description="Builds Eclipse classpath file arranger">
+			<ant dir="${module.root.folder}${file.separator}cparrange" target="build-cparrange" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.apps.eclipse.cparrange" value="true"/>
+		</target>
+
+		<target name="build-cp2pom" depends="eclipse-apps-base" unless="skip.build.apps.eclipse.cp2pom" description="Builds Eclipse classpath file arranger">
+			<ant dir="${module.root.folder}${file.separator}cp2pom" target="build-cp2pom" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.apps.eclipse.cp2pom" value="true"/>
+		</target>
+
+		<target name="build-eclipse-tools" description="Builds Eclipse related tools"
+				depends="build-cparrange,build-cp2pom" 
+			/>
+
+		<target name="clean-eclipse-tools" depends="eclipse-apps-base" description="Cleans Eclipse related tools">
+			<ant dir="${module.root.folder}${file.separator}cparrange" target="clean-cparrange" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}cp2pom" target="clean-cp2pom" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+		</target>
+	</project>

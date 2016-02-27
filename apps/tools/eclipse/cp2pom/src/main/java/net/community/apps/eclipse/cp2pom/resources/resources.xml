@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+		<!-- holds various GUI resources specifications $Rev: 590 $ -->
+	<resources>
+			<!-- defines the main frame -->
+		<section 	name="main-frame"
+					title="Classpath => POM converter"
+					defaultCloseOperation="EXIT"
+					relativePreferredSize="40,30"
+					relativeSize="40,30"
+				>
+			<layout class="border"/>
+				<!-- defines the main-menu -->
+			<menu name="main-menu">
+					<!-- NOTE: assigned commands MUST match what the application expects -->
+				<menu text="File" mnemonic="VK_F" actionCommand="file">
+					<accessibleContext description="Loads the POM file"/>
+					<item text="Load" mnemonic="VK_L" actionCommand="load" accelerator="control O" icon="Open.gif"/>
+					<item text="Save" mnemonic="VK_S" actionCommand="save" accelerator="control S" icon="Save.gif"/>
+					<item text="Refresh" mnemonic="VK_R" actionCommand="refresh" accelerator="F5" icon="Refresh.gif"/>
+					<item text="Run" mnemonic="VK_U" actionCommand="run" accelerator="F7" icon="Run.gif"/>
+					<separator/>
+					<item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
+				</menu>
+				<menu text="Help" actionCommand="help">
+					<accessibleContext description="Shows various information about the application"/>
+					<item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
+					<item text="Usage" mnemonic="VK_U" actionCommand="usage" tooltipText="Shows command line arguments"/>
+				</menu>
+			</menu>
+		</section>
+
+			<!-- Used to configure the text field and button for loading the input file -->
+		<section name="input-panel" buttonLeftPos="true">
+			<button	actionCommand="load" text="Input" tooltipText="Load input file"/>
+			<textField/>
+		</section>
+			<!-- Used to configure the text field and button for saving the output file -->
+		<section name="output-panel" buttonLeftPos="true">
+			<button	actionCommand="save" text="Output" tooltipText="Set output file location"/>
+			<textField/>
+		</section>
+
+			<!-- Used to configure the entries table -->
+		<section	name="entries-table"
+					autoCreateRowSorter="true"
+					selectionMode="MULTIPLE"
+					updateSelectionOnSort="true"
+					cellSelectionEnabled="true"
+			/>
+			<!-- Used to configure the ANT format checkbox -->
+		<section name="output-format"
+				 text="Output as ANT dependencies"
+				 selected="false"
+			/>
+
+			<!-- dialog used to load the ANT build file -->
+		<section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select POM file">
+			<filter class="net.community.chest.ui.helpers.filechooser.FixedNamesListFilter"
+					description="classpath files"
+					folders="false"
+					namesList=".classpath,org.eclipse.wst.common.component"
+				/>
+		</section>
+			<!-- dialog used to save the XML response file -->
+		<section name="save-file-dialog" fileSelectionMode="files" dialogTitle="Select XML output file">
+			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+					description="XML files"
+					exts="xml"
+				/>
+		</section>
+
+			<!-- dialog used to show the manifest -->
+		<section name="show-manifest-dialog" title="Manifest" modal="true">
+			<column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
+			<column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
+		</section>
+
+		<section name="main-fonts">
+			<font id="default-font" name="Tahoma" style="plain" size="11"/>
+		</section>
+
+		<section name="main-toolbar" floatable="false">
+			<button text="Refresh" 	actionCommand="refresh"  icon="Refresh.gif"	tooltipText="Re-load input file"/>
+			<button text="Run" 		actionCommand="run"  	 icon="Run.gif" 	tooltipText="Convert to output file"/>
+		</section>
+	</resources>

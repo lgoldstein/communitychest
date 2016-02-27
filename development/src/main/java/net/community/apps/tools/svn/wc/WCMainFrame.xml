@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frame	name="wc-main-frame"
+		title="SVN Working Copy Browser"
+		defaultCloseOperation="EXIT"
+		relativePreferredSize="50,60"
+		relativeSize="50,60">
+
+	<layout class="border"/>
+
+		<!-- defines the main-menu -->
+	<menu name="main-menu">
+		<!-- NOTE: assigned commands MUST match what the application expects -->
+		<menu text="File" mnemonic="VK_F" actionCommand="file">
+			<accessibleContext description="Manages the working copy location" />
+			<item 	text="Load"
+					mnemonic="VK_L"
+					actionCommand="load"
+					accelerator="control O"
+					icon="Open.gif"
+				/>
+			<item	text="Refresh"
+					mnemonic="VK_E"
+					actionCommand="refresh"
+					accelerator="F5"
+					icon="Refresh.gif"
+				/>
+			<separator/>
+			<item	text="Exit"
+					mnemonic="VK_X"
+					actionCommand="exit"
+					accelerator="alt F4"
+				/>
+		</menu>
+		<menu text="Help" actionCommand="help" icon="Help.gif">
+			<accessibleContext description="Shows various information about the application" />
+			<item	text="About"
+					mnemonic="VK_A"
+					actionCommand="about"
+					accelerator="F1"
+				/>
+		</menu>
+	</menu>
+	
+			<!-- ########### some internal UI components ########### -->
+		<!-- Repository info -->
+	<section name="repo-info" title="Repository" editable="false"/>
+		<!-- Local working copy path -->
+	<section name="wc-local" title="Local path" buttonLeftPos="true"/>
+		<!-- Local working folder chooser -->
+	<section name="load-file-dialog" fileSelectionMode="folders" dialogTitle="Select Working Copy Folder"/>
+		<!-- Local files manager table -->
+	<section	name="files-mgr-tbl"
+				selectionMode="MULTIPLE"
+				showGrid="false"
+				fillsViewportHeight="true"
+				opaque="true"
+		/>
+		<!-- Columns for the files manager table -->
+	<section name="files-mgr-model">
+			<!-- see FilesTableColumns enum -->
+		<column identifier="NAME" 		name="Name"				width="45"/>
+		<column identifier="SIZE" 		name="Size (KB)"		width="10"/>
+		<column identifier="TYPE" 		name="Type"				width="15"/>
+		<column identifier="MODTIME" 	name="Date Modified"	width="20"/>
+		<column identifier="ATTRS" 		name="Attributes"		width="10"/>
+	</section>
+	
+	<section name="files-mgr-popup-menu">
+		<item	text="Show log"
+				actionCommand="svnshowlog"
+				icon="ShowLog.ico"
+			/>
+		<item	text="Check for modifications"
+				actionCommand="svncheckmods"
+				icon="CheckModifications.ico"
+			/>
+		<separator/>
+		<item	text="Update"
+				actionCommand="svnupdate"
+				icon="Update.ico"
+			/>
+		<item	text="Commit"
+				actionCommand="svncommit"
+				icon="Commit.ico"
+			/>
+		<item	text="Revert"
+				actionCommand="svnrevert"
+				icon="Revert.ico"
+			/>
+		<separator/>
+		<item	text="Add"
+				actionCommand="svnadd"
+				icon="Added.ico"
+			/>
+		<item	text="Delete"
+				actionCommand="svndelete"
+				icon="Deleted.ico"
+			/>
+		<separator/>
+		<item	text="Properties"
+				actionCommand="svnprops"
+				icon="Properties.ico"
+			/>
+	</section>
+</frame>

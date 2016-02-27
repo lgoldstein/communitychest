@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="gui-base" default="gui-base" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Serves as 'base' inclusion file with common definitions for the CHEST
+			GUI JAR(s) sub-project(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+        <dirname property="gui.root.dir" file="${ant.file}"/>
+		<basename property="gui.base.name" file="${gui.root.dir}"/>
+        <dirname property="project.root.dir" file="${gui.root.dir}"/>
+		<property name="parent.root.dir" value="${project.root.dir}"/>
+		<property name="module.root.folder" value="${gui.root.dir}"/>
+		<property name="module.base.target.name" value="${gui.base.name}"/>
+
+		<import file="${project.root.dir}${file.separator}build-base.xml"/>
+
+		<target name="gui-base" depends="chest-base" unless="skip.gui.base.target">
+			<property name="skip.gui.base.target" value="true"/>
+		</target>
+
+			<!-- Default target(s) from which modules should derive their own -->
+		<target name="jar-gui-module-files" depends="gui-base,jar-project-module-files"/>
+		<target name="clean-gui-module-build" depends="gui-base,clean-project-module-build"/>
+	</project>

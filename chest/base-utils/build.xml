@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-base-utils" default="build-base-utils">
+		<description>
+			Builds various JEE libraries helpers JAR(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+
+       	<target name="build-jdk-utils" depends="base-utils-base" unless="skip.build.jdk.utils" description="Builds common helpers JDK classes">
+			<ant dir="${module.root.folder}${file.separator}jdk" target="build-jdk-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.jdk.utils" value="true"/>
+		</target>
+
+		<target name="build-io-utils" depends="build-jdk-utils" unless="skip.build.io.utils" description="Builds common helpers I/O classes">
+			<ant dir="${module.root.folder}${file.separator}io" target="build-io-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.io.utils" value="true"/>
+		</target>
+
+		<target name="build-jmx-common" depends="build-io-utils" unless="skip.build.jmx.common" description="Builds common helpers JMX classes">
+			<ant dir="${module.root.folder}${file.separator}jmx" target="build-jmx-common" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.jmx.common" value="true"/>
+		</target>
+
+		<target name="build-logging-common" depends="build-io-utils" unless="skip.build.logging.common" description="Builds common logging classes">
+			<ant dir="${module.root.folder}${file.separator}logging" target="build-logging-common" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.logging.common" value="true"/>
+		</target>
+
+		<target name="build-xml-utils" depends="build-io-utils" unless="skip.build.xml.utils" description="Builds XML helpers classes">
+			<ant dir="${module.root.folder}${file.separator}xml" target="build-xml-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.xml.utils" value="true"/>
+		</target>
+
+       	<target name="build-math-utils" depends="build-io-utils" unless="skip.build.math.utils" description="Builds common helpers math classes">
+			<ant dir="${module.root.folder}${file.separator}math" target="build-math-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.math.utils" value="true"/>
+		</target>
+
+       	<target name="build-jndi-utils" depends="build-jdk-utils" unless="skip.build.jndi.utils" description="Builds common helpers JNDI classes">
+			<ant dir="${module.root.folder}${file.separator}jndi" target="build-jndi-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.jndi.utils" value="true"/>
+		</target>
+
+       	<target name="build-reflection-utils" depends="build-jdk-utils" unless="skip.build.reflection.utils" description="Builds common helpers reflection API classes">
+			<ant dir="${module.root.folder}${file.separator}reflect" target="build-reflection-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.reflection.utils" value="true"/>
+		</target>
+
+		<target name="build-base-utils"
+				depends="build-jmx-common,
+						 build-logging-common,
+						 build-xml-utils,
+						 build-math-utils,
+						 build-jndi-utils,
+						 build-reflection-utils"
+				description="Builds various base utilities libraries helpers"/>
+
+		<target name="clean-base-utils" description="Cleans the base utilities JAR(s)">
+			<ant dir="${module.root.folder}${file.separator}jdk" target="clean-jdk-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}jmx" target="clean-jmx-common" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}io" target="clean-io-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}logging" target="clean-logging-common" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}xml" target="clean-xml-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}math" target="clean-math-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}jndi" target="clean-jndi-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+		</target>
+	</project>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-chest" default="build-chest">
+		<description>
+			Builds the chest core JAR(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+
+		<target name="build-base-utils" depends="chest-base" unless="skip.build.chest.base.utils" description="Builds base utilities jar(s)">
+			<ant dir="${chest.base.utils.root.folder}" target="build-base-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.chest.base.utils" value="true"/>
+		</target>
+
+		<target name="build-mail" depends="build-base-utils" unless="skip.build.chest.mail" description="Builds MAIL jar">
+			<ant dir="${module.root.folder}${file.separator}mail" target="build-mail" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.chest.mail" value="true"/>
+		</target>
+
+		<target name="build-net-utils" depends="build-base-utils,build-mail" unless="skip.build.chest.net" description="Builds NET jar">
+			<ant dir="${module.root.folder}${file.separator}net" target="build-net-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.chest.net" value="true"/>
+		</target>
+
+		<target name="build-gui" depends="build-base-utils" unless="skip.build.chest.gui" description="Builds GUI jar">
+			<ant dir="${module.root.folder}${file.separator}gui" target="build-gui" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.chest.gui" value="true"/>
+		</target>
+
+		<target name="build-db" depends="build-base-utils" unless="skip.build.chest.db" description="Builds DB jar">
+			<ant dir="${module.root.folder}${file.separator}db" target="build-db" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.chest.db" value="true"/>
+		</target>
+
+		<target name="build-3rd-party-libs" depends="build-db" unless="skip.build.3rd.party.libs" description="Build 3rd party helper libraries">
+			<ant dir="${module.root.folder}${file.separator}3rd-party" target="build-3rd-party-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.3rd.party.libs" value="true"/>
+		</target>
+
+		<target name="build-jdk-tools-libs" depends="build-base-utils" unless="skip.build.jdk.tools.lib" description="Build JDK tools helper libraries">
+			<ant dir="${module.root.folder}${file.separator}tools" target="build-jdk-tools-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.jdk.tools.lib" value="true"/>
+		</target>
+
+		<target name="build-web-utils-libs" depends="build-net-utils" unless="skip.build.web.utils.lib" description="Build JDK tools helper libraries">
+			<ant dir="${module.root.folder}${file.separator}web" target="build-web-utils-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.web.utils.lib" value="true"/>
+		</target>
+
+		<target name="build-jee-libs" depends="build-net-utils" unless="skip.build.jee.libs" description="Build JEE helper libraries">
+			<ant dir="${module.root.folder}${file.separator}jee" target="build-jee-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.jee.libs" value="true"/>
+		</target>
+
+		<target name="build-windows" depends="build-base-utils" unless="skip.build.windows.utils" description="Builds WIN32 utilities JAR(s) and LIB(s)">
+			<ant dir="${module.root.folder}${file.separator}windows" target="build-windows" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.windows.utils" value="true"/>
+		</target>
+
+		<!-- Main/default target -->
+		<target name="build-chest" description="Builds the chest core JAR(s)"
+				depends="build-web-utils-libs,
+						 build-gui,
+						 build-db,
+						 build-jdk-tools-libs,
+						 build-3rd-party-libs,
+						 build-jee-libs,
+						 build-windows"
+			/>
+	
+		<target name="clean-chest" depends="community-base" description="Deletes entire chest project BUILD folder">
+			<ant dir="${chest.base.utils.root.folder}" target="clean-base-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+
+			<ant dir="${module.root.folder}${file.separator}net" target="clean-net-utils" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+
+			<ant dir="${module.root.folder}${file.separator}mail" target="clean-mail" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+
+			<ant dir="${module.root.folder}${file.separator}gui" target="clean-gui" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+
+			<ant dir="${module.root.folder}${file.separator}db" target="clean-db" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+
+			<ant dir="${module.root.folder}${file.separator}3rd-party" target="clean-3rd-party-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+
+			<ant dir="${module.root.folder}${file.separator}tools" target="clean-jdk-tools-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+
+			<ant dir="${module.root.folder}${file.separator}web" target="clean-web-utils-libs" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+
+			<ant dir="${module.root.folder}${file.separator}windows" target="clean-windows" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+		</target>
+	</project>

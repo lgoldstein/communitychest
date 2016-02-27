@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialog name="ReflogDialog"
+		modal="true"
+		resizable="true"
+		title="Log History"
+		defaultCloseOperation="DISPOSE"
+		relativePreferredSize="50,60"
+		relativeSize="50,60">
+
+	<layout class="border"/>
+
+	<buttonsPanel>
+		<button	name="nextBtn" actionCommand="next" text="Next" />
+	</buttonsPanel>
+
+	<section name="table">
+		<column name="Name" identifier="NAME" class="java.lang.String"/>
+		<column name="Email" identifier="EMAIL" class="java.lang.String"/>
+		<column name="Timestamp" identifier="TIMESTAMP" class="java.util.Date"/>
+		<column name="Message" identifier="COMMENT" class="java.lang.String"/>
+	</section>
+
+	<section name="message">
+		<border class="titled" title="Comment" />
+	</section>
+</dialog>

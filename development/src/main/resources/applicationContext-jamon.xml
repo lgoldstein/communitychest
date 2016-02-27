@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">	
+	
+		<!-- Disable JAMon by default -->
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	   <property name="targetClass" value="com.jamonapi.MonitorFactory"/>
+	   <property name="targetMethod" value="disable"/>
+	</bean>
+	 
+	<bean id="perfInterceptor" autowire="no" class="org.springframework.aop.interceptor.JamonPerformanceMonitorInterceptor">
+		<property name="trackAllInvocations" value="true"/>
+	</bean>
+	
+	<bean id="prefAutoProxyCreator" autowire="no" 
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="interceptorNames">
+			<value>perfInterceptor</value>
+		</property>
+		<property name="beanNames">
+			<list>
+				<value>*Service</value>
+				<!--value>*Listener</value-->
+                <!--value>*Dispatcher</value-->
+			</list>
+		</property>
+	</bean>
+</beans>

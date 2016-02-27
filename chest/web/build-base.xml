@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="web-utils-base" default="web-utils-base">
+		<description>
+			Serves as 'base' inclusion file with common definitions for the CHEST
+			web utilities JAR(s) sub-project(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+        <dirname property="web.utils.root.dir" file="${ant.file}"/>
+		<basename property="web.utils.base.name" file="${web.utils.root.dir}"/>
+        <dirname property="project.root.dir" file="${web.utils.root.dir}"/>
+		<property name="parent.root.dir" value="${project.root.dir}"/>
+		<property name="module.root.folder" value="${web.utils.root.dir}"/>
+		<property name="module.base.target.name" value="${web.utils.base.name}"/>
+
+		<import file="${project.root.dir}${file.separator}build-base.xml"/>
+
+		<target name="web-utils-base" depends="chest-base" unless="skip.web.utils.base.target">
+			<property name="skip.web.utils.base.target" value="true"/>
+		</target>
+
+			<!-- Default target(s) from which modules should derive their own -->
+		<target name="jar-web-utils-module-files" depends="web-utils-base,jar-project-module-files"/>
+		<target name="clean-web-utils-module-build" depends="web-utils-base,clean-project-module-build"/>
+	</project>

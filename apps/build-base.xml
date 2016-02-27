@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="apps-base" default="apps-base">
+		<description>
+			Serves as 'base' inclusion file with common definitions for the CHEST
+			applications $Rev: 576 $
+		</description>
+
+			<!-- Preamble definitions -->
+        <dirname property="project.root.dir" file="${ant.file}"/>
+		<dirname property="community.root.dir" file="${project.root.dir}"/>
+		<property name="parent.folder.dir" value="${community.root.dir}${file.separator}parent" />
+		<property name="parent.root.dir" value="${community.root.dir}"/>
+		<property name="module.root.folder" value="${project.root.dir}"/>
+		<property name="module.base.target.name" value="apps"/>
+
+		<import file="${parent.folder.dir}${file.separator}build-base.xml"/>
+        <property name="apps.base.pkg.name" value="${community.base.pkg.name}.apps"/>
+
+        <target name="apps-base" depends="community-base" unless="skip.apps.base.target">
+			<mkdir dir="${project.build.dir}"/>
+            <property name="skip.apps.base.target" value="true"/>
+        </target>
+
+		    <!-- Default target(s) from which modules should derive their own -->
+		<target name="jar-project-module-files" depends="apps-base,jar-module-files,zip-module-sources"/>
+		<target name="clean-project-module-build"
+				depends="apps-base,clean-module-target-build"/>
+
+        <!-- +++++++++++ application(s) specific definitions  ++++++++ -->
+			<!-- assumption is that module top-level package is derived from its root folder name -->
+		<basename property="module.application.sub.pkg.name" file="${module.root.folder}"/>
+
+		<property name="module.application.zip.folder" value="${community.bin.folder}"/>
+		<property name="module.app.zip.prefix" value="${module.base.target.name}-${module.target.version}"/>
+		<property name="module.application.zip.name" value="${module.app.zip.prefix}"/>
+		<property name="module.application.zip.location" value="${module.application.zip.folder}${file.separator}${module.application.zip.name}.${zip.file.suffix}"/>
+
+			<!-- useful sub-folder - under which the application and META-INF sub-folder(s) reside -->
+		<property name="module.application.folder" value="${module.target.folder}"/>
+		<property name="module.application.lib.folder" value="${module.application.folder}${file.separator}${lib.sub.folder.name}"/>
+		<property name="module.application.bin.folder" value="${module.application.folder}${file.separator}${bin.sub.folder.name}"/>
+		<property name="module.application.bin.jar.location" value="${module.application.bin.folder}${file.separator}${module.application.zip.name}"/>
+
+			<!-- Makes sure chest libraries are up to date compared to the target JAR -->
+		<target name="check-app-libs-uptodate" depends="apps-base" unless="skip.copy.app.chest.libs">
+			<condition property="skip.copy.app.chest.libs" value="true">
+				<and>
+						<!-- is there a source LIB folder ? -->
+					<available file="${community.lib.folder}" type="dir"/>
+
+						<!-- is there a target directory ? -->
+					<available file="${module.application.lib.folder}" type="dir"/>
+
+						<!-- is there a JAR file ? -->
+					<available file="${module.application.zip.location}"/>
+
+						<!-- check if any of the source file(s) is newer than the JAR target (except for the mainfest istself -->
+					<uptodate>
+						<srcfiles dir="${community.lib.folder}" includes="${module.app.chest.libs}"/>
+						<mapper type="merge" to="${module.application.zip.location}"/>
+					</uptodate>
+				</and>
+			</condition>
+		</target>
+
+			<!-- copy the chest-specific libraries that the application requires -->
+		<target name="copy-app-chest-libs" depends="check-app-libs-uptodate" unless="skip.copy.app.chest.libs">
+			<mkdir dir="${module.application.lib.folder}"/>
+			
+				<!-- copy supporting JAR(s) -->
+			<copy preservelastmodified="true" verbose="true" todir="${module.application.lib.folder}">
+				<fileset dir="${community.lib.folder}" includes="${module.app.chest.libs}"/>
+			</copy>
+		</target>
+
+			<!-- Makes sure application specific libraries are up to date compared to the target JAR -->
+		<target name="check-app-bins-uptodate" depends="apps-base" unless="skip.copy.app.bin.libs">
+			<condition property="skip.copy.app.bin.libs" value="true">
+				<and>
+						<!-- is there a target jar ? -->
+					<available file="${module.application.bin.jar.location}"/>
+	
+						<!-- is there a source jar ? -->
+					<available file="${module.target.jar.file.path}"/>
+
+						<!-- check newer than JAR target -->
+					<uptodate srcfile="${module.target.jar.file.path}" targetfile="${module.application.bin.jar.location}"/>
+				</and>
+			</condition>
+		</target>
+
+		<target name="copy-app-bin-libs" depends="check-app-bins-uptodate" unless="skip.copy.app.bin.libs">
+			<mkdir dir="${module.application.bin.folder}"/>
+				<!-- copy application JAR -->
+			<copy preservelastmodified="true" verbose="true" file="${module.target.jar.file.path}" todir="${module.application.bin.folder}"/>
+		</target>
+
+        <!-- ++++++++++++++++++ MANIFEST file creation +++++++++++++++++++ -->
+
+		<property name="module.application.metainf.folder" value="${module.application.folder}${file.separator}${metainf.sub.folder.name}"/>
+		<property name="module.application.manifest.file.location" value="${module.application.metainf.folder}${file.separator}${manifest.file.name}"/>
+		<property name="module.application.version" value="${module.target.version}"/>
+
+			<!-- useful manifest properties -->
+		<property name="manifest.main.class.attr.name" value="Main-Class"/>
+		<property name="manifest.class.path.attr.name" value="Class-Path"/>
+
+		<target name="create-application-mainfest-file" depends="apps-base" unless="app.manifest.build.skip">
+			<property name="module.application.main.class.path" value="${module.application.base.pkg.name}.Main"/>
+			<echo message="${manifest.main.class.attr.name}: ${module.application.main.class.path}" level="info"/>
+			<tstamp>
+       			<format property="application.manifest.file.touch.time" pattern="yyyy-MM-dd HH:mm:ss Z"/>
+           	</tstamp>
+
+			<mkdir dir="${module.application.metainf.folder}"/>
+
+			<manifest file="${module.application.manifest.file.location}" mode="replace">
+				<attribute name="Created-By" value="${user.name}"/>
+				<attribute name="${manifest.main.class.attr.name}" value="${module.application.main.class.path}"/>
+				<attribute name="Implementation-Vendor" value="Community chest GPL'd - Lyor G."/>
+				<attribute name="Implementation-Build-Time" value="${application.manifest.file.touch.time}"/>
+				<attribute name="Implementation-Build-Version" value="$module.application.version}"/>
+				<attribute name="Implementation-Build-Number" value="${build.number}"/>
+				<attribute name="Implementation-JVM-Version" value="${java.vm.version}"/>
+				<attribute name="Implementation-Build-Type" value="${build.mode}"/>
+				<attribute name="Implementation-Build-Switches" value="Debug=${compile.debug} Deprecation=${compile.deprecation} Optimize=${compile.optimize}"/>
+				<attribute name="Implementation-Build-Versions" value="Source=${javac.source.version} Target=${javac.target.version}"/>
+				<attribute name="Implementation-OS-Info" value="${os.arch} ${os.name}/${os.version}"/>
+			</manifest>
+			<echo message="Created: ${module.application.manifest.file.location}" level="info"/>
+		</target>
+
+        <!-- ++++++++++++++++++ MANIFEST file up-to-date checking +++++++++++++++++++ -->
+
+		<!-- checks if need to update the manifest and sets app.manifest.build.skip property
+			to TRUE. The conditions are:
+
+				(*) the MANIFEST.MF file exists
+			and
+				(*) nothing was changed in the other files (compares timestamp with mainfest file)
+		-->
+		<property name="module.application.jar.include.pattern" value="**${file.separator}*"/>
+		<property name="module.application.jar.exclude.pattern"
+				  value="${metainf.sub.folder.name}${file.separator}${manifest.file.name},
+		      			 ${classes.sub.folder.name}${file.separator}**${file.separator}*,
+	   		  			 ${test.classes.sub.folder.name}${file.separator}**${file.separator}*,
+			  			 ${classes.sub.folder.name},
+						 ${test.classes.sub.folder.name},
+	   		  			 ${maven.archiver.sub.folder.name}${file.separator}**${file.separator}*,
+			  			 ${maven.archiver.sub.folder.name}"
+				/>
+
+		<target name="check-application-manifest-uptodate" depends="apps-base" unless="app.manifest.build.skip">
+			<condition property="app.manifest.build.skip" value="true">
+				<and>
+						<!-- is there a MANIFEST.MF file ? -->
+					<available file="${module.application.manifest.file.location}"/>
+
+						<!-- is there an applications directory ? -->
+					<available file="${module.application.folder}" type="dir"/>
+
+						<!-- check if any of the file(s) is newer than the JAR target (except for the mainfest istself -->
+					<uptodate>
+						<srcfiles dir="${module.application.folder}"
+								  includes="${module.application.jar.include.pattern}"
+							      excludes="${module.application.jar.exclude.pattern}"/>
+						<mapper type="merge" to="${module.application.manifest.file.location}"/>
+					</uptodate>
+				</and>
+			</condition>
+			<!--
+			<echo message="${module.application.manifest.file.location} - app.manifest.build.skip=${app.manifest.build.skip}" level="info"/>
+			-->
+		</target>
+
+        <!-- ++++++++++++++++++ JAR file up-to-date checking +++++++++++++++++++ -->
+
+		<!-- checks if application JAR should be re-built and sets app.jar.build.skip
+			property to TRUE if so. The condition is that the manifest is up-to-date
+          	when compared with the JAR file (if it exists).
+
+			NOTE: the check-application-manifest-uptodate target takes care of checking if
+          	the application files are up-to-date, so if they are not, a more recent MANIFEST.MF
+          	file is created, so this target's condition will be satisfied
+		-->
+		<target name="check-application-jar-uptodate" depends="apps-base" unless="app.jar.build.skip">
+			<condition property="app.jar.build.skip" value="true">
+				<and>
+					<available file="${module.application.zip.location}"/>
+					<uptodate srcfile="${module.application.manifest.file.location}" targetfile="${module.application.zip.location}"/>
+				</and>
+			</condition>
+			<!--
+     		<echo message="${module.application.zip.location} - app.jar.build.skip=${app.jar.build.skip}" level="info"/>
+     		-->
+		</target>
+
+        <!-- +++++++++++++++++ JAR(ing) ++++++++++++++++++++++++++ -->
+			<!-- NOTE !!! executes only the JAR(ing) stage - assumes actual
+				application module JAR has been compiled
+			-->
+		<target name="jar-application-files"
+				depends="copy-app-chest-libs,
+						 copy-app-bin-libs,
+						 check-application-manifest-uptodate,
+						 create-application-mainfest-file,
+						 check-application-jar-uptodate"
+				unless="app.jar.build.skip">
+
+			<mkdir dir="${module.application.zip.folder}"/>
+
+			<zip	destfile="${module.application.zip.location}"
+					duplicate="fail"
+					>
+				<zipfileset dir="${module.application.folder}"
+							prefix="${module.app.zip.prefix}"
+							includes="${module.application.jar.include.pattern}"
+				            excludes="${module.application.jar.exclude.pattern}"/>
+			</zip>
+		</target>
+
+        <!-- +++++++++++++++++ JWS(ing) ++++++++++++++++++++++++++ -->
+
+		<property name="java.web.start.sub.folder.name" value="jws"/>
+		<property name="module.app.jws.folder" value="${module.root.folder}${file.separator}${java.web.start.sub.folder.name}"/>
+		<property name="module.app.jws.webinf.folder" value="${module.app.jws.folder}${file.separator}${webinf.sub.folder.name}"/>
+		<property name="module.app.jws.lib.folder" value="${module.app.jws.webinf.folder}${file.separator}${lib.sub.folder.name}"/>
+
+		<property name="module.app.jws.include.pattern"
+				  value="${module.application.jar.include.pattern}"
+				/>
+		<property name="module.app.jws.exclude.pattern"
+				  value="${module.application.jar.exclude.pattern},
+						 ${lib.sub.folder.name}${file.separator}**${file.separator}*,
+						 ${bin.sub.folder.name}${file.separator}**${file.separator}*,
+						 ${lib.sub.folder.name},
+						 ${bin.sub.folder.name}"
+				/>
+
+		<!-- NOTE !!! assumes called AFTER application ZIP has been created -->
+		<target name="unzip-jws-application">
+			<fail message="Missing ${module.application.zip.location}">
+				<condition>
+					<not>
+						<available file="${module.application.zip.location}" type="file"/>
+					</not>
+				</condition>
+			</fail>
+
+			<mkdir dir="${module.app.jws.folder}"/>
+
+			<unzip 	dest="${module.app.jws.folder}"
+					src="${module.application.zip.location}">
+					<!-- make sure expanded files overlay the current file system -->
+				<mapper type="glob" from="${module.app.zip.prefix}/*" to="*"/>
+			</unzip>
+		</target>
+
+		<property name="module.app.jws.war.folder" value="${community.bin.folder}"/>
+		<property name="module.app.jws.war.base.name" value="${module.app.zip.prefix}"/>
+		<property name="module.app.jws.war.name" value="${module.app.jws.war.base.name}.${war.file.suffix}"/>
+		<property name="module.app.jws.war.location" value="${module.app.jws.war.folder}${file.separator}${module.app.jws.war.name}"/>
+
+		<target name="check-sign-jws-jars" depends="unzip-jws-application" unless="skip.jws.jars.sign">
+			<condition property="skip.jws.jars.sign" value="true">
+				<and>
+						<!-- target folder exists -->
+					<available file="${module.app.jws.folder}" type="dir"/>
+
+						<!-- original ZIP file exists -->
+					<available file="${module.app.jws.war.location}" type="file"/>
+
+						<!-- check if any of the JAR(s) is newer than the WAR target -->
+					<uptodate>
+						<srcfiles dir="${module.app.jws.folder}" includes="**/*.${jar.file.suffix}"/>
+						<mapper type="merge" to="${module.app.jws.war.location}"/>
+					</uptodate>
+				</and>
+			</condition>
+		</target>
+
+		<target name="sign-jws-jars" depends="check-sign-jws-jars" unless="skip.jws.jars.sign">
+			<signjar	alias="${sign.keystore.alias}"
+						storepass="${sign.keystore.password}"
+						keystore="${sign.keystore.location}"
+						lazy="true"
+				>
+				<path>
+					<fileset dir="${module.app.jws.folder}" includes="**/*.${jar.file.suffix}"/>
+				</path>
+			</signjar>
+			<echo message="Signed all JAR(s) in ${module.app.jws.folder}" level="info"/>
+			<property name="skip.jws.jars.sign" value="true"/>
+		</target>
+
+        <!-- +++++++++++++++++ WAR(ing) ++++++++++++++++++++++++++ -->
+
+		<target name="check-jws-war-uptodate" unless="app.jws.war.uptodate">
+			<condition property="app.jws.war.uptodate" value="true">
+				<and>
+						<!-- is there a WAR file ? -->
+					<available file="${module.app.jws.war.location}"/>
+
+						<!-- are any files newer than the WAR ? -->
+					<uptodate>
+						<srcfiles dir="${module.app.jws.folder}" includes="**${file.separator}*"/>
+		  				<mapper type="merge" to="${module.app.jws.war.location}"/>
+					</uptodate>
+				</and>
+			</condition>
+		</target>
+
+		<target name="war-jws-file"
+				depends="sign-jws-jars,check-jws-war-uptodate"
+				unless="app.jws.war.uptodate">
+			<war 	destfile="${module.app.jws.war.location}"
+					needxmlfile="false"
+					duplicate="fail"
+				>
+				<zipfileset dir="${module.app.jws.folder}"
+							prefix="${module.app.zip.prefix}"
+					/>
+			</war>
+		</target>
+
+		<!-- +++++++++++++++++ Cleanup +++++++++++++++++++++++++ -->
+
+		<target name="clean-module-application" depends="apps-base">
+			<delete dir="${module.application.folder}"/>
+			<delete file="${module.application.zip.location}"/>
+		</target>
+	</project>

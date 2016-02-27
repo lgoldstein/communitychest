@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+		<!-- holds various GUI resources specifications -->
+	<resources>
+			<!-- defines the main frame -->
+		<section 	name="main-frame"
+					title="POM=>classpath synchronizer"
+					defaultCloseOperation="EXIT"
+					preferredSize="400,300"
+					size="400,300"
+				>
+			<layout class="border"/>
+				<!-- defines the main-menu -->
+			<menu name="main-menu">
+					<!-- NOTE: assigned commands MUST match what the application expects -->
+				<menu text="File" mnemonic="VK_F" actionCommand="file">
+					<accessibleContext description="Loads the POM file"/>
+						<!-- NOTE: the action command must match the name of the dialog element -->
+					<item text="Load POM file" mnemonic="VK_L" actionCommand="load-POM-dialog" accelerator="control O" icon="Open.gif"/>
+					<item text="Load .classpath file" mnemonic="VK_L" actionCommand="load-classpath-dialog"/>
+					<item text="Refresh" mnemonic="VK_R" actionCommand="refresh" accelerator="F5"/>
+					<separator/>
+					<item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
+				</menu>
+				<menu text="Show" mnemonic="VK_S" actionCommand="show">
+					<accessibleContext description="Filters out entries based on selected state"/>
+						<!-- Note: action command(s) must match DependencyMismatchType enum value(s) -->
+					<item class="radio" text="All" mnemonic="VK_A" actionCommand="ALL" accelerator="control W"/>
+					<item class="radio" text="Matching entries" mnemonic="VK_M" actionCommand="MATCHING"/>
+					<item class="radio" text="Mismatched versions" mnemonic="VK_V" actionCommand="MISMATCHED"/>
+					<item class="radio" text="Missing entries" mnemonic="VK_S" actionCommand="MISSING"/>
+				</menu>
+				<menu text="Help" actionCommand="help" icon="Help.gif">
+					<accessibleContext description="Shows various information about the application"/>
+					<item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
+				</menu>
+			</menu>
+		</section>
+
+			<!-- dialog used to load the POM file -->
+		<section name="load-POM-dialog" fileSelectionMode="files" dialogTitle="Select POM file">
+			<filter class="net.community.chest.ui.helpers.filechooser.FixedFilenameFilter"
+					description="POM files"
+					folders="false"
+					fileName="pom.xml"
+				/>
+		</section>
+			<!-- dialog used to load the .classpath file -->
+		<section name="load-classpath-dialog" fileSelectionMode="files" dialogTitle="Select .classpath file">
+			<filter class="net.community.chest.ui.helpers.filechooser.FixedFilenameFilter"
+					description="classpath files"
+					folders="false"
+					fileName=".classpath"
+				/>
+		</section>
+
+			<!-- dialog used to show the manifest -->
+		<section name="show-manifest-dialog" title="Manifest" modal="true">
+			<column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
+			<column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
+		</section>
+
+			<!-- classpath dependencies panel -->
+		<section name="classpath-details-panel" icon="Eclipse.png">
+		</section>
+
+		<section name="pom-details-panel" icon="Maven.jpg">
+		</section>
+
+		<section name="main-fonts">
+			<font id="default-font" name="Tahoma" style="plain" size="11"/>
+		</section>
+	</resources>

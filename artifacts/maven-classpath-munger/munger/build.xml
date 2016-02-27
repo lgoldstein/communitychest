@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="munger" default="install">
+    <description>
+        Provides some useful ANT tasks involving the entire project
+    </description>
+
+    <dirname property="module.root.folder" file="${ant.file}" />
+    <dirname property="munger.root.folder" file="${module.root.folder}" />
+    <property name="munger.parent.folder" value="${munger.root.folder}${file.separator}parent" />
+    <property name="module.artifact.name" value="${ant.project.name}" />
+    <import file="${munger.parent.folder}${file.separator}build-munger.xml" />
+
+	<target name="deploy-tomcat-artifact" if="tomcat.available" description="Deploys munger to Tomcat 'lib' folder">
+		<copy file="${module.artifact.jar.path}" 
+			  tofile="${tomcat.lib.folder}${file.separator}tomcat-${module.artifact.name}.${jar.file.suffix}"
+	          preservelastmodified="true" verbose="true" />
+	</target>
+
+    <target name="clean-tomcat-artifact" if="tomcat.available" description="Remove munger from Tomcat 'lib' folder">
+        <delete file="${tomcat.lib.folder}${file.separator}tomcat-${module.artifact.name}.${jar.file.suffix}" quiet="true" verbose="true" />
+    </target>
+
+	<target name="install" depends="compile,deploy-tomcat-artifact"
+		    description="Compiles (including all the tests) and deploys the required artifacts" />
+    <target name="clean" depends="uncompile"
+            description="Removes the artifact" />
+    <target name="re-install" depends="clean,install"
+            description="Re-creates and deploys the artifact" />
+</project>

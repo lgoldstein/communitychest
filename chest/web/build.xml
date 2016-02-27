@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-web-utils-libs" default="build-web-utils-libs">
+		<description>
+			Builds variours web utilities libraries JAR(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+
+		<target name="build-servlet-tools" depends="web-utils-base" unless="skip.build.servlet.tools" description="Builds the servlet helpers JAR(s)">
+			<ant dir="${module.root.folder}${file.separator}servlet" target="build-servlet-tools" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.servlet.tools" value="true"/>
+		</target>
+
+		<target name="build-jnlp-servlet" depends="web-utils-base" unless="skip.build.jnlp.servlet" description="Builds the JNLP servlet JAR(s)">
+			<ant dir="${module.root.folder}${file.separator}jnlp-servlet" target="build-jnlp-servlet" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.servlet.tools" value="true"/>
+		</target>
+
+		<target name="build-web-utils-libs" description="Builds variours web utilities JAR(s)"
+                                   depends="build-servlet-tools,build-jnlp-servlet"
+                        />
+		
+		<target name="clean-web-utils-libs" depends="web-utils-base" description="Deletes generated web utilities libraries">
+			<ant dir="${module.root.folder}${file.separator}servlet" target="clean-servlet-tools" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}jnlp-servlet" target="clean-jnlp-servlet" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+		</target>
+	</project>

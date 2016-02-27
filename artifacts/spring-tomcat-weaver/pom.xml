@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-tomcat-weaver</artifactId>
+	<packaging>jar</packaging>
+	<version>3.1.1.RELEASE</version>
+	<parent>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-parent</artifactId>
+		<version>3.1.1.RELEASE</version>
+	</parent>
+
+	<properties>
+		<catalina.version>7.0.25</catalina.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-servlet-api</artifactId>
+			<version>${catalina.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-catalina</artifactId>
+			<version>${catalina.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>

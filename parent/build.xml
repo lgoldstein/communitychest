@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="community-chest" default="install">
+	<description>
+			Builds all projects $Rev: 586 $
+		</description>
+
+	<dirname property="parent.folder.dir" file="${ant.file}"/>
+	<dirname property="community.root.dir" file="${parent.folder.dir}"/>
+	<import file="${parent.folder.dir}${file.separator}build-maven.xml"/>
+
+	<target name="build-chest" depends="community-base" unless="skip.build.chest.projects" description="Builds chest core JAR(s)">
+		<ant dir="${community.root.dir}${file.separator}chest" target="build-chest" inheritall="false">
+			<propertyset refid="inherited-sub-ant-props"/>
+		</ant>
+		<property name="skip.build.chest.projects" value="true"/>
+	</target>
+
+	<target name="build-apps" depends="build-chest" unless="skip.build.apps.projects" description="Builds chest applications JAR(s)">
+		<ant dir="${community.root.dir}${file.separator}apps" target="build-apps" inheritall="false">
+			<propertyset refid="inherited-sub-ant-props"/>
+		</ant>
+		<property name="skip.build.apps.projects" value="true"/>
+	</target>
+
+	<target name="build-all-projects" depends="build-apps" description="Builds all projects"/>
+
+	<target name="clean-apps" depends="community-base" description="Cleans chest applications JAR(s)">
+		<ant dir="${community.root.dir}${file.separator}apps" target="clean-apps" inheritall="false">
+			<propertyset refid="inherited-sub-ant-props"/>
+		</ant>
+	</target>
+
+	<target name="clean-chest" depends="community-base" description="Cleans chest core JAR(s)">
+		<ant dir="${community.root.dir}${file.separator}chest" target="clean-chest" inheritall="false">
+			<propertyset refid="inherited-sub-ant-props"/>
+		</ant>
+	</target>
+
+	<target name="clean-all-projects" depends="clean-apps,clean-chest" description="Cleans all projects"/>
+	
+	<target name="install-parent-pom-file" depends="maven-base" description="Installs the parent POM file">
+		<dirname property="parent.pom.folder" file="${community.parent.pom.file.path}" />
+		<dirname property="parent.pom.install.run.folder" file="${parent.pom.folder}" />
+		<antcall target='run-mvn'>
+			<param name='mvn.run.dir' value='${parent.pom.install.run.folder}' />
+			<param name='mvn.run.opts' value='${maven.module.options}'/>
+			<param name='mvn.arg.line' value='install:install-file -DpomFile=${community.parent.pom.file.path} -Dfile=${community.parent.pom.file.path}'/>
+		</antcall>
+	</target>
+	
+	<target name="mvn-install" depends="install-parent-pom-file,run-module-mvn" description="Runs mvn install" />
+	<target name="mvn-clean" depends="clean-module-mvn" description="Runs mvn clean" />
+	<target name="mvn-uninstall" depends="maven-base" description="Uninstalls all published artifacts">
+		<antcall target='run-mvn'>
+			<param name='mvn.run.dir' value='${module.root.folder}' />
+			<param name='mvn.run.opts' value='${maven.module.options}'/>
+			<param name='mvn.arg.line' value='build-helper:remove-project-artifact -DremoveAll=true'/>
+		</antcall>
+	</target>
+	<target name="mvn-reinstall" depends="mvn-clean,mvn-uninstall,mvn-install" description="Cleans up the repository and re-installs" />
+	
+	<target name="install" depends="mvn-install,build-all-projects" description="Runs ANT + Maven builds successively" />
+	<target name="clean" depends="mvn-clean,mvn-uninstall,clean-all-projects" description="Runs ANT + Maven cleanups successively" />
+	<target name="reinstall" depends="clean,install" description="Runs cleanup followed by installl" />
+</project>

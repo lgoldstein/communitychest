@@ -1,0 +1,24 @@
+*               text=auto
+*.sh            text eol=lf
+*.properties    text eol=lf
+*.groovy        text eol=lf
+*.java          text eol=lf	diff=java
+*.scala         text eol=lf
+*.pl            text eol=lf	diff=perl
+*.awk           text eol=lf
+*.xml           text eol=lf
+*.php           text eol=lf
+*.yaml          text eol=lf
+*.json          text eol=lf
+*.py            text eol=lf	diff=python
+*.js            text eol=lf
+*.bat           text eol=crlf
+*.vbs	        text eol=crlf
+*.jpg           -text -diff
+*.pdf           -text -diff
+*.png           -text -diff
+*.gif           -text -diff
+*.jar           -text -diff
+*.zip           -text -diff
+*.war           -text -diff
+Dockerfile      text eol=lf

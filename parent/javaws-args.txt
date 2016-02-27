@@ -1,0 +1,12 @@
+-xbootclasspath JRE_DIR/lib/javaws.jar;JRE_DIR/lib/deploy.jar;JRE_DIR/lib/plugin.jar
+-classpath JRE_DIR/lib/deploy.jar
+-Djava.security.policy="JRE_DIR/lib/security/javaws.policy"
+-DtrustProxy=true
+-Xverify:remote
+-Djnlpx.home="JRE_DIR/bin"
+-Djnlpx.remove=false
+-Djnlpx.splashport=4582
+-Djnlpx.jvm="JRE_DIR/bin/javaw.exe"
+-Djnlpx.vmargs="-Djava.security.policy=..."
+
+com.sun.javaws.Main "...jnlp-url..."

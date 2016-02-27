@@ -1,0 +1,33 @@
+A few observations about the JWS protocol
+
+- java.io.IOException: File too large can occur for files >= 1MB. Note that
+this is an empirical (!) number and may change per platform/JVM/OS/etc..
+However, it seems that keeping the files ~0.5MB always works.
+
+offline-allowed element - Indicates if the application can be launched off-line
+(that is, without a connection to the originating server). Unless you specify
+it, the application can only be launched online (that is, with a
+connection back to the originating server).
+
+- extension elements must also be JAR(s) otherwise a launch error occurs (complains
+that "missing jnlp element...")
+
+- using unsigned JAR(s) even if network/file/printer access required can be
+achieved via command line invocation of the JAVAWS:
+
+	javaws -J-Djava.security.policy="<POLICY-FILE-LOCATION>" "<JNLP-URL>"
+	
+	Where:
+		POLICY-FILE-LOCATION - location of a file containing the security
+			policy - e.g., to allow ALL permissions simply use a file with
+			the following contents:
+			
+			grant {
+      			// Allow for everything now
+      			permission java.security.AllPermission;
+			};
+
+
+	JNLP-URL - the URL for retrieving the JNLP file - e.g., "http://somehost:someport/file.jnlp"
+	
+		Note: if you omit the "file.jnlp", the default is usually "launch.jnlp"

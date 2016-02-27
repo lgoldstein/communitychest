@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-jmx-common" default="build-jmx-common">
+		<description>
+			Builds the JMX common utilities JAR $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+		<property name="module.base.target.name" value="jmx"/>
+	    <dirname property="base.utils.root.dir" file="${module.root.folder}"/>
+		
+		<import file="${base.utils.root.dir}${file.separator}build-base.xml"/>
+		
+		<target name="build-jmx-common" depends="jar-base-utils-module-files" description="Builds the JMX common utilities JAR"/>
+		<target name="clean-jmx-common" depends="clean-base-utils-module-build" description="Removes the JMX common utilities files and JAR"/>
+	</project>
+

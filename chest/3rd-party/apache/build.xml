@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-apache-libs" default="build-apache-libs" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds the Apache libraries helpers JAR(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+
+		<target name="build-maven-helpers" depends="apache-libs-base" unless="skip.build.maven.helpers" description="Builds MAVEN helpers classes">
+			<ant dir="${apache.maven.helpers.root.folder}" target="build-maven-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.maven.helpers" value="true"/>
+		</target>
+
+			<!-- requires the maven-helpers because of mvnsync task -->
+		<target name="build-ant-helpers" depends="build-maven-helpers" unless="skip.build.ant.helpers" description="Builds ANT helpers classes">
+			<ant dir="${apache.ant.helpers.root.folder}" target="build-ant-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.ant.helpers" value="true"/>
+		</target>
+
+		<target name="build-log4j-helpers" depends="apache-libs-base" unless="skip.build.log4j.helpers" description="Builds LOG4J helpers classes">
+			<ant dir="${module.root.folder}${file.separator}log4j" target="build-log4j-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.log4j.helpers" value="true"/>
+		</target>
+
+		<target name="build-http-client" depends="apache-libs-base" unless="skip.build.http.client" description="Builds HTTP client helpers classes">
+			<ant dir="${module.root.folder}${file.separator}http-client" target="build-http-client" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.http.client" value="true"/>
+		</target>
+
+		<target name="build-ant-core-tasks" depends="apache-libs-base" unless="skip.build.ant.core.tasks" description="Builds ANT core tasks deployable JAR">
+			<ant dir="${module.root.folder}" antfile="build-ant-core-tasks.xml" target="build-ant-core-tasks" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.ant.core.tasks" value="true"/>
+		</target>
+
+		<target name="build-apache-libs"
+				depends="build-ant-helpers,
+						 build-maven-helpers,
+						 build-log4j-helpers,
+						 build-http-client"
+				description="Builds the Apache libraries helpers JAR(s)"/>
+
+		<target name="clean-apache-libs" depends="apache-libs-base" description="Deletes the compiled Apache helpers classes">
+			<ant dir="${apache.ant.helpers.root.folder}" target="clean-ant-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${apache.maven.helpers.root.folder}" target="clean-maven-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}log4j" target="clean-log4j-helpers" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}http-client" target="clean-http-client" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}" antfile="build-ant-core-tasks.xml" target="clean-ant-core-tasks" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+		</target>
+	</project>

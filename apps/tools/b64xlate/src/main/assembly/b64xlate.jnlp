@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- JNLP File for BASE64 xlator -->
+<jnlp spec="1.0+" codebase="$$codebase" href="$$name">
+   <information>
+      	<title>B64XLATE</title>
+      	<vendor>Net-Community-Chest: Lyor G.</vendor>
+      	<description>Converts to/from BASE64 strings</description>
+      	<homepage href="http://java.sun.com/docs/books/tutorial/deployment/webstart/running.html"/>
+      	<description kind="short">Converts to/from BASE64 strings</description>
+		<offline-allowed/>
+   </information>
+   <resources>
+   		<jar href="bin/net.community-b64xlate.jar"/>   
+   		<jar href="lib/net.community-jdk.jar"/>   
+   		<jar href="lib/net.community-io.jar"/>   
+   		<jar href="lib/net.community-mail.jar"/>   
+   		<jar href="lib/net.community-gui-awt.jar"/>   
+   		<jar href="lib/net.community-gui-swing.jar"/>   
+   		<jar href="lib/net.community-gui-helpers.jar"/>   
+   		<jar href="lib/net.community-gui-components.jar"/>
+   		<jar href="lib/net.community-apps-common.jar"/>
+		<j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+   </resources>
+   <application-desc main-class="net.community.apps.tools.b64xlate.Main"/>
+</jnlp>

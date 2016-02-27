@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:ext="http://www.springframework.org/schema/ext"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/ext
+        http://www.springframework.org/schema/ext/spring-ext-3.0.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		">
+		
+	<!-- Configures the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently
+		serving up static resources in the ${webappRoot}/resources
+		directory -->
+	<ext:resources />
+
+	<!-- Scans for annotated @Controller(s) in the classpath -->
+	<context:component-scan base-package="com.springsource.insight.samples.rest.webmvc" />
+
+	<!-- Maps '/' requests to the 'home' view -->
+	<mvc:view-controller path="/" view-name="home"/>
+
+	<!-- Maps view names to Tiles Definitions with support for partial re-rendering -->
+	<bean 	id="viewResolver"
+			class="org.springframework.js.ajax.AjaxUrlBasedViewResolver"
+			p:viewClass="org.springframework.webflow.mvc.view.FlowAjaxTilesView"
+		/>
+
+	<!-- Configures Web Flow to use the "viewResolver" instance already defined for Spring MVC views in servlet-contex.xml -->
+	<bean	id="viewFactoryCreator"
+			class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator"
+			p:viewResolvers-ref="viewResolver"
+		/>
+		
+	<!-- Initializes the Apache Tiles CompositeView system -->
+	<bean	id="tilesConfigurer"
+			class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
+			p:definitions="/WEB-INF/**/tiles.xml"
+		/>
+</beans>

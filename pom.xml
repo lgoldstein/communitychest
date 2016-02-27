@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>root</artifactId>
+	<packaging>pom</packaging>
+	<name>Community Chest Root POM</name>
+	
+	<parent>
+		<groupId>net.community.chest</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.8.1.0</version>
+		<relativePath>./parent</relativePath>
+	</parent>
+
+	<!-- Sub-modules (in preferred compilation order) -->
+	<modules>
+		<module>parent</module>
+		<module>chest</module>
+		<module>apps</module>
+		<module>artifacts</module>
+	</modules>
+</project>

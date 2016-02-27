@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-log4j-helpers" default="build-log4j-helpers" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds some helper LOG4J classes $Rev: 561 $
+		</description>
+
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<property name="module.base.target.name" value="log4j-helpers"/>
+		<dirname property="apache.libs.root.dir" file="${module.root.folder}"/>
+		<property name="parent.root.dir" value="${apache.libs.root.dir}"/>
+        <property name="default.classpath.ref.name" value="log4j.helpers.path"/>
+
+		<import file="${apache.libs.root.dir}${file.separator}build-base.xml"/>
+
+        	<!-- define dependencies -->
+		<mvn:dependencies 	pathId="log4j.dependencies.path" useScope="compile"
+							settingsFile="${maven.settings.file.path}"
+				>
+            <localRepository path="${maven.local.repository.folder}" layout="default"/>
+
+			<dependency groupId="log4j" artifactId="log4j" version="${log4j.jar.version}" scope="compile"/>
+		</mvn:dependencies>
+
+        <path id="log4j.helpers.path">
+        	<path refid="community.modules.jars"/>
+    		<path refid="log4j.dependencies.path"/>
+		</path>
+
+		<target name="build-log4j-helpers" depends="jar-apache-libs-module-files" description="Builds helper LOG4J classes"/>
+		<target name="clean-log4j-helpers" depends="clean-apache-libs-module-build" description="Cleans up helper LOG4J classes and JAR"/>
+	</project>

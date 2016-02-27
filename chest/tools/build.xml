@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-jdk-tools-libs" default="build-jdk-tools-libs">
+		<description>
+			Builds variours JDK tools helpers libraries helpers JAR(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+
+		<target name="build-javadoc-tools" depends="jdk-tools-base" unless="skip.build.javadoc.tools" description="Builds the Javadoc helpers JAR(s)">
+			<ant dir="${module.root.folder}${file.separator}javadoc" target="build-javadoc-tools" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.javadoc.tools" value="true"/>
+		</target>
+
+		<target name="build-jdk-tools-libs" depends="build-javadoc-tools" description="Builds variours JDK tools libraries helpers JAR(s)"/>
+		
+		<target name="clean-jdk-tools-libs" depends="jdk-tools-base" description="Deletes generated JDK tools libraries">
+			<ant dir="${module.root.folder}${file.separator}javadoc" target="clean-javadoc-tools" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+		</target>
+	</project>

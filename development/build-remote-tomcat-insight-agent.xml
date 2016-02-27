@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-remote-tomcat-insight-agent" default="build-remote-tomcat-insight-agent">
+	<description>
+		Installs a remote Tomcat Insight agent using a given template
+	</description>
+
+	<dirname property="script.root.dir" file="${ant.file}"/>
+
+		<!-- import the environment -->
+	<property environment="env"/>
+	
+		<!-- TODO provide some default and/or import it from a properties file -->
+	<property name="insight.templates.root.folder"
+			  value="C:${file.separator}Projects${file.separator}insight" />
+	<property name="insight.template.version" value="1.1.0.BETA1" />
+	<property name="insight.template.build.number" value="" />
+	<property name="insight.conversions.temp.dir" value="${java.io.tmpdir}" />
+	<property name="insight.verbose.conversion" value="true" />
+	<property name="insight.setenv.files.folder" value="${script.root.dir}" />
+
+	<property name="insight.agent.template.base.name" value="springsource-insight-tc-server-agent" />
+	<property name="insight.agent.template.build.name" value="" />
+	<property name="insight.agent.template.folder.name" value="${insight.agent.template.base.name}-${insight.template.version}${insight.agent.template.build.name}" />
+	<property name="insight.agent.template.zip.name" value="${insight.agent.template.base.name}-${insight.template.version}${insight.template.build.number}" />
+
+	<property name="remote.host.name" value="tlv-bb-master" />
+	<property name="remote.user.name" value="lgoldstein" />
+	<property name="remote.tomcat.installation.root.dir" value="/mts-tlv/home/lgoldstein/apache-tomcat-6.0.29" />
+
+	<target name="input-remote-hostname" unless="remote.host.name">
+		<input message="Remote host name/address:" addproperty="remote.host.name" />
+	</target>
+	<target name="input-remote-username" unless="remote.user.name">
+		<input message="Username:" addproperty="remote.user.name" />
+	</target>
+	<target name="input-remote-password" unless="remote.password">
+		<input message="Password:" addproperty="remote.password" />
+	</target>
+	<target name="input-remote-folder" unless="remote.tomcat.installation.root.dir">
+		<input message="Remote installation location:" addproperty="remote.tomcat.installation.root.dir" />
+	</target>
+	<target name="input-work-arguments" depends="input-remote-hostname,input-remote-username,input-remote-password,input-remote-folder">
+		<property name="scp.remote.target.dir"
+				  value="${remote.user.name}@${remote.host.name}:${remote.tomcat.installation.root.dir}" />
+	</target>
+
+	<property name="insight.agent.template.zip.path" value="${insight.templates.root.folder}${file.separator}${insight.agent.template.zip.name}.zip" />
+	<property name="insight.agent.template.unpack.root" value="${insight.conversions.temp.dir}${file.separator}${insight.agent.template.zip.name}" /> 
+	<target name="verify-unpack-template-required">
+		<condition property="skip.insight.template.unpack" value="true">
+			<and>
+				<available file="${insight.agent.template.unpack.root}" type="dir" />
+
+				<uptodate>
+					<srcfiles dir="${insight.agent.template.unpack.root}" includes="**${file.separator}*"/>
+					<mapper type="merge" to="${insight.agent.template.zip.path}"/>
+				</uptodate>
+			</and>
+		</condition>
+	</target>
+
+	<target name="unpack-template-zip" depends="verify-unpack-template-required"
+			unless="skip.insight.template.unpack"
+			description="Copies the contents of the template zip to the remote installation location">
+		<mkdir dir="${insight.agent.template.unpack.root}" />
+		<unzip src="${insight.agent.template.zip.path}" dest="${insight.agent.template.unpack.root}">
+			<globmapper from="${insight.agent.template.folder.name}/*" to="*" />
+		</unzip>
+	</target>
+
+	<target name="extract-extra-jars-versions" depends="unpack-template-zip"
+			description="Extracts extra JAR(s) versions to be used in CLASSPATH">
+		<pathconvert property="insight.bootstrap.tcserver.jar.path" setonempty="false">
+			<path>
+				<fileset dir="${insight.agent.template.unpack.root}${file.separator}bin" includes="insight-bootstrap-tcserver-*.jar" />
+			</path>
+		</pathconvert>
+		<fail message="No insight-bootstrap-tcserver JAR found">
+			<condition>
+				<not><isset property="insight.bootstrap.tcserver.jar.path" /></not>
+			</condition>
+		</fail>
+		<basename property="insight.bootstrap.tcserver.jar.version" file="${insight.bootstrap.tcserver.jar.path}" />
+		<echo level="info" message="insight.bootstrap.tcserver.jar.version=${insight.bootstrap.tcserver.jar.version}" />
+
+		<pathconvert property="insight.aspectjweaver.jar.path" setonempty="false">
+			<path>
+				<fileset dir="${insight.agent.template.unpack.root}${file.separator}lib" includes="aspectjweaver-*.jar" />
+			</path>
+		</pathconvert>
+		<fail message="No aspectjweaver JAR found">
+			<condition>
+				<not><isset property="insight.aspectjweaver.jar.path" /></not>
+			</condition>
+		</fail>
+		<basename property="insight.aspectjweaver.jar.version" file="${insight.aspectjweaver.jar.path}" />
+		<echo level="info" message="insight.aspectjweaver.jar.version=${insight.aspectjweaver.jar.version}" />
+	</target>
+
+	<target name="create-setenv-files" depends="extract-extra-jars-versions"
+			description="Creates the setenv.sh+BAT file(s) in the bin folder">
+		<copy todir="${insight.agent.template.unpack.root}${file.separator}bin"
+			  preservelastmodified="true" verbose="${insight.verbose.conversion}">
+			<fileset dir="${insight.setenv.files.folder}" includes="setenv.*" />
+			<filterset>
+				<filter token="ASPECTJWEAVER" value="${insight.aspectjweaver.jar.version}"/>
+				<filter token="TCSERVERBOOTSTRAP" value="${insight.bootstrap.tcserver.jar.version}"/>
+			</filterset>
+		</copy>
+
+		<fixcrlf srcdir="${insight.agent.template.unpack.root}${file.separator}bin"
+				 preservelastmodified="true"
+				 includes="*.sh" eol="unix" eof="remove" />
+	</target>
+
+	<target name="remote-copy-unpacked-template" depends="input-work-arguments,create-setenv-files"
+			description="Copies the unpacked template to the remote location">
+		<scp todir="${scp.remote.target.dir}" password="${remote.password}" verbose="${insight.verbose.conversion}">
+			<fileset dir="${insight.agent.template.unpack.root}" includes="**/*" />
+		</scp>
+			<!-- make sure all *.sh files have execute permissions -->
+		<sshexec host="${remote.host.name}"
+				 username="${remote.user.name}"
+				 password="${remote.password}"
+				 verbose="${insight.verbose.conversion}"
+				 command="chmod a+x ${remote.tomcat.installation.root.dir}/bin/*.sh"
+			/>
+	</target>
+
+	<target name="build-remote-tomcat-insight-agent"
+			depends="remote-copy-unpacked-template">
+	</target>
+</project>

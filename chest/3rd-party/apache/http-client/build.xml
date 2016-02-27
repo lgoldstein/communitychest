@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-http-client" default="build-http-client" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds some helper HTTP client classes $Rev: 561 $
+		</description>
+
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<property name="module.base.target.name" value="http-client"/>
+		<dirname property="apache.libs.root.dir" file="${module.root.folder}"/>
+		<property name="parent.root.dir" value="${apache.libs.root.dir}"/>
+        <property name="default.classpath.ref.name" value="http.client.helpers.path"/>
+
+		<import file="${apache.libs.root.dir}${file.separator}build-base.xml"/>
+
+        	<!-- define dependencies -->
+		<mvn:dependencies	pathId="http.client.dependencies.path" useScope="compile"
+  			  				settingsFile="${maven.settings.file.path}"
+				>
+            <localRepository path="${maven.local.repository.folder}" layout="default"/>
+
+			<dependency groupId="commons-httpclient"
+						artifactId="commons-httpclient"
+						version="${commons.httpclient.jar.version}"
+						scope="compile"/>
+			<dependency	groupId="slide"
+						artifactId="slide-webdavlib"
+						version="${slide.webdavlib.jar.version}"
+						scope="compile"/>
+		</mvn:dependencies>
+
+        <path id="http.client.helpers.path">
+        	<path refid="community.modules.jars"/>
+    		<path refid="http.client.dependencies.path"/>
+		</path>
+
+		<target name="build-http-client" depends="jar-apache-libs-module-files" description="Builds helper HTTP client classes"/>
+		<target name="clean-http-client" depends="clean-apache-libs-module-build" description="Cleans up helper HTTP client classes and JAR"/>
+	</project>

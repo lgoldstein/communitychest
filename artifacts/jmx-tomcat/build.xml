@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-jmx-tomcat" default="build-jmx-tomcat" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds JMX servlet WAR $Rev: 613 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="project.root.dir" file="${ant.file}"/>
+		<dirname property="artifacts.root.dir" file="${project.root.dir}"/>
+		<property name="module.root.folder" value="${project.root.dir}"/>
+		<property name="module.base.target.name" value="jmx-tomcat"/>
+		<property name="default.classpath.ref.name" value="jmx.tomcat.path"/>
+		<import file="${artifacts.root.dir}${file.separator}build-base.xml"/>
+
+	    	<!-- define dependencies -->
+		<mvn:dependencies 	pathId="jmx.tomcat.dependencies.path" useScope="compile"
+							settingsFile="${maven.settings.file.path}"
+				>
+	        <localRepository path="${maven.local.repository.folder}" layout="default"/>
+	
+			<dependency groupId="javax.servlet"
+						artifactId="servlet-api"
+						version="${servlet.api.jar.version}"
+						scope="compile"/>
+		</mvn:dependencies>
+
+	    <path id="jmx.tomcat.path">
+	    	<path refid="community.modules.jars"/>
+			<path refid="jmx.tomcat.dependencies.path"/>
+		</path>
+
+		<property name="target.war.file.name" value="${module.base.target.name}.${war.file.suffix}"/>
+		<property name="target.war.file.path" value="${community.bin.folder}${file.separator}${target.war.file.name}"/>
+		<property name="target.war.lib.files" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
+			 										 ${community.base.pkg.name}-mail.${jar.file.suffix},
+													 ${community.base.pkg.name}-net.${jar.file.suffix},
+													 ${community.base.pkg.name}-web-servlet.${jar.file.suffix}"/>
+
+		<target name="check-jmx-tomcat-uptodate" depends="compile-module-classes" unless="jmx.tomcat.war.uptodate">
+			<condition property="jmx.tomcat.war.uptodate" value="true">
+				<and>
+						<!-- is there a WAR file ? -->
+					<available file="${target.war.file.path}"/>
+
+						<!-- are any Web class files newer than the WAR ? -->
+					<uptodate>
+						<srcfiles dir="${module.classes.folder}" includes="**${file.separator}/*"/>
+		  				<mapper type="merge" to="${target.war.file.path}"/>
+					</uptodate>
+
+						<!-- are any JAR(s) newer than the WAR ? -->
+					<uptodate>
+						<srcfiles dir="${community.lib.folder}" includes="${target.war.lib.files}"/>
+		  				<mapper type="merge" to="${target.war.file.path}"/>
+					</uptodate>
+
+						<!-- are any Web application files newer than the WAR ? -->
+					<uptodate>
+						<srcfiles dir="${module.webapp.folder}" includes="**${file.separator}/*"/>
+		  				<mapper type="merge" to="${target.war.file.path}"/>
+					</uptodate>
+				</and>
+			</condition>
+		</target>
+
+		<target name="build-jmx-tomcat" depends="check-jmx-tomcat-uptodate" unless="jmx.tomcat.war.uptodate"
+				description="Build JMX Tomcat servlet">
+			<antcall target="create-module-manifest-file"/>
+
+			<war	destfile="${target.war.file.path}"
+					webxml="${module.webinf.folder}${file.separator}web.xml"
+					manifest="${module.manifest.file.path}"
+					duplicate="fail">
+				<lib dir="${community.lib.folder}" includes="${target.war.lib.files}"/>
+				<lib dir="${maven.local.repository.folder}${file.separator}log4j${file.separator}log4j${file.separator}${log4j.jar.version}" includes="log4j-${log4j.jar.version}.${jar.file.suffix}"/>
+				<classes dir="${module.classes.folder}" includes="**${file.separator}/*"/>
+			</war>
+		</target>
+
+		<target name="clean-jmx-tomcat" depends="clean-module-target-build" description="Cleans the JMX Tomcat servlet">
+			<delete file="${target.war.file.path}"/>
+		</target>
+	</project>

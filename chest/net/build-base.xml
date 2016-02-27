@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="base-net" default="base-net" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Serves as 'base' inclusion file with common definitions for the CHEST
+			net utils JAR(s) sub-project(s) $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+        <dirname property="base.net.root.dir" file="${ant.file}"/>
+		<basename property="base.net.base.name" file="${base.net.root.dir}"/>
+        <dirname property="project.root.dir" file="${base.net.root.dir}"/>
+		<property name="parent.root.dir" value="${project.root.dir}"/>
+		<property name="module.root.folder" value="${base.net.root.dir}"/>
+		<property name="module.base.target.name" value="${base.net.base.name}"/>
+
+		<import file="${project.root.dir}${file.separator}build-base.xml"/>
+
+		<target name="base-net" depends="chest-base" unless="skip.base.net.target">
+			<property name="skip.base.net.target" value="true"/>
+		</target>
+
+			<!-- Default target(s) from which modules should derive their own -->
+		<target name="jar-base-net-module-files" depends="base-net,jar-project-module-files"/>
+		<target name="clean-base-net-module-build" depends="base-net,clean-project-module-build"/>
+	</project>

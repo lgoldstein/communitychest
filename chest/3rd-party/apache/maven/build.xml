@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-maven-helpers" default="build-maven-helpers" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds some helper MAVEN classes $Rev: 561 $
+		</description>
+
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<property name="module.base.target.name" value="maven-helpers"/>
+		<dirname property="apache.libs.root.dir" file="${module.root.folder}"/>
+		<property name="parent.root.dir" value="${apache.libs.root.dir}"/>
+
+		<import file="${apache.libs.root.dir}${file.separator}build-base.xml"/>
+
+		<target name="build-maven-helpers" depends="jar-apache-libs-module-files" description="Builds helper MAVEN classes"/>
+		<target name="clean-maven-helpers" depends="clean-apache-libs-module-build" description="Cleans up helper MAVEN classes and JAR"/>
+	</project>

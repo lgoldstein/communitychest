@@ -1,0 +1,15 @@
+target/
+build/
+Servers/
+.metadata/
+.recommenders/
+.settings/
+RemoteSystemsTempFiles/
+_ajdump/
+.springBeans
+*.ffs_db
+.externalToolBuilders
+.svn/
+dependency-reduced-pom.xml
+alfresco.log
+*.ffs_lock

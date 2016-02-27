@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-apps" default="build-apps">
+		<description>
+			Builds all applications $Rev: 561 $
+		</description>
+
+			<!-- Preamble definitions -->
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+
+		<target name="build-apps-common" depends="apps-base" unless="skip.build.apps.common" description="Builds common applications API">
+			<ant dir="${module.root.folder}${file.separator}common" target="build-apps-common" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.apps.common" value="true"/>
+		</target>
+
+		<target name="build-apache-apps" depends="build-apps-common" unless="skip.build.apache.apps" description="Builds ANT applications">
+			<ant dir="${module.root.folder}${file.separator}apache" target="build-apache-apps" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.apache.apps" value="true"/>
+		</target>
+
+		<target name="build-tools-apps" depends="build-apps-common" unless="skip.build.tools.apps" description="Builds ANT applications">
+			<ant dir="${module.root.folder}${file.separator}tools" target="build-tools-apps" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.tools.apps" value="true"/>
+		</target>
+
+		<target name="build-itext-apps" depends="build-apps-common" unless="skip.build.itext.apps" description="Builds ANT applications">
+			<ant dir="${module.root.folder}${file.separator}itext" target="build-itext-apps" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<property name="skip.build.itext.apps" value="true"/>
+		</target>
+
+		<target name="build-apps" description="Builds all applications"
+				depends="build-apache-apps,
+						 build-tools-apps,
+						 build-itext-apps"
+			/>
+
+		<target name="clean-apps" depends="apps-base" description="Cleans up all applications">
+			<ant dir="${module.root.folder}${file.separator}common" target="clean-apps-common" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}apache" target="clean-apache-apps" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}tools" target="clean-tools-apps" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+			<ant dir="${module.root.folder}${file.separator}itext" target="clean-itext-apps" inheritall="false">
+				<propertyset refid="inherited-sub-ant-props"/>
+			</ant>
+
+				<!-- make sure -->
+			<delete dir="${project.build.dir}" quiet="true"/>
+		</target>
+	</project>

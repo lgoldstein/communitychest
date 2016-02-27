@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<tx:annotation-driven />
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<!-- property name="location" value="classpath:/jdbc.properties" / -->
+			<property name="locations">
+				<list>
+					<value>classpath:/jdbc.properties</value>
+				</list>
+			</property>
+	</bean>
+
+  <bean id="messageSource"
+        class="org.springframework.context.support.ResourceBundleMessageSource">
+    <property name="basenames">
+      <list>
+        <value>com/emc/fiji/server/service/notification/email/email-message</value>
+      </list>
+    </property>
+  </bean>
+
+	<!-- bean id="applicationStartupHookService" class="com.emc.ajax.service.ApplicationStartupHookServiceImpl"
+		init-method="startup">
+		<property name="administrationService" ref="administrationService"/>
+		<property name="knowledgeBaseService" ref="knowledgeBaseService"/>
+		</bean>
+	-->
+	<bean id="reportsWS"
+		 class="com.emc.fiji.server.service.ws.WebServicesServerImpl">
+		 <property name="reportService" ref="reportService"></property>
+	</bean>
+
+	<bean id="parameterValueService"
+		class="com.emc.fiji.server.service.ParameterValueServiceImpl">
+		<property name="dao" ref="parameterValueDao" />
+	</bean>
+
+	<bean id="policyService"
+		class="com.emc.fiji.server.service.PolicyServiceImpl">
+		<property name="dao" ref="policyDao"/>
+		<property name="scopeService" ref="scopeService"/>
+		<property name="policyRuleService" ref="policyRuleService"/>
+		<property name="complianceInfoDao" ref="complianceInfoDao"/>
+	</bean>
+	<bean id="policyGroupService"
+		class="com.emc.fiji.server.service.PolicyGroupServiceImpl">
+		<property name="dao" ref="policyGroupDao"/>
+		<property name="policyService" ref="policyService"/>
+	</bean>
+
+	<bean id="noteService" class="com.emc.fiji.server.service.NoteServiceImpl">
+		<property name="dao" ref="noteDao"/>
+		<property name="breachDao" ref="breachDao"/>
+		<property name="changeEventDao" ref="changeEventDao"/>
+	</bean>
+
+	<bean id="policyRuleService"
+		class="com.emc.fiji.server.service.PolicyRuleServiceImpl">
+				<property name="complianceInProgressDao" ref="complianceInProgressDao"/>
+		<property name="dao" ref="policyRuleDao" />
+	</bean>
+	<bean id="ruleService"
+		class="com.emc.fiji.server.service.RuleServiceImpl">
+		<property name="dao" ref="ruleDao" />
+	</bean>
+	<bean id="breachService"
+		class="com.emc.fiji.server.service.BreachServiceImpl">
+		<property name="dao" ref="breachDao" />
+		<property name="noteDao" ref="noteDao"/>
+		<property name="pendingBreachDao" ref="pendingBreachDao"/>
+		<property name="policyRuleService" ref="policyRuleService"/>
+		<property name="policyService" ref="policyService"></property>
+	</bean>
+	<bean id="scopeService"
+		class="com.emc.fiji.server.service.scope.ScopeServiceImpl">
+		<property name="dao" ref="scopeDao" />
+		<property name="policyRuleService" ref="policyRuleService"/>
+		<property name="elementService" ref="elementService" />
+		<property name="dmDao" ref="dmDao"/>
+	</bean>
+
+	<bean id="SDMDao" class="com.emc.fiji.server.persistence.dao.dmt.SDMDaoImpl">
+	</bean>
+
+	<bean id="GDPMDao" class="com.emc.fiji.server.persistence.dao.dmt.GDPMDaoImpl">
+	</bean>
+
+	<bean id="PathDao" class="com.emc.fiji.server.persistence.dao.dmt.PathDaoImpl">
+	</bean>
+
+	<bean id="elementService"
+		class="com.emc.fiji.server.service.scope.ElementServiceImpl">
+		<property name="dao" ref="elementDao" />
+		<property name="SDMDao" ref="SDMDao" />
+		<property name="GDPMDao" ref="GDPMDao" />
+		<property name="pathDao" ref="PathDao" />
+	</bean>
+
+	<bean id="elementPropertyService"
+		class="com.emc.fiji.server.service.scope.ElementPropertyServiceImpl">
+		<property name="dao" ref="elementPropertyDao" />
+	</bean>
+	<bean id="criteriaService"
+		class="com.emc.fiji.server.service.scope.CriteriaServiceImpl">
+		<property name="dao" ref="criteriaDao" />
+	</bean>
+	<bean id="complianceService"
+		class="com.emc.fiji.server.service.compliance.ComplianceServiceImpl">
+		<property name="scopeService" ref="scopeService" />
+		<property name="policyRuleService" ref="policyRuleService" />
+		<property name="elementService" ref="elementService" />
+		<property name="policyService" ref="policyService" />
+		<property name="breachService" ref="breachService" />
+		<property name="configMgmtService" ref="configService"/>
+	</bean>
+
+	<bean id="dbSchedulerService"
+		class="com.emc.fiji.server.service.system.DbSchedulerServiceImpl">
+		<property name="dao" ref="dbSchedulerDao" />
+	</bean>
+
+	<bean id="policyRetentionService"
+		class="com.emc.fiji.server.service.system.PolicyRetentionServiceImpl">
+		<property name="dao" ref="policyRetentionDao" />
+		<property name="dbSchedulerService" ref="dbSchedulerService" />
+	</bean>
+
+	<bean id="ruleEngine"
+		class="com.emc.fiji.server.engine.RuleEngine">
+			<!-- If set to positive value then overrides database configuration -->
+		<property name="numThreads" value="-1"/>
+		<property name="complianceService" ref="complianceService" />
+		<property name="policyService" ref="policyService" />
+		<property name="parameterValueService" ref="parameterValueService" />
+		<property name="policyRuleService" ref="policyRuleService" />
+		<property name="ruleService" ref="ruleService" />
+		<property name="breachService" ref="breachService" />
+		<property name="changeService" ref="changeEventService" />
+		<property name="changeListenerService" ref="changeListenerService" />
+		<property name="scopeService" ref="scopeService" />
+		<property name="elementService" ref="elementService" />
+		<property name="elementPropertyService" ref="elementPropertyService" />
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="dmDao" ref="dmDao"/>
+	</bean>
+
+	<bean id="complianceListenerService"
+		class="com.emc.fiji.server.service.compliance.ComplianceListenerServiceImpl">
+		<property name="engine" ref="ruleEngine" />
+		<property name="scopeReflectionDispatcher" ref="scopeReflectionDispatcher"></property>
+	</bean>
+
+	<bean id="changeEventService"
+		class="com.emc.fiji.server.service.changelog.ChangeEventServiceImpl">
+		<property name="dao" ref="changeEventDao" />
+		<property name="noteDao" ref="noteDao"/>
+	</bean>
+
+	<bean id="changeEventLogService"
+		class="com.emc.fiji.server.service.changelog.ChangeEventLogServiceImpl">
+		<property name="changeEventService" ref="changeEventService" />
+	</bean>
+	<!--
+	<bean id="scopeReflectionService"
+		class="com.emc.fiji.server.service.scope.ScopeReflectionServiceImpl">
+		<property name="dispatcher" ref="scopeReflectionDispatcher" />
+	</bean>
+	-->
+	<bean id="scopeReflectionDispatcher"
+		class="com.emc.fiji.server.service.scope.ScopeReflectionDispatcher">
+		<property name="policyRuleService" ref="policyRuleService" />
+		<property name="policyService" ref="policyService" />
+		<property name="scopeService" ref="scopeService"/>
+		<property name="breachService" ref="breachService"/>
+	</bean>
+
+	<bean id="ruleRescheduleServiceImpl"
+		class="com.emc.fiji.server.service.scope.RuleRescheduleServiceImpl">
+		<property name="dispatcher" ref="ruleRescheduleDispatcher" />
+	</bean>
+
+	<bean id="ruleRescheduleDispatcher"
+		class="com.emc.fiji.server.service.scope.RuleRescheduleDispatcher">
+		<property name="engine" ref="ruleEngine" />
+	</bean>
+
+	<!-- Change Listener service beans -->
+	<bean id="changeListenerService"
+		class="com.emc.fiji.server.service.changelog.ChangeListenerServiceImpl">
+		<property name="dispatcher" ref="changeEventDispatcher" />
+
+		<property name="registrantsFromString">
+			<map>
+				<entry>
+					<key>
+						<value>*</value>
+					</key>
+					<list>
+						<ref bean="changeEventLogService" />
+						<ref bean="complianceListenerService" />
+						<ref bean="ruleRescheduleServiceImpl" />
+						<ref bean="notificationServiceImpl" />
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="changeEventDispatcher"
+		class="com.emc.fiji.server.service.changelog.ChangeEventDispatcher">
+	</bean>
+
+	<!-- Notification service beans -->
+
+	<bean id="notificationServiceDispatcher"
+		class="com.emc.fiji.server.service.notification.NotificationServiceDispatcher">
+		<property name="breachService" ref="breachService"/>
+		<property name="policyRuleService" ref="policyRuleService"/>
+		<property name="policyService" ref="policyService"/>
+		<property name="elementService" ref="elementService"/>
+	</bean>
+
+	<bean id="notificationServiceImpl"
+		class="com.emc.fiji.server.service.notification.NotificationServiceImpl">
+		<property name="dispatcher" ref="notificationServiceDispatcher" />
+
+		<property name="registrantsFromString">
+			<map>
+				<entry>
+					<key>
+						<value>com.emc.fiji.model.breach.Breach</value>
+					</key>
+					<list>
+						<!-- ref bean="emailAlertDispatcher" /-->
+						<ref bean="scriptAlertDispatcher" />
+						<ref bean="snmpAlertDispatcher" />
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="localhost" />
+		<!--  property name="host" value="CORPUSMX60B.corp.emc.com" /-->
+	</bean>
+
+	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+      <property name="velocityProperties">
+         <value>
+            resource.loader=class
+            class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+         </value>
+      </property>
+   </bean>
+
+
+	<bean id="emailAlertDispatcher"
+		class="com.emc.fiji.server.service.notification.email.EmailAlertDispatcher">
+
+		<property name="mailSender" ref="javaMailSender" />
+     	<property name="velocityEngine" ref="velocityEngine"/>
+		<property name="messages" ref="messageSource" />
+		<property name="systemSettingsDao" ref="systemSettingsDao"></property>
+		<property name="policyRuleService" ref="policyRuleService"></property>
+		<property name="policyService" ref="policyService"></property>
+		<property name="ruleService" ref="ruleService"></property>
+		<property name="breachService" ref="breachService"></property>
+		<property name="elementService" ref="elementService"></property>
+		<property name="configService" ref="configService"></property>
+	</bean>
+
+	<bean id="scriptAlertDispatcher"
+		class="com.emc.fiji.server.service.notification.ScriptAlertDispatcher">
+	</bean>
+
+	<bean id="snmpAlertDispatcher"
+		class="com.emc.fiji.server.service.notification.snmp.SnmpAlertDispatcher">
+  		<property name="snmpTrapDestinationsDao" ref="snmpTrapDestinationsDao"/>
+
+            <!-- base OID to which the various (sub-)patterns are attached to create VARBIND(s)
+               	NOTE: if null/empty then no traps are sent.
+            -->
+		<property name="baseOid" value="1.3.6.1.4.1.1139.13.7689.7365"/>
+
+			<!-- specific trap OID to be used - if missing (default) then use prefix of baseOid -->
+		<property name="enterpriseOid" value="1.3.6.1.4.1.1139.13.7689"/>
+
+			<!-- specific trap ID - MUST BE POSITIVE (otherwise, trap not sent) -->
+		<property name="specificTrapId" value="1"/>
+			<!-- SNMP trap VARBIND(s) - each entry is a triplet having the
+				following format:
+
+					%N{src,method,type}
+
+               Where:
+
+                     N - sub-ID number (!) to be appended to the base OID to create the specific
+                       VARBIND address for this variable
+
+                     src - source from which the VARBIND value will be extracted - options are
+                        (case-sensitive):
+
+                         * Breach - invoke 'get/isXXX' of the breach object
+                         * PolicyRule - invoke 'get/isXXX' of the policy rule object
+                         * Policy - ditto
+                         * Rule - ditto
+                         * Value - use a constant value
+
+                     method - name of 'XXX' get-ter (without the 'is/get' prefix) to be invoked
+                         on the specified object source (see above). Note: if the data source
+                         is of type 'VAL' then this string contains the 'constant' value to be used
+
+                     type - type of SNMP variable value to be generated - options are (case-sensitive):
+
+                         * Counter32
+                         * Gauge32
+                         * Integer32
+                         * Unsigned32
+                         * Counter64
+                         * OctetString
+                         * Timeticks
+
+                    Examples:
+
+                       %3{Value,3,Gauge32}
+                       %5{Breach,Severity,Unsigned32}       <== this is an Enum derived object
+                       %7{PolicyRule,Name,OctetString}
+                       %9{Breach,Closed,Unsigned32}		<= 0=false, 1=true
+
+                   NOTE(s):
+                   	 1. for boolean values, special handling is required if
+                   		need to map them to 'enumerated' values instead of
+                   		simple unsigned because zero is not a valid enumeration
+                   		value in SNMP
+
+                   	 2. for date/calendar values the numerical value is
+                   	 	calculated according to the expected syntax:
+
+                   	 	Timeticks - 100th's of a second
+                   	 	Otherwise - seconds since 1-Jan-1970 00:00:00.000
+
+                   	 	No support for string formatting of such values (!)
+			 -->
+		<property name="varBindsList">
+			<list>
+				<value>%1{Breach,Name,OctetString}</value>
+				<value>%2{Breach,Id,Unsigned32}</value>
+				<value>%3{Breach,Priority,Unsigned32}</value>
+				<value>%4{Breach,Classification,Unsigned32}</value>
+				<value>%5{Breach,ClosedStatus,Unsigned32}</value>
+				<value>%6{Breach,Description,OctetString}</value>
+				<value>%7{Policy,Name,OctetString}</value>
+				<value>%8{PolicyRule,Name,OctetString}</value>
+				<value>%9{PolicyRule,Description,OctetString}</value>
+				<value>%10{Rule,Id,Unsigned32}</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- *********************** -->
+	<bean id="serverManagementService"
+		class="com.emc.fiji.server.service.system.ServerManagementServiceImpl">
+		<property name="deploymentFilePath" value="/fiji-service.xml"/>
+	</bean>
+
+	<bean id="userService"
+		class="com.emc.fiji.server.service.UserServiceImpl">
+		<property name="dao" ref="userProfileDao" />
+		<property name="changeListenerService" ref="changeListenerService"/>
+	</bean>
+
+	<bean id="roleService"
+		class="com.emc.fiji.server.service.RoleServiceImpl">
+		<property name="dao" ref="rolesDao" />
+	</bean>
+
+	<bean id="configService" class="com.emc.fiji.server.service.system.ConfigurationServiceImpl">
+		<property name="valuesDao" ref="configValueDao"/>
+		<property name="groupsDao" ref="configGroupDao"/>
+	</bean>
+
+	<bean id="serviceUtils"
+		class="com.emc.fiji.server.util.CRUDServiceUtils">
+		<property name="breachService" ref="breachService"/>
+		<property name="policyService" ref="policyService"/>
+		<property name="policyRuleService" ref="policyRuleService"/>
+		<property name="scopeService" ref="scopeService"/>
+		<property name="roleService" ref="roleService"/>
+		<property name="elementService" ref="elementService"/>
+		<property name="elementPropertyService" ref="elementPropertyService"/>
+		<property name="userProfileService" ref="userService"/>
+		<property name="policyGroupService" ref="policyGroupService"/>
+		<property name="parameterValueService" ref="parameterValueService"/>
+		<property name="changeEventService" ref="changeEventService"/>
+		<property name="noteService" ref="noteService"/>
+		<property name="ruleEngine" ref="ruleEngine"/>
+		<property name="reportService" ref="reportService"/>
+		<property name="changeEventLogService" ref="changeEventLogService"/>
+		<property name="systemSettingsService" ref="systemSettingsService"/>
+		<property name="dbSchedulerService" ref="dbSchedulerService"/>
+		<property name="policyRetentionService" ref="policyRetentionService"/>
+		<property name="dmDao" ref="dmDao"/>
+		<property name="configMgmtService" ref="configService"/>
+		<property name="complianceService" ref="complianceService"/>
+		<property name="changeListenerService" ref="changeListenerService"/>
+		<property name="notificationServiceImpl" ref="notificationServiceImpl"/>
+		<property name="ruleRescheduleServiceImpl" ref="ruleRescheduleServiceImpl" />
+		<property name="dmListenersManager" ref="dmListenersManager"/>
+		<property name="ruleService" ref="ruleService"/>
+	</bean>
+
+	<bean id="dmListenersManager"
+		class="com.emc.fiji.server.service.listener.DMListenersManager">
+		<constructor-arg><ref bean="elementPropertyService"/></constructor-arg>
+	</bean>
+
+	<bean id="reportService"
+		class="com.emc.fiji.server.service.report.ReportServiceImpl">
+		<property name="breachDao" ref="breachDao"></property>
+		<property name="changeEventDao" ref="changeEventDao"></property>
+		<property name="reportQueryBuilder" ref="reportQueryBuilder" />
+		<property name="dmQueryReportExecuter" ref="dmQueryReportExecuter" />
+		<property name="elementService" ref="elementService"></property>
+	</bean>
+
+	  <bean id="reportMessageSource"
+	        class="org.springframework.context.support.ResourceBundleMessageSource">
+	    <property name="basenames">
+	      <list>
+	        <value>com/emc/fiji/server/service/report/reportColumnTitles</value>
+	      </list>
+	    </property>
+	  </bean>
+
+	<bean id="systemSettingsService"
+		class="com.emc.fiji.server.service.system.SystemSettingsServiceImpl">
+		<property name="systemSettingsDao" ref="systemSettingsDao"/>
+		<property name="dao" ref="snmpTrapDestinationsDao"/>
+		<property name="cstDao" ref="cstDao" />
+	</bean>
+
+	<bean id="cmd" scope="prototype"
+		class="com.emc.fiji.server.engine.command.CommandRunPolicyRuleOnElement">
+		<!-- property name="hibernateTemplate" ref="hibernateTemplate"></property-->
+		<property name="platformTransactionManager" ref="transactionManager"></property>
+	</bean>
+
+	<bean id="dmDao"
+		class="com.emc.fiji.server.persistence.dao.dmt.SpqsDaoImpl">
+	</bean>
+
+	<bean id="reportQueryBuilder"
+		class="com.emc.fiji.server.service.report.ReportQueryBuilder">
+		<property name="reportMessageSource" ref="reportMessageSource"></property>
+	</bean>
+
+	<bean id="dmQueryReportExecuter"
+		class="com.emc.fiji.server.service.report.DmQueryReportExecuter">
+		<property name="SDMDao" ref="SDMDao" />
+		<property name="GDPMDao" ref="GDPMDao" />
+		<property name="pathDao" ref="PathDao" />
+		<property name="reportQueryBuilder" ref="reportQueryBuilder" />
+		<property name="reportMessageSource" ref="reportMessageSource" />
+		<property name="breachDao" ref="breachDao" />
+		<property name="changeEventDao" ref="changeEventDao" />
+	</bean>
+
+	<bean id="discoveryService" class="com.emc.fiji.server.service.discovery.DiscoveryServiceImpl">
+	</bean>
+
+	<bean id="importExportService"
+		class="com.emc.fiji.server.service.ImportExportServiceImpl">
+		<property name="discoveryService" ref="discoveryService"/>
+		<property name="policyService" ref="policyService"/>
+		<property name="policyRuleService" ref="policyRuleService"/>
+		<property name="ruleService" ref="ruleService"/>
+		<property name="scopeService" ref="scopeService"/>
+		<property name="changeEventService" ref="changeEventService"/>
+		<property name="userService" ref="userService"/>
+		<property name="roleService" ref="roleService"/>
+	</bean>
+
+	<!--bean id="command" scope="prototype"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target">
+			<ref local="cmd" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="run">PROPAGATION_NEVER</prop>
+				<prop key="runTransacted">PROPAGATION_REQUIRES_NEW</prop>
+				<prop key="doPrep">PROPAGATION_MANDATORY</prop>
+				<prop key="updateStats">PROPAGATION_MANDATORY</prop>
+			</props>
+		</property>
+	</bean-->
+
+	<bean id="SpringWorkaround" init-method="init"
+		class="com.emc.fiji.server.util.SpringWorkaround">
+		<property name="CRUDListener" ref="CRUDListener" />
+		<property name="changeListenerService" ref="changeListenerService" />
+		<!-- <property name="sessionFactory" ref="sessionFactory" />-->
+		<property name="annotationSessionFactoryBean" ref="&amp;sessionFactory" />
+	</bean>
+
+	<!-- ********************* -->
+	<!-- ***  Timer Beans  *** -->
+	<!-- ********************* -->
+
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	    <property name="triggers">
+	        <list>
+	            <ref bean="pendingBreachActivationTrigger" />
+	            <ref bean="emailNotificationTrigger" />
+	        </list>
+	    </property>
+	</bean>
+
+
+	<!-- ******************* Pending breaches **************** -->
+	<bean id="pendingBreachActivationJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	  <property name="targetObject" ref="breachService" />
+	  <property name="targetMethod" value="checkPendingBreaches" />
+	</bean>
+
+		<!-- Note: if you change the bean ID you need to update the ConfigGroup(s) in the database -->
+	<bean id="pendingBreachActivationTrigger" class="com.emc.fiji.server.engine.rule.PendingBreachesTriggerBean">
+	    <!-- see the example of method invoking job above -->
+	    <property name="jobDetail" ref="pendingBreachActivationJobDetail" />
+	    <!-- 10 seconds -->
+	    <!--property name="startDelay" value="10000" /-->
+	    <!-- repeat every 5 min -->
+	    <property name="repeatInterval" value="300000" />
+	</bean>
+
+	<!-- ******************* Email notifications **************** -->
+	<bean id="emailNotificationJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	  <property name="targetObject" ref="emailAlertDispatcher" />
+	  <property name="targetMethod" value="sendCompiledNotifications" />
+	</bean>
+		<!-- Note: if you change the bean ID you need to update the ConfigGroup(s) in the database -->
+	<bean id="emailNotificationTrigger" class="com.emc.fiji.server.service.notification.email.EmailNotificationsTriggerBean">
+	    <!-- see the example of method invoking job above -->
+	    <property name="jobDetail" ref="emailNotificationJobDetail" />
+	    <!-- 10 seconds -->
+	    <property name="startDelay" value="10000" />
+	    <!-- repeat every 5 min -->
+	    <property name="repeatInterval" value="300000" />
+	</bean>
+
+	<bean id="loggingService" class="com.emc.fiji.server.util.jmx.ServerLoggingImpl">
+	</bean>
+
+	<bean id="logMessagesService" class="com.emc.fiji.server.util.jmx.LogMessagesServiceImpl">
+		<property name="dao" ref="logMessageEntryDao"/>
+	</bean>
+</beans>

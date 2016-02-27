@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd">
+
+		<!-- Automatically scan classes for @Component, @Repository -->
+	<context:component-scan base-package="com.vmware.spring.workshop.dao.impl.hibernate"/>
+
+		<!-- convert the configuration string value to the actual used type -->
+	<util:constant 	id="hibernateConnectionIsolationLevel"
+					static-field="java.sql.Connection.${hibernate.connection_isolation}" />
+
+	<bean id="dataSource"
+		  class="org.apache.commons.dbcp.BasicDataSource"
+		  destroy-method="close"
+    		p:driverClassName="${jdbc.driverClassName}"
+    		p:url="${jdbc.url}hibernate"
+    		p:username="${jdbc.username}"
+    		p:password="${jdbc.password}"
+    		p:maxActive="${jdbc.max.active.conns}"
+    		p:initialSize="${jdbc.initial.active.conns}"
+    		p:maxWait="${jdbc.max.conn.wait}" />
+
+	<util:properties id="hibernateSessionFactoryProperties" >
+ 		<prop key="#{ T(org.hibernate.cfg.Environment).DIALECT }">${hibernate.dialect}</prop>
+ 		<prop key="#{ T(org.hibernate.cfg.Environment).HBM2DDL_AUTO }">${hibernate.hbm2ddl.auto}</prop>
+   		<prop key="#{ T(org.hibernate.cfg.Environment).SHOW_SQL }">${hibernate.show_sql}</prop>
+   		<prop key="#{ T(org.hibernate.cfg.Environment).FORMAT_SQL }">${hibernate.format_sql}</prop>
+   		<prop key="#{ T(org.hibernate.cfg.Environment).CACHE_PROVIDER }">${hibernate.cache_provider_class}</prop>
+		<prop key="#{ T(org.hibernate.cfg.Environment).QUERY_TRANSLATOR }">org.hibernate.hql.ast.ASTQueryTranslatorFactory</prop>
+		<prop key="#{ T(org.hibernate.cfg.Environment).USE_QUERY_CACHE }">true</prop>
+		<prop key="#{ T(org.hibernate.cfg.Environment).DEFAULT_BATCH_FETCH_SIZE }">${hibernate.default_batch_fetch_size}</prop>
+		<prop key="#{ T(org.hibernate.cfg.Environment).ISOLATION }">#{ hibernateConnectionIsolationLevel }</prop>			
+		<prop key="#{ T(org.hibernate.cfg.Environment).AUTOCOMMIT }">${hibernate.connection_autocommit}</prop>
+		<prop key="#{ T(org.hibernate.cfg.Environment).RELEASE_CONNECTIONS }">${hibernate.connection_release_mode}</prop>
+	</util:properties>
+
+		<!-- Automatically scan classes for @Entity (and other persistence related annotations)  -->
+	<bean id="sessionFactory"
+		  class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+   			p:dataSource-ref="dataSource"
+   			p:packagesToScan="com.vmware.spring.workshop.model"
+   			p:hibernateProperties-ref="hibernateSessionFactoryProperties" />
+
+		<!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+	<bean id="transactionManager"
+		  class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+			p:sessionFactory-ref="sessionFactory"
+			p:nestedTransactionAllowed="true"/>
+</beans>

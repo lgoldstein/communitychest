@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="build-spring-core-helpers" default="build-spring-core-helpers" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+		<description>
+			Builds some helper Spring core classes $Rev: 561 $
+		</description>
+
+		<dirname property="module.root.folder" file="${ant.file}"/>
+		<property name="module.base.target.name" value="spring-core-helpers"/>
+		<dirname property="spring.libs.root.dir" file="${module.root.folder}"/>
+		<property name="parent.root.dir" value="${spring.libs.root.dir}"/>
+        <property name="default.classpath.ref.name" value="spring.core.helpers.path"/>
+
+		<import file="${spring.libs.root.dir}${file.separator}build-base.xml"/>
+
+        	<!-- define dependencies -->
+		<mvn:dependencies 	pathId="spring.core.dependencies.path" useScope="compile"
+							settingsFile="${maven.settings.file.path}"
+				>
+            <localRepository path="${maven.local.repository.folder}" layout="default"/>
+
+				<!-- used by Hibernate -->
+			<dependency groupId="org.slf4j"
+						artifactId="slf4j-api"
+						version="${slf4j.api.jar.version}"
+						scope="compile"/>
+
+				<!-- Used by spring-orm -->
+			<dependency groupId="org.hibernate"
+						artifactId="hibernate-core"
+						version="${hibernate.core.jar.version}"
+						scope="compile"/>
+
+				<!-- Used (indirectly) by the code -->
+			<dependency groupId="javax.validation"
+						artifactId="validation-api"
+						version="${validation.api.jar.version}"
+						scope="compile"/>
+			<!-- Used (indirectly) by the code -->
+		<dependency groupId="javax.inject"
+					artifactId="javax.inject"
+					version="${javax.inject.jar.version}"
+					scope="compile"/>
+
+				<!-- used by spring-beans -->
+			<dependency groupId="org.springframework"
+						artifactId="spring-asm"
+						version="${spring.framework.version}"
+						scope="compile"/>
+				<!-- used by spring-context -->
+			<dependency groupId="org.springframework"
+						artifactId="spring-beans"
+						version="${spring.framework.version}"
+						scope="compile"/>
+			<dependency groupId="org.springframework"
+						artifactId="spring-core"
+						version="${spring.framework.version}"
+						scope="compile"/>
+			<dependency groupId="org.springframework"
+						artifactId="spring-context"
+						version="${spring.framework.version}"
+						scope="compile"/>
+			<dependency groupId="org.springframework"
+						artifactId="spring-orm"
+						version="${spring.framework.version}"
+						scope="compile"/>
+				<!-- used by spring-orm -->
+			<dependency groupId="org.springframework"
+						artifactId="spring-tx"
+						version="${spring.framework.version}"
+						scope="compile"/>
+			<dependency groupId="org.springframework"
+						artifactId="spring-jdbc"
+						version="${spring.framework.version}"
+						scope="compile"/>
+		</mvn:dependencies>
+
+        <path id="spring.core.helpers.path">
+        	<path refid="community.modules.jars"/>
+    		<path refid="spring.core.dependencies.path"/>
+		</path>
+
+		<target name="build-spring-core-helpers" depends="jar-spring-libs-module-files" description="Builds helper Spring core classes"/>
+		<target name="clean-spring-core-helpers" depends="clean-spring-libs-module-build" description="Cleans up helper Spring core classes and JAR"/>
+	</project>
