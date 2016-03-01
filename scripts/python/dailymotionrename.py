@@ -4,9 +4,11 @@
 import sys
 import os
 import signal
+import random
+import string
 
 """
-Scans a folder and remove well-known Windows hidden files
+Renames downloaded Dailymotion files to a shorter format
 """
 
 # ----------------------------------------------------------------------------
@@ -42,44 +44,64 @@ def isEmpty(s):
 
 # ----------------------------------------------------------------------------
 
-def isHiddenFile(name):
-    if isEmpty(name):
-        return False
-    if name[0] == '.':
-        return True
-    if name[0] == '~':
-        return True
+def getTargetName(name):
+    if name == '.' or name == '..' or not name.endswith('.mp4'):
+        return name
     
-    name = name.lower();
-    if name.startswith("albumart") or name.startswith("tmp_cover_"):
-        return True
-    if name == "folder.jpg":
-        return True
-    if name == "desktop.ini":
-        return True
-    if name == "thumbs.db":
-        return True
+    comps = name.split(' ')
+    episode = int(comps[4])
+    if episode < 10:
+        comps[4] = "0%d" % episode
+    if comps[5] == '_':
+        comps[5] = '-'
+    elif comps[5] != '-':
+        comps.insert(5, '-')
     
-    return False
+    lastIndex = len(comps)
+    lastComp = comps[lastIndex - 1]
+    if lastComp == 'Video.mp4':
+        comps[lastIndex - 1] = '.mp4'
 
-# ----------------------------------------------------------------------------
+    penultimateComp = comps[lastIndex - 2]
+    if penultimateComp == 'Dailymotion':
+        del comps[lastIndex - 2]
+        lastIndex = lastIndex - 1
+    
+    if comps[lastIndex - 2] == '-' and lastIndex > 7:
+        del comps[lastIndex - 2]
+        lastIndex = lastIndex - 1
 
-def doScan(target):
+    # if all we have is '.mp4' then use the preceding component to create the proper name
+    if comps[lastIndex - 1] == '.mp4':
+        comps[lastIndex - 1] = "%s%s" % (comps[lastIndex - 2], comps[lastIndex - 1])
+        del comps[lastIndex - 2]
+        lastIndex = lastIndex - 1
+
+    return ' '.join(comps)
+    
+def doRename(target):
     if os.path.isfile(target):
         error("Not a folder: %s" % target)
         return
 
     info("Processing %s" % target)
-    os.system(u"attrib -S -H %s\\*.jpg /S" % target)
-    contents = os.listdir(target)
-    for f in contents:
+    files = os.listdir(target)
+    folders = []
+    for f in files:
         path = os.path.join(target, f)
         if os.path.isfile(path):
-            if isHiddenFile(f.encode("utf-8")):
-                os.remove(path)
-                info("Removed %s" % path)
+            newName = getTargetName(f)
+            if newName == f:
+                info("\t\tSkip %s" % f)
+            else:
+                newPath = os.path.join(target, newName)
+                os.rename(path, newPath)
+                info("\t\t%s => %s" % (f, newName))
         else:
-            doScan(path)
+            folders.append(path)
+
+    for f in folders:
+        doRename(f)
 
 # ////////////////////////////////////////////////////////////////////////////
 
@@ -88,8 +110,7 @@ def main(args):
         die("Missing target folder(s)")
     
     for target in args:
-        unitarget = unicode(target)
-        doScan(os.path.realpath(unitarget))
+        doRename(os.path.realpath(target))
 
 def signal_handler(signal, frame):
     die('Exit due to Control+C')
