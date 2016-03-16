@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing.component.text;
 
@@ -13,17 +13,17 @@ import javax.swing.JPasswordField;
  * @since Sep 24, 2008 1:42:11 PM
  */
 public class JPasswordFieldReflectiveProxy<F extends JPasswordField> extends JTextFieldReflectiveProxy<F> {
-	public JPasswordFieldReflectiveProxy (Class<F> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public JPasswordFieldReflectiveProxy (Class<F> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	protected JPasswordFieldReflectiveProxy (Class<F> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected JPasswordFieldReflectiveProxy (Class<F> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public static final JPasswordFieldReflectiveProxy<JPasswordField>	PASSFIELD=
-		new JPasswordFieldReflectiveProxy<JPasswordField>(JPasswordField.class, true);
+    public static final JPasswordFieldReflectiveProxy<JPasswordField>    PASSFIELD=
+        new JPasswordFieldReflectiveProxy<JPasswordField>(JPasswordField.class, true);
 }

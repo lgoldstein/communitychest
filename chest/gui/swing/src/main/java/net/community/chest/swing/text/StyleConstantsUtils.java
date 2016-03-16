@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing.text;
 
@@ -23,79 +23,79 @@ import net.community.chest.reflect.AttributeMethodType;
  * @since Jul 30, 2009 9:42:47 AM
  */
 public final class StyleConstantsUtils {
-	private StyleConstantsUtils ()
-	{
-		// no instance
-	}
+    private StyleConstantsUtils ()
+    {
+        // no instance
+    }
 
-	public static final Map<String,AttributeAccessor> getStyleConstantsSetters (final boolean errIfDuplicate)
-	{
-		final Method[]	ma=StyleConstants.class.getMethods();
-		if ((null == ma) || (ma.length <= 0))
-			return null;
-		
-		Map<String,AttributeAccessor>	ret=null;
-		for (final Method m : ma)
-		{
-			final String	n=(null == m) ? null : m.getName();
-			if (!AttributeMethodType.SETTER.isMatchingPrefix(n))
-				continue;
-			if (!AttributeMethodType.SETTER.isMatchingReturnType(m))
-				continue;
+    public static final Map<String,AttributeAccessor> getStyleConstantsSetters (final boolean errIfDuplicate)
+    {
+        final Method[]    ma=StyleConstants.class.getMethods();
+        if ((null == ma) || (ma.length <= 0))
+            return null;
 
-			final Class<?>[]	pa=m.getParameterTypes();
-			if ((null == pa) || (pa.length != 2))
-				continue;
+        Map<String,AttributeAccessor>    ret=null;
+        for (final Method m : ma)
+        {
+            final String    n=(null == m) ? null : m.getName();
+            if (!AttributeMethodType.SETTER.isMatchingPrefix(n))
+                continue;
+            if (!AttributeMethodType.SETTER.isMatchingReturnType(m))
+                continue;
 
-			final Class<?>	p1=pa[0];
-			if ((null == p1) || (!p1.isAssignableFrom(MutableAttributeSet.class)))
-				continue;
+            final Class<?>[]    pa=m.getParameterTypes();
+            if ((null == pa) || (pa.length != 2))
+                continue;
 
-			final Class<?>			aType=pa[1];
-			final String			aName=
-				AttributeMethodType.SETTER.getPureAttributeName(n);
-			final AttributeAccessor	aa=new AttributeAccessor(aName);
-			aa.setType(aType);
-			aa.setSetter(m);
+            final Class<?>    p1=pa[0];
+            if ((null == p1) || (!p1.isAssignableFrom(MutableAttributeSet.class)))
+                continue;
 
-			if (null == ret)
-				ret = new TreeMap<String,AttributeAccessor>(String.CASE_INSENSITIVE_ORDER);
+            final Class<?>            aType=pa[1];
+            final String            aName=
+                AttributeMethodType.SETTER.getPureAttributeName(n);
+            final AttributeAccessor    aa=new AttributeAccessor(aName);
+            aa.setType(aType);
+            aa.setSetter(m);
 
-			final AttributeAccessor	prev=ret.put(aName, aa);
-			if ((prev != null) && errIfDuplicate)
-				throw new IllegalStateException("getStyleConstantsSetters(" + aName + ") duplicate methods");
-		}
+            if (null == ret)
+                ret = new TreeMap<String,AttributeAccessor>(String.CASE_INSENSITIVE_ORDER);
 
-		return ret;
-	}
+            final AttributeAccessor    prev=ret.put(aName, aa);
+            if ((prev != null) && errIfDuplicate)
+                throw new IllegalStateException("getStyleConstantsSetters(" + aName + ") duplicate methods");
+        }
 
-	private static Map<String,AttributeAccessor>	_styleSettersMap;
-	public static final synchronized Map<String,AttributeAccessor> getDefaultStyleConstantsSetters ()
-	{
-		if (null == _styleSettersMap)
-			_styleSettersMap = getStyleConstantsSetters(true);
-		return _styleSettersMap;
-	}
+        return ret;
+    }
 
-	public static final Icon getIconAttribute (final AttributeSet s)
-	{
-		if ((null == s) || (!s.isDefined(StyleConstants.IconAttribute)))
-			return null;
+    private static Map<String,AttributeAccessor>    _styleSettersMap;
+    public static final synchronized Map<String,AttributeAccessor> getDefaultStyleConstantsSetters ()
+    {
+        if (null == _styleSettersMap)
+            _styleSettersMap = getStyleConstantsSetters(true);
+        return _styleSettersMap;
+    }
 
-		return (Icon) s.getAttribute(StyleConstants.IconAttribute);
-	}
+    public static final Icon getIconAttribute (final AttributeSet s)
+    {
+        if ((null == s) || (!s.isDefined(StyleConstants.IconAttribute)))
+            return null;
 
-	public static final Icon removeIconAttribute (final MutableAttributeSet s)
-	{
-		final Icon	i=getIconAttribute(s);
-		if (i != null)
-		{
-			s.removeAttribute(StyleConstants.IconAttribute);
+        return (Icon) s.getAttribute(StyleConstants.IconAttribute);
+    }
 
-			if (s.isDefined(AbstractDocument.ElementNameAttribute))
-				s.removeAttribute(AbstractDocument.ElementNameAttribute);
-		}
+    public static final Icon removeIconAttribute (final MutableAttributeSet s)
+    {
+        final Icon    i=getIconAttribute(s);
+        if (i != null)
+        {
+            s.removeAttribute(StyleConstants.IconAttribute);
 
-		return i;
-	}
+            if (s.isDefined(AbstractDocument.ElementNameAttribute))
+                s.removeAttribute(AbstractDocument.ElementNameAttribute);
+        }
+
+        return i;
+    }
 }

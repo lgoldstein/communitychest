@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-filesync" default="build-filesync">
-		<description>
-			Builds the files synchronization application $Rev: 561 $
-		</description>
-		
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="tools.apps.root.dir" value="${parent.root.dir}"/>
-		<property name="module.base.target.name" value="filesync"/>
+    <project name="build-filesync" default="build-filesync">
+        <description>
+            Builds the files synchronization application $Rev: 561 $
+        </description>
 
-		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
-		<property name="module.application.base.pkg.name" value="${tools.apps.base.pkg.name}.${module.application.sub.pkg.name}"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="tools.apps.root.dir" value="${parent.root.dir}"/>
+        <property name="module.base.target.name" value="filesync"/>
 
-		<property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
-		  											  ${community.base.pkg.name}-io.${jar.file.suffix},
-													  ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
-													  ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
-													  ${community.base.pkg.name}-gui-components.${jar.file.suffix},
-		  											  ${community.base.pkg.name}-apps-common.${jar.file.suffix}"
-			/>
+        <import file="${parent.root.dir}${file.separator}build-base.xml"/>
+        <property name="module.application.base.pkg.name" value="${tools.apps.base.pkg.name}.${module.application.sub.pkg.name}"/>
 
-		<target name="copy-extra-filesync-files" depends="tools-apps-base">
-				<!-- copy some extra files -->
-			<mkdir dir="${module.application.folder}"/>
-			<copy preservelastmodified="true" verbose="true" todir="${module.application.folder}">
-				<fileset dir="${module.root.folder}" includes="${module.base.target.name}.*"/>
-			</copy>
-		</target>
+        <property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-io.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-gui-components.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-apps-common.${jar.file.suffix}"
+            />
 
-		<target name="build-filesync"
-				depends="jar-tools-app-module-files,
-						 copy-extra-filesync-files,
-						 jar-application-files"
-				description="Builds filesync application"/>
+        <target name="copy-extra-filesync-files" depends="tools-apps-base">
+                <!-- copy some extra files -->
+            <mkdir dir="${module.application.folder}"/>
+            <copy preservelastmodified="true" verbose="true" todir="${module.application.folder}">
+                <fileset dir="${module.root.folder}" includes="${module.base.target.name}.*"/>
+            </copy>
+        </target>
 
-		<target name="clean-filesync"
-				depends="clean-tools-app-module-build"
-				description="Removes the filesync object files and JAR"/>
-	</project>
+        <target name="build-filesync"
+                depends="jar-tools-app-module-files,
+                         copy-extra-filesync-files,
+                         jar-application-files"
+                description="Builds filesync application"/>
+
+        <target name="clean-filesync"
+                depends="clean-tools-app-module-build"
+                description="Removes the filesync object files and JAR"/>
+    </project>

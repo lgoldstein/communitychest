@@ -36,8 +36,8 @@ package jnlp.sample.servlet.download;
 import javax.servlet.http.HttpServletResponse;
 
 public class NoContentResponse extends HttpDownloadResponseCode {
-	public NoContentResponse ()
-	{ 
-		super(HttpServletResponse.SC_NO_CONTENT);
-	}
+    public NoContentResponse ()
+    {
+        super(HttpServletResponse.SC_NO_CONTENT);
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.apache.ant.helpers;
 
@@ -15,98 +15,98 @@ import net.community.chest.lang.PubliclyCloneable;
  * @since Jul 9, 2009 10:26:30 AM
  */
 public class InMemoryProcessingResult implements Serializable, PubliclyCloneable<InMemoryProcessingResult> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1227293121486406110L;
-	private int	_numProcessed, _numChanged;
-	/**
-	 * @return number of files updated/created
-	 */
-	public int getNumChanged ()
-	{
-		return _numChanged;
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1227293121486406110L;
+    private int    _numProcessed, _numChanged;
+    /**
+     * @return number of files updated/created
+     */
+    public int getNumChanged ()
+    {
+        return _numChanged;
+    }
 
-	public void setNumChanged (int v)
-	{
-		_numChanged = v;
-	}
-	/**
-	 * @return total number of processed files
-	 */
-	public int getNumProcessed ()
-	{
-		return _numProcessed;
-	}
+    public void setNumChanged (int v)
+    {
+        _numChanged = v;
+    }
+    /**
+     * @return total number of processed files
+     */
+    public int getNumProcessed ()
+    {
+        return _numProcessed;
+    }
 
-	public void setNumProcessed (int v)
-	{
-		_numProcessed = v;
-	}
+    public void setNumProcessed (int v)
+    {
+        _numProcessed = v;
+    }
 
-	public InMemoryProcessingResult (final int numProcessed, final int numChanged)
-	{
-		_numProcessed = numProcessed;
-		_numChanged = numChanged;
-	}
-	
-	public InMemoryProcessingResult ()
-	{
-		super();
-	}
-	/*
-	 * @see java.lang.Object#clone()
-	 */
-	@Override
-	@CoVariantReturn
-	public InMemoryProcessingResult clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}
-	/*
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals (Object obj)
-	{
-		final Class<?>	oc=(obj == null) ? null : obj.getClass();
-		if (oc != getClass())
-			return false;
-		if (this == obj)
-			return true;
+    public InMemoryProcessingResult (final int numProcessed, final int numChanged)
+    {
+        _numProcessed = numProcessed;
+        _numChanged = numChanged;
+    }
 
-		final InMemoryProcessingResult	oRes=(InMemoryProcessingResult) obj;
-		final int[]						va={
-				oRes.getNumChanged(), getNumChanged(),
-				oRes.getNumProcessed(), getNumProcessed()
-			};
-		for (int	vIndex=0; vIndex < va.length; vIndex += 2)
-		{
-			final int	ov=va[vIndex], tv=va[vIndex + 1];
-			if (ov != tv)
-				return false;
-		}
+    public InMemoryProcessingResult ()
+    {
+        super();
+    }
+    /*
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    @CoVariantReturn
+    public InMemoryProcessingResult clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
+    /*
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals (Object obj)
+    {
+        final Class<?>    oc=(obj == null) ? null : obj.getClass();
+        if (oc != getClass())
+            return false;
+        if (this == obj)
+            return true;
 
-		return true;
-	}
-	/*
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode ()
-	{
-		return getNumChanged() + getNumProcessed();
-	}
-	/*
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString ()
-	{
-		return "#changed=" + getNumChanged()
-			 + ";#proc.=" + getNumProcessed()
-			 ;
-	}
+        final InMemoryProcessingResult    oRes=(InMemoryProcessingResult) obj;
+        final int[]                        va={
+                oRes.getNumChanged(), getNumChanged(),
+                oRes.getNumProcessed(), getNumProcessed()
+            };
+        for (int    vIndex=0; vIndex < va.length; vIndex += 2)
+        {
+            final int    ov=va[vIndex], tv=va[vIndex + 1];
+            if (ov != tv)
+                return false;
+        }
+
+        return true;
+    }
+    /*
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode ()
+    {
+        return getNumChanged() + getNumProcessed();
+    }
+    /*
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString ()
+    {
+        return "#changed=" + getNumChanged()
+             + ";#proc.=" + getNumProcessed()
+             ;
+    }
 
 }

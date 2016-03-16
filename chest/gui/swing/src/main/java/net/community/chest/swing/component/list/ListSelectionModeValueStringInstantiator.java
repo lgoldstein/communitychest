@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing.component.list;
 
@@ -15,41 +15,41 @@ import net.community.chest.lang.StringUtil;
  * @since Feb 8, 2009 9:30:49 AM
  */
 public class ListSelectionModeValueStringInstantiator extends AbstractXmlValueStringInstantiator<Integer> {
-	public ListSelectionModeValueStringInstantiator ()
-	{
-		super(Integer.class);
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
-	 */
-	@Override
-	public String convertInstance (Integer inst) throws Exception
-	{
-		if (null == inst)
-			return null;
+    public ListSelectionModeValueStringInstantiator ()
+    {
+        super(Integer.class);
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
+     */
+    @Override
+    public String convertInstance (Integer inst) throws Exception
+    {
+        if (null == inst)
+            return null;
 
-		final ListSelectionMode	st=ListSelectionMode.fromMode(inst.intValue());
-		if (null == st)
-			throw new NoSuchElementException("convertInstance(" + inst + ") unknown value");
+        final ListSelectionMode    st=ListSelectionMode.fromMode(inst.intValue());
+        if (null == st)
+            throw new NoSuchElementException("convertInstance(" + inst + ") unknown value");
 
-		return st.toString();
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
-	 */
-	@Override
-	public Integer newInstance (String v) throws Exception
-	{
-		final String	s=StringUtil.getCleanStringValue(v);
-		if ((null == s) || (s.length() <= 0))
-			return null;
+        return st.toString();
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
+     */
+    @Override
+    public Integer newInstance (String v) throws Exception
+    {
+        final String    s=StringUtil.getCleanStringValue(v);
+        if ((null == s) || (s.length() <= 0))
+            return null;
 
-		final ListSelectionMode	st=ListSelectionMode.fromString(s);
-		if (null == st)
-			throw new NoSuchElementException("newInstance(" + s + ") unknown value");
+        final ListSelectionMode    st=ListSelectionMode.fromString(s);
+        if (null == st)
+            throw new NoSuchElementException("newInstance(" + s + ") unknown value");
 
-		return Integer.valueOf(st.getMode());
-	}
+        return Integer.valueOf(st.getMode());
+    }
 
-	public static final ListSelectionModeValueStringInstantiator	DEFAULT=new ListSelectionModeValueStringInstantiator();
+    public static final ListSelectionModeValueStringInstantiator    DEFAULT=new ListSelectionModeValueStringInstantiator();
 }

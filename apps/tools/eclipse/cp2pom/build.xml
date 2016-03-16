@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-cp2pom" default="build-cp2pom">
-		<description>
-			Builds the Eclipse CLASSPATH file ==> POM dependencies conversion application $Rev: 561 $
-		</description>
-		
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+    <project name="build-cp2pom" default="build-cp2pom">
+        <description>
+            Builds the Eclipse CLASSPATH file ==> POM dependencies conversion application $Rev: 561 $
+        </description>
+
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
         <property name="eclipse.apps.root.dir" value="${parent.root.dir}"/>
-		<dirname property="tools.apps.root.dir" file="${eclipse.apps.root.dir}"/>
-		<property name="module.base.target.name" value="cp2pom"/>
+        <dirname property="tools.apps.root.dir" file="${eclipse.apps.root.dir}"/>
+        <property name="module.base.target.name" value="cp2pom"/>
 
-		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
-		<property name="module.application.base.pkg.name" value="${tools.apps.base.pkg.name}.${module.application.sub.pkg.name}"/>
+        <import file="${parent.root.dir}${file.separator}build-base.xml"/>
+        <property name="module.application.base.pkg.name" value="${tools.apps.base.pkg.name}.${module.application.sub.pkg.name}"/>
 
-		<property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-io.${jar.file.suffix},
-													  ${community.base.pkg.name}-logging.${jar.file.suffix},
-													  ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
-													  ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
-													  ${community.base.pkg.name}-gui-components.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-eclipse.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-maven-helpers.${jar.file.suffix},
-													  ${community.base.pkg.name}-apps-common.${jar.file.suffix}"
-			/>
+        <property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-io.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-logging.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-gui-components.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-eclipse.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-maven-helpers.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-apps-common.${jar.file.suffix}"
+            />
 
-		<target name="copy-extra-cp2pom-files" depends="eclipse-apps-base">
-				<!-- copy some extra files -->
-			<mkdir dir="${module.application.folder}"/>
-			<copy preservelastmodified="true" todir="${module.application.folder}">
-				<fileset dir="${module.root.folder}" includes="cp2pom.bat,cp2pom.jnlp,cp2pom.html"/>
-			</copy>
-		</target>
+        <target name="copy-extra-cp2pom-files" depends="eclipse-apps-base">
+                <!-- copy some extra files -->
+            <mkdir dir="${module.application.folder}"/>
+            <copy preservelastmodified="true" todir="${module.application.folder}">
+                <fileset dir="${module.root.folder}" includes="cp2pom.bat,cp2pom.jnlp,cp2pom.html"/>
+            </copy>
+        </target>
 
-		<target name="build-cp2pom"
-				depends="jar-eclipse-app-module-files,
-						 copy-extra-cp2pom-files,
-						 jar-eclipse-app-application-files"
-				description="Builds cp2pom application"/>
+        <target name="build-cp2pom"
+                depends="jar-eclipse-app-module-files,
+                         copy-extra-cp2pom-files,
+                         jar-eclipse-app-application-files"
+                description="Builds cp2pom application"/>
 
-		<target name="build-jws-cp2pom" depends="build-cp2pom,sign-jws-jars" description="Builds a signed JAR(s) application"/>
+        <target name="build-jws-cp2pom" depends="build-cp2pom,sign-jws-jars" description="Builds a signed JAR(s) application"/>
 
-		<target name="clean-cp2pom"
-				depends="clean-eclipse-app-module-build"
-				description="Removes the cp2pom object files and JAR"/>
-	</project>
+        <target name="clean-cp2pom"
+                depends="clean-eclipse-app-module-build"
+                description="Removes the cp2pom object files and JAR"/>
+    </project>

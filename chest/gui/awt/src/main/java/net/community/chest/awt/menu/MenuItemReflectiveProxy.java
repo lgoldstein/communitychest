@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.menu;
 
@@ -16,29 +16,29 @@ import net.community.chest.convert.ValueStringInstantiator;
  * @since Sep 7, 2008 3:22:52 PM
  */
 public class MenuItemReflectiveProxy<I extends MenuItem> extends MenuComponentReflectiveProxy<I> {
-	public MenuItemReflectiveProxy (Class<I> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public MenuItemReflectiveProxy (Class<I> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	protected MenuItemReflectiveProxy (Class<I> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
-	/*
-	 * @see net.community.chest.awt.dom.UIReflectiveAttributesProxy#resolveAttributeInstantiator(java.lang.String, java.lang.Class)
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	protected <C> ValueStringInstantiator<C> resolveAttributeInstantiator (String name, Class<C> type) throws Exception
-	{
-		if ((type != null) && MenuShortcut.class.isAssignableFrom(type))
-			return (ValueStringInstantiator<C>) MenuShortcutValueStringInstantiator.DEFAULT;
+    protected MenuItemReflectiveProxy (Class<I> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
+    /*
+     * @see net.community.chest.awt.dom.UIReflectiveAttributesProxy#resolveAttributeInstantiator(java.lang.String, java.lang.Class)
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    protected <C> ValueStringInstantiator<C> resolveAttributeInstantiator (String name, Class<C> type) throws Exception
+    {
+        if ((type != null) && MenuShortcut.class.isAssignableFrom(type))
+            return (ValueStringInstantiator<C>) MenuShortcutValueStringInstantiator.DEFAULT;
 
-		return super.resolveAttributeInstantiator(name, type);
-	}
+        return super.resolveAttributeInstantiator(name, type);
+    }
 
-	public static final MenuItemReflectiveProxy<MenuItem>	MENUITEM=
-				new MenuItemReflectiveProxy<MenuItem>(MenuItem.class, true);
+    public static final MenuItemReflectiveProxy<MenuItem>    MENUITEM=
+                new MenuItemReflectiveProxy<MenuItem>(MenuItem.class, true);
 }

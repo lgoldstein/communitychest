@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-ant-helpers" default="build-ant-helpers" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds some helper ANT classes $Rev: 561 $
-		</description>
+    <project name="build-ant-helpers" default="build-ant-helpers" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds some helper ANT classes $Rev: 561 $
+        </description>
 
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<property name="module.base.target.name" value="ant-helpers"/>
-		<dirname property="apache.libs.root.dir" file="${module.root.folder}"/>
-		<property name="parent.root.dir" value="${apache.libs.root.dir}"/>
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <property name="module.base.target.name" value="ant-helpers"/>
+        <dirname property="apache.libs.root.dir" file="${module.root.folder}"/>
+        <property name="parent.root.dir" value="${apache.libs.root.dir}"/>
         <property name="default.classpath.ref.name" value="ant.helpers.path"/>
 
-		<import file="${apache.libs.root.dir}${file.separator}build-base.xml"/>
+        <import file="${apache.libs.root.dir}${file.separator}build-base.xml"/>
 
-    	<!-- define dependencies to use only pure ANT JAR(s) -->
-		<mvn:dependencies	pathId="ant.dependencies.path" useScope="compile"
-			  				settingsFile="${maven.settings.file.path}"
-				>
-        	<localRepository path="${maven.local.repository.folder}" layout="default"/>
+        <!-- define dependencies to use only pure ANT JAR(s) -->
+        <mvn:dependencies    pathId="ant.dependencies.path" useScope="compile"
+                              settingsFile="${maven.settings.file.path}"
+                >
+            <localRepository path="${maven.local.repository.folder}" layout="default"/>
 
-			<dependency groupId="org.apache.ant" artifactId="ant" version="${ant.jars.version}" scope="compile"/>
-			<dependency groupId="org.apache.ant" artifactId="ant-nodeps" version="${ant.jars.version}" scope="compile"/>
-		</mvn:dependencies>
+            <dependency groupId="org.apache.ant" artifactId="ant" version="${ant.jars.version}" scope="compile"/>
+            <dependency groupId="org.apache.ant" artifactId="ant-nodeps" version="${ant.jars.version}" scope="compile"/>
+        </mvn:dependencies>
 
-		<path id="ant.helpers.path">
-        	<path refid="community.modules.jars"/>
-    		<path refid="ant.dependencies.path"/>
-		</path>
+        <path id="ant.helpers.path">
+            <path refid="community.modules.jars"/>
+            <path refid="ant.dependencies.path"/>
+        </path>
 
-		<target name="build-ant-helpers" depends="jar-apache-libs-module-files" description="Builds helper ANT classes"/>
-		<target name="clean-ant-helpers" depends="clean-apache-libs-module-build" description="Cleans up helper ANT classes and JAR"/>
-	</project>
+        <target name="build-ant-helpers" depends="jar-apache-libs-module-files" description="Builds helper ANT classes"/>
+        <target name="clean-ant-helpers" depends="clean-apache-libs-module-build" description="Cleans up helper ANT classes and JAR"/>
+    </project>

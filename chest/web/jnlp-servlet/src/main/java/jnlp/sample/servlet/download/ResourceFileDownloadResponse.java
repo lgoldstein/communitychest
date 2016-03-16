@@ -42,76 +42,76 @@ import java.net.URLConnection;
 import jnlp.sample.util.ObjectUtil;
 
 public class ResourceFileDownloadResponse extends FileDownloadResponse {
-	private URL _url;
-	public URL getURL ()
-	{ 
-		return _url;
-	}
+    private URL _url;
+    public URL getURL ()
+    {
+        return _url;
+    }
 
-	private URLConnection	_urlConn;
-	public void setURL (URL u)
-	{
-		if (_url != u)
-		{
-			_url = u;
+    private URLConnection    _urlConn;
+    public void setURL (URL u)
+    {
+        if (_url != u)
+        {
+            _url = u;
 
-			if (_urlConn != null)
-				_urlConn = null;
-		}
-	}
+            if (_urlConn != null)
+                _urlConn = null;
+        }
+    }
 
-	public ResourceFileDownloadResponse (URL url, String mimeType, String versionId, long lastModified)
-	{
-		super(mimeType, versionId, lastModified, (null == url) ? null : url.toString());
-		_url = url;
-	}
+    public ResourceFileDownloadResponse (URL url, String mimeType, String versionId, long lastModified)
+    {
+        super(mimeType, versionId, lastModified, (null == url) ? null : url.toString());
+        _url = url;
+    }
 
-	public ResourceFileDownloadResponse ()
-	{
-		this(null, null, null, 0L);
-	}
+    public ResourceFileDownloadResponse ()
+    {
+        this(null, null, null, 0L);
+    }
 
-	protected synchronized URLConnection getURLConnection () throws IOException
-	{
-		if (null == _urlConn)
-		{
-			final URL	url=getURL();
-			_urlConn = (null == url) ? null : url.openConnection();
-		}
+    protected synchronized URLConnection getURLConnection () throws IOException
+    {
+        if (null == _urlConn)
+        {
+            final URL    url=getURL();
+            _urlConn = (null == url) ? null : url.openConnection();
+        }
 
-		return _urlConn;
-	}
-	/*
-	 * @see jnlp.sample.servlet.DownloadResponse.FileDownloadResponse#getContentLength()
-	 */
-	@Override
-	public int getContentLength () throws IOException
-	{ 
-		final URLConnection	conn=getURLConnection();
-		if (null == conn)
-			throw new FileNotFoundException("getContentLength(" + getURL() + ") no " + URLConnection.class.getSimpleName());
+        return _urlConn;
+    }
+    /*
+     * @see jnlp.sample.servlet.DownloadResponse.FileDownloadResponse#getContentLength()
+     */
+    @Override
+    public int getContentLength () throws IOException
+    {
+        final URLConnection    conn=getURLConnection();
+        if (null == conn)
+            throw new FileNotFoundException("getContentLength(" + getURL() + ") no " + URLConnection.class.getSimpleName());
 
-		return conn.getContentLength();
-	}
-	/*
-	 * @see jnlp.sample.servlet.DownloadResponse.FileDownloadResponse#getContent()
-	 */
-	@Override
-	public InputStream getContent () throws IOException
-	{ 
-		return ObjectUtil.openResource(getURL());
-	}
-	/*
-	 * @see jnlp.sample.servlet.DownloadResponse#toString()
-	 */
-	@Override
-	public String toString () { return super.toString() + "[ " + getArgString() + "]"; }
-	/*
-	 * @see jnlp.sample.servlet.download.FileDownloadResponse#clone()
-	 */
-	@Override
-	public ResourceFileDownloadResponse /* co-variant return */ clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}		
+        return conn.getContentLength();
+    }
+    /*
+     * @see jnlp.sample.servlet.DownloadResponse.FileDownloadResponse#getContent()
+     */
+    @Override
+    public InputStream getContent () throws IOException
+    {
+        return ObjectUtil.openResource(getURL());
+    }
+    /*
+     * @see jnlp.sample.servlet.DownloadResponse#toString()
+     */
+    @Override
+    public String toString () { return super.toString() + "[ " + getArgString() + "]"; }
+    /*
+     * @see jnlp.sample.servlet.download.FileDownloadResponse#clone()
+     */
+    @Override
+    public ResourceFileDownloadResponse /* co-variant return */ clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
 }

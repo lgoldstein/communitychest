@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-hdrxlate" default="build-hdrxlate">
-		<description>
-			Builds the headers translation application $Rev: 561 $
-		</description>
-		
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="tools.apps.root.dir" value="${parent.root.dir}"/>
-		<property name="module.base.target.name" value="hdrxlate"/>
+    <project name="build-hdrxlate" default="build-hdrxlate">
+        <description>
+            Builds the headers translation application $Rev: 561 $
+        </description>
 
-		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
-		<property name="module.application.base.pkg.name" value="${tools.apps.base.pkg.name}.${module.application.sub.pkg.name}"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="tools.apps.root.dir" value="${parent.root.dir}"/>
+        <property name="module.base.target.name" value="hdrxlate"/>
 
-		<property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-io.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
-													  ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
-													  ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
-													  ${community.base.pkg.name}-gui-components.${jar.file.suffix},
-													  ${community.base.pkg.name}-mail.${jar.file.suffix}"
-			/>
+        <import file="${parent.root.dir}${file.separator}build-base.xml"/>
+        <property name="module.application.base.pkg.name" value="${tools.apps.base.pkg.name}.${module.application.sub.pkg.name}"/>
 
-		<target name="build-hdrxlate"
-				depends="jar-tools-app-module-files,
-						 jar-application-files"
-				description="Builds HDRXLATE application"/>
+        <property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-io.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-gui-components.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-mail.${jar.file.suffix}"
+            />
 
-		<target name="clean-hdrxlate"
-				depends="clean-tools-app-module-build"
-				description="Removes the HDRXLATE object files and JAR"/>
-	</project>
+        <target name="build-hdrxlate"
+                depends="jar-tools-app-module-files,
+                         jar-application-files"
+                description="Builds HDRXLATE application"/>
+
+        <target name="clean-hdrxlate"
+                depends="clean-tools-app-module-build"
+                description="Removes the HDRXLATE object files and JAR"/>
+    </project>

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.common.test.table;
 
@@ -14,20 +14,20 @@ import net.community.chest.util.datetime.TimeUnits;
  * @since Mar 22, 2009 8:29:34 AM
  */
 public class TestTableRowData extends EnumMap<TestTableColumnType,Object>{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5113125375011187166L;
-	private final long	_stamp;
-	public final long getTimestamp ()
-	{
-		return _stamp;
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5113125375011187166L;
+    private final long    _stamp;
+    public final long getTimestamp ()
+    {
+        return _stamp;
+    }
 
-	public TestTableRowData (final int rIndex)
-	{
-		super(TestTableColumnType.class);
+    public TestTableRowData (final int rIndex)
+    {
+        super(TestTableColumnType.class);
 
-		_stamp = System.currentTimeMillis() + TimeUnits.MINUTE.getMilisecondValue(rIndex);
-	}
+        _stamp = System.currentTimeMillis() + TimeUnits.MINUTE.getMilisecondValue(rIndex);
+    }
 }

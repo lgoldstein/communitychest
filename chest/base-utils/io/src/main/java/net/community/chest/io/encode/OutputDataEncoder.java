@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.io.encode;
 
@@ -15,8 +15,8 @@ import java.nio.charset.CharsetEncoder;
  * @since Jul 13, 2009 8:35:04 AM
  */
 public interface OutputDataEncoder extends DataOutput {
-	// NOTE: "writeUTF(s)" is assumed to be equivalent to "writeString(s, "UTF-8")"
-	void writeString (String s, String charsetName) throws IOException;
-	void writeString (String s, Charset charset) throws IOException;
-	void writeString (String s, CharsetEncoder charsetEnc) throws IOException;
+    // NOTE: "writeUTF(s)" is assumed to be equivalent to "writeString(s, "UTF-8")"
+    void writeString (String s, String charsetName) throws IOException;
+    void writeString (String s, Charset charset) throws IOException;
+    void writeString (String s, CharsetEncoder charsetEnc) throws IOException;
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ejb;
 
@@ -22,131 +22,131 @@ import javax.transaction.UserTransaction;
  */
 @SuppressWarnings("deprecation")
 public abstract class AbstractMessageDrivenContexHelper implements MessageDrivenContext {
-	private Identity	_callerIdentity	/* =null */;
-	/*
-	 * @see javax.ejb.EJBContext#getCallerIdentity()
-	 */
-	@Override
-	public Identity getCallerIdentity ()
-	{
-		return _callerIdentity;
-	}
+    private Identity    _callerIdentity    /* =null */;
+    /*
+     * @see javax.ejb.EJBContext#getCallerIdentity()
+     */
+    @Override
+    public Identity getCallerIdentity ()
+    {
+        return _callerIdentity;
+    }
 
-	public void setCallerIdentity (Identity callerIdentity)
-	{
-		_callerIdentity = callerIdentity;
-	}
+    public void setCallerIdentity (Identity callerIdentity)
+    {
+        _callerIdentity = callerIdentity;
+    }
 
-	private Principal	_callerPrincipal	/* =null */;
-	/*
-	 * @see javax.ejb.EJBContext#getCallerPrincipal()
-	 */
-	@Override
-	public Principal getCallerPrincipal ()
-	{
-		return _callerPrincipal;
-	}
+    private Principal    _callerPrincipal    /* =null */;
+    /*
+     * @see javax.ejb.EJBContext#getCallerPrincipal()
+     */
+    @Override
+    public Principal getCallerPrincipal ()
+    {
+        return _callerPrincipal;
+    }
 
-	public void setCallerPrincipal (Principal callerPrincipal)
-	{
-		_callerPrincipal = callerPrincipal;
-	}
+    public void setCallerPrincipal (Principal callerPrincipal)
+    {
+        _callerPrincipal = callerPrincipal;
+    }
 
-	private EJBHome	_ejbHome	/* =null */;
-	/*
-	 * @see javax.ejb.EJBContext#getEJBHome()
-	 */
-	@Override
-	public EJBHome getEJBHome ()
-	{
-		return _ejbHome;
-	}
+    private EJBHome    _ejbHome    /* =null */;
+    /*
+     * @see javax.ejb.EJBContext#getEJBHome()
+     */
+    @Override
+    public EJBHome getEJBHome ()
+    {
+        return _ejbHome;
+    }
 
-	public void setEJBHome (EJBHome ejbHome)
-	{
-		_ejbHome = ejbHome;
-	}
+    public void setEJBHome (EJBHome ejbHome)
+    {
+        _ejbHome = ejbHome;
+    }
 
-	private EJBLocalHome	_ejbLocalHome	/* =null */;
-	/*
-	 * @see javax.ejb.EJBContext#getEJBLocalHome()
-	 */
-	@Override
-	public EJBLocalHome getEJBLocalHome ()
-	{
-		return _ejbLocalHome;
-	}
+    private EJBLocalHome    _ejbLocalHome    /* =null */;
+    /*
+     * @see javax.ejb.EJBContext#getEJBLocalHome()
+     */
+    @Override
+    public EJBLocalHome getEJBLocalHome ()
+    {
+        return _ejbLocalHome;
+    }
 
-	public void setEJBLocalHome (EJBLocalHome ejbLocalHome)
-	{
-		_ejbLocalHome = ejbLocalHome;
-	}
+    public void setEJBLocalHome (EJBLocalHome ejbLocalHome)
+    {
+        _ejbLocalHome = ejbLocalHome;
+    }
 
-	private Properties	_environment	/* =null */;
-	/*
-	 * @see javax.ejb.EJBContext#getEnvironment()
-	 */
-	@Override
-	public Properties getEnvironment ()
-	{
-		return _environment;
-	}
+    private Properties    _environment    /* =null */;
+    /*
+     * @see javax.ejb.EJBContext#getEnvironment()
+     */
+    @Override
+    public Properties getEnvironment ()
+    {
+        return _environment;
+    }
 
-	public void setEnvironment (Properties environment)
-	{
-		_environment = environment;
-	}
+    public void setEnvironment (Properties environment)
+    {
+        _environment = environment;
+    }
 
-	private boolean	_rollbackOnly	/* =false */;
-	/*
-	 * @see javax.ejb.EJBContext#getRollbackOnly()
-	 */
-	@Override
-	public boolean getRollbackOnly () throws IllegalStateException
-	{
-		return _rollbackOnly;
-	}
+    private boolean    _rollbackOnly    /* =false */;
+    /*
+     * @see javax.ejb.EJBContext#getRollbackOnly()
+     */
+    @Override
+    public boolean getRollbackOnly () throws IllegalStateException
+    {
+        return _rollbackOnly;
+    }
 
-	public void setRollbackOnly (boolean rollbackOnly) throws IllegalStateException
-	{
-		_rollbackOnly = rollbackOnly;
-	}
-	/*
-	 * @see javax.ejb.EJBContext#setRollbackOnly()
-	 */
-	@Override
-	public void setRollbackOnly () throws IllegalStateException
-	{
-		_rollbackOnly = true;
-	}
+    public void setRollbackOnly (boolean rollbackOnly) throws IllegalStateException
+    {
+        _rollbackOnly = rollbackOnly;
+    }
+    /*
+     * @see javax.ejb.EJBContext#setRollbackOnly()
+     */
+    @Override
+    public void setRollbackOnly () throws IllegalStateException
+    {
+        _rollbackOnly = true;
+    }
 
-	private TimerService	_timerService	/* =null */;
-	/*
-	 * @see javax.ejb.EJBContext#getTimerService()
-	 */
-	@Override
-	public TimerService getTimerService () throws IllegalStateException
-	{
-		return _timerService;
-	}
+    private TimerService    _timerService    /* =null */;
+    /*
+     * @see javax.ejb.EJBContext#getTimerService()
+     */
+    @Override
+    public TimerService getTimerService () throws IllegalStateException
+    {
+        return _timerService;
+    }
 
-	public void setTimerService (TimerService timerService)
-	{
-		_timerService = timerService;
-	}
+    public void setTimerService (TimerService timerService)
+    {
+        _timerService = timerService;
+    }
 
-	private UserTransaction	_userTransaction	/* =null */;
-	/*
-	 * @see javax.ejb.EJBContext#getUserTransaction()
-	 */
-	@Override
-	public UserTransaction getUserTransaction () throws IllegalStateException
-	{
-		return _userTransaction;
-	}
+    private UserTransaction    _userTransaction    /* =null */;
+    /*
+     * @see javax.ejb.EJBContext#getUserTransaction()
+     */
+    @Override
+    public UserTransaction getUserTransaction () throws IllegalStateException
+    {
+        return _userTransaction;
+    }
 
-	public void setUserTransaction (UserTransaction userTransaction)
-	{
-		_userTransaction = userTransaction;
-	}
+    public void setUserTransaction (UserTransaction userTransaction)
+    {
+        _userTransaction = userTransaction;
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.axis.value;
 
@@ -20,50 +20,50 @@ import org.w3c.dom.Element;
  * @since May 25, 2009 9:53:12 AM
  */
 public class SymbolAxisReflectiveProxy<A extends SymbolAxis> extends NumberAxisReflectiveProxy<A> {
-	protected SymbolAxisReflectiveProxy (Class<A> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected SymbolAxisReflectiveProxy (Class<A> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public SymbolAxisReflectiveProxy (Class<A> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
-	/**
-	 * Virtual attribute used in constructor
-	 */
-	public static final String	SYMBOLS_VIRTATTR="symbols";
-	/*
-	 * @see net.community.chest.awt.dom.UIReflectiveAttributesProxy#updateObjectAttribute(java.lang.Object, java.lang.String, java.lang.String, java.lang.reflect.Method)
-	 */
-	@Override
-	protected A updateObjectAttribute (A src, String name, String value, Method setter) throws Exception
-	{
-		if (SYMBOLS_VIRTATTR.equalsIgnoreCase(name))
-			return src;	// assumed to be taken care of in the constructor
+    public SymbolAxisReflectiveProxy (Class<A> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
+    /**
+     * Virtual attribute used in constructor
+     */
+    public static final String    SYMBOLS_VIRTATTR="symbols";
+    /*
+     * @see net.community.chest.awt.dom.UIReflectiveAttributesProxy#updateObjectAttribute(java.lang.Object, java.lang.String, java.lang.String, java.lang.reflect.Method)
+     */
+    @Override
+    protected A updateObjectAttribute (A src, String name, String value, Method setter) throws Exception
+    {
+        if (SYMBOLS_VIRTATTR.equalsIgnoreCase(name))
+            return src;    // assumed to be taken care of in the constructor
 
-		return super.updateObjectAttribute(src, name, value, setter);
-	}
+        return super.updateObjectAttribute(src, name, value, setter);
+    }
 
-	public static final SymbolAxisReflectiveProxy<SymbolAxis>	SYMBOL=
-		new SymbolAxisReflectiveProxy<SymbolAxis>(SymbolAxis.class, true) {
+    public static final SymbolAxisReflectiveProxy<SymbolAxis>    SYMBOL=
+        new SymbolAxisReflectiveProxy<SymbolAxis>(SymbolAxis.class, true) {
 
-			/*
-			 * @see net.community.chest.dom.proxy.AbstractReflectiveProxy#createInstance(org.w3c.dom.Element)
-			 */
-			@Override
-			public SymbolAxis createInstance (Element elem) throws Exception
-			{
-				final String				n=elem.getAttribute(NAME_ATTR),
-											s=elem.getAttribute(SYMBOLS_VIRTATTR);
-				final Collection<String>	sl=StringUtil.splitString(s, ',');
-				final int					numSymbols=(null == sl) ? 0 : sl.size();
-				final String[]				sv=(numSymbols <= 0) ? null : sl.toArray(new String[numSymbols]);
-				if ((null == sv) || (sv.length <= 0))
-					throw new IllegalStateException("createInstance(" + DOMUtils.toString(elem) + ") no '" + SYMBOLS_VIRTATTR + "' specification");
+            /*
+             * @see net.community.chest.dom.proxy.AbstractReflectiveProxy#createInstance(org.w3c.dom.Element)
+             */
+            @Override
+            public SymbolAxis createInstance (Element elem) throws Exception
+            {
+                final String                n=elem.getAttribute(NAME_ATTR),
+                                            s=elem.getAttribute(SYMBOLS_VIRTATTR);
+                final Collection<String>    sl=StringUtil.splitString(s, ',');
+                final int                    numSymbols=(null == sl) ? 0 : sl.size();
+                final String[]                sv=(numSymbols <= 0) ? null : sl.toArray(new String[numSymbols]);
+                if ((null == sv) || (sv.length <= 0))
+                    throw new IllegalStateException("createInstance(" + DOMUtils.toString(elem) + ") no '" + SYMBOLS_VIRTATTR + "' specification");
 
-				return new SymbolAxis(n, sv);
-			}
-		};
+                return new SymbolAxis(n, sv);
+            }
+        };
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jcommon.util;
 
@@ -19,37 +19,37 @@ import org.jfree.util.Rotation;
  * @since Feb 1, 2009 2:48:24 PM
  */
 public enum RotationType {
-	CLOCKWISE(Rotation.CLOCKWISE),
-	ANTICLOCKWISE(Rotation.ANTICLOCKWISE);
+    CLOCKWISE(Rotation.CLOCKWISE),
+    ANTICLOCKWISE(Rotation.ANTICLOCKWISE);
 
-	private final Rotation	_r;
-	public final Rotation getRotation ()
-	{
-		return _r;
-	}
+    private final Rotation    _r;
+    public final Rotation getRotation ()
+    {
+        return _r;
+    }
 
-	RotationType (Rotation r)
-	{
-		_r = r;
-	}
+    RotationType (Rotation r)
+    {
+        _r = r;
+    }
 
-	public static final List<RotationType>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final RotationType fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<RotationType>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final RotationType fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-	public static final RotationType fromRotation (final Rotation r)
-	{
-		if (null == r)
-			return null;
+    public static final RotationType fromRotation (final Rotation r)
+    {
+        if (null == r)
+            return null;
 
-		for (final RotationType v : VALUES)
-		{
-			if ((v != null) && r.equals(v.getRotation()))
-				return v;
-		}
+        for (final RotationType v : VALUES)
+        {
+            if ((v != null) && r.equals(v.getRotation()))
+                return v;
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

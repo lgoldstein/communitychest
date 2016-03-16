@@ -99,6 +99,7 @@ def execute(opts, int startIndex, String ... args) {
 			Path path = Paths.get(it)
 			path = path.normalize()
 			path = path.toAbsolutePath()
+			path = path.toRealPath()
 			processTarget(path, suffixes, dryRun, ignoreException, workBuf, opts)
 		} catch(Throwable t) {
 			error(t.getClass().getSimpleName() + " while processing " + it + ": " + t.getMessage())

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jcommon.ui;
 
@@ -28,65 +28,65 @@ import org.jfree.util.TableOrder;
  * @since Jan 27, 2009 4:32:16 PM
  */
 public final class ConvCommon {
-	private ConvCommon ()
-	{
-		// no instance
-	}
+    private ConvCommon ()
+    {
+        // no instance
+    }
 
-	public static final <M extends ClassNameMap<ValueStringInstantiator<?>>> M updateDefaultInstantiatorsMap (final M m)
-	{
-		if (null == m)
-			return m;
+    public static final <M extends ClassNameMap<ValueStringInstantiator<?>>> M updateDefaultInstantiatorsMap (final M m)
+    {
+        if (null == m)
+            return m;
 
-		m.put(RectangleInsets.class, RectangleInsetsValueStringInstantiator.DEFAULT);
-		m.put(HorizontalAlignment.class, HAlignmentValueStringInstantiator.DEFAULT);
-		m.put(VerticalAlignment.class, VAlignmentValueStringInstantiator.DEFAULT);
-		m.put(RectangleEdge.class, RectEdgeValueStringInstantiator.DEFAULT);
-		m.put(RectangleAnchor.class, RectAnchorValueStringInstantiator.DEFAULT);
-		m.put(Rotation.class, RotationValueStringInstantiator.DEFAULT);
-		m.put(SortOrder.class, SortOrderEnumStringInstantiator.DEFAULT);
-		m.put(TableOrder.class, TableOrderEnumStringInstantiator.DEFAULT);
-		m.put(TextAnchor.class, TextAnchorValueStringInstantiator.DEFAULT);
+        m.put(RectangleInsets.class, RectangleInsetsValueStringInstantiator.DEFAULT);
+        m.put(HorizontalAlignment.class, HAlignmentValueStringInstantiator.DEFAULT);
+        m.put(VerticalAlignment.class, VAlignmentValueStringInstantiator.DEFAULT);
+        m.put(RectangleEdge.class, RectEdgeValueStringInstantiator.DEFAULT);
+        m.put(RectangleAnchor.class, RectAnchorValueStringInstantiator.DEFAULT);
+        m.put(Rotation.class, RotationValueStringInstantiator.DEFAULT);
+        m.put(SortOrder.class, SortOrderEnumStringInstantiator.DEFAULT);
+        m.put(TableOrder.class, TableOrderEnumStringInstantiator.DEFAULT);
+        m.put(TextAnchor.class, TextAnchorValueStringInstantiator.DEFAULT);
 
-		return m;
-	}
+        return m;
+    }
 
-	public static final CommonInstantiatorsMap createDefaultInstantiatorsMap ()
-	{
-		return updateDefaultInstantiatorsMap(new CommonInstantiatorsMap());
-	}
+    public static final CommonInstantiatorsMap createDefaultInstantiatorsMap ()
+    {
+        return updateDefaultInstantiatorsMap(new CommonInstantiatorsMap());
+    }
 
-	private static Map<String,ValueStringInstantiator<?>>	_instMap	/* =null */;
-	// CAVEAT EMPTOR
-	public static final synchronized Map<String,ValueStringInstantiator<?>> getConvertersMap ()
-	{
-		if (null == _instMap)
-			_instMap = createDefaultInstantiatorsMap();
-		return _instMap;
-	}
-	// returns previous instance
-	public static final synchronized Map<String,ValueStringInstantiator<?>> setConvertersMap (Map<String,ValueStringInstantiator<?>> m)
-	{
-		final Map<String,ValueStringInstantiator<?>>	prev=_instMap;
-		_instMap = m;
-		return prev;
-	}
+    private static Map<String,ValueStringInstantiator<?>>    _instMap    /* =null */;
+    // CAVEAT EMPTOR
+    public static final synchronized Map<String,ValueStringInstantiator<?>> getConvertersMap ()
+    {
+        if (null == _instMap)
+            _instMap = createDefaultInstantiatorsMap();
+        return _instMap;
+    }
+    // returns previous instance
+    public static final synchronized Map<String,ValueStringInstantiator<?>> setConvertersMap (Map<String,ValueStringInstantiator<?>> m)
+    {
+        final Map<String,ValueStringInstantiator<?>>    prev=_instMap;
+        _instMap = m;
+        return prev;
+    }
 
-	public static <V> ValueStringInstantiator<V> getConverter (final Class<V> c)
-	{
-		if (null == c)
-			return null;
+    public static <V> ValueStringInstantiator<V> getConverter (final Class<V> c)
+    {
+        if (null == c)
+            return null;
 
-		final Map<String,ValueStringInstantiator<?>>	cMap=getConvertersMap();
-		if ((null == cMap) || (cMap.size() <= 0))
-			return null;
+        final Map<String,ValueStringInstantiator<?>>    cMap=getConvertersMap();
+        if ((null == cMap) || (cMap.size() <= 0))
+            return null;
 
-		synchronized(cMap)
-		{
-			@SuppressWarnings("unchecked")
-			final ValueStringInstantiator<V>	vsi=
-				(ValueStringInstantiator<V>) cMap.get(c);
-			return vsi;
-		}
-	}
+        synchronized(cMap)
+        {
+            @SuppressWarnings("unchecked")
+            final ValueStringInstantiator<V>    vsi=
+                (ValueStringInstantiator<V>) cMap.get(c);
+            return vsi;
+        }
+    }
 }

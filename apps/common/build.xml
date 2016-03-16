@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-apps-common" default="build-apps-common">
-		<description>
-			Builds common applications utilities $Rev: 561 $
-		</description>
+    <project name="build-apps-common" default="build-apps-common">
+        <description>
+            Builds common applications utilities $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}}"/>
-		<property name="project.root.dir" value="${parent.root.dir}"/>
-		<property name="module.base.target.name" value="apps-common"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}}"/>
+        <property name="project.root.dir" value="${parent.root.dir}"/>
+        <property name="module.base.target.name" value="apps-common"/>
 
-		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
+        <import file="${parent.root.dir}${file.separator}build-base.xml"/>
 
-		<target name="build-apps-common" depends="jar-project-module-files" description="Builds common applications API(s)"/>
-		<target name="clean-apps-common" depends="clean-project-module-build" description="Cleans common applications API(s)"/>
-	</project>
+        <target name="build-apps-common" depends="jar-project-module-files" description="Builds common applications API(s)"/>
+        <target name="clean-apps-common" depends="clean-project-module-build" description="Cleans common applications API(s)"/>
+    </project>

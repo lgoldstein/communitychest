@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.math;
 
@@ -16,7 +16,7 @@ import net.community.chest.io.ApplicationIOUtils;
 public class PiDigits extends ApplicationIOUtils {
     /**
      * Computes the nth digit of Pi in base-16. If n < 0, return -1.
-     * 
+     *
      * @param nth The digit of Pi to retrieve in base-16.
      * @return The n-th digit of Pi in base-16.
      */
@@ -77,9 +77,9 @@ public class PiDigits extends ApplicationIOUtils {
             return ((temp * temp) % m) * a % m;
         }
     }
-    
+
     //////////////////////////////////////////////////////////////////////////
-    
+
     protected static final void nthPiDigit(PrintStream out, int nth) {
         long    startTime=System.currentTimeMillis();
         int     digit=piDigit(nth);
@@ -95,11 +95,11 @@ public class PiDigits extends ApplicationIOUtils {
             if (ans.length() <= 0) {
                 continue;
             }
-            
+
             if (isQuit(ans)) {
                 break;
             }
-            
+
             try {
                 nthPiDigit(out, Integer.parseInt(ans));
             } catch(NumberFormatException e) {
@@ -110,7 +110,7 @@ public class PiDigits extends ApplicationIOUtils {
 
     public static void main(String[] args) {
 //      nthPiDigit(getStdin(), System.out);
-        
+
         for (int nth : new int[] { 1, 10, 100, 10000, 100000, 1000000, 10000000}) {
             nthPiDigit(System.out, nth);
         }

@@ -7,9 +7,9 @@ package net.community.apps.tools.srcextract;
  * @since Nov 25, 2007 12:43:33 PM
  */
 public interface FileSpecChangeListener {
-	/**
-	 * Called whenever the user changes somethinf in a {@link FileSpecPanel}
-	 * @param fsp The changed {@link FileSpecPanel}
-	 */
-	void handleSelectionChanged (FileSpecPanel fsp);
+    /**
+     * Called whenever the user changes somethinf in a {@link FileSpecPanel}
+     * @param fsp The changed {@link FileSpecPanel}
+     */
+    void handleSelectionChanged (FileSpecPanel fsp);
 }

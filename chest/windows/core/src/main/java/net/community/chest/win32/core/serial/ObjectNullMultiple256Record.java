@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.serial;
 
@@ -20,86 +20,86 @@ import net.community.chest.win32.core.DataFormatConverter;
  *
  */
 public class ObjectNullMultiple256Record extends SerializationRecord
-				implements PubliclyCloneable<ObjectNullMultiple256Record>,
-						   ElementEncoder<ObjectNullMultiple256Record>{
-	private static final long serialVersionUID = 1996923559485206152L;
+                implements PubliclyCloneable<ObjectNullMultiple256Record>,
+                           ElementEncoder<ObjectNullMultiple256Record>{
+    private static final long serialVersionUID = 1996923559485206152L;
 
-	private short _nullCount;
+    private short _nullCount;
 
-	public ObjectNullMultiple256Record ()
-	{
-		super(RecordTypeEnumeration.ObjectNullMultiple256);
-	}
+    public ObjectNullMultiple256Record ()
+    {
+        super(RecordTypeEnumeration.ObjectNullMultiple256);
+    }
 
-	public ObjectNullMultiple256Record (InputStream in) throws IOException
-	{
-		super(RecordTypeEnumeration.ObjectNullMultiple256);
+    public ObjectNullMultiple256Record (InputStream in) throws IOException
+    {
+        super(RecordTypeEnumeration.ObjectNullMultiple256);
 
-		Object	result=read(in);
-		if (result != this)
-			throw new StreamCorruptedException("Mismatched read data instance");
-	}
+        Object    result=read(in);
+        if (result != this)
+            throw new StreamCorruptedException("Mismatched read data instance");
+    }
 
-	public short getNullCount ()
-	{
-		return _nullCount;
-	}
+    public short getNullCount ()
+    {
+        return _nullCount;
+    }
 
-	public void setNullCount (short nullCount)
-	{
-		_nullCount = nullCount;
-	}
+    public void setNullCount (short nullCount)
+    {
+        _nullCount = nullCount;
+    }
 
-	@Override
-	@CoVariantReturn
-	public ObjectNullMultiple256Record read (InputStream in) throws IOException
-	{
-		return getClass().cast(super.read(in));
-	}
+    @Override
+    @CoVariantReturn
+    public ObjectNullMultiple256Record read (InputStream in) throws IOException
+    {
+        return getClass().cast(super.read(in));
+    }
 
-	@Override
-	public void readRecordData (InputStream in) throws IOException
-	{
-		setNullCount(DataFormatConverter.readUnsignedByte(in));
-		logInternal("Count=" + getNullCount());
-	}
+    @Override
+    public void readRecordData (InputStream in) throws IOException
+    {
+        setNullCount(DataFormatConverter.readUnsignedByte(in));
+        logInternal("Count=" + getNullCount());
+    }
 
-	@Override
-	public void writeRecordData (OutputStream out) throws IOException
-	{
-		DataFormatConverter.writeUnsignedByte(out, getNullCount());
-	}
+    @Override
+    public void writeRecordData (OutputStream out) throws IOException
+    {
+        DataFormatConverter.writeUnsignedByte(out, getNullCount());
+    }
 
-	@Override
-	public ObjectNullMultiple256Record clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}
-	@Override
-	public int hashCode ()
-	{
-		return super.hashCode() + getNullCount();
-	}
-	
-	@Override
-	public boolean equals (Object obj)
-	{
-		if (!super.equals(obj))
-			return false;
-		if (this == obj)
-			return true;
-		
-		ObjectNullMultiple256Record	other=(ObjectNullMultiple256Record) obj;
-		if (getNullCount() == other.getNullCount())
-			return true;
-		else
-			return false;
-	}
+    @Override
+    public ObjectNullMultiple256Record clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
+    @Override
+    public int hashCode ()
+    {
+        return super.hashCode() + getNullCount();
+    }
 
-	@Override
-	public String toString ()
-	{
-		return super.toString() + ";count=" + getNullCount();
-	}
+    @Override
+    public boolean equals (Object obj)
+    {
+        if (!super.equals(obj))
+            return false;
+        if (this == obj)
+            return true;
+
+        ObjectNullMultiple256Record    other=(ObjectNullMultiple256Record) obj;
+        if (getNullCount() == other.getNullCount())
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public String toString ()
+    {
+        return super.toString() + ";count=" + getNullCount();
+    }
 
 }

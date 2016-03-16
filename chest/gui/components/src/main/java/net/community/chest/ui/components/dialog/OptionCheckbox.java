@@ -14,31 +14,31 @@ import net.community.chest.ui.helpers.button.TypedCheckBox;
  * @since Jan 6, 2009 8:39:55 AM
  */
 public class OptionCheckbox extends TypedCheckBox<AttributeAccessor> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1262283812993896553L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1262283812993896553L;
 
-	public OptionCheckbox (final AttributeAccessor aa)
-	{
-		super(AttributeAccessor.class, aa);
-		setText(AttributeMethodType.getSpacedAttributeName(aa.getName()));
-	}
+    public OptionCheckbox (final AttributeAccessor aa)
+    {
+        super(AttributeAccessor.class, aa);
+        setText(AttributeMethodType.getSpacedAttributeName(aa.getName()));
+    }
 
-	public Object getOptionValue (Object o) throws Exception
-	{
-		final AttributeAccessor	a=getAssignedValue();
-		final Method			gm=(null == a) ? null : a.getGetter();
-		return (gm == null) ? null : gm.invoke(o, AttributeAccessor.EMPTY_OBJECTS_ARRAY);
-	}
+    public Object getOptionValue (Object o) throws Exception
+    {
+        final AttributeAccessor    a=getAssignedValue();
+        final Method            gm=(null == a) ? null : a.getGetter();
+        return (gm == null) ? null : gm.invoke(o, AttributeAccessor.EMPTY_OBJECTS_ARRAY);
+    }
 
-	public void setOptionValue (Object o) throws Exception
-	{
-		final AttributeAccessor	a=getAssignedValue();
-		final Method			sm=(null == a) ? null : a.getSetter();
-		final Boolean			v=Boolean.valueOf(isSelected());
-		if (sm == null)
-			return;	// debug breakpoint
-		sm.invoke(o, v);
-	}
+    public void setOptionValue (Object o) throws Exception
+    {
+        final AttributeAccessor    a=getAssignedValue();
+        final Method            sm=(null == a) ? null : a.getSetter();
+        final Boolean            v=Boolean.valueOf(isSelected());
+        if (sm == null)
+            return;    // debug breakpoint
+        sm.invoke(o, v);
+    }
 }

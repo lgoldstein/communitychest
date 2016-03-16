@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.text;
 
@@ -16,32 +16,32 @@ import net.community.chest.lang.StringUtil;
  * @since Feb 18, 2009 1:11:14 PM
  */
 public abstract class SimpleDateFormatValueStringInstantiator<F extends SimpleDateFormat> extends AbstractXmlValueStringInstantiator<F> {
-	protected SimpleDateFormatValueStringInstantiator (Class<F> objClass) throws IllegalArgumentException
-	{
-		super(objClass);
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
-	 */
-	@Override
-	public String convertInstance (F inst) throws Exception
-	{
-		return (null == inst) ? null : inst.toPattern();
-	}
+    protected SimpleDateFormatValueStringInstantiator (Class<F> objClass) throws IllegalArgumentException
+    {
+        super(objClass);
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
+     */
+    @Override
+    public String convertInstance (F inst) throws Exception
+    {
+        return (null == inst) ? null : inst.toPattern();
+    }
 
-	public static final SimpleDateFormatValueStringInstantiator<SimpleDateFormat>	DEFAULT=
-			new SimpleDateFormatValueStringInstantiator<SimpleDateFormat>(SimpleDateFormat.class) {
-				/*
-				 * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
-				 */
-				@Override
-				public SimpleDateFormat newInstance (String v) throws Exception
-				{
-					final String	s=StringUtil.getCleanStringValue(v);
-					if ((null == s) || (s.length() <= 0))
-						return null;
+    public static final SimpleDateFormatValueStringInstantiator<SimpleDateFormat>    DEFAULT=
+            new SimpleDateFormatValueStringInstantiator<SimpleDateFormat>(SimpleDateFormat.class) {
+                /*
+                 * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
+                 */
+                @Override
+                public SimpleDateFormat newInstance (String v) throws Exception
+                {
+                    final String    s=StringUtil.getCleanStringValue(v);
+                    if ((null == s) || (s.length() <= 0))
+                        return null;
 
-					return new SimpleDateFormat(s);
-				}				
-			};
+                    return new SimpleDateFormat(s);
+                }
+            };
 }

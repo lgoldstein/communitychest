@@ -15,7 +15,7 @@
                    is used (see note for it)
 
                DsType - DS type - available values are (case insensitive):
-                   
+
                    GAUGE, COUNTER, DERIVE, ABSOLUTE
 
                heartbeat - if the database does not receive a new value within
@@ -40,11 +40,11 @@
         <DsDef dsName="CurrentItemsNum"         DsType="GAUGE"   heartbeat="2m" min="0"/>
 
         <!-- ArcDef element
-        
+
             ConsolFun - the consolidation function (case insensitive) - values are:
-            
+
                 AVERAGE, MIN, MAX, LAST, FIRST, TOTAL
-            
+
             xff - The XFF value
 
             steps - The number of PDP(s) to use as input to the consolidation function

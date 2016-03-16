@@ -8,18 +8,18 @@ package net.community.chest.tools.javadoc;
  * @since Aug 16, 2007 11:09:04 AM
  */
 public enum DocErrorLevel  {
-	NOTICE("NOTICE"),
-	WARNING("WARNING"),
-	ERROR("ERROR");
+    NOTICE("NOTICE"),
+    WARNING("WARNING"),
+    ERROR("ERROR");
 
-	private final String	_name;
-	public final String getName ()
-	{
-		return _name;
-	}
+    private final String    _name;
+    public final String getName ()
+    {
+        return _name;
+    }
 
-	DocErrorLevel (String name)
-	{
-		_name = name;
-	}
+    DocErrorLevel (String name)
+    {
+        _name = name;
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.util.locale;
 
@@ -16,23 +16,23 @@ import java.util.TreeMap;
  * @since Dec 16, 2008 10:29:08 AM
  */
 public class LocalesMap<V> extends TreeMap<Locale,V> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 9223328327233689552L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 9223328327233689552L;
 
-	public LocalesMap (Comparator<? super Locale> comparator)
-	{
-		super(comparator);
-	}
+    public LocalesMap (Comparator<? super Locale> comparator)
+    {
+        super(comparator);
+    }
 
-	public LocalesMap ()
-	{
-		this(DefaultLocaleComparator.ASCENDING);
-	}
+    public LocalesMap ()
+    {
+        this(DefaultLocaleComparator.ASCENDING);
+    }
 
-	public LocalesMap (Map<? extends Locale,? extends V> m)
-	{
-		super(m);
-	}
+    public LocalesMap (Map<? extends Locale,? extends V> m)
+    {
+        super(m);
+    }
 }

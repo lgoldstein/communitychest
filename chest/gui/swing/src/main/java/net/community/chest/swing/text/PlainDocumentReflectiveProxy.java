@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing.text;
 
@@ -12,17 +12,17 @@ import javax.swing.text.PlainDocument;
  * @since Nov 11, 2010 2:40:32 PM
  */
 public class PlainDocumentReflectiveProxy<D extends PlainDocument> extends AbstractDocumentReflectiveProxy<D> {
-	protected PlainDocumentReflectiveProxy (Class<D> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected PlainDocumentReflectiveProxy (Class<D> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public PlainDocumentReflectiveProxy (Class<D> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public PlainDocumentReflectiveProxy (Class<D> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final PlainDocumentReflectiveProxy<PlainDocument>	PLAINDOC=
-		new PlainDocumentReflectiveProxy<PlainDocument>(PlainDocument.class, true);
+    public static final PlainDocumentReflectiveProxy<PlainDocument>    PLAINDOC=
+        new PlainDocumentReflectiveProxy<PlainDocument>(PlainDocument.class, true);
 }

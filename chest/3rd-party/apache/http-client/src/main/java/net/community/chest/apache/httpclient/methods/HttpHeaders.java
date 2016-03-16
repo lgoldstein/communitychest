@@ -8,14 +8,14 @@ package net.community.chest.apache.httpclient.methods;
  * @since Oct 10, 2007 12:26:45 PM
  */
 public final class HttpHeaders {
-	private HttpHeaders ()
-	{
-		// no instance
-	}
+    private HttpHeaders ()
+    {
+        // no instance
+    }
 
-	public static final String	stdAcceptRangesHdr="Accept-Ranges",
-								stdRangeHdr="Range";
+    public static final String    stdAcceptRangesHdr="Accept-Ranges",
+                                stdRangeHdr="Range";
 
-	////////// useful keywords/modifiers ///////////////////
-	public static final String	bytesModifier="bytes";
+    ////////// useful keywords/modifiers ///////////////////
+    public static final String    bytesModifier="bytes";
 }

@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-hibernate-libs" default="build-hibernate-libs">
-		<description>
-			Builds some helper Hibernate classes $Rev: 561 $
-		</description>
+    <project name="build-hibernate-libs" default="build-hibernate-libs">
+        <description>
+            Builds some helper Hibernate classes $Rev: 561 $
+        </description>
 
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<property name="module.base.target.name" value="hibernate-libs"/>
-		<property name="hibernate.libs.root.dir" value="${module.root.folder}"/>
-		<property name="parent.root.dir" value="${hibernate.libs.root.dir}"/>
-		<import file="${hibernate.libs.root.dir}${file.separator}build-base.xml"/>
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <property name="module.base.target.name" value="hibernate-libs"/>
+        <property name="hibernate.libs.root.dir" value="${module.root.folder}"/>
+        <property name="parent.root.dir" value="${hibernate.libs.root.dir}"/>
+        <import file="${hibernate.libs.root.dir}${file.separator}build-base.xml"/>
 
-		<target name="build-hibernate-core-helpers" depends="hibernate-libs-base"
-				unless="skip.build.hibernate.core.helpers"
-				description="Builds helper Hibernate core classes">
-			<ant dir="${module.root.folder}${file.separator}core" target="build-hibernate-core-helpers" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.hibernate.core.helpers" value="true"/>
-		</target>
+        <target name="build-hibernate-core-helpers" depends="hibernate-libs-base"
+                unless="skip.build.hibernate.core.helpers"
+                description="Builds helper Hibernate core classes">
+            <ant dir="${module.root.folder}${file.separator}core" target="build-hibernate-core-helpers" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.hibernate.core.helpers" value="true"/>
+        </target>
 
-		<target name="build-hibernate-libs"
-				description="Builds the Hibernate helpers JAR(s)"
-				depends="build-hibernate-core-helpers"/>
+        <target name="build-hibernate-libs"
+                description="Builds the Hibernate helpers JAR(s)"
+                depends="build-hibernate-core-helpers"/>
 
-		<target name="clean-hibernate-libs" depends="hibernate-libs-base" description="Cleans up helper Hibernate classes and JAR">
-			<ant dir="${module.root.folder}${file.separator}core" target="clean-hibernate-core-helpers" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-		</target>
-	</project>
+        <target name="clean-hibernate-libs" depends="hibernate-libs-base" description="Cleans up helper Hibernate classes and JAR">
+            <ant dir="${module.root.folder}${file.separator}core" target="clean-hibernate-core-helpers" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+        </target>
+    </project>

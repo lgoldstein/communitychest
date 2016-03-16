@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.svnkit;
 
@@ -9,5 +9,5 @@ package net.community.chest.svnkit;
  * @since Nov 8, 2010 3:18:38 PM
  */
 public interface SVNLocationFilter {
-	boolean accept (SVNLocation location);
+    boolean accept (SVNLocation location);
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.title;
 
@@ -19,27 +19,27 @@ import org.jfree.chart.title.Title;
  * @since Jan 27, 2009 3:27:18 PM
  */
 public class TitleReflectiveProxy<T extends Title> extends AbstractBlockReflectiveProxy<T> {
-	protected TitleReflectiveProxy (Class<T> objClass, boolean registerAsDefault)
-			throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected TitleReflectiveProxy (Class<T> objClass, boolean registerAsDefault)
+            throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public TitleReflectiveProxy (Class<T> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public TitleReflectiveProxy (Class<T> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final String	POSITION_ATTR="position";
-	/*
-	 * @see net.community.chest.dom.proxy.AbstractXmlProxyConverter#initializeAliasesMap(java.util.Map)
-	 */
-	@Override
-	protected Map<String,String> initializeAliasesMap (Map<String,String> org)
-	{
-		return addAttributeAliases(super.initializeAliasesMap(org),
-				HAlignment.HALIGN_ALIAS, HAlignment.HALIGN_ATTR,
-				VAlignment.VALIGN_ALIAS, VAlignment.VALIGN_ATTR
-			);
-	}
+    public static final String    POSITION_ATTR="position";
+    /*
+     * @see net.community.chest.dom.proxy.AbstractXmlProxyConverter#initializeAliasesMap(java.util.Map)
+     */
+    @Override
+    protected Map<String,String> initializeAliasesMap (Map<String,String> org)
+    {
+        return addAttributeAliases(super.initializeAliasesMap(org),
+                HAlignment.HALIGN_ALIAS, HAlignment.HALIGN_ATTR,
+                VAlignment.VALIGN_ALIAS, VAlignment.VALIGN_ATTR
+            );
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.util.datetime;
 
@@ -12,13 +12,13 @@ import java.util.Calendar;
  *
  */
 public interface CalendarFieldIndicator {
-	/**
-	 * @return The identifier of the calendar field represented by the indicator
-	 */
-	int getCalendarFieldId ();
-	/**
-	 * @param c The {@link Calendar} instance to process
-	 * @return The value of the field represented by the indicator (negative if <code>null</code>)
-	 */
-	int getFieldValue (Calendar c);
+    /**
+     * @return The identifier of the calendar field represented by the indicator
+     */
+    int getCalendarFieldId ();
+    /**
+     * @param c The {@link Calendar} instance to process
+     * @return The value of the field represented by the indicator (negative if <code>null</code>)
+     */
+    int getFieldValue (Calendar c);
 }

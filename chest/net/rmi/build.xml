@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-net-rmi-utils" default="build-net-rmi-utils">
-		<description>
-			Builds the RMI net utilities JAR $Rev: 561 $
-		</description>
+    <project name="build-net-rmi-utils" default="build-net-rmi-utils">
+        <description>
+            Builds the RMI net utilities JAR $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="module.base.target.name" value="net-rmi"/>
-	    <dirname property="base.net.root.dir" file="${module.root.folder}"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="module.base.target.name" value="net-rmi"/>
+        <dirname property="base.net.root.dir" file="${module.root.folder}"/>
 
-		<import file="${base.net.root.dir}${file.separator}build-base.xml"/>
+        <import file="${base.net.root.dir}${file.separator}build-base.xml"/>
 
-		<target name="build-net-rmi-utils" depends="jar-base-net-module-files" description="Builds the RMI net utilitites JAR"/>
-		<target name="clean-net-rmi-utils" depends="clean-base-net-module-build" description="Removes the RMI net utilities object files and JAR"/>
-	</project>
+        <target name="build-net-rmi-utils" depends="jar-base-net-module-files" description="Builds the RMI net utilitites JAR"/>
+        <target name="clean-net-rmi-utils" depends="clean-base-net-module-build" description="Removes the RMI net utilities object files and JAR"/>
+    </project>

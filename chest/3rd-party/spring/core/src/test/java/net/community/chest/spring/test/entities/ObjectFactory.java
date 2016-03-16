@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.spring.test.entities;
 
@@ -11,18 +11,18 @@ import javax.xml.bind.annotation.XmlRegistry;
  */
 @XmlRegistry
 public final class ObjectFactory {
-	public ObjectFactory ()
-	{
-		super();
-	}
+    public ObjectFactory ()
+    {
+        super();
+    }
 
-	public DateTimeEntity createDateTimeEntity ()
-	{
-		return new DateTimeEntity();
-	}
+    public DateTimeEntity createDateTimeEntity ()
+    {
+        return new DateTimeEntity();
+    }
 
-	public NodeEntity createNodeEntity ()
-	{
-		return new NodeEntity();
-	}
+    public NodeEntity createNodeEntity ()
+    {
+        return new NodeEntity();
+    }
 }

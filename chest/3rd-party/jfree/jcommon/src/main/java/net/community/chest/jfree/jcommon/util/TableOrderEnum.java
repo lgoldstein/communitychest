@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jcommon.util;
 
@@ -15,42 +15,42 @@ import org.jfree.util.TableOrder;
  * <P>Copyright GPLv2</P>
  *
  * <P>Encapsulates the {@link TableOrder} values as a proper {@link Enum}</P>
- * 
+ *
  * @author Lyor G.
  * @since May 26, 2009 12:38:49 PM
  */
 public enum TableOrderEnum {
-	ROW(TableOrder.BY_ROW),
-	COL(TableOrder.BY_COLUMN);
+    ROW(TableOrder.BY_ROW),
+    COL(TableOrder.BY_COLUMN);
 
-	private final TableOrder	_o;
-	public final TableOrder getTableOrder ()
-	{
-		return _o;
-	}
-	
-	TableOrderEnum (TableOrder o)
-	{
-		_o = o;
-	}
+    private final TableOrder    _o;
+    public final TableOrder getTableOrder ()
+    {
+        return _o;
+    }
 
-	public static final List<TableOrderEnum>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final TableOrderEnum fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    TableOrderEnum (TableOrder o)
+    {
+        _o = o;
+    }
 
-	public static final TableOrderEnum fromTableOrder (final TableOrder o)
-	{
-		if (null == o)
-			return null;
+    public static final List<TableOrderEnum>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final TableOrderEnum fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-		for (final TableOrderEnum  v : VALUES)
-		{
-			if ((v != null) && o.equals(v.getTableOrder()))
-				return v;
-		}
+    public static final TableOrderEnum fromTableOrder (final TableOrder o)
+    {
+        if (null == o)
+            return null;
 
-		return null;
-	}
+        for (final TableOrderEnum  v : VALUES)
+        {
+            if ((v != null) && o.equals(v.getTableOrder()))
+                return v;
+        }
+
+        return null;
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ui.components.datetime;
 
@@ -18,94 +18,94 @@ import net.community.chest.util.datetime.MonthsValues;
  * @since Dec 16, 2008 9:58:51 AM
  */
 public class MonthOfYearComboBox extends EnumComboBox<MonthsValues> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7922627253104355074L;
-	private DateFormatSymbols	_dfs;
-	protected synchronized DateFormatSymbols getDateFormatSymbols ()
-	{
-		if (null == _dfs)
-		{
-			final Locale	l=getDisplayLocale();
-			_dfs = DateUtil.getDateFormatSymbols(l);
-		}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7922627253104355074L;
+    private DateFormatSymbols    _dfs;
+    protected synchronized DateFormatSymbols getDateFormatSymbols ()
+    {
+        if (null == _dfs)
+        {
+            final Locale    l=getDisplayLocale();
+            _dfs = DateUtil.getDateFormatSymbols(l);
+        }
 
-		return _dfs;
-	}
+        return _dfs;
+    }
 
-	protected synchronized void setDateFormatSymbols (DateFormatSymbols dfs)
-	{
-		if (_dfs != dfs)	// debug breakpoint
-			_dfs = dfs;
-	}
+    protected synchronized void setDateFormatSymbols (DateFormatSymbols dfs)
+    {
+        if (_dfs != dfs)    // debug breakpoint
+            _dfs = dfs;
+    }
 
-	private boolean	_useShortNames	/* =false */;
-	public boolean isShortNames ()
-	{
-		return _useShortNames;
-	}
+    private boolean    _useShortNames    /* =false */;
+    public boolean isShortNames ()
+    {
+        return _useShortNames;
+    }
 
-	public void setShortNames (boolean f)
-	{
-		if (_useShortNames != f)
-			_useShortNames = f;
-	}
+    public void setShortNames (boolean f)
+    {
+        if (_useShortNames != f)
+            _useShortNames = f;
+    }
 
-	private Map<MonthsValues,String>	_namesMap	/* =null */;
-	protected synchronized Map<MonthsValues,String> getMonthNamesMap ()
-	{
-		if (null == _namesMap)
-			_namesMap = MonthsValues.getMonthNamesMap(getDateFormatSymbols(), isShortNames());
-		return _namesMap;
-	}
+    private Map<MonthsValues,String>    _namesMap    /* =null */;
+    protected synchronized Map<MonthsValues,String> getMonthNamesMap ()
+    {
+        if (null == _namesMap)
+            _namesMap = MonthsValues.getMonthNamesMap(getDateFormatSymbols(), isShortNames());
+        return _namesMap;
+    }
 
-	protected synchronized void setMonthNamesMap (Map<MonthsValues,String> nm)
-	{
-		if (_namesMap != nm)	// debug breakpoint
-			_namesMap = nm;
-	}
-	/*
-	 * @see net.community.chest.ui.helpers.combobox.TypedComboBox#getValueDisplayText(java.lang.Object)
-	 */
-	@Override
-	public String getValueDisplayText (final MonthsValues m)
-	{
-		final Map<MonthsValues,String>	nm=
-			(null == m) ? null : getMonthNamesMap();
-		final String					n=
-			((null == nm) || (nm.size() <= 0)) ? null : nm.get(m);
-		if ((null == n) || (n.length() <= 0))
-			return super.getValueDisplayText(m);
+    protected synchronized void setMonthNamesMap (Map<MonthsValues,String> nm)
+    {
+        if (_namesMap != nm)    // debug breakpoint
+            _namesMap = nm;
+    }
+    /*
+     * @see net.community.chest.ui.helpers.combobox.TypedComboBox#getValueDisplayText(java.lang.Object)
+     */
+    @Override
+    public String getValueDisplayText (final MonthsValues m)
+    {
+        final Map<MonthsValues,String>    nm=
+            (null == m) ? null : getMonthNamesMap();
+        final String                    n=
+            ((null == nm) || (nm.size() <= 0)) ? null : nm.get(m);
+        if ((null == n) || (n.length() <= 0))
+            return super.getValueDisplayText(m);
 
-		return n;
-	}
+        return n;
+    }
 
-	public MonthOfYearComboBox (Locale l, boolean autoPopulate)
-	{
-		// delay population till after enum values & locale initialization
-		super(MonthsValues.class, false);
+    public MonthOfYearComboBox (Locale l, boolean autoPopulate)
+    {
+        // delay population till after enum values & locale initialization
+        super(MonthsValues.class, false);
 
-		if (l != null)
-			setDisplayLocale(l);
-		setEnumValues(MonthsValues.VALUES);
+        if (l != null)
+            setDisplayLocale(l);
+        setEnumValues(MonthsValues.VALUES);
 
-		if (autoPopulate)
-			populate();
-	}
+        if (autoPopulate)
+            populate();
+    }
 
-	public MonthOfYearComboBox (Locale l)
-	{
-		this(l, true);
-	}
+    public MonthOfYearComboBox (Locale l)
+    {
+        this(l, true);
+    }
 
-	public MonthOfYearComboBox (boolean autoPopulate)
-	{
-		this(Locale.getDefault(), autoPopulate);
-	}
+    public MonthOfYearComboBox (boolean autoPopulate)
+    {
+        this(Locale.getDefault(), autoPopulate);
+    }
 
-	public MonthOfYearComboBox ()
-	{
-		this(true);
-	}
+    public MonthOfYearComboBox ()
+    {
+        this(true);
+    }
 }

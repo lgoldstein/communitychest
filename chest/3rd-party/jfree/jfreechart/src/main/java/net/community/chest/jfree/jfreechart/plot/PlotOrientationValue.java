@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.plot;
 
@@ -22,43 +22,43 @@ import org.w3c.dom.Element;
  * @since Feb 5, 2009 3:07:10 PM
  */
 public enum PlotOrientationValue {
-	HORIZONTAL(PlotOrientation.HORIZONTAL),
-	VERTICAL(PlotOrientation.VERTICAL);
+    HORIZONTAL(PlotOrientation.HORIZONTAL),
+    VERTICAL(PlotOrientation.VERTICAL);
 
-	private final PlotOrientation	_o;
-	public final PlotOrientation getOrientation ()
-	{
-		return _o;
-	}
+    private final PlotOrientation    _o;
+    public final PlotOrientation getOrientation ()
+    {
+        return _o;
+    }
 
-	PlotOrientationValue (PlotOrientation o)
-	{
-		_o = o;
-	}
+    PlotOrientationValue (PlotOrientation o)
+    {
+        _o = o;
+    }
 
-	public static final List<PlotOrientationValue>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final PlotOrientationValue fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<PlotOrientationValue>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final PlotOrientationValue fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-	public static final PlotOrientationValue fromOrientation (final PlotOrientation o)
-	{
-		if (null == o)
-			return null;
+    public static final PlotOrientationValue fromOrientation (final PlotOrientation o)
+    {
+        if (null == o)
+            return null;
 
-		for (final PlotOrientationValue  v : VALUES)
-		{
-			if ((v != null) && o.equals(v.getOrientation()))
-				return v;
-		}
+        for (final PlotOrientationValue  v : VALUES)
+        {
+            if ((v != null) && o.equals(v.getOrientation()))
+                return v;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public static final String	ORIENTATION_ATTR="orientation";
-	public static final Attr getOrientationAttribute (Element elem)
-	{
-		return DOMUtils.findFirstAttribute(elem, false, ORIENTATION_ATTR);
-	}
+    public static final String    ORIENTATION_ATTR="orientation";
+    public static final Attr getOrientationAttribute (Element elem)
+    {
+        return DOMUtils.findFirstAttribute(elem, false, ORIENTATION_ATTR);
+    }
 }

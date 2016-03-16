@@ -12,25 +12,25 @@ import net.community.chest.util.map.MapEntryImpl;
  * @since Oct 23, 2007 12:10:31 PM
  */
 public final class LongsMapEntry<V> extends MapEntryImpl<Long, V> {
-	public LongsMapEntry (final Long k, final V v)
-	{
-		super(k, v);
+    public LongsMapEntry (final Long k, final V v)
+    {
+        super(k, v);
 
-		if (null == k)
-			throw new NullPointerException("Not allowed null key value");
-		if (Integer.MAX_VALUE == k.intValue())
-			throw new IllegalArgumentException("Not allowed key=" + k + " value");
-		if (null == v)
-			throw new NullPointerException("Not allowed null value instance");
-	}
+        if (null == k)
+            throw new NullPointerException("Not allowed null key value");
+        if (Integer.MAX_VALUE == k.intValue())
+            throw new IllegalArgumentException("Not allowed key=" + k + " value");
+        if (null == v)
+            throw new NullPointerException("Not allowed null value instance");
+    }
 
-	public LongsMapEntry (final int k, final V v)
-	{
-		this(Long.valueOf(k), v);
-	}
+    public LongsMapEntry (final int k, final V v)
+    {
+        this(Long.valueOf(k), v);
+    }
 
-	public LongsMapEntry (Entry<Long,? extends V> e)
-	{
-		this((null == e) ? null : e.getKey(), (null == e) ? null : e.getValue());
-	}
+    public LongsMapEntry (Entry<Long,? extends V> e)
+    {
+        this((null == e) ? null : e.getKey(), (null == e) ? null : e.getValue());
+    }
 }

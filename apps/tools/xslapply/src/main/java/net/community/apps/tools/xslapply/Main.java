@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.xslapply;
 
@@ -15,24 +15,24 @@ import net.community.chest.CoVariantReturn;
  * @since Dec 10, 2008 12:11:09 PM
  */
 public class Main extends BaseMain {
-	private Main (String... args)
-	{
-		super(args);
-	}
-	/*
-	 * @see net.community.apps.common.BaseMain#createMainFrameInstance()
-	 */
-	@Override
-	@CoVariantReturn
-	protected MainFrame createMainFrameInstance () throws Exception
-	{
-		return new MainFrame(getMainArguments());
-	}
+    private Main (String... args)
+    {
+        super(args);
+    }
+    /*
+     * @see net.community.apps.common.BaseMain#createMainFrameInstance()
+     */
+    @Override
+    @CoVariantReturn
+    protected MainFrame createMainFrameInstance () throws Exception
+    {
+        return new MainFrame(getMainArguments());
+    }
 
-	//////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
 
-	public static void main (final String[] args)
-	{
-		SwingUtilities.invokeLater(new Main(args));
-	}
+    public static void main (final String[] args)
+    {
+        SwingUtilities.invokeLater(new Main(args));
+    }
 }

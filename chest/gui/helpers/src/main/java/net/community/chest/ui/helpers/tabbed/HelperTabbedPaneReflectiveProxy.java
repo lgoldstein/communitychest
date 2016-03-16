@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ui.helpers.tabbed;
 
@@ -17,49 +17,49 @@ import net.community.chest.swing.component.tabbed.JTabbedPaneReflectiveProxy;
  * @since Dec 23, 2008 9:12:24 AM
  */
 public class HelperTabbedPaneReflectiveProxy<P extends HelperTabbedPane> extends JTabbedPaneReflectiveProxy<P> {
-	public HelperTabbedPaneReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public HelperTabbedPaneReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	protected HelperTabbedPaneReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected HelperTabbedPaneReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public static final String	TAB_ELEM_NAME="tab";
-	public static final boolean isDefaultTabElement (final Element elem)
-	{
-		return AbstractXmlProxyConverter.isDefaultMatchingElement(elem, (null == elem) ? null : elem.getTagName(), TAB_ELEM_NAME);
-	}
+    public static final String    TAB_ELEM_NAME="tab";
+    public static final boolean isDefaultTabElement (final Element elem)
+    {
+        return AbstractXmlProxyConverter.isDefaultMatchingElement(elem, (null == elem) ? null : elem.getTagName(), TAB_ELEM_NAME);
+    }
 
-	public String getSectionName (P src, Element elem)
-	{
-		if ((null == src) || (null == elem))
-			return null;
+    public String getSectionName (P src, Element elem)
+    {
+        if ((null == src) || (null == elem))
+            return null;
 
-		return elem.getAttribute(NAME_ATTR);
-	}
-	/* NOTE: assumes that "sections" are potentially tabs to be added at end of "layoutComponent"
-	 * @see net.community.chest.dom.transform.AbstractReflectiveProxy#handleUnknownXmlChild(java.lang.Object, org.w3c.dom.Element)
-	 */
-	@Override
-	public P handleUnknownXmlChild (P src, Element elem) throws Exception
-	{
-		final String	n=getSectionName(src, elem);
-		if ((n != null) && (n.length() > 0))
-		{
-			final Element	prev=src.addSection(n, elem);
-			if (prev != null)
-				throw new IllegalStateException("handleUnknownXmlChild(" + n + "[" + DOMUtils.toString(elem) + "] duplicate section found: " + DOMUtils.toString(prev));
+        return elem.getAttribute(NAME_ATTR);
+    }
+    /* NOTE: assumes that "sections" are potentially tabs to be added at end of "layoutComponent"
+     * @see net.community.chest.dom.transform.AbstractReflectiveProxy#handleUnknownXmlChild(java.lang.Object, org.w3c.dom.Element)
+     */
+    @Override
+    public P handleUnknownXmlChild (P src, Element elem) throws Exception
+    {
+        final String    n=getSectionName(src, elem);
+        if ((n != null) && (n.length() > 0))
+        {
+            final Element    prev=src.addSection(n, elem);
+            if (prev != null)
+                throw new IllegalStateException("handleUnknownXmlChild(" + n + "[" + DOMUtils.toString(elem) + "] duplicate section found: " + DOMUtils.toString(prev));
 
-			return src;
-		}
+            return src;
+        }
 
-		return super.handleUnknownXmlChild(src, elem);
-	}
+        return super.handleUnknownXmlChild(src, elem);
+    }
 
-	public static final HelperTabbedPaneReflectiveProxy<HelperTabbedPane>	TABBEDHLPR=
-		new HelperTabbedPaneReflectiveProxy<HelperTabbedPane>(HelperTabbedPane.class, true);
+    public static final HelperTabbedPaneReflectiveProxy<HelperTabbedPane>    TABBEDHLPR=
+        new HelperTabbedPaneReflectiveProxy<HelperTabbedPane>(HelperTabbedPane.class, true);
 }

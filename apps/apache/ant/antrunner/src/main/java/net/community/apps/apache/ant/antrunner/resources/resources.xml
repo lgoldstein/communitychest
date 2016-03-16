@@ -1,85 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
-		<!-- holds various GUI resources specifications $Rev: 594 $ -->
-	<resources>
-		<section 	name="main-frame"
-					title="ANT Runner"
-					defaultCloseOperation="EXIT"
-					relativePreferredSize="30,50"
-					relativeSize="30,50"
-					iconImage="Ant.gif"
-				>
-			<layout class="border"/>
-				<!-- defines the main-menu -->
-			<menu name="main-menu">
-					<!-- NOTE: assigned commands MUST match what the application expects -->
-				<menu text="File" mnemonic="VK_F" actionCommand="file">
-					<accessibleContext description="Loads the ANT build file"/>
-					<item text="Load" mnemonic="VK_L" actionCommand="load" accelerator="control O" icon="Open.gif"/>
-					<item text="Refresh" mnemonic="VK_E" actionCommand="refresh" accelerator="F5" icon="Refresh.gif"/>
-					<item text="Run" mnemonic="VK_R" actionCommand="run" accelerator="F7" icon="Run.gif"/>
-					<separator/>
-					<item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
-				</menu>
-				<menu text="View" actionCommand="view">
-					<item text="Clear" actionCommand="clear"/>
-					<item class="checkbox" text="Show hidden targets" actionCommand="toggle-targets-view" icon="ToggleView.gif"/>
-					<separator/>
-					<menu text="Options" actionCommand="options">
-						<accessibleContext description="Allows changing various options"/>
-						<menu text="Log priority" actionCommand="logPriority">
-							<accessibleContext description="Allows selecting what level of messages to show (default=info)"/>
-							<item class="radio" text="Info" 	mnemonic="VK_I" actionCommand="info" selected="true" icon="Information.gif"/>
-							<item class="radio" text="Verbose"	mnemonic="VK_V" actionCommand="verbose"/>
-							<item class="radio" text="Debug"	mnemonic="VK_D" actionCommand="debug"/>
-						</menu>
-					</menu>
-				</menu>
-				<menu text="Help" actionCommand="help" icon="Help.gif">
-					<accessibleContext description="Shows various information about the application"/>
-					<item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
-					<separator/>
-					<item text="ANT Site" actionCommand="ant-site" icon="Ant.gif"/>
-				</menu>
-			</menu>
-		</section>
+        <!-- holds various GUI resources specifications $Rev: 594 $ -->
+    <resources>
+        <section     name="main-frame"
+                    title="ANT Runner"
+                    defaultCloseOperation="EXIT"
+                    relativePreferredSize="30,50"
+                    relativeSize="30,50"
+                    iconImage="Ant.gif"
+                >
+            <layout class="border"/>
+                <!-- defines the main-menu -->
+            <menu name="main-menu">
+                    <!-- NOTE: assigned commands MUST match what the application expects -->
+                <menu text="File" mnemonic="VK_F" actionCommand="file">
+                    <accessibleContext description="Loads the ANT build file"/>
+                    <item text="Load" mnemonic="VK_L" actionCommand="load" accelerator="control O" icon="Open.gif"/>
+                    <item text="Refresh" mnemonic="VK_E" actionCommand="refresh" accelerator="F5" icon="Refresh.gif"/>
+                    <item text="Run" mnemonic="VK_R" actionCommand="run" accelerator="F7" icon="Run.gif"/>
+                    <separator/>
+                    <item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
+                </menu>
+                <menu text="View" actionCommand="view">
+                    <item text="Clear" actionCommand="clear"/>
+                    <item class="checkbox" text="Show hidden targets" actionCommand="toggle-targets-view" icon="ToggleView.gif"/>
+                    <separator/>
+                    <menu text="Options" actionCommand="options">
+                        <accessibleContext description="Allows changing various options"/>
+                        <menu text="Log priority" actionCommand="logPriority">
+                            <accessibleContext description="Allows selecting what level of messages to show (default=info)"/>
+                            <item class="radio" text="Info"     mnemonic="VK_I" actionCommand="info" selected="true" icon="Information.gif"/>
+                            <item class="radio" text="Verbose"    mnemonic="VK_V" actionCommand="verbose"/>
+                            <item class="radio" text="Debug"    mnemonic="VK_D" actionCommand="debug"/>
+                        </menu>
+                    </menu>
+                </menu>
+                <menu text="Help" actionCommand="help" icon="Help.gif">
+                    <accessibleContext description="Shows various information about the application"/>
+                    <item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
+                    <separator/>
+                    <item text="ANT Site" actionCommand="ant-site" icon="Ant.gif"/>
+                </menu>
+            </menu>
+        </section>
 
-			<!-- dialog used to load the ANT build file -->
-		<section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select ANT build file">
-			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
-					description="ANT build files"
-					exts="xml"
-				/>
-		</section>
+            <!-- dialog used to load the ANT build file -->
+        <section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select ANT build file">
+            <filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+                    description="ANT build files"
+                    exts="xml"
+                />
+        </section>
 
-			<!-- dialog used to show the manifest -->
-		<section name="show-manifest-dialog" title="Manifest" modal="true">
-			<column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
-			<column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
-		</section>
+            <!-- dialog used to show the manifest -->
+        <section name="show-manifest-dialog" title="Manifest" modal="true">
+            <column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
+            <column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
+        </section>
 
-		<section name="main-fonts">
-			<font id="default-font" name="Tahoma" style="plain" size="11"/>
-			<font id="log-msgs-font" refid="default-font"/>
-			<font id="public-targets-font" refid="default-font"/>
-			<font id="private-targets-font" refid="public-targets-font" style="italic"/>
-			<font id="default-target-font" refid="public-targets-font" style="bold"/>
-		</section>
+        <section name="main-fonts">
+            <font id="default-font" name="Tahoma" style="plain" size="11"/>
+            <font id="log-msgs-font" refid="default-font"/>
+            <font id="public-targets-font" refid="default-font"/>
+            <font id="private-targets-font" refid="public-targets-font" style="italic"/>
+            <font id="default-target-font" refid="public-targets-font" style="bold"/>
+        </section>
 
-		<section name="log-msgs-area" eolStyle="LF" maxTextSize="65534">
-			<logLevelsMap>
-				<level class="ERROR" 	foreground="red"	bold="true"/>
-				<level class="WARNING" 	foreground="orange"	bold="true"/>
-				<level class="INFO" 	foreground="blue"/>
-				<level class="VERBOSE"	foreground="green"/>
-				<level class="DEBUG" 	foreground="black"/>
-			</logLevelsMap>
-		</section>
+        <section name="log-msgs-area" eolStyle="LF" maxTextSize="65534">
+            <logLevelsMap>
+                <level class="ERROR"     foreground="red"    bold="true"/>
+                <level class="WARNING"     foreground="orange"    bold="true"/>
+                <level class="INFO"     foreground="blue"/>
+                <level class="VERBOSE"    foreground="green"/>
+                <level class="DEBUG"     foreground="black"/>
+            </logLevelsMap>
+        </section>
 
-		<section name="main-toolbar" floatable="false">
-			<button 				actionCommand="load" 								 						tooltipText="Load ANT build script"/>
-			<button 				actionCommand="refresh" 							 						tooltipText="Re-load ANT build script"/>
-			<button text="Toggle"	actionCommand="toggle-targets-view"					 icon="ToggleView.gif" 	tooltipText="Show/Hide hidden targets"/>
-			<button text="Stop" 	actionCommand="stop" visible="false" enabled="false" icon="Stop.gif" 		tooltipText="Stop build"/>
-			<button 				actionCommand="run"  				 enabled="false" 						tooltipText="Run selected target"/>
-		</section>
-	</resources>
+        <section name="main-toolbar" floatable="false">
+            <button                 actionCommand="load"                                                          tooltipText="Load ANT build script"/>
+            <button                 actionCommand="refresh"                                                      tooltipText="Re-load ANT build script"/>
+            <button text="Toggle"    actionCommand="toggle-targets-view"                     icon="ToggleView.gif"     tooltipText="Show/Hide hidden targets"/>
+            <button text="Stop"     actionCommand="stop" visible="false" enabled="false" icon="Stop.gif"         tooltipText="Stop build"/>
+            <button                 actionCommand="run"                   enabled="false"                         tooltipText="Run selected target"/>
+        </section>
+    </resources>

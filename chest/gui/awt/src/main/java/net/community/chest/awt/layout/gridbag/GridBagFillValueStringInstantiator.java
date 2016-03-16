@@ -9,11 +9,11 @@ import net.community.chest.reflect.EnumStringInstantiator;
  * @since Dec 4, 2007 1:59:53 PM
  */
 public class GridBagFillValueStringInstantiator extends EnumStringInstantiator<GridBagFillType> {
-	public GridBagFillValueStringInstantiator ()
-	{
-		super(GridBagFillType.class, false);
-		setValues(GridBagFillType.VALUES);
-	}
+    public GridBagFillValueStringInstantiator ()
+    {
+        super(GridBagFillType.class, false);
+        setValues(GridBagFillType.VALUES);
+    }
 
-	public static final GridBagFillValueStringInstantiator	DEFAULT=new GridBagFillValueStringInstantiator();
+    public static final GridBagFillValueStringInstantiator    DEFAULT=new GridBagFillValueStringInstantiator();
 }

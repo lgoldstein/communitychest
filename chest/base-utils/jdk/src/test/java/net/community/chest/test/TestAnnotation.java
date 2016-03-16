@@ -1,5 +1,5 @@
-	/*
- * 
+    /*
+ *
  */
 package net.community.chest.test;
 
@@ -18,5 +18,5 @@ import java.lang.annotation.Target;
 @Target({ ElementType.TYPE, ElementType.METHOD, ElementType.FIELD, ElementType.PACKAGE })
 @Inherited
 public @interface TestAnnotation {
-	String value();
+    String value();
 }

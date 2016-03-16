@@ -15,65 +15,65 @@ import org.apache.log4j.helpers.PatternParser;
  * @since Sep 26, 2007 11:57:40 AM
  */
 public class BaseLayout extends PatternLayout {
-	public BaseLayout ()
-	{
-		super();
-	}
+    public BaseLayout ()
+    {
+        super();
+    }
 
-	private String _header /* =null */;
-	/*
-	 * @see org.apache.log4j.Layout#getHeader()
-	 */
-	@Override
-	public String getHeader ()
-	{
-		return _header;
-	}
+    private String _header /* =null */;
+    /*
+     * @see org.apache.log4j.Layout#getHeader()
+     */
+    @Override
+    public String getHeader ()
+    {
+        return _header;
+    }
 
-	public void setHeader(String header)
-	{
-		_header = header;
-	}
+    public void setHeader(String header)
+    {
+        _header = header;
+    }
 
-	private String	_footer	/* =null */;
-	/*
-	 * @see org.apache.log4j.Layout#getFooter()
-	 */
-	@Override
-	public String getFooter ()
-	{
-		return _footer;
-	}
+    private String    _footer    /* =null */;
+    /*
+     * @see org.apache.log4j.Layout#getFooter()
+     */
+    @Override
+    public String getFooter ()
+    {
+        return _footer;
+    }
 
-	public void setFooter (String footer)
-	{
-		_footer = footer;
-	}
+    public void setFooter (String footer)
+    {
+        _footer = footer;
+    }
 
-	private boolean	_ignThrowable	/* =false */;
-	public boolean isThrowableIgnored ()
-	{
-		return _ignThrowable;
-	}
+    private boolean    _ignThrowable    /* =false */;
+    public boolean isThrowableIgnored ()
+    {
+        return _ignThrowable;
+    }
 
-	public void setThrowableIgnored (boolean flag)
-	{
-		_ignThrowable = flag;
-	}
-	/*
-	 * @see org.apache.log4j.Layout#ignoresThrowable()
-	 */
-	@Override
-	public boolean ignoresThrowable ()
-	{
-		return isThrowableIgnored();
-	}
-	/*
-	 * @see org.apache.log4j.PatternLayout#createPatternParser(java.lang.String)
-	 */
-	@Override
-	protected PatternParser createPatternParser (String pattern)
-	{
-		return new ExtendedPatternParser(pattern);
-	}
+    public void setThrowableIgnored (boolean flag)
+    {
+        _ignThrowable = flag;
+    }
+    /*
+     * @see org.apache.log4j.Layout#ignoresThrowable()
+     */
+    @Override
+    public boolean ignoresThrowable ()
+    {
+        return isThrowableIgnored();
+    }
+    /*
+     * @see org.apache.log4j.PatternLayout#createPatternParser(java.lang.String)
+     */
+    @Override
+    protected PatternParser createPatternParser (String pattern)
+    {
+        return new ExtendedPatternParser(pattern);
+    }
 }

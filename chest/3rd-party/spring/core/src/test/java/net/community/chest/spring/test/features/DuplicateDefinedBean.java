@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.spring.test.features;
 
@@ -15,27 +15,27 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class DuplicateDefinedBean implements BeanNameAware {
-	private static final AtomicInteger	_instancesCount=new AtomicInteger(0);
-	private final int	_instanceIndex;
-	public DuplicateDefinedBean ()
-	{
-		_instanceIndex = _instancesCount.incrementAndGet();
-		System.out.append(getClass().getSimpleName())
-				  .append("<init>#")
-			  .println(_instanceIndex)
-			  ;
-	}
+    private static final AtomicInteger    _instancesCount=new AtomicInteger(0);
+    private final int    _instanceIndex;
+    public DuplicateDefinedBean ()
+    {
+        _instanceIndex = _instancesCount.incrementAndGet();
+        System.out.append(getClass().getSimpleName())
+                  .append("<init>#")
+              .println(_instanceIndex)
+              ;
+    }
 
-	@Override
-	public void setBeanName (String name)
-	{
-		System.out.append(getClass().getSimpleName())
-			  	  .append("#setBeanName(")
-			  	  .append(name)
-			  	  .append(")[")
-			  	  .append(String.valueOf(_instanceIndex))
-		  	  .println("]")
-		  	  ;
-	}
+    @Override
+    public void setBeanName (String name)
+    {
+        System.out.append(getClass().getSimpleName())
+                    .append("#setBeanName(")
+                    .append(name)
+                    .append(")[")
+                    .append(String.valueOf(_instanceIndex))
+                .println("]")
+                ;
+    }
 
 }

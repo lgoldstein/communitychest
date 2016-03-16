@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.eclipse;
 
@@ -10,12 +10,12 @@ package net.community.chest.eclipse;
  * @since Apr 26, 2009 2:23:12 PM
  */
 public final class EclipseUtils {
-	private EclipseUtils ()
-	{
-		// no instance
-	}
+    private EclipseUtils ()
+    {
+        // no instance
+    }
 
-	public static final String	CLASSPATH_FILE_NAME=".classpath",
-								PROJECT_FILE_NAME=".project",
-								SETTINGS_SUB_FOLDER_NAME=".settings";
+    public static final String    CLASSPATH_FILE_NAME=".classpath",
+                                PROJECT_FILE_NAME=".project",
+                                SETTINGS_SUB_FOLDER_NAME=".settings";
 }

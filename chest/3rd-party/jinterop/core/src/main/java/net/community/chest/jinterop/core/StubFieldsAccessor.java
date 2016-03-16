@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jinterop.core;
 
@@ -14,9 +14,9 @@ import rpc.Stub;
  * @since May 19, 2009 11:08:58 AM
  */
 public class StubFieldsAccessor<S extends Stub> extends FieldsAccessor<S> {
-	protected StubFieldsAccessor (Class<S> valsClass)
-			throws IllegalArgumentException
-	{
-		super(valsClass, Stub.class);
-	}
+    protected StubFieldsAccessor (Class<S> valsClass)
+            throws IllegalArgumentException
+    {
+        super(valsClass, Stub.class);
+    }
 }

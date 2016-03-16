@@ -12,20 +12,20 @@ import org.w3c.dom.Element;
  * @since Jan 12, 2009 3:16:01 PM
  */
 public abstract class NumberFormatReflectiveProxy<F extends NumberFormat> extends FormatReflectiveProxy<F> {
-	protected NumberFormatReflectiveProxy (Class<F> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected NumberFormatReflectiveProxy (Class<F> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public static final NumberFormatReflectiveProxy<? extends NumberFormat> getNumberFormatConverter (Element elem)
-	{
-		final String	nfc=(null == elem) ? null : elem.getAttribute(CLASS_ATTR);
-		if ("decimal".equalsIgnoreCase(nfc))
-			return DecimalFormatReflectiveProxy.DECFMT;
-		else if ("choice".equalsIgnoreCase(nfc))
-			return ChoiceFormatReflectiveProxy.CHCFMT;
-		else
-			return null;
-	}
+    public static final NumberFormatReflectiveProxy<? extends NumberFormat> getNumberFormatConverter (Element elem)
+    {
+        final String    nfc=(null == elem) ? null : elem.getAttribute(CLASS_ATTR);
+        if ("decimal".equalsIgnoreCase(nfc))
+            return DecimalFormatReflectiveProxy.DECFMT;
+        else if ("choice".equalsIgnoreCase(nfc))
+            return ChoiceFormatReflectiveProxy.CHCFMT;
+        else
+            return null;
+    }
 }

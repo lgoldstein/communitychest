@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.dom.xpath;
 
@@ -17,14 +17,14 @@ import net.community.chest.util.collection.CollectionsUtils;
  * @since May 7, 2009 8:19:33 AM
  */
 public enum XPathInsertLocation {
-	BEFORE,
-	AFTER,
-	UNDER,
-	ABOVE;
+    BEFORE,
+    AFTER,
+    UNDER,
+    ABOVE;
 
-	public static final List<XPathInsertLocation>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final XPathInsertLocation fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<XPathInsertLocation>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final XPathInsertLocation fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 }

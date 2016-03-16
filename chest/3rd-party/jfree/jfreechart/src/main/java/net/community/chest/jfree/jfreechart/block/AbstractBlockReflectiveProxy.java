@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.block;
 
@@ -15,17 +15,17 @@ import org.jfree.chart.block.AbstractBlock;
  * @since Jan 27, 2009 3:23:38 PM
  */
 public class AbstractBlockReflectiveProxy<B extends AbstractBlock> extends ChartReflectiveAttributesProxy<B> {
-	protected AbstractBlockReflectiveProxy (Class<B> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected AbstractBlockReflectiveProxy (Class<B> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public AbstractBlockReflectiveProxy (Class<B> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public AbstractBlockReflectiveProxy (Class<B> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final AbstractBlockReflectiveProxy<AbstractBlock>	ABSBLK=
-		new AbstractBlockReflectiveProxy<AbstractBlock>(AbstractBlock.class, true);
+    public static final AbstractBlockReflectiveProxy<AbstractBlock>    ABSBLK=
+        new AbstractBlockReflectiveProxy<AbstractBlock>(AbstractBlock.class, true);
 }

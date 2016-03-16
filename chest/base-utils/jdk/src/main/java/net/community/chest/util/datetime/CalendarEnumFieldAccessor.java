@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.util.datetime;
 
@@ -13,6 +13,6 @@ import java.util.Calendar;
  * @since Oct 9, 2011 7:34:55 AM
  */
 public interface CalendarEnumFieldAccessor extends CalendarFieldIndicator {
-	int getFieldValue ();
-	void setFieldValue (Calendar c);
+    int getFieldValue ();
+    void setFieldValue (Calendar c);
 }

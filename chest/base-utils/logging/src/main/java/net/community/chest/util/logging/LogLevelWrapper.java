@@ -10,22 +10,22 @@ import net.community.chest.util.collection.CollectionsUtils;
  * <P>Copyright 2007 as per GPLv2</P>
  *
  * <P>Defines some useful log levels</P>
- * 
+ *
  * @author Lyor G.
  * @since Oct 1, 2007 11:29:17 AM
  */
 public enum LogLevelWrapper {
-	FATAL,
-	ERROR,
-	WARNING,
-	INFO,
-	DEBUG,
-	VERBOSE,
-	TRACE;
+    FATAL,
+    ERROR,
+    WARNING,
+    INFO,
+    DEBUG,
+    VERBOSE,
+    TRACE;
 
-	public static final List<LogLevelWrapper>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static LogLevelWrapper fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<LogLevelWrapper>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static LogLevelWrapper fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 }

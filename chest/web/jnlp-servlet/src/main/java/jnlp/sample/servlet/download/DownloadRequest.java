@@ -1,6 +1,6 @@
 /*
- * @(#)DownloadRequest.java	1.7 05/11/17
- * 
+ * @(#)DownloadRequest.java    1.7 05/11/17
+ *
  * Copyright (c) 2006 Sun Microsystems, Inc. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,21 +45,21 @@ import javax.servlet.http.HttpServletRequest;
 
 import jnlp.sample.util.ObjectUtil;
 
-/** 
+/**
  * The DownloadRequest encapsulates all the data in a request
  * SQE: We need to address query string
  */
 public class DownloadRequest implements Cloneable {
     // Arguments
-	public static final String ARG_ARCH                = "arch";
-	public static final String ARG_OS                  = "os";
-	public static final String ARG_LOCALE              = "locale";
-	public static final String ARG_VERSION_ID          = "version-id";
-	public static final String ARG_CURRENT_VERSION_ID  = "current-version-id";
-	public static final String ARG_PLATFORM_VERSION_ID = "platform-version-id";
-	public static final String ARG_KNOWN_PLATFORMS     = "known-platforms";
-	public static final String TEST_JRE = "TestJRE";
-    
+    public static final String ARG_ARCH                = "arch";
+    public static final String ARG_OS                  = "os";
+    public static final String ARG_LOCALE              = "locale";
+    public static final String ARG_VERSION_ID          = "version-id";
+    public static final String ARG_CURRENT_VERSION_ID  = "current-version-id";
+    public static final String ARG_PLATFORM_VERSION_ID = "platform-version-id";
+    public static final String ARG_KNOWN_PLATFORMS     = "known-platforms";
+    public static final String TEST_JRE = "TestJRE";
+
     private String _path;
     private String _version;
     private String _currentVersionId;
@@ -72,61 +72,61 @@ public class DownloadRequest implements Cloneable {
     private boolean _isPlatformRequest;
     private ServletContext _context;
     private String _encoding;
-    
+
     private HttpServletRequest _httpRequest;
 
     // HTTP Compression RFC 2616 : Standard headers
     public static final String ACCEPT_ENCODING          = "accept-encoding";
-    
+
     // Construct Request object based on HTTP request
     public DownloadRequest (HttpServletRequest request)
     {
-    	this((ServletContext) null, request);
+        this((ServletContext) null, request);
     }
 
-    public static final String	DEFAULT_JNLP_FILE	=	"launch.jnlp";
+    public static final String    DEFAULT_JNLP_FILE    =    "launch.jnlp";
     public DownloadRequest (ServletContext context, HttpServletRequest request)
     {
-    	_context = context;	
-    	_httpRequest = request;
-    	_path = request.getRequestURI();
-    	_encoding = request.getHeader(ACCEPT_ENCODING);
+        _context = context;
+        _httpRequest = request;
+        _path = request.getRequestURI();
+        _encoding = request.getHeader(ACCEPT_ENCODING);
 
-    	final String contextPath = request.getContextPath();	
-    	if ((contextPath != null) && (contextPath.length() > 0))
-    		_path = _path.substring(contextPath.length());       
+        final String contextPath = request.getContextPath();
+        if ((contextPath != null) && (contextPath.length() > 0))
+            _path = _path.substring(contextPath.length());
 
-    	if ((_path == null) || (_path.length() <= 0))
-    		_path = request.getServletPath(); // This works for *.<ext> invocations
-    	if ((_path == null) || (_path.length() <= 0))
-    		_path = "/"; // No path given
-    	_path = _path.trim();
-    	if ((_context != null) && (!_path.endsWith("/")))
-    	{
-    		final String realPath = _context.getRealPath(_path);
-    		// fix for 4474021 - getRealPath might returns NULL
-    		if ((realPath != null) && (realPath.length() > 0))
-    		{
-    			final File f=new File(realPath);
-    			if (f.exists() && f.isDirectory())
-    				_path += "/";
-    		}
-    	}
+        if ((_path == null) || (_path.length() <= 0))
+            _path = request.getServletPath(); // This works for *.<ext> invocations
+        if ((_path == null) || (_path.length() <= 0))
+            _path = "/"; // No path given
+        _path = _path.trim();
+        if ((_context != null) && (!_path.endsWith("/")))
+        {
+            final String realPath = _context.getRealPath(_path);
+            // fix for 4474021 - getRealPath might returns NULL
+            if ((realPath != null) && (realPath.length() > 0))
+            {
+                final File f=new File(realPath);
+                if (f.exists() && f.isDirectory())
+                    _path += "/";
+            }
+        }
         // Append default file for a directory
         if (_path.endsWith("/"))
-        	_path += DEFAULT_JNLP_FILE;
+            _path += DEFAULT_JNLP_FILE;
 
         _version = getParameter(request, ARG_VERSION_ID);
         _currentVersionId = getParameter(request, ARG_CURRENT_VERSION_ID);
         _os = getParameterList(request, ARG_OS);
         _arch = getParameterList(request, ARG_ARCH);
-        _locale = getParameterList(request, ARG_LOCALE);	    	    
+        _locale = getParameterList(request, ARG_LOCALE);
         _knownPlatforms = getParameterList(request, ARG_KNOWN_PLATFORMS);
-	
-        final String platformVersion = getParameter(request, ARG_PLATFORM_VERSION_ID);	    
+
+        final String platformVersion = getParameter(request, ARG_PLATFORM_VERSION_ID);
         _isPlatformRequest =  (platformVersion != null) && (platformVersion.length() > 0);
         if (_isPlatformRequest)
-        	_version = platformVersion;
+            _version = platformVersion;
         _query = request.getQueryString();
         _testJRE = getParameter(request, TEST_JRE);
     }
@@ -136,25 +136,25 @@ public class DownloadRequest implements Cloneable {
      */
     public DownloadRequest (DownloadRequest dreq)
     {
-		_encoding = dreq._encoding;
-		_context = dreq._context;
-		_httpRequest = dreq._httpRequest;
-		_path = dreq._path;	        
-		_version = dreq._currentVersionId;
-		_currentVersionId = null;
-		_os = dreq._os;
-		_arch = dreq._arch;
-		_locale = dreq._locale;
-		_knownPlatforms = dreq._knownPlatforms;	
-		_isPlatformRequest =  dreq._isPlatformRequest;	
-		_query = dreq._query;
-		_testJRE = dreq._testJRE;
+        _encoding = dreq._encoding;
+        _context = dreq._context;
+        _httpRequest = dreq._httpRequest;
+        _path = dreq._path;
+        _version = dreq._currentVersionId;
+        _currentVersionId = null;
+        _os = dreq._os;
+        _arch = dreq._arch;
+        _locale = dreq._locale;
+        _knownPlatforms = dreq._knownPlatforms;
+        _isPlatformRequest =  dreq._isPlatformRequest;
+        _query = dreq._query;
+        _testJRE = dreq._testJRE;
     }
-    
+
     private static String getParameter (HttpServletRequest req, String key)
     {
-    	final String res=(null == req) ? null : req.getParameter(key);
-    	return (res == null) ? null : res.trim();    
+        final String res=(null == req) ? null : req.getParameter(key);
+        return (res == null) ? null : res.trim();
     }
 
     /* Converts a space delimited string to a list of strings */
@@ -162,7 +162,7 @@ public class DownloadRequest implements Cloneable {
     {
         final int length=(null == str) ? 0 : str.length();
         if (length <= 0)
-        	return null;
+            return null;
 
         Collection<String> list = new LinkedList<String>();
         int i = 0;
@@ -175,8 +175,8 @@ public class DownloadRequest implements Cloneable {
                 // A space was hit. Add string to list
                 if (sb != null)
                 {
-                	if (sb.length() > 0)
-                		list.add(sb.toString());
+                    if (sb.length() > 0)
+                        list.add(sb.toString());
                     sb = null;
                 }
             }
@@ -187,14 +187,14 @@ public class DownloadRequest implements Cloneable {
                 {
                     ch = str.charAt(++i);
                     if (sb == null)
-                    	sb = new StringBuilder();
+                        sb = new StringBuilder();
                     sb.append(ch);
                 }
             }
             else
             {
                 if (sb == null)
-                	sb = new StringBuilder();
+                    sb = new StringBuilder();
                 sb.append(ch);
             }
             i++; // Next character
@@ -202,20 +202,20 @@ public class DownloadRequest implements Cloneable {
         // Make sure to add the last part to the list too
         if ((sb != null) && (sb.length() > 0))
             list.add(sb.toString());
-	
+
         if (list.size() <= 0)
-        	return null;        
+            return null;
 
         return list.toArray(new String[list.size()]);
     }
-    
+
     /* Split parameter at spaces. Convert '\ ' into a space */
     private static String[] getParameterList (HttpServletRequest req, String key)
     {
-    	final String res=req.getParameter(key);
-    	return (res == null) ? null : getStringList(res.trim());
+        final String res=req.getParameter(key);
+        return (res == null) ? null : getStringList(res.trim());
     }
-    
+
     // Query
     public String getPath() { return _path; }
     public String getVersion() { return _version; }
@@ -227,43 +227,43 @@ public class DownloadRequest implements Cloneable {
     public String[] getArch() { return _arch; }
     public String[] getLocale() { return _locale; }
     public String[] getKnownPlatforms() { return _knownPlatforms; }
-    public boolean isPlatformRequest() { return _isPlatformRequest; }	
+    public boolean isPlatformRequest() { return _isPlatformRequest; }
     public HttpServletRequest getHttpRequest() { return _httpRequest; }
-    
+
     /* Returns a DownloadRequest for the currentVersionId, that can be used
      *  to lookup the existing cached version
      */
     public DownloadRequest getFromDownloadRequest ()
     {
-    	return new DownloadRequest(this);
+        return new DownloadRequest(this);
     }
     /*
      * @see java.lang.Object#toString()
      */
     @Override
-	public String toString ()
-    { 
-    	return "DownloadRequest[path=" + getPath() + 
-    		ObjectUtil.showEntry(" encoding=", getEncoding()) +
-		    ObjectUtil.showEntry(" query=", getQuery()) + 
-		    ObjectUtil.showEntry(" TestJRE=", getTestJRE()) +
-		    ObjectUtil.showEntry(" version=", getVersion()) +
-		    ObjectUtil.showEntry(" currentVersionId=", getCurrentVersionId()) +
-		    ObjectUtil.showEntry(" os=", getOS()) + 
-		    ObjectUtil.showEntry(" arch=", getArch()) + 
-		    ObjectUtil.showEntry(" locale=", getLocale()) +
-		    ObjectUtil.showEntry(" knownPlatforms=", getKnownPlatforms())
-		    + " isPlatformRequest=" + isPlatformRequest() + "]"
-		    ;
+    public String toString ()
+    {
+        return "DownloadRequest[path=" + getPath() +
+            ObjectUtil.showEntry(" encoding=", getEncoding()) +
+            ObjectUtil.showEntry(" query=", getQuery()) +
+            ObjectUtil.showEntry(" TestJRE=", getTestJRE()) +
+            ObjectUtil.showEntry(" version=", getVersion()) +
+            ObjectUtil.showEntry(" currentVersionId=", getCurrentVersionId()) +
+            ObjectUtil.showEntry(" os=", getOS()) +
+            ObjectUtil.showEntry(" arch=", getArch()) +
+            ObjectUtil.showEntry(" locale=", getLocale()) +
+            ObjectUtil.showEntry(" knownPlatforms=", getKnownPlatforms())
+            + " isPlatformRequest=" + isPlatformRequest() + "]"
+            ;
     }
-	/*
-	 * @see java.lang.Object#clone()
-	 */
-	@Override
-	public DownloadRequest /* co-variant return */ clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}		
+    /*
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public DownloadRequest /* co-variant return */ clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
 }
 
 

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.spring.test.beans;
 
@@ -19,22 +19,22 @@ import net.community.chest.spring.test.entities.NodeEntity;
 @Repository
 //NOTE !!! for some reason annotating this with @Transactional causes @Repository not to be detected
 public class NodeEntityDao extends AbstractGenericHibernateDaoImpl<NodeEntity,Long> {
-	public NodeEntityDao ()
-	{
-		super(NodeEntity.class, Long.class);
-	}
-	// Ugly hack since 'setSessionFactory' is 'final'
-	@Inject
-	public void setDaoSessionFactory (SessionFactory sessionFactory)
-	{
-		setSessionFactory(sessionFactory);
-	}
-	/*
-	 * @see net.community.chest.spring.orm.hibernate3.AbstractGenericHibernateDaoImpl#getDefaultOrderAttributeName()
-	 */
-	@Override
-	public String getDefaultOrderAttributeName ()
-	{
-		return "description";
-	}
+    public NodeEntityDao ()
+    {
+        super(NodeEntity.class, Long.class);
+    }
+    // Ugly hack since 'setSessionFactory' is 'final'
+    @Inject
+    public void setDaoSessionFactory (SessionFactory sessionFactory)
+    {
+        setSessionFactory(sessionFactory);
+    }
+    /*
+     * @see net.community.chest.spring.orm.hibernate3.AbstractGenericHibernateDaoImpl#getDefaultOrderAttributeName()
+     */
+    @Override
+    public String getDefaultOrderAttributeName ()
+    {
+        return "description";
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ui.helpers.panel.input;
 
@@ -28,276 +28,276 @@ import org.w3c.dom.Element;
  *
  * <P>The default action for the button is to select a file for <U>loading</U>
  * and once selected, update the text filed with its path</P>
- * 
+ *
  * @author Lyor G.
  * @since Dec 30, 2008 12:51:04 PM
  */
 public class FileInputTextPanel extends LRFieldWithButtonPanel
-		implements ActionListener, TypedComponentAssignment<File> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8454738809918260017L;
-	public FileInputTextPanel (Element elem, boolean autoLayout)
-	{
-		super(elem, autoLayout);
-	}
+        implements ActionListener, TypedComponentAssignment<File> {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8454738809918260017L;
+    public FileInputTextPanel (Element elem, boolean autoLayout)
+    {
+        super(elem, autoLayout);
+    }
 
-	public FileInputTextPanel (boolean autoLayout)
-	{
-		this(null, autoLayout);
-	}
+    public FileInputTextPanel (boolean autoLayout)
+    {
+        this(null, autoLayout);
+    }
 
-	public FileInputTextPanel ()
-	{
-		this(true);
-	}
+    public FileInputTextPanel ()
+    {
+        this(true);
+    }
 
-	public FileInputTextPanel (Element elem) throws Exception
-	{
-		this(elem, true);
-	}
-	/*
-	 * @see net.community.chest.ui.helpers.panel.input.LRFieldWithButtonPanel#getPanelConverter(org.w3c.dom.Element)
-	 */
-	@Override
-	protected XmlProxyConvertible<?> getPanelConverter (Element elem)
-	{
-		return (null == elem) ? null : FileInputTextPanelReflectiveProxy.FILEINPTXTPNL;
-	}
-	/*
-	 * @see net.community.chest.ui.helpers.panel.input.LRFieldWithButtonPanel#layoutComponent(javax.swing.JButton, javax.swing.JTextField)
-	 */
-	@Override
-	protected void layoutComponent (final JButton b, final JTextField f)
-	{
-		super.layoutComponent(b, f);
+    public FileInputTextPanel (Element elem) throws Exception
+    {
+        this(elem, true);
+    }
+    /*
+     * @see net.community.chest.ui.helpers.panel.input.LRFieldWithButtonPanel#getPanelConverter(org.w3c.dom.Element)
+     */
+    @Override
+    protected XmlProxyConvertible<?> getPanelConverter (Element elem)
+    {
+        return (null == elem) ? null : FileInputTextPanelReflectiveProxy.FILEINPTXTPNL;
+    }
+    /*
+     * @see net.community.chest.ui.helpers.panel.input.LRFieldWithButtonPanel#layoutComponent(javax.swing.JButton, javax.swing.JTextField)
+     */
+    @Override
+    protected void layoutComponent (final JButton b, final JTextField f)
+    {
+        super.layoutComponent(b, f);
 
-		final JButton	selBtn=getButton();
-		if (null == selBtn)
-			return;
+        final JButton    selBtn=getButton();
+        if (null == selBtn)
+            return;
 
-		selBtn.addActionListener(this);
-	}
+        selBtn.addActionListener(this);
+    }
 
-	private JFileChooser	_fc	/* =null */;
-	protected JFileChooser getFileChooser (final boolean createIfNotExist)
-	{
-		if ((null == _fc) && createIfNotExist)
-			_fc = new HelperFileChooser();
-		return _fc;
-	}
+    private JFileChooser    _fc    /* =null */;
+    protected JFileChooser getFileChooser (final boolean createIfNotExist)
+    {
+        if ((null == _fc) && createIfNotExist)
+            _fc = new HelperFileChooser();
+        return _fc;
+    }
 
-	public JFileChooser getFileChooser ()
-	{
-		return getFileChooser(false);
-	}
+    public JFileChooser getFileChooser ()
+    {
+        return getFileChooser(false);
+    }
 
-	public void setFileChooser (JFileChooser fc)
-	{
-		if (_fc != fc)
-			_fc = fc;
-	}
+    public void setFileChooser (JFileChooser fc)
+    {
+        if (_fc != fc)
+            _fc = fc;
+    }
 
-	private File	_accFolder; 
-	public File getCurrentAccessFolder ()
-	{
-		return _accFolder;
-	}
+    private File    _accFolder;
+    public File getCurrentAccessFolder ()
+    {
+        return _accFolder;
+    }
 
-	public void setCurrentAccessFolder (File f)
-	{
-		if (_accFolder != f)
-		{
-			if ((f != null) && (_accFolder != null) && f.equals(_accFolder))
-				return;	// ignore if same value set
+    public void setCurrentAccessFolder (File f)
+    {
+        if (_accFolder != f)
+        {
+            if ((f != null) && (_accFolder != null) && f.equals(_accFolder))
+                return;    // ignore if same value set
 
-			_accFolder = f;
-		}
-	}
+            _accFolder = f;
+        }
+    }
 
-	public File getSelectedFile ()
-	{
-		final String	t=getText();
-		if ((t != null) && (t.length() > 0))
-		{
-			try
-			{
-				return new File(t);
-			}
-			catch(RuntimeException e)
-			{
-				// ignored
-			}
-		}
+    public File getSelectedFile ()
+    {
+        final String    t=getText();
+        if ((t != null) && (t.length() > 0))
+        {
+            try
+            {
+                return new File(t);
+            }
+            catch(RuntimeException e)
+            {
+                // ignored
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	protected File resolveCurrentAccessFolder ()
-	{
-		final File	f=getSelectedFile(), p=(null == f) ? null : f.getParentFile();
-		if ((p != null) && p.exists() && p.isDirectory())
-			return f.isDirectory() ? f : p;
+    protected File resolveCurrentAccessFolder ()
+    {
+        final File    f=getSelectedFile(), p=(null == f) ? null : f.getParentFile();
+        if ((p != null) && p.exists() && p.isDirectory())
+            return f.isDirectory() ? f : p;
 
-		return getCurrentAccessFolder();
-	}
+        return getCurrentAccessFolder();
+    }
 
 
-	private Collection<ChangeListener>	_cl;
-	protected int fireFileSelectionChangeEvent (final File f)
-	{
-		return ChangeListenerSet.fireChangeEventForSource(f, _cl, true);
-	}
+    private Collection<ChangeListener>    _cl;
+    protected int fireFileSelectionChangeEvent (final File f)
+    {
+        return ChangeListenerSet.fireChangeEventForSource(f, _cl, true);
+    }
 
-	public boolean addFileSelectionChangeListener (ChangeListener l)
-	{
-		if (null == l)
-			return false;
+    public boolean addFileSelectionChangeListener (ChangeListener l)
+    {
+        if (null == l)
+            return false;
 
-		synchronized(this)
-		{
-			if (null == _cl)
-				_cl = new ChangeListenerSet();
-		}
+        synchronized(this)
+        {
+            if (null == _cl)
+                _cl = new ChangeListenerSet();
+        }
 
-		synchronized(_cl)
-		{
-			return _cl.add(l);
-		}
-	}
+        synchronized(_cl)
+        {
+            return _cl.add(l);
+        }
+    }
 
-	public boolean removeFileSelectionChangeListener (ChangeListener l)
-	{
-		if (null == l)
-			return false;
+    public boolean removeFileSelectionChangeListener (ChangeListener l)
+    {
+        if (null == l)
+            return false;
 
-		synchronized(this)
-		{
-			if ((null == _cl) || (_cl.size() <= 0))
-				return false;
-		}
+        synchronized(this)
+        {
+            if ((null == _cl) || (_cl.size() <= 0))
+                return false;
+        }
 
-		synchronized(_cl)
-		{
-			return _cl.remove(l);
-		}
-	}
+        synchronized(_cl)
+        {
+            return _cl.remove(l);
+        }
+    }
 
-	public int setSelectedFile (File f, boolean fireChanges)
-	{
-		if (null == f)
-			return 0;
+    public int setSelectedFile (File f, boolean fireChanges)
+    {
+        if (null == f)
+            return 0;
 
-		final File	lastSel=f.getParentFile();
-    	if (lastSel != null)
-    		setCurrentAccessFolder(lastSel);
+        final File    lastSel=f.getParentFile();
+        if (lastSel != null)
+            setCurrentAccessFolder(lastSel);
 
-    	setText(f.getAbsolutePath());
-   
-    	if (fireChanges)
-    		return fireFileSelectionChangeEvent(f);
-    	else
-    		return 0;
-	}
+        setText(f.getAbsolutePath());
 
-	public void setSelectedFile (File f)
-	{
-		setSelectedFile(f, true);
-	}
-	/*
-	 * @see net.community.chest.awt.TypedComponentAssignment#getAssignedValue()
-	 */
-	@Override
-	public File getAssignedValue ()
-	{
-		return getSelectedFile();
-	}
-	/*
-	 * @see net.community.chest.awt.TypedComponentAssignment#setAssignedValue(java.lang.Object)
-	 */
-	@Override
-	public void setAssignedValue (File value)
-	{
-		setSelectedFile(value);
-	}
+        if (fireChanges)
+            return fireFileSelectionChangeEvent(f);
+        else
+            return 0;
+    }
 
-	private boolean _saveFileDialog	/* =false */;
-	public boolean isSaveFileDialog ()
-	{
-		return _saveFileDialog;
-	}
+    public void setSelectedFile (File f)
+    {
+        setSelectedFile(f, true);
+    }
+    /*
+     * @see net.community.chest.awt.TypedComponentAssignment#getAssignedValue()
+     */
+    @Override
+    public File getAssignedValue ()
+    {
+        return getSelectedFile();
+    }
+    /*
+     * @see net.community.chest.awt.TypedComponentAssignment#setAssignedValue(java.lang.Object)
+     */
+    @Override
+    public void setAssignedValue (File value)
+    {
+        setSelectedFile(value);
+    }
 
-	public void setSaveFileDialog (boolean saveFileDialog)
-	{
-		_saveFileDialog = saveFileDialog;
-	}
+    private boolean _saveFileDialog    /* =false */;
+    public boolean isSaveFileDialog ()
+    {
+        return _saveFileDialog;
+    }
 
-	protected class FileSelectorWorker extends SwingWorker<Void,File> {
-		private final Component	_parent;
-		public final Component getParent ()
-		{
-			return _parent;
-		}
+    public void setSaveFileDialog (boolean saveFileDialog)
+    {
+        _saveFileDialog = saveFileDialog;
+    }
 
-		protected FileSelectorWorker (final Component parent)
-		{
-			if (null == (_parent=parent))
-				throw new IllegalArgumentException("No parent provided");
-		}
-		/*
-		 * @see javax.swing.SwingWorker#doInBackground()
-		 */
-		@Override
-		protected Void doInBackground () throws Exception
-		{
-			final JFileChooser	fc=getFileChooser(true);
-			if (null == fc)
-				return null;
+    protected class FileSelectorWorker extends SwingWorker<Void,File> {
+        private final Component    _parent;
+        public final Component getParent ()
+        {
+            return _parent;
+        }
 
-			if (fc.isMultiSelectionEnabled())
-				throw new IllegalStateException("Multiple files N/A"); 
+        protected FileSelectorWorker (final Component parent)
+        {
+            if (null == (_parent=parent))
+                throw new IllegalArgumentException("No parent provided");
+        }
+        /*
+         * @see javax.swing.SwingWorker#doInBackground()
+         */
+        @Override
+        protected Void doInBackground () throws Exception
+        {
+            final JFileChooser    fc=getFileChooser(true);
+            if (null == fc)
+                return null;
 
-			final File	ld=resolveCurrentAccessFolder();
-			if (ld != null)
-				fc.setCurrentDirectory(ld);
+            if (fc.isMultiSelectionEnabled())
+                throw new IllegalStateException("Multiple files N/A");
 
-			final Component	p=getParent();
-			final int		nRes=isSaveFileDialog() ? fc.showSaveDialog(p) : fc.showOpenDialog(p);
-			if (nRes != JFileChooser.APPROVE_OPTION)
-				return null;
+            final File    ld=resolveCurrentAccessFolder();
+            if (ld != null)
+                fc.setCurrentDirectory(ld);
 
-			final File	f=fc.getSelectedFile();
-			if (null == f)	// can happen even if APPROVE(d) if user did not select anything
-				return null;
+            final Component    p=getParent();
+            final int        nRes=isSaveFileDialog() ? fc.showSaveDialog(p) : fc.showOpenDialog(p);
+            if (nRes != JFileChooser.APPROVE_OPTION)
+                return null;
 
-			publish(f);
-			return null;
-		}
-		/*
-		 * @see javax.swing.SwingWorker#process(java.util.List)
-		 */
-		@Override
-		protected void process (List<File> chunks)
-		{
-			final int	numFiles=(null == chunks) ? 0 : chunks.size();
-			if (numFiles != 1)
-				throw new IllegalStateException("Bad #files published: " + numFiles);
+            final File    f=fc.getSelectedFile();
+            if (null == f)    // can happen even if APPROVE(d) if user did not select anything
+                return null;
 
-			setSelectedFile(chunks.get(0));
-		}
-	}
-	/*
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed (final ActionEvent event)
-	{
-		final Object	src=(null == event) ? null : event.getSource(),
-						btn=getButton();
-		if (src != btn)
-			return;
-		
-		new FileSelectorWorker(this).execute();
-	}
+            publish(f);
+            return null;
+        }
+        /*
+         * @see javax.swing.SwingWorker#process(java.util.List)
+         */
+        @Override
+        protected void process (List<File> chunks)
+        {
+            final int    numFiles=(null == chunks) ? 0 : chunks.size();
+            if (numFiles != 1)
+                throw new IllegalStateException("Bad #files published: " + numFiles);
+
+            setSelectedFile(chunks.get(0));
+        }
+    }
+    /*
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed (final ActionEvent event)
+    {
+        final Object    src=(null == event) ? null : event.getSource(),
+                        btn=getButton();
+        if (src != btn)
+            return;
+
+        new FileSelectorWorker(this).execute();
+    }
 }

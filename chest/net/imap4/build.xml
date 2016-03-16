@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-net-imap4-utils" default="build-net-imap4-utils">
-		<description>
-			Builds the IMAP4 net utilities JAR $Rev: 561 $
-		</description>
+    <project name="build-net-imap4-utils" default="build-net-imap4-utils">
+        <description>
+            Builds the IMAP4 net utilities JAR $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="module.base.target.name" value="net-imap4"/>
-		<property name="module.vcproj.name" value="chestimap4"/>
-	    <dirname property="base.net.root.dir" file="${module.root.folder}"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="module.base.target.name" value="net-imap4"/>
+        <property name="module.vcproj.name" value="chestimap4"/>
+        <dirname property="base.net.root.dir" file="${module.root.folder}"/>
 
-		<import file="${base.net.root.dir}${file.separator}build-base.xml"/>
+        <import file="${base.net.root.dir}${file.separator}build-base.xml"/>
 
-		<target name="build-net-imap4-utils"
-				depends="jar-base-net-module-files,build-local-products"
-				description="Builds the IMAP4 net utilitites JAR"/>
-		<target name="clean-net-imap4-utils"
-				depends="clean-base-net-module-build,clean-local-products"
-				description="Removes the IMAP4 net utilities object files and JAR"/>
-	</project>
+        <target name="build-net-imap4-utils"
+                depends="jar-base-net-module-files,build-local-products"
+                description="Builds the IMAP4 net utilitites JAR"/>
+        <target name="clean-net-imap4-utils"
+                depends="clean-base-net-module-build,clean-local-products"
+                description="Removes the IMAP4 net utilities object files and JAR"/>
+    </project>

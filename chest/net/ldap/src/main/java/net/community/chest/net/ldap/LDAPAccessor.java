@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package net.community.chest.net.ldap;
 
@@ -15,12 +15,12 @@ import javax.naming.NamingException;
  * @since Jul 20, 2008 12:37:56 PM
  */
 public interface LDAPAccessor extends Closeable, Channel {
-	void setConnectTimeout (long msec) throws NamingException;
-	void setProtocolVersion (int ver) throws NamingException;
+    void setConnectTimeout (long msec) throws NamingException;
+    void setProtocolVersion (int ver) throws NamingException;
 
-	void bind (String host, int port, String bindDN, String bindPassword) throws NamingException;
-	void bind (String host, String bindDN, String bindPassword)throws NamingException;
-	// anonymous access
-	void bind (String host, int port) throws NamingException;
-	void bind (String host) throws NamingException;
+    void bind (String host, int port, String bindDN, String bindPassword) throws NamingException;
+    void bind (String host, String bindDN, String bindPassword)throws NamingException;
+    // anonymous access
+    void bind (String host, int port) throws NamingException;
+    void bind (String host) throws NamingException;
 }

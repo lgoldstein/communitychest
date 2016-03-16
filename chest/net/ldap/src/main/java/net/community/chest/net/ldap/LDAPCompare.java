@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.net.ldap;
 
@@ -21,7 +21,7 @@ import net.community.chest.io.encode.base64.Base64;
 
 /**
  * <P>Copyright as per GPLv2</P>
- * 
+ *
  * Similar to the <A HREF="http://linux.die.net/man/1/ldapcompare">{@code ldapcompare}</A> command.
  * Inspired by <A HREF="http://docs.oracle.com/javase/jndi/tutorial/ldap/search/compare.html">The LDAP &quot;Compare&quot; Operation</A>
  * @author Lyor G.
@@ -31,7 +31,7 @@ public class LDAPCompare extends SearchControls {
     // we're not serializing it
     private static final long serialVersionUID = 1;
     /**
-     * Available options - each element is a line to be displayed 
+     * Available options - each element is a line to be displayed
      */
     private static final String[]   opts={
         "-h host\t\tLDAP server name/address",
@@ -61,7 +61,7 @@ public class LDAPCompare extends SearchControls {
     private static final int showUsageError (final String msg, final PrintStream out, final PrintStream err, final int retCode)
     {
         err.println(msg);
-        
+
         return showUsage(out, retCode);
     }
 
@@ -81,7 +81,7 @@ public class LDAPCompare extends SearchControls {
         return showUsageError(msg, getStdout(), getStderr(), retCode);
     }
     /**
-     * LDAP access initialization properties 
+     * LDAP access initialization properties
      */
     private final Properties _env=new Properties();
     public Properties getContextEnvironment ()
@@ -159,7 +159,7 @@ public class LDAPCompare extends SearchControls {
         _host = host;
     }
     /**
-     * Port number to use for the query - default={@link LDAPProtocol#IPPORT_LDAP} 
+     * Port number to use for the query - default={@link LDAPProtocol#IPPORT_LDAP}
      */
     private int _port=LDAPProtocol.IPPORT_LDAP;
     public int getPort ()
@@ -219,41 +219,41 @@ public class LDAPCompare extends SearchControls {
             getStdout().println("\tsetTimeLimit(" + getTimeLimit() + " => " + ms + ")");
         super.setTimeLimit(ms);
     }
-    
+
     private String _referralMode="follow";
     public String getReferralMode()
     {
         return _referralMode;
     }
-    
+
     public void setReferralMode (String mode)
     {
         _referralMode = mode;
     }
-    
+
     private String  _dn;
     public String getDN() {
         return _dn;
     }
-    
+
     public void setDN(String dn) {
         _dn = dn;
     }
-    
+
     private String  _attrName;
     public String getAttributeName() {
         return _attrName;
     }
-    
+
     public void setAttributeName(String n) {
         _attrName = n;
     }
-    
+
     private String  _attrValue;
     public String getAttributeValue() {
         return _attrValue;
     }
-    
+
     public void setAttributeValue(String v) {
         _attrValue = v;
     }
@@ -384,9 +384,9 @@ public class LDAPCompare extends SearchControls {
         if ((pos <= 0) || (pos >= (valSpec.length() - 1))) {
             return showUsageError("Malformed attribute value", Integer.MIN_VALUE);
         }
-        
+
         setAttributeName(valSpec.substring(0, pos));
-        
+
         if (valSpec.charAt(pos + 1) == ':') {
             pos++;
 
@@ -492,16 +492,16 @@ public class LDAPCompare extends SearchControls {
                 final Attribute a=attrs.next();
                 if (null == a)  // should not happen
                     continue;
-    
+
                 out.println("\t" + a.getID());
-    
+
                 final int   numValues=a.size();
                 for (int    vIndex=0; vIndex < numValues; vIndex++)
                 {
                     final Object    v=a.get(vIndex);
                     out.println("\t\t[" + ((v != null) ? v.getClass().getName() : null) + "]=" + v);
                 }
-    
+
                 numAttrs++;
             }
         } finally {

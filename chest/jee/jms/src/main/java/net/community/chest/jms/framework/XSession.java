@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jms.framework;
 
@@ -14,7 +14,7 @@ import javax.jms.Session;
  * @since Sep 2, 2008 8:49:09 AM
  */
 public interface XSession extends Session {
-	void setAcknowledgeMode (int mode) throws JMSException;
-	boolean isTransacted () throws JMSException;
-	void setTransacted (boolean isTransacted) throws JMSException;
+    void setAcknowledgeMode (int mode) throws JMSException;
+    boolean isTransacted () throws JMSException;
+    void setTransacted (boolean isTransacted) throws JMSException;
 }

@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-		<!-- holds various GUI resources specifications $Rev$ -->
-	<resources>
-		<section 	name="main-frame"
-					title="Git Browser"
-					defaultCloseOperation="EXIT"
-					relativePreferredSize="60,85"
-					relativeSize="60,85"
-					iconImage="Git.jpg"
-				>
-			<layout class="border"/>
-				<!-- defines the main-menu -->
-			<menu name="main-menu">
-					<!-- NOTE: assigned commands MUST match what the application expects -->
-				<menu text="File" mnemonic="VK_F" actionCommand="file">
-					<accessibleContext description="Loads the ANT build file"/>
-					<item text="Load" 		mnemonic="VK_L" actionCommand="load" 	accelerator="control O" icon="Open.gif"		/>
-					<item text="Refresh"	mnemonic="VK_E" actionCommand="refresh" accelerator="F5" 		icon="Refresh.gif"	/>
-					<item text="Close"		mnemonic="VK_C" actionCommand="close" 	accelerator="control W"						/>
-					<separator/>
-					<item text="Pull" 	mnemonic="VK_P"	actionCommand="pull" 	icon="Update.ico"	/>
-					<item text="Fetch"  mnemonic="VK_H"	actionCommand="fetch" 						/>
-					<separator/>
-					<item text="Exit"	mnemonic="VK_X" actionCommand="exit" 	accelerator="alt F4"/>
-				</menu>
-				<menu text="Help" actionCommand="help" icon="Help.gif">
-					<accessibleContext description="Shows various information about the application"/>
-					<item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
-				</menu>
-			</menu>
-		</section>
+        <!-- holds various GUI resources specifications $Rev$ -->
+    <resources>
+        <section     name="main-frame"
+                    title="Git Browser"
+                    defaultCloseOperation="EXIT"
+                    relativePreferredSize="60,85"
+                    relativeSize="60,85"
+                    iconImage="Git.jpg"
+                >
+            <layout class="border"/>
+                <!-- defines the main-menu -->
+            <menu name="main-menu">
+                    <!-- NOTE: assigned commands MUST match what the application expects -->
+                <menu text="File" mnemonic="VK_F" actionCommand="file">
+                    <accessibleContext description="Loads the ANT build file"/>
+                    <item text="Load"         mnemonic="VK_L" actionCommand="load"     accelerator="control O" icon="Open.gif"        />
+                    <item text="Refresh"    mnemonic="VK_E" actionCommand="refresh" accelerator="F5"         icon="Refresh.gif"    />
+                    <item text="Close"        mnemonic="VK_C" actionCommand="close"     accelerator="control W"                        />
+                    <separator/>
+                    <item text="Pull"     mnemonic="VK_P"    actionCommand="pull"     icon="Update.ico"    />
+                    <item text="Fetch"  mnemonic="VK_H"    actionCommand="fetch"                         />
+                    <separator/>
+                    <item text="Exit"    mnemonic="VK_X" actionCommand="exit"     accelerator="alt F4"/>
+                </menu>
+                <menu text="Help" actionCommand="help" icon="Help.gif">
+                    <accessibleContext description="Shows various information about the application"/>
+                    <item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
+                </menu>
+            </menu>
+        </section>
 
-			<!-- dialog used to load the browsed folder -->
-		<section name="load-file-dialog" fileSelectionMode="folders" dialogTitle="Select Source Folder" />
+            <!-- dialog used to load the browsed folder -->
+        <section name="load-file-dialog" fileSelectionMode="folders" dialogTitle="Select Source Folder" />
 
-			<!-- context popup menu -->
-		<section name="node-popup-menu">
-			<item	text="Show log"					actionCommand="log"		icon="ShowLog.ico"	/>
-			<item	text="Check for modifications"	actionCommand="status"	icon="CheckModifications.ico"	/>
-			<separator/>
-			<item	text="Commit"					actionCommand="commit"	icon="Commit.ico"	/>
-			<item	text="Revert"					actionCommand="reset"	icon="Revert.ico"	/>
-			<separator/>
-			<item	text="Add"						actionCommand="add"		icon="Added.ico"	/>
-			<item	text="Delete"					actionCommand="rm"		icon="Deleted.ico"	/>
-			<separator/>
-			<item	text="Properties"				actionCommand="props"	icon="Properties.ico"	/>
-		</section>
+            <!-- context popup menu -->
+        <section name="node-popup-menu">
+            <item    text="Show log"                    actionCommand="log"        icon="ShowLog.ico"    />
+            <item    text="Check for modifications"    actionCommand="status"    icon="CheckModifications.ico"    />
+            <separator/>
+            <item    text="Commit"                    actionCommand="commit"    icon="Commit.ico"    />
+            <item    text="Revert"                    actionCommand="reset"    icon="Revert.ico"    />
+            <separator/>
+            <item    text="Add"                        actionCommand="add"        icon="Added.ico"    />
+            <item    text="Delete"                    actionCommand="rm"        icon="Deleted.ico"    />
+            <separator/>
+            <item    text="Properties"                actionCommand="props"    icon="Properties.ico"    />
+        </section>
 
-			<!-- dialog used to show the manifest -->
-		<section name="show-manifest-dialog" title="Manifest" modal="true">
-			<column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
-			<column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
-		</section>
+            <!-- dialog used to show the manifest -->
+        <section name="show-manifest-dialog" title="Manifest" modal="true">
+            <column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
+            <column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
+        </section>
 
-		<section name="main-fonts">
-			<font id="default-font" name="Tahoma" style="plain" size="11"/>
-		</section>
+        <section name="main-fonts">
+            <font id="default-font" name="Tahoma" style="plain" size="11"/>
+        </section>
 
-		<section name="main-toolbar" floatable="false">
-			<button actionCommand="load" 	tooltipText="Load GIT repository"/>
-			<button actionCommand="refresh" tooltipText="Re-load GIT repository"/>
-			<button actionCommand="pull" 	tooltipText="Pull &amp; Merge from remote branch"/>
-		</section>
-	</resources>
+        <section name="main-toolbar" floatable="false">
+            <button actionCommand="load"     tooltipText="Load GIT repository"/>
+            <button actionCommand="refresh" tooltipText="Re-load GIT repository"/>
+            <button actionCommand="pull"     tooltipText="Pull &amp; Merge from remote branch"/>
+        </section>
+    </resources>

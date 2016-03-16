@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.dom;
 
@@ -24,35 +24,35 @@ import org.w3c.dom.Document;
  * @since Oct 13, 2009 1:55:51 PM
  */
 public class DocumentStringInstantiator extends BaseTypedValuesContainer<Document>
-		implements ValueStringInstantiator<Document> {
-	public DocumentStringInstantiator () throws IllegalArgumentException
-	{
-		super(Document.class);
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
-	 */
-	@Override
-	public String convertInstance (Document inst) throws Exception
-	{
-		if (null == inst)
-			return null;
+        implements ValueStringInstantiator<Document> {
+    public DocumentStringInstantiator () throws IllegalArgumentException
+    {
+        super(Document.class);
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
+     */
+    @Override
+    public String convertInstance (Document inst) throws Exception
+    {
+        if (null == inst)
+            return null;
 
-		final Transformer	t=DOMUtils.getDefaultXmlTransformer();
-		final Source		xmlSource=new DOMSource(inst);
-		final Writer		sw=new StringWriter(256);
-		final Result		outputTarget=new StreamResult(sw);
-		t.transform(xmlSource, outputTarget);
-		return sw.toString();
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
-	 */
-	@Override
-	public Document newInstance (String s) throws Exception
-	{
-		return DOMUtils.loadDocumentFromString(s);
-	}
+        final Transformer    t=DOMUtils.getDefaultXmlTransformer();
+        final Source        xmlSource=new DOMSource(inst);
+        final Writer        sw=new StringWriter(256);
+        final Result        outputTarget=new StreamResult(sw);
+        t.transform(xmlSource, outputTarget);
+        return sw.toString();
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
+     */
+    @Override
+    public Document newInstance (String s) throws Exception
+    {
+        return DOMUtils.loadDocumentFromString(s);
+    }
 
-	public static final DocumentStringInstantiator	DEFAULT=new DocumentStringInstantiator();
+    public static final DocumentStringInstantiator    DEFAULT=new DocumentStringInstantiator();
 }

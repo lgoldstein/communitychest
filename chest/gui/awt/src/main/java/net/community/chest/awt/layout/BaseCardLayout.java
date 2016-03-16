@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.layout;
 
@@ -20,52 +20,52 @@ import org.w3c.dom.Element;
  * @since Aug 20, 2008 1:44:01 PM
  */
 public class BaseCardLayout extends CardLayout implements XmlConvertible<BaseCardLayout> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8528027752703640680L;
-	public BaseCardLayout ()
-	{
-		super();
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8528027752703640680L;
+    public BaseCardLayout ()
+    {
+        super();
+    }
 
-	public BaseCardLayout (int hgap, int vgap)
-	{
-		super(hgap, vgap);
-	}
+    public BaseCardLayout (int hgap, int vgap)
+    {
+        super(hgap, vgap);
+    }
 
-	public XmlProxyConvertible<?> getLayoutConverter (final Element elem) throws Exception
-	{
-		return (null == elem) ? null : CardLayoutReflectiveProxy.CARD;
-	}
-	/*
-	 * @see net.community.chest.dom.transform.XmlConvertible#fromXml(org.w3c.dom.Element)
-	 */
-	@Override
-	public BaseCardLayout fromXml (final Element elem) throws Exception
-	{
-		final XmlProxyConvertible<?>	proxy=getLayoutConverter(elem);
-		@SuppressWarnings("unchecked")
-		final Object					o=
-			((XmlProxyConvertible<Object>) proxy).fromXml(this, elem);
-		if (o != this)
-			throw new IllegalStateException(ClassUtil.getExceptionLocation(getClass(), "fromXml") + " mismatched initialization instances");
+    public XmlProxyConvertible<?> getLayoutConverter (final Element elem) throws Exception
+    {
+        return (null == elem) ? null : CardLayoutReflectiveProxy.CARD;
+    }
+    /*
+     * @see net.community.chest.dom.transform.XmlConvertible#fromXml(org.w3c.dom.Element)
+     */
+    @Override
+    public BaseCardLayout fromXml (final Element elem) throws Exception
+    {
+        final XmlProxyConvertible<?>    proxy=getLayoutConverter(elem);
+        @SuppressWarnings("unchecked")
+        final Object                    o=
+            ((XmlProxyConvertible<Object>) proxy).fromXml(this, elem);
+        if (o != this)
+            throw new IllegalStateException(ClassUtil.getExceptionLocation(getClass(), "fromXml") + " mismatched initialization instances");
 
-		return this;
-	}
+        return this;
+    }
 
-	public BaseCardLayout (final Element elem) throws Exception
-	{
-		if (fromXml(elem) != this)
-			throw new IllegalStateException("Mismatched constructed instances");
-	}
-	/*
-	 * @see net.community.chest.dom.transform.XmlConvertible#toXml(org.w3c.dom.Document)
-	 */
-	@Override
-	public Element toXml (Document doc) throws Exception
-	{
-		// TODO implement toXml
-		throw new UnsupportedOperationException(ClassUtil.getExceptionLocation(getClass(), "toXml") + " N/A");
-	}
+    public BaseCardLayout (final Element elem) throws Exception
+    {
+        if (fromXml(elem) != this)
+            throw new IllegalStateException("Mismatched constructed instances");
+    }
+    /*
+     * @see net.community.chest.dom.transform.XmlConvertible#toXml(org.w3c.dom.Document)
+     */
+    @Override
+    public Element toXml (Document doc) throws Exception
+    {
+        // TODO implement toXml
+        throw new UnsupportedOperationException(ClassUtil.getExceptionLocation(getClass(), "toXml") + " N/A");
+    }
 }

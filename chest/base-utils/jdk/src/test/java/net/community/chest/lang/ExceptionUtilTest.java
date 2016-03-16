@@ -45,7 +45,7 @@ public class ExceptionUtilTest extends AbstractTestSupport {
         assertNotSame("Unconverted instances", th, re);
         assertSame("Mismatched wrapped instances", th, re.getCause());
     }
-    
+
     @Test
     public void testPeeledException () {
         RuntimeException    ex=new IllegalArgumentException("peeled");
@@ -54,30 +54,30 @@ public class ExceptionUtilTest extends AbstractTestSupport {
         assertSame("Mismatched peeled instance", ex, re);
     }
 
-	@Test
-	public void testRethrowException ()
-	{
-		final String msg="testRethrowException";
-		for (Throwable expected : new Throwable[] { // mixed checked and unchecked exception, errors and exceptions
-				new SQLException(msg),
-				new IllegalArgumentException(msg),
-				new NoSuchMethodError(msg),
-				new UnsupportedOperationException(msg),
-				new LinkageError(msg),
-				new ClassCastException(msg) })
-		{
-			try
-			{
-				ExceptionUtil.rethrowException(expected);
-				fail("Unexpected success for " + expected.getClass().getSimpleName());
-			}
-			catch (Throwable actual)
-			{
-				assertSame("Mismatched caught exception for " + expected.getClass().getSimpleName()
-						 + ": " + actual.getClass().getSimpleName()
-						 + "[" + actual.getMessage() + "]",
-						   expected, actual);
-			}
-		}
-	}
+    @Test
+    public void testRethrowException ()
+    {
+        final String msg="testRethrowException";
+        for (Throwable expected : new Throwable[] { // mixed checked and unchecked exception, errors and exceptions
+                new SQLException(msg),
+                new IllegalArgumentException(msg),
+                new NoSuchMethodError(msg),
+                new UnsupportedOperationException(msg),
+                new LinkageError(msg),
+                new ClassCastException(msg) })
+        {
+            try
+            {
+                ExceptionUtil.rethrowException(expected);
+                fail("Unexpected success for " + expected.getClass().getSimpleName());
+            }
+            catch (Throwable actual)
+            {
+                assertSame("Mismatched caught exception for " + expected.getClass().getSimpleName()
+                         + ": " + actual.getClass().getSimpleName()
+                         + "[" + actual.getMessage() + "]",
+                           expected, actual);
+            }
+        }
+    }
 }

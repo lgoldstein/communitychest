@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="jdk-tools-base" default="jdk-tools-base">
-		<description>
-			Serves as 'base' inclusion file with common definitions for the CHEST
-			JDK tools JAR(s) sub-project(s) $Rev: 561 $
-		</description>
+    <project name="jdk-tools-base" default="jdk-tools-base">
+        <description>
+            Serves as 'base' inclusion file with common definitions for the CHEST
+            JDK tools JAR(s) sub-project(s) $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
+            <!-- Preamble definitions -->
         <dirname property="jdk.tools.root.dir" file="${ant.file}"/>
-		<basename property="jdk.tools.base.name" file="${jdk.tools.root.dir}"/>
+        <basename property="jdk.tools.base.name" file="${jdk.tools.root.dir}"/>
         <dirname property="project.root.dir" file="${jdk.tools.root.dir}"/>
-		<property name="parent.root.dir" value="${project.root.dir}"/>
-		<property name="module.root.folder" value="${jdk.tools.root.dir}"/>
-		<property name="module.base.target.name" value="${jdk.tools.base.name}"/>
+        <property name="parent.root.dir" value="${project.root.dir}"/>
+        <property name="module.root.folder" value="${jdk.tools.root.dir}"/>
+        <property name="module.base.target.name" value="${jdk.tools.base.name}"/>
 
-		<import file="${project.root.dir}${file.separator}build-base.xml"/>
+        <import file="${project.root.dir}${file.separator}build-base.xml"/>
 
-		<target name="jdk-tools-base" depends="chest-base" unless="skip.jdk.tools.base.target">
-			<property name="skip.jdk.tools.base.target" value="true"/>
-		</target>
+        <target name="jdk-tools-base" depends="chest-base" unless="skip.jdk.tools.base.target">
+            <property name="skip.jdk.tools.base.target" value="true"/>
+        </target>
 
-			<!-- Default target(s) from which modules should derive their own -->
-		<target name="jar-jdk-tools-module-files" depends="jdk-tools-base,jar-project-module-files"/>
-		<target name="clean-jdk-tools-module-build" depends="jdk-tools-base,clean-project-module-build"/>
-	</project>
+            <!-- Default target(s) from which modules should derive their own -->
+        <target name="jar-jdk-tools-module-files" depends="jdk-tools-base,jar-project-module-files"/>
+        <target name="clean-jdk-tools-module-build" depends="jdk-tools-base,clean-project-module-build"/>
+    </project>

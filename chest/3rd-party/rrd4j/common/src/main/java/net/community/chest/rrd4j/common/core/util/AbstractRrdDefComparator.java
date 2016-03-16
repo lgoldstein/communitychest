@@ -12,8 +12,8 @@ import org.rrd4j.core.RrdDef;
  * @since Jan 10, 2008 11:13:05 AM
  */
 public abstract class AbstractRrdDefComparator<D extends RrdDef> extends AbstractComparator<D> {
-	protected AbstractRrdDefComparator (Class<D> defClass, boolean reverseMatch) throws IllegalArgumentException
-	{
-		super(defClass, reverseMatch);
-	}
+    protected AbstractRrdDefComparator (Class<D> defClass, boolean reverseMatch) throws IllegalArgumentException
+    {
+        super(defClass, reverseMatch);
+    }
 }

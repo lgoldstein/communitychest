@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ui.helpers.input;
 
@@ -13,31 +13,31 @@ import java.net.URISyntaxException;
  * @since Mar 31, 2009 1:44:03 PM
  */
 public class URLInputVerifier extends TextInputVerifier {
-	public URLInputVerifier ()
-	{
-		super();
-	}
-	/*
-	 * @see net.community.chest.ui.helpers.input.TextInputVerifier#verifyText(java.lang.String)
-	 */
-	@Override
-	public boolean verifyText (String text)
-	{
-		if (!super.verifyText(text))
-			return false;
+    public URLInputVerifier ()
+    {
+        super();
+    }
+    /*
+     * @see net.community.chest.ui.helpers.input.TextInputVerifier#verifyText(java.lang.String)
+     */
+    @Override
+    public boolean verifyText (String text)
+    {
+        if (!super.verifyText(text))
+            return false;
 
-		try
-		{
-			final URI	uri=new URI(text);
-			if (null == uri.toString())
-				return false;
-			return true;
-		}
-		catch(URISyntaxException e)
-		{
-			return false;
-		}
-	}
+        try
+        {
+            final URI    uri=new URI(text);
+            if (null == uri.toString())
+                return false;
+            return true;
+        }
+        catch(URISyntaxException e)
+        {
+            return false;
+        }
+    }
 
-	public static final URLInputVerifier	URL=new URLInputVerifier();
+    public static final URLInputVerifier    URL=new URLInputVerifier();
 }

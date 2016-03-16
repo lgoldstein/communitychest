@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jmx;
 
@@ -14,35 +14,35 @@ import net.community.chest.lang.StringUtil;
  * @since Feb 15, 2011 9:02:01 AM
  */
 public class StructuredObjectNameComparator extends AbstractObjectNameComparator {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 396142750904437860L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 396142750904437860L;
 
-	public StructuredObjectNameComparator (boolean ascending)
-	{
-		super(ascending);
-	}
-	/*
-	 * @see net.community.chest.util.compare.AbstractComparator#compareValues(java.lang.Object, java.lang.Object)
-	 */
-	@Override
-	public int compareValues (ObjectName v1, ObjectName v2)
-	{
-		final String	d1=(v1 == null) ? null : v1.getDomain(),
-						d2=(v2 == null) ? null : v2.getDomain();
-		int				nRes=StringUtil.compareDataStrings(d1, d2, false);
-		if (nRes != 0)
-			return nRes;
+    public StructuredObjectNameComparator (boolean ascending)
+    {
+        super(ascending);
+    }
+    /*
+     * @see net.community.chest.util.compare.AbstractComparator#compareValues(java.lang.Object, java.lang.Object)
+     */
+    @Override
+    public int compareValues (ObjectName v1, ObjectName v2)
+    {
+        final String    d1=(v1 == null) ? null : v1.getDomain(),
+                        d2=(v2 == null) ? null : v2.getDomain();
+        int                nRes=StringUtil.compareDataStrings(d1, d2, false);
+        if (nRes != 0)
+            return nRes;
 
-		final String	p1=(v1 == null) ? null : v1.getCanonicalKeyPropertyListString(),
-						p2=(v2 == null) ? null : v2.getCanonicalKeyPropertyListString();
-		if ((nRes=StringUtil.compareDataStrings(p1, p2, false)) != 0)
-			return nRes;	// debug breakpoint
+        final String    p1=(v1 == null) ? null : v1.getCanonicalKeyPropertyListString(),
+                        p2=(v2 == null) ? null : v2.getCanonicalKeyPropertyListString();
+        if ((nRes=StringUtil.compareDataStrings(p1, p2, false)) != 0)
+            return nRes;    // debug breakpoint
 
-		return 0;
-	}
+        return 0;
+    }
 
-	public static final StructuredObjectNameComparator	ASCENDING=new StructuredObjectNameComparator(true),
-														DESCENDING=new StructuredObjectNameComparator(false);
+    public static final StructuredObjectNameComparator    ASCENDING=new StructuredObjectNameComparator(true),
+                                                        DESCENDING=new StructuredObjectNameComparator(false);
 }

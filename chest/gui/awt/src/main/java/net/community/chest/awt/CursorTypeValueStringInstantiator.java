@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt;
 
@@ -15,41 +15,41 @@ import net.community.chest.lang.StringUtil;
  * @since Feb 8, 2009 9:49:43 AM
  */
 public class CursorTypeValueStringInstantiator extends AbstractXmlValueStringInstantiator<Integer> {
-	public CursorTypeValueStringInstantiator ()
-	{
-		super(Integer.class);
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
-	 */
-	@Override
-	public String convertInstance (Integer inst) throws Exception
-	{
-		if (null == inst)
-			return null;
+    public CursorTypeValueStringInstantiator ()
+    {
+        super(Integer.class);
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
+     */
+    @Override
+    public String convertInstance (Integer inst) throws Exception
+    {
+        if (null == inst)
+            return null;
 
-		final CursorType	st=CursorType.fromCursorType(inst.intValue());
-		if (null == st)
-			throw new NoSuchElementException("convertInstance(" + inst + ") unknown value");
+        final CursorType    st=CursorType.fromCursorType(inst.intValue());
+        if (null == st)
+            throw new NoSuchElementException("convertInstance(" + inst + ") unknown value");
 
-		return st.toString();
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
-	 */
-	@Override
-	public Integer newInstance (String v) throws Exception
-	{
-		final String	s=StringUtil.getCleanStringValue(v);
-		if ((null == s) || (s.length() <= 0))
-			return null;
+        return st.toString();
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
+     */
+    @Override
+    public Integer newInstance (String v) throws Exception
+    {
+        final String    s=StringUtil.getCleanStringValue(v);
+        if ((null == s) || (s.length() <= 0))
+            return null;
 
-		final CursorType	st=CursorType.fromString(s);
-		if (null == st)
-			throw new NoSuchElementException("newInstance(" + s + ") unknown value");
+        final CursorType    st=CursorType.fromString(s);
+        if (null == st)
+            throw new NoSuchElementException("newInstance(" + s + ") unknown value");
 
-		return Integer.valueOf(st.getCursorType());
-	}
+        return Integer.valueOf(st.getCursorType());
+    }
 
-	public static final CursorTypeValueStringInstantiator	DEFAULT=new CursorTypeValueStringInstantiator();
+    public static final CursorTypeValueStringInstantiator    DEFAULT=new CursorTypeValueStringInstantiator();
 }

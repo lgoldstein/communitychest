@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.util.map;
 
@@ -26,10 +26,10 @@ import org.junit.Test;
  *
  */
 public class MapsUtilsTest extends AbstractTestSupport {
-	public MapsUtilsTest ()
-	{
-		super();
-	}
+    public MapsUtilsTest ()
+    {
+        super();
+    }
 
     @Test
     public void testCompareMaps () {
@@ -90,7 +90,7 @@ public class MapsUtilsTest extends AbstractTestSupport {
        assertFalse("Null value mapped", MapsUtils.putIfNonNull(map, "key", null));
        assertEquals("Map size changed after null", 1, map.size());
        assertEquals("Mapped value changed after null", "value", map.get("key"));
-       
+
        assertTrue("Non-null value not mapped", MapsUtils.putIfNonNull(map, "key", "anotherValue"));
        assertEquals("Map size changed after non-null", 1, map.size());
        assertEquals("Mapped value not changed after non-null", "anotherValue", map.get("key"));
@@ -121,61 +121,61 @@ public class MapsUtilsTest extends AbstractTestSupport {
 
     @Test
     public void testFlip () {
-    	Map<String,Long>	src=new TreeMap<String, Long>() {
-			private static final long serialVersionUID = -3686693573082540693L;
+        Map<String,Long>    src=new TreeMap<String, Long>() {
+            private static final long serialVersionUID = -3686693573082540693L;
 
-			{
-    			put("sysTime", Long.valueOf(7365L));
-    			put("nanoTime", Long.valueOf(3777347L));
-    		}
-    	};
-    	
-    	Map<Number,CharSequence>	dst=MapsUtils.flip(src, new HashMap<Number,CharSequence>(src.size()));
-    	assertEquals("Mismatched size", src.size(), dst.size());
-    	for (Map.Entry<String,Long> se : src.entrySet()) {
-    		String			expected=se.getKey();
-    		Long			value=se.getValue();
-    		CharSequence	actual=dst.remove(value);
-    		assertSame("Mismatched key for value=" + value, expected, actual);
-    	}
+            {
+                put("sysTime", Long.valueOf(7365L));
+                put("nanoTime", Long.valueOf(3777347L));
+            }
+        };
+
+        Map<Number,CharSequence>    dst=MapsUtils.flip(src, new HashMap<Number,CharSequence>(src.size()));
+        assertEquals("Mismatched size", src.size(), dst.size());
+        for (Map.Entry<String,Long> se : src.entrySet()) {
+            String            expected=se.getKey();
+            Long            value=se.getValue();
+            CharSequence    actual=dst.remove(value);
+            assertSame("Mismatched key for value=" + value, expected, actual);
+        }
     }
 
     @Test
     public void testFlipNullOrEmpty () {
-    	Map<Object,Object>	dst=Collections.unmodifiableMap(new HashMap<Object,Object>());
-    	assertSame("Mismatached instance for null source", dst, MapsUtils.flip(null, dst));
-    	assertSame("Mismatached instance for empty source", dst, MapsUtils.flip(Collections.<Object,Object>emptyMap(), dst));
+        Map<Object,Object>    dst=Collections.unmodifiableMap(new HashMap<Object,Object>());
+        assertSame("Mismatached instance for null source", dst, MapsUtils.flip(null, dst));
+        assertSame("Mismatached instance for empty source", dst, MapsUtils.flip(Collections.<Object,Object>emptyMap(), dst));
     }
 
-	@Test
+    @Test
     @SuppressWarnings("unchecked")
     public void testRemoveAllNoKeys () {
-    	Map<String,String>	map=Collections.unmodifiableMap(new HashMap<String,String>());
-    	@SuppressWarnings("rawtypes")
-		Collection[]		colls={ null, Collections.<String>emptyList() };
-    	for (Collection<String> toRemove : colls) {
-    		Collection<?>	values=MapsUtils.removeAll(map, toRemove);
-    		assertEquals("Mismatched result for " + toRemove, 0, CollectionsUtils.size(values));
-    	}
+        Map<String,String>    map=Collections.unmodifiableMap(new HashMap<String,String>());
+        @SuppressWarnings("rawtypes")
+        Collection[]        colls={ null, Collections.<String>emptyList() };
+        for (Collection<String> toRemove : colls) {
+            Collection<?>    values=MapsUtils.removeAll(map, toRemove);
+            assertEquals("Mismatched result for " + toRemove, 0, CollectionsUtils.size(values));
+        }
     }
 
-	@Test
+    @Test
     @SuppressWarnings("unchecked")
     public void testRemoveAllNoEntries () {
-		Collection<String>	toRemove=Arrays.asList(getClass().getSimpleName(), "testRemoveAllNoEntries");
-    	@SuppressWarnings("rawtypes")
-		Map[]				maps={ null, Collections.<String,String>emptyMap() };
-    	for (Map<String,String> m : maps) {
-    		Collection<?>	values=MapsUtils.removeAll(m, toRemove);
-    		assertEquals("Mismatched result for " + m, 0, CollectionsUtils.size(values));
-    	}
-	}
+        Collection<String>    toRemove=Arrays.asList(getClass().getSimpleName(), "testRemoveAllNoEntries");
+        @SuppressWarnings("rawtypes")
+        Map[]                maps={ null, Collections.<String,String>emptyMap() };
+        for (Map<String,String> m : maps) {
+            Collection<?>    values=MapsUtils.removeAll(m, toRemove);
+            assertEquals("Mismatched result for " + m, 0, CollectionsUtils.size(values));
+        }
+    }
 
     static List<Integer> makeCountingList (int numMembers) {
-    	List<Integer>	list=new ArrayList<Integer>(numMembers);
-    	for (int index=0; index < numMembers; index++)
-    		list.add(Integer.valueOf(index));
-    	return list;
+        List<Integer>    list=new ArrayList<Integer>(numMembers);
+        for (int index=0; index < numMembers; index++)
+            list.add(Integer.valueOf(index));
+        return list;
     }
 
     static <M extends Map<Number,Number>> M populateMap (M map, Collection<? extends Number> values) {

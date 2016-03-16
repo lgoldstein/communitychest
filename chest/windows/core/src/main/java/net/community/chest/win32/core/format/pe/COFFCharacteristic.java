@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.format.pe;
 
@@ -34,11 +34,11 @@ public enum COFFCharacteristic {
     public final short getMaskValue() {
         return _maskValue;
     }
-    
+
     COFFCharacteristic(short maskValue) {
         _maskValue = maskValue;
     }
-    
+
     public static final Set<COFFCharacteristic> VALUES=
             Collections.unmodifiableSet(EnumSet.allOf(COFFCharacteristic.class));
     public static final Set<COFFCharacteristic> fromCharacteristics(short mask) {
@@ -48,7 +48,7 @@ public enum COFFCharacteristic {
                 result.add(c);
             }
         }
-        
+
         return result;
     }
 }

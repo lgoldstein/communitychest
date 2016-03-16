@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jcommon.ui;
 
@@ -20,39 +20,39 @@ import org.jfree.ui.GradientPaintTransformType;
  * @since Jun 8, 2009 1:35:14 PM
  */
 public enum GradientPaintTransformTypeEnum {
-	VERTICAL(GradientPaintTransformType.VERTICAL), 
-	HORIZONTAL(GradientPaintTransformType.HORIZONTAL), 
-	VCENTER(GradientPaintTransformType.CENTER_VERTICAL), 
-	HCENTER(GradientPaintTransformType.CENTER_HORIZONTAL);
+    VERTICAL(GradientPaintTransformType.VERTICAL),
+    HORIZONTAL(GradientPaintTransformType.HORIZONTAL),
+    VCENTER(GradientPaintTransformType.CENTER_VERTICAL),
+    HCENTER(GradientPaintTransformType.CENTER_HORIZONTAL);
 
-	private final GradientPaintTransformType	_type;
-	public final GradientPaintTransformType getType ()
-	{
-		return _type;
-	}
+    private final GradientPaintTransformType    _type;
+    public final GradientPaintTransformType getType ()
+    {
+        return _type;
+    }
 
-	GradientPaintTransformTypeEnum (GradientPaintTransformType t)
-	{
-		_type = t;
-	}
+    GradientPaintTransformTypeEnum (GradientPaintTransformType t)
+    {
+        _type = t;
+    }
 
-	public static final List<GradientPaintTransformTypeEnum>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final GradientPaintTransformTypeEnum fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<GradientPaintTransformTypeEnum>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final GradientPaintTransformTypeEnum fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-	public static final GradientPaintTransformTypeEnum fromType (final GradientPaintTransformType t)
-	{
-		if (null == t)
-			return null;
+    public static final GradientPaintTransformTypeEnum fromType (final GradientPaintTransformType t)
+    {
+        if (null == t)
+            return null;
 
-		for (final GradientPaintTransformTypeEnum  v : VALUES)
-		{
-			if ((v != null) && t.equals(v.getType()))
-				return v;
-		}
+        for (final GradientPaintTransformTypeEnum  v : VALUES)
+        {
+            if ((v != null) && t.equals(v.getType()))
+                return v;
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

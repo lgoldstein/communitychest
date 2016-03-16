@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-			     http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<groupId>net.community.chest.web</groupId>
-		<artifactId>parent</artifactId>
-		<version>1.8.1.0</version>
-		<relativePath>../pom.xml</relativePath>
-	</parent>
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>net.community.chest.web</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.8.1.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>chest-jnlp-servlet</artifactId>
-	<packaging>jar</packaging>
-	<name>JNLP Servlet API Common Utilities</name>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>chest-jnlp-servlet</artifactId>
+    <packaging>jar</packaging>
+    <name>JNLP Servlet API Common Utilities</name>
 
-	<dependencies>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-		</dependency>
-	</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
+    </dependencies>
 </project>

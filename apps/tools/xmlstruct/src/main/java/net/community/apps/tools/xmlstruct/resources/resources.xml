@@ -1,90 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
-		<!-- holds various GUI resources specifications
-		
-			NOTE: icon references are relative to the 'images' sub-folder
-		 -->
-	<resources>
-			<!-- defines the main frame -->
-		<section 	name="main-frame"
-					title="Show XML file structure"
-					defaultCloseOperation="EXIT"
-					relativePreferredSize="60,65"
-					relativeSize="60,65"
-					iconImage="XMLFile.gif"
-				>
-			<layout class="border"/>
-				<!-- defines the main-menu -->
-			<menu name="main-menu">
-					<!-- NOTE: assigned commands MUST match what the application expects -->
-				<menu text="File" mnemonic="VK_F" actionCommand="file">
-					<accessibleContext description="Loads/Saves the XML file/structure"/>
-					<item text="Load XML file"   mnemonic="VK_L" actionCommand="load" accelerator="control O"	icon="Open.gif"/>
-					<item text="Save structure"  mnemonic="VK_S" actionCommand="save" accelerator="control S"	icon="Save.gif"/>
-					<item text="Options"  		 mnemonic="VK_T" actionCommand="options" accelerator="F2"		icon="Options.gif"/>
-					<separator/>
-					<item text="Exit" 			 mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
-				</menu>
-				<menu text="Help" actionCommand="help" icon="Help.gif">
-					<accessibleContext description="Shows various information about the application"/>
-					<item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
-				</menu>
-			</menu>
-		</section>
+        <!-- holds various GUI resources specifications
+
+            NOTE: icon references are relative to the 'images' sub-folder
+         -->
+    <resources>
+            <!-- defines the main frame -->
+        <section     name="main-frame"
+                    title="Show XML file structure"
+                    defaultCloseOperation="EXIT"
+                    relativePreferredSize="60,65"
+                    relativeSize="60,65"
+                    iconImage="XMLFile.gif"
+                >
+            <layout class="border"/>
+                <!-- defines the main-menu -->
+            <menu name="main-menu">
+                    <!-- NOTE: assigned commands MUST match what the application expects -->
+                <menu text="File" mnemonic="VK_F" actionCommand="file">
+                    <accessibleContext description="Loads/Saves the XML file/structure"/>
+                    <item text="Load XML file"   mnemonic="VK_L" actionCommand="load" accelerator="control O"    icon="Open.gif"/>
+                    <item text="Save structure"  mnemonic="VK_S" actionCommand="save" accelerator="control S"    icon="Save.gif"/>
+                    <item text="Options"           mnemonic="VK_T" actionCommand="options" accelerator="F2"        icon="Options.gif"/>
+                    <separator/>
+                    <item text="Exit"              mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
+                </menu>
+                <menu text="Help" actionCommand="help" icon="Help.gif">
+                    <accessibleContext description="Shows various information about the application"/>
+                    <item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
+                </menu>
+            </menu>
+        </section>
 
 
-			<!-- dialog used to load the XML source file -->
-		<section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select XML source file">
-			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
-					description="XML files"
-					exts="xml"
-				/>
-		</section>
+            <!-- dialog used to load the XML source file -->
+        <section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select XML source file">
+            <filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+                    description="XML files"
+                    exts="xml"
+                />
+        </section>
 
-			<!-- dialog used to save the XML result file -->
-		<section name="save-file-dialog" fileSelectionMode="files" dialogTitle="Select result file">
-			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
-					description="XML files"
-					exts="xml"
-				/>
-		</section>
+            <!-- dialog used to save the XML result file -->
+        <section name="save-file-dialog" fileSelectionMode="files" dialogTitle="Select result file">
+            <filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+                    description="XML files"
+                    exts="xml"
+                />
+        </section>
 
-			<!-- dialog used to show the manifest -->
-		<section name="show-manifest-dialog" title="Manifest" modal="true">
-			<column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
-			<column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
-		</section>
+            <!-- dialog used to show the manifest -->
+        <section name="show-manifest-dialog" title="Manifest" modal="true">
+            <column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
+            <column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
+        </section>
 
-		<section name="main-fonts">
-			<font id="default-font" name="Tahoma" style="plain" size="11"/>
-		</section>
+        <section name="main-fonts">
+            <font id="default-font" name="Tahoma" style="plain" size="11"/>
+        </section>
 
-		<section name="main-toolbar" floatable="false">
-			<button text="Load" 	actionCommand="load"    icon="Open.gif" 	tooltipText="Load XML source file"/>
-			<button text="Save"		actionCommand="save"    icon="Save.gif" 	tooltipText="Save analysis result"/>
-			<button text="Options"  actionCommand="options" icon="Options.gif"	tooltipText="Configure document load options"/>
-		</section>
+        <section name="main-toolbar" floatable="false">
+            <button text="Load"     actionCommand="load"    icon="Open.gif"     tooltipText="Load XML source file"/>
+            <button text="Save"        actionCommand="save"    icon="Save.gif"     tooltipText="Save analysis result"/>
+            <button text="Options"  actionCommand="options" icon="Options.gif"    tooltipText="Configure document load options"/>
+        </section>
 
-		<section name="doc-builder-options-dialog"
-					preferredSize="250,300"
-					title="Document builder configuration options"
-					size="250,300"
-					modal="true"
-					iconImage="Options.gif"
-				>
-			<buttonsPanel name="doc-builder-options-buttons">
-				<button  name="ok-button" text="OK"	actionCommand="apply"  tooltipText="Apply options">
-					<?constraint position="east"?>
-				</button>
-			</buttonsPanel>
-		</section>
+        <section name="doc-builder-options-dialog"
+                    preferredSize="250,300"
+                    title="Document builder configuration options"
+                    size="250,300"
+                    modal="true"
+                    iconImage="Options.gif"
+                >
+            <buttonsPanel name="doc-builder-options-buttons">
+                <button  name="ok-button" text="OK"    actionCommand="apply"  tooltipText="Apply options">
+                    <?constraint position="east"?>
+                </button>
+            </buttonsPanel>
+        </section>
 
-			<!-- the name is the same as NodeTypeEnum -->
-		<section name="icons-map">
-			<entry name="DOCUMENT" 	icon="Document.gif"/>
-			<entry name="ELEMENT" 	icon="Element.gif"/>
-			<entry name="ATTRIBUTE" icon="Attribute.gif"/>
-			<entry name="TEXT" 		icon="Text.gif"/>
-			<entry name="COMMENT" 	icon="Comment.gif"/>
-			<entry name="CDATA" 	icon="CDATASection.gif"/>
-		</section>
-	</resources>
+            <!-- the name is the same as NodeTypeEnum -->
+        <section name="icons-map">
+            <entry name="DOCUMENT"     icon="Document.gif"/>
+            <entry name="ELEMENT"     icon="Element.gif"/>
+            <entry name="ATTRIBUTE" icon="Attribute.gif"/>
+            <entry name="TEXT"         icon="Text.gif"/>
+            <entry name="COMMENT"     icon="Comment.gif"/>
+            <entry name="CDATA"     icon="CDATASection.gif"/>
+        </section>
+    </resources>

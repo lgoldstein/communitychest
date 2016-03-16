@@ -12,25 +12,25 @@ import java.util.List;
  * @since Mar 31, 2008 3:30:02 PM
  */
 public class OddIteratorBehavior {
-	private static boolean isOdd(Integer i)
-	{
-		return (i != null) && ((i.intValue() & 1) != 0);
-	}
+    private static boolean isOdd(Integer i)
+    {
+        return (i != null) && ((i.intValue() & 1) != 0);
+    }
 
-	public static void main (String[] args)
-	{
-		final List<Integer> list = Arrays.asList(
-				Integer.valueOf(-2),
-				Integer.valueOf(-1),
-				Integer.valueOf(0),
-				Integer.valueOf(1),
-				Integer.valueOf(2)
-			);
+    public static void main (String[] args)
+    {
+        final List<Integer> list = Arrays.asList(
+                Integer.valueOf(-2),
+                Integer.valueOf(-1),
+                Integer.valueOf(0),
+                Integer.valueOf(1),
+                Integer.valueOf(2)
+            );
 
-		boolean foundOdd=false;
-		for (Iterator<Integer> it = list.iterator(); it.hasNext(); )
-			foundOdd = foundOdd || isOdd(it.next());
+        boolean foundOdd=false;
+        for (Iterator<Integer> it = list.iterator(); it.hasNext(); )
+            foundOdd = foundOdd || isOdd(it.next());
 
-		System.out.println(foundOdd);
-	}
+        System.out.println(foundOdd);
+    }
 }

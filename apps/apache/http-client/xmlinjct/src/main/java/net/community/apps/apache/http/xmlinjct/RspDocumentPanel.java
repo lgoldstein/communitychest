@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.apache.http.xmlinjct;
 
@@ -10,13 +10,13 @@ package net.community.apps.apache.http.xmlinjct;
  * @since Aug 21, 2008 1:09:00 PM
  */
 public class RspDocumentPanel extends DocumentPanel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -9032448040310318675L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -9032448040310318675L;
 
-	public RspDocumentPanel ()
-	{
-		super();
-	}
+    public RspDocumentPanel ()
+    {
+        super();
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt;
 
@@ -24,27 +24,27 @@ import java.util.EventListener;
  * @since Mar 20, 2011 1:11:52 PM
  */
 public enum AWTListenerType {
-	ACTION(ActionListener.class),
-	ADJUSTMENT(AdjustmentListener.class),
-	AWTEVENT(AWTEventListener.class),
-	COMPONENT(ComponentListener.class),
-	CONTAINER(ContainerListener.class),
-	DRAGGESTURE(DragGestureListener.class),
-	DRAGSOURCE(DragSourceListener.class),
-	DRAGSOURCEMOTION(DragSourceMotionListener.class),
-	DROPTARGET(DropTargetListener.class),
-	FOCUS(FocusListener.class),
-	KEY(KeyListener.class),
-	MOUSE(MouseListener.class);
+    ACTION(ActionListener.class),
+    ADJUSTMENT(AdjustmentListener.class),
+    AWTEVENT(AWTEventListener.class),
+    COMPONENT(ComponentListener.class),
+    CONTAINER(ContainerListener.class),
+    DRAGGESTURE(DragGestureListener.class),
+    DRAGSOURCE(DragSourceListener.class),
+    DRAGSOURCEMOTION(DragSourceMotionListener.class),
+    DROPTARGET(DropTargetListener.class),
+    FOCUS(FocusListener.class),
+    KEY(KeyListener.class),
+    MOUSE(MouseListener.class);
 
-	private final Class<? extends EventListener>	_ltype;
-	public final Class<? extends EventListener> getListenerType ()
-	{
-		return _ltype;
-	}
+    private final Class<? extends EventListener>    _ltype;
+    public final Class<? extends EventListener> getListenerType ()
+    {
+        return _ltype;
+    }
 
-	AWTListenerType (Class<? extends EventListener> ltype)
-	{
-		_ltype = ltype; 
-	}
+    AWTListenerType (Class<? extends EventListener> ltype)
+    {
+        _ltype = ltype;
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.apache.ant.mvnsync;
 
@@ -28,94 +28,94 @@ import org.w3c.dom.Node;
  * @since Jul 9, 2009 10:16:56 AM
  */
 public class ReadPomProps extends AbstractFilesInputTask<Map<String,String>> {
-	public ReadPomProps ()
-	{
-		super();
-	}
-	/**
-	 * Prefix to be appended to the defined properties - ignored if null/empty
-	 */
-	private String	_prefix;
-	public String getPrefix ()
-	{
-		return _prefix;
-	}
+    public ReadPomProps ()
+    {
+        super();
+    }
+    /**
+     * Prefix to be appended to the defined properties - ignored if null/empty
+     */
+    private String    _prefix;
+    public String getPrefix ()
+    {
+        return _prefix;
+    }
 
-	public void setPrefix (String prefix)
-	{
-		_prefix = prefix;
-	}
+    public void setPrefix (String prefix)
+    {
+        _prefix = prefix;
+    }
 
-	protected String getEffectivePropName (final String n)
-	{
-		final String	p=getPrefix();
-		final int		nLen=(null == n) ? 0 : n.length(),
-						pLen=(null == p) ? 0 : p.length();
-		if ((nLen <= 0) || (pLen <= 0))
-			return n;
+    protected String getEffectivePropName (final String n)
+    {
+        final String    p=getPrefix();
+        final int        nLen=(null == n) ? 0 : n.length(),
+                        pLen=(null == p) ? 0 : p.length();
+        if ((nLen <= 0) || (pLen <= 0))
+            return n;
 
-		return new StringBuilder(nLen + pLen)
-					.append(p)
-					.append(n)
-				.toString()
-				;
-	}
-	/*
-	 * @see net.community.chest.apache.ant.helpers.AbstractFilesInputTask#processSingleFile(java.io.File)
-	 */
-	@Override
-	protected Map<String,String> processSingleFile (final File inFile) throws BuildException
-	{
-		if (isVerboseMode())
-			log("Processing " + inFile.getAbsolutePath(), getVerbosity());
+        return new StringBuilder(nLen + pLen)
+                    .append(p)
+                    .append(n)
+                .toString()
+                ;
+    }
+    /*
+     * @see net.community.chest.apache.ant.helpers.AbstractFilesInputTask#processSingleFile(java.io.File)
+     */
+    @Override
+    protected Map<String,String> processSingleFile (final File inFile) throws BuildException
+    {
+        if (isVerboseMode())
+            log("Processing " + inFile.getAbsolutePath(), getVerbosity());
 
-		try
-		{
-			final Document	doc=DOMUtils.loadDocument(inFile);
-			final Element	root=(null == doc) ? null : doc.getDocumentElement();
-			final String	tagName=(null == root) ? null : root.getTagName();
-			if (!BuildProject.PROJECT_ELEMENT_NAME.equals(tagName))
-				throw new DOMException(DOMException.NAMESPACE_ERR, "Unexpected root element name: " + tagName);
+        try
+        {
+            final Document    doc=DOMUtils.loadDocument(inFile);
+            final Element    root=(null == doc) ? null : doc.getDocumentElement();
+            final String    tagName=(null == root) ? null : root.getTagName();
+            if (!BuildProject.PROJECT_ELEMENT_NAME.equals(tagName))
+                throw new DOMException(DOMException.NAMESPACE_ERR, "Unexpected root element name: " + tagName);
 
-			final Collection<? extends Element>	el=
-				DOMUtils.extractAllNodes(Element.class, root, Node.ELEMENT_NODE);
-			for (final Element elem : el)
-			{
-				final String	eName=(null == elem) ? null : elem.getTagName();
-				if (!BuildProject.PROPERTIES_ELEMENT_NAME.equals(eName))
-					continue;
+            final Collection<? extends Element>    el=
+                DOMUtils.extractAllNodes(Element.class, root, Node.ELEMENT_NODE);
+            for (final Element elem : el)
+            {
+                final String    eName=(null == elem) ? null : elem.getTagName();
+                if (!BuildProject.PROPERTIES_ELEMENT_NAME.equals(eName))
+                    continue;
 
-				final TreeMapPropertiesAccessor<String,String>	r=
-					new TreeMapPropertiesAccessor<String,String>(String.CASE_INSENSITIVE_ORDER);
-				BuildProject.updateProperties(r, elem, false);
+                final TreeMapPropertiesAccessor<String,String>    r=
+                    new TreeMapPropertiesAccessor<String,String>(String.CASE_INSENSITIVE_ORDER);
+                BuildProject.updateProperties(r, elem, false);
 
-				final Collection<? extends Map.Entry<String,String>>	pl=
-					((null == r) || (r.size() <= 0)) ? null : r.entrySet();
-				if ((pl != null) && (pl.size() > 0))
-				{
-					final Project	p=getProject();
-					for (final Map.Entry<String,String>	pe : pl)
-					{
-						final String	n=
-							getEffectivePropName((null == pe) ? null : pe.getKey()),
-										v=
-							AbstractPropertiesResolver.format((null == pe) ? null : pe.getValue(), (PropertyAccessor<String,String>) r);
-						if (isVerboseMode())
-							log("\t<property name=\"" + n + "\" value=\"" + v + "\"/>");
-						p.setProperty(n, v);
-					}
+                final Collection<? extends Map.Entry<String,String>>    pl=
+                    ((null == r) || (r.size() <= 0)) ? null : r.entrySet();
+                if ((pl != null) && (pl.size() > 0))
+                {
+                    final Project    p=getProject();
+                    for (final Map.Entry<String,String>    pe : pl)
+                    {
+                        final String    n=
+                            getEffectivePropName((null == pe) ? null : pe.getKey()),
+                                        v=
+                            AbstractPropertiesResolver.format((null == pe) ? null : pe.getValue(), (PropertyAccessor<String,String>) r);
+                        if (isVerboseMode())
+                            log("\t<property name=\"" + n + "\" value=\"" + v + "\"/>");
+                        p.setProperty(n, v);
+                    }
 
-					return r;
-				}
+                    return r;
+                }
 
-				break;	// don't continue after the properties element
-			}
+                break;    // don't continue after the properties element
+            }
 
-			return null;
-		}
-		catch(Exception e)
-		{
-			throw new BuildException("Failed to parse file=" + inFile + ": " + e.getMessage(), getLocation());
-		}
-	}
+            return null;
+        }
+        catch(Exception e)
+        {
+            throw new BuildException("Failed to parse file=" + inFile + ": " + e.getMessage(), getLocation());
+        }
+    }
 }

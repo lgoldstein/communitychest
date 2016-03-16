@@ -12,13 +12,13 @@ import org.w3c.dom.Node;
  * @since Nov 22, 2007 9:42:15 AM
  */
 public abstract class NodeComparator<N extends Node> extends AbstractComparator<N> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3215996084085367882L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3215996084085367882L;
 
-	protected NodeComparator (Class<N> objClass, boolean reverseMatch) throws IllegalArgumentException
-	{
-		super(objClass, reverseMatch);
-	}
+    protected NodeComparator (Class<N> objClass, boolean reverseMatch) throws IllegalArgumentException
+    {
+        super(objClass, reverseMatch);
+    }
 }

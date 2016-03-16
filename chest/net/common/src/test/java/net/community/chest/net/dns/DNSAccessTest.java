@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.net.dns;
 
@@ -22,27 +22,27 @@ import net.community.chest.AbstractTestSupport;
  *
  */
 public class DNSAccessTest extends AbstractTestSupport {
-	public DNSAccessTest ()
-	{
-		super();
-	}
+    public DNSAccessTest ()
+    {
+        super();
+    }
 
-	@Test
-	@Ignore("For some reason there are differences")
-	public void testALookup () throws NamingException, UnknownHostException
-	{
-		final DNSAccess	dns=new DNSAccess();
-		for (final String name : new String[] { "www.oracle.com" })
-		{
-			final InetAddress[]	aa=InetAddress.getAllByName(name);
-			final Set<String>	expValues=new TreeSet<String>();
-			for (final InetAddress a : aa)
-				expValues.add(a.getHostAddress());
+    @Test
+    @Ignore("For some reason there are differences")
+    public void testALookup () throws NamingException, UnknownHostException
+    {
+        final DNSAccess    dns=new DNSAccess();
+        for (final String name : new String[] { "www.oracle.com" })
+        {
+            final InetAddress[]    aa=InetAddress.getAllByName(name);
+            final Set<String>    expValues=new TreeSet<String>();
+            for (final InetAddress a : aa)
+                expValues.add(a.getHostAddress());
 
-			final Set<String>	actValues=new TreeSet<String>(dns.aLookup(name));
-			assertEquals("Mismatched resolved number of values for " + name, expValues.size(), actValues.size());
-			assertContainsAll("Mismatched default addresses for " + name, expValues, actValues);
-			assertContainsAll("Mismatched resolved addresses for " + name, actValues, expValues);
-		}
-	}
+            final Set<String>    actValues=new TreeSet<String>(dns.aLookup(name));
+            assertEquals("Mismatched resolved number of values for " + name, expValues.size(), actValues.size());
+            assertContainsAll("Mismatched default addresses for " + name, expValues, actValues);
+            assertContainsAll("Mismatched resolved addresses for " + name, actValues, expValues);
+        }
+    }
 }

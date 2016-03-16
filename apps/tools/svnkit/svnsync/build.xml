@@ -1,79 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-svnsync" default="build-svnsync" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds the SVNSYNC application $Rev: 585 $
-		</description>
-		
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<dirname property="tools.apps.root.dir" file="${parent.root.dir}"/>
-		<property name="module.base.target.name" value="svnsync"/>
+    <project name="build-svnsync" default="build-svnsync" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds the SVNSYNC application $Rev: 585 $
+        </description>
+
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <dirname property="tools.apps.root.dir" file="${parent.root.dir}"/>
+        <property name="module.base.target.name" value="svnsync"/>
         <property name="default.classpath.ref.name" value="svnkit.helpers.path"/>
-		<import file="${tools.apps.root.dir}${file.separator}build-base.xml"/>
+        <import file="${tools.apps.root.dir}${file.separator}build-base.xml"/>
 
-		<property name="module.application.base.pkg.name" value="${tools.apps.base.pkg.name}.svn.${module.application.sub.pkg.name}"/>
-	    	<!-- define dependencies -->
-		<mvn:dependencies 	pathId="svnkit.dependencies.path" useScope="compile"
-							settingsFile="${maven.settings.file.path}"
-				>
-	        <localRepository path="${maven.local.repository.folder}" layout="default"/>
-	
-			<dependency groupId="org.tmatesoft.svnkit"
-						artifactId="svnkit"
-						version="${svnkit.jar.version}"
-						scope="compile"
-				/>
-			<dependency groupId="com.trilead"
-						artifactId="trilead-ssh2"
-						version="${trilead.ssh2.jar.version}"
-						scope="compile"
-				/>
-		</mvn:dependencies>
-	
-	    <path id="svnkit.helpers.path">
-	    	<path refid="community.modules.jars"/>
-			<path refid="svnkit.dependencies.path"/>
-		</path>
+        <property name="module.application.base.pkg.name" value="${tools.apps.base.pkg.name}.svn.${module.application.sub.pkg.name}"/>
+            <!-- define dependencies -->
+        <mvn:dependencies     pathId="svnkit.dependencies.path" useScope="compile"
+                            settingsFile="${maven.settings.file.path}"
+                >
+            <localRepository path="${maven.local.repository.folder}" layout="default"/>
 
-		<property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-io.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-reflection.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-eclipse.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-net-svnkit.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-logging.${jar.file.suffix},
-													  ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
-													  ${community.base.pkg.name}-gui-components.${jar.file.suffix},
-													  ${community.base.pkg.name}-apps-common.${jar.file.suffix}"
-			/>
+            <dependency groupId="org.tmatesoft.svnkit"
+                        artifactId="svnkit"
+                        version="${svnkit.jar.version}"
+                        scope="compile"
+                />
+            <dependency groupId="com.trilead"
+                        artifactId="trilead-ssh2"
+                        version="${trilead.ssh2.jar.version}"
+                        scope="compile"
+                />
+        </mvn:dependencies>
 
-		<target name="copy-extra-scnsync-files" depends="tools-apps-base">
-				<!-- copy some extra files -->
-			<mkdir dir="${module.application.folder}"/>
-			<copy preservelastmodified="true" verbose="true" todir="${module.application.folder}">
-				<fileset dir="${module.assembly.folder}" includes="svnsync.*"/>
-			</copy>
-			<fixcrlf file="${module.application.folder}${file.separator}svnsync.bat" eol="crlf"/>
-			<fixcrlf file="${module.application.folder}${file.separator}svnsync.sh" eol="lf"/>
+        <path id="svnkit.helpers.path">
+            <path refid="community.modules.jars"/>
+            <path refid="svnkit.dependencies.path"/>
+        </path>
 
-			<mkdir dir="${module.application.lib.folder}"/>
-			<copy toDir="${module.application.lib.folder}" preservelastmodified="true" verbose="true">
-				<fileset dir="${maven.local.repository.folder}${file.separator}org${file.separator}tmatesoft${file.separator}svnkit${file.separator}svnkit${file.separator}${svnkit.jar.version}"
-						 includes="svnkit-${svnkit.jar.version}.${jar.file.suffix}" />
-				<fileset dir="${maven.local.repository.folder}${file.separator}com${file.separator}trilead${file.separator}trilead-ssh2${file.separator}${trilead.ssh2.jar.version}"
-						 includes="trilead-ssh2-${trilead.ssh2.jar.version}.${jar.file.suffix}" />
-			</copy>
-		</target>
+        <property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-io.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-reflection.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-eclipse.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-net-svnkit.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-logging.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-gui-components.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-apps-common.${jar.file.suffix}"
+            />
 
-		<target name="build-svnsync"
-				depends="jar-tools-app-module-files,
-						 copy-extra-scnsync-files,
-						 jar-application-files"
-				description="Builds SVNSYNC application"/>
+        <target name="copy-extra-scnsync-files" depends="tools-apps-base">
+                <!-- copy some extra files -->
+            <mkdir dir="${module.application.folder}"/>
+            <copy preservelastmodified="true" verbose="true" todir="${module.application.folder}">
+                <fileset dir="${module.assembly.folder}" includes="svnsync.*"/>
+            </copy>
+            <fixcrlf file="${module.application.folder}${file.separator}svnsync.bat" eol="crlf"/>
+            <fixcrlf file="${module.application.folder}${file.separator}svnsync.sh" eol="lf"/>
 
-		<target name="clean-svnsync"
-				depends="clean-tools-app-module-build,clean-tools-app-application-build"
-				description="Removes the SVNSYNC object files and JAR"/>
-	</project>
+            <mkdir dir="${module.application.lib.folder}"/>
+            <copy toDir="${module.application.lib.folder}" preservelastmodified="true" verbose="true">
+                <fileset dir="${maven.local.repository.folder}${file.separator}org${file.separator}tmatesoft${file.separator}svnkit${file.separator}svnkit${file.separator}${svnkit.jar.version}"
+                         includes="svnkit-${svnkit.jar.version}.${jar.file.suffix}" />
+                <fileset dir="${maven.local.repository.folder}${file.separator}com${file.separator}trilead${file.separator}trilead-ssh2${file.separator}${trilead.ssh2.jar.version}"
+                         includes="trilead-ssh2-${trilead.ssh2.jar.version}.${jar.file.suffix}" />
+            </copy>
+        </target>
+
+        <target name="build-svnsync"
+                depends="jar-tools-app-module-files,
+                         copy-extra-scnsync-files,
+                         jar-application-files"
+                description="Builds SVNSYNC application"/>
+
+        <target name="clean-svnsync"
+                depends="clean-tools-app-module-build,clean-tools-app-application-build"
+                description="Removes the SVNSYNC object files and JAR"/>
+    </project>

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.apache.log4j.appender;
 
@@ -12,18 +12,18 @@ import java.io.IOException;
  * @since Nov 21, 2010 1:58:01 PM
  */
 public interface FileAppenderController extends WriterAppenderController {
-	String getFile ();
-	void setFile (String file);
+    String getFile ();
+    void setFile (String file);
 
-	boolean getAppend ();
-	void setAppend (boolean flag);
+    boolean getAppend ();
+    void setAppend (boolean flag);
 
-	boolean getBufferedIO ();
-	void setBufferedIO (boolean bufferedIO);
+    boolean getBufferedIO ();
+    void setBufferedIO (boolean bufferedIO);
 
-	int getBufferSize ();
-	void setBufferSize (int bufferSize);
-	
-	void setFile (String fileName, boolean append, boolean bufferedIO, int bufferSize)
-    	throws IOException;
+    int getBufferSize ();
+    void setBufferSize (int bufferSize);
+
+    void setFile (String fileName, boolean append, boolean bufferedIO, int bufferSize)
+        throws IOException;
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.io.url;
 
@@ -14,26 +14,26 @@ import net.community.chest.lang.StringUtil;
  *
  */
 public class ByExternalFormURLComparator extends AbstractURLComparator {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5982121871293848888L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5982121871293848888L;
 
-	public ByExternalFormURLComparator (boolean ascending) throws IllegalArgumentException
-	{
-		super(ascending);
-	}
-	/*
-	 * @see net.community.chest.util.compare.AbstractComparator#compareValues(java.lang.Object, java.lang.Object)
-	 */
-	@Override
-	public int compareValues (URL v1, URL v2)
-	{
-		final String	f1=adjustPathValue((v1 == null) ? null : v1.toExternalForm()),
-						f2=adjustPathValue((v2 == null) ? null : v2.toExternalForm());
-		return StringUtil.compareDataStrings(f1, f2, false);
-	}
+    public ByExternalFormURLComparator (boolean ascending) throws IllegalArgumentException
+    {
+        super(ascending);
+    }
+    /*
+     * @see net.community.chest.util.compare.AbstractComparator#compareValues(java.lang.Object, java.lang.Object)
+     */
+    @Override
+    public int compareValues (URL v1, URL v2)
+    {
+        final String    f1=adjustPathValue((v1 == null) ? null : v1.toExternalForm()),
+                        f2=adjustPathValue((v2 == null) ? null : v2.toExternalForm());
+        return StringUtil.compareDataStrings(f1, f2, false);
+    }
 
-	public static final ByExternalFormURLComparator	BY_EXTFORM_ASCENDING=new ByExternalFormURLComparator(true),
-													BY_EXTFORM_DESCENDING=new ByExternalFormURLComparator(false);
+    public static final ByExternalFormURLComparator    BY_EXTFORM_ASCENDING=new ByExternalFormURLComparator(true),
+                                                    BY_EXTFORM_DESCENDING=new ByExternalFormURLComparator(false);
 }

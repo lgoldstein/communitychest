@@ -18,72 +18,72 @@ import org.w3c.dom.Element;
  * @since Mar 20, 2008 9:19:51 AM
  */
 public class JMenuBarReflectiveProxy<B extends JMenuBar> extends JComponentReflectiveProxy<B> {
-	public JMenuBarReflectiveProxy (Class<B> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public JMenuBarReflectiveProxy (Class<B> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	protected JMenuBarReflectiveProxy (Class<B> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected JMenuBarReflectiveProxy (Class<B> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public XmlValueInstantiator<? extends JMenu> getMenuConverter (final Element elem) throws Exception
-	{
-		return (null == elem) ? null : JMenuReflectiveProxy.MENU;
-	}
-	/**
-	 * Called by {@link #fromXmlChild(JMenuBar, Element)} when a sub-menu
-	 * XML {@link Element} is encountered in order to re-construct the
-	 * sub-menu
-	 * @param src The {@link JMenu} instance to which to add the sub-menu
-	 * @param elem XML element to use for data reconstruction
-	 * @return Created {@link JMenu} instance - default calls
-	 * {@link #getMenuConverter(Element)} and then invokes its
-	 * {@link XmlValueInstantiator#fromXml(Element)} method
-	 * @throws Exception if cannot re-construct the sub-menu
-	 */
-	public JMenu createSubMenu (final B src, final Element elem) throws Exception
-	{
-		final XmlValueInstantiator<? extends JMenu>	proxy=getMenuConverter(elem);
-		final JMenu									subMenu=proxy.fromXml(elem);
-		if (subMenu != null)
-			src.add(subMenu);
+    public XmlValueInstantiator<? extends JMenu> getMenuConverter (final Element elem) throws Exception
+    {
+        return (null == elem) ? null : JMenuReflectiveProxy.MENU;
+    }
+    /**
+     * Called by {@link #fromXmlChild(JMenuBar, Element)} when a sub-menu
+     * XML {@link Element} is encountered in order to re-construct the
+     * sub-menu
+     * @param src The {@link JMenu} instance to which to add the sub-menu
+     * @param elem XML element to use for data reconstruction
+     * @return Created {@link JMenu} instance - default calls
+     * {@link #getMenuConverter(Element)} and then invokes its
+     * {@link XmlValueInstantiator#fromXml(Element)} method
+     * @throws Exception if cannot re-construct the sub-menu
+     */
+    public JMenu createSubMenu (final B src, final Element elem) throws Exception
+    {
+        final XmlValueInstantiator<? extends JMenu>    proxy=getMenuConverter(elem);
+        final JMenu                                    subMenu=proxy.fromXml(elem);
+        if (subMenu != null)
+            src.add(subMenu);
 
-		return subMenu;
-	}
+        return subMenu;
+    }
 
-	public boolean isSubMenuElement (final Element elem, final String tagName)
-	{
-		return isMatchingElement(elem, tagName, MenuReflectiveProxy.MENU_ELEMNAME);
-	}
-	/*
-	 * @see net.community.chest.dom.transform.AbstractReflectiveProxy#fromXmlChild(java.lang.Object, org.w3c.dom.Element)
-	 */
-	@Override
-	public B fromXmlChild (B src, Element elem) throws Exception
-	{
-		final String	tagName=elem.getTagName();
-		if (isSubMenuElement(elem, tagName))
-		{
-			createSubMenu(src, elem);
-			return src;
-		}
+    public boolean isSubMenuElement (final Element elem, final String tagName)
+    {
+        return isMatchingElement(elem, tagName, MenuReflectiveProxy.MENU_ELEMNAME);
+    }
+    /*
+     * @see net.community.chest.dom.transform.AbstractReflectiveProxy#fromXmlChild(java.lang.Object, org.w3c.dom.Element)
+     */
+    @Override
+    public B fromXmlChild (B src, Element elem) throws Exception
+    {
+        final String    tagName=elem.getTagName();
+        if (isSubMenuElement(elem, tagName))
+        {
+            createSubMenu(src, elem);
+            return src;
+        }
 
-		return super.fromXmlChild(src, elem);
-	}
+        return super.fromXmlChild(src, elem);
+    }
 
-	public static final JMenuBarReflectiveProxy<JMenuBar>	BAR=
-			new JMenuBarReflectiveProxy<JMenuBar>(JMenuBar.class, true) {
-				/* Since it implements some very useful interfaces
-				 * @see net.community.chest.dom.transform.AbstractReflectiveProxy#fromXml(org.w3c.dom.Element)
-				 */
-				@Override
-				@CoVariantReturn
-				public BaseMenuBar createInstance (Element elem) throws Exception
-				{
-					return (null == elem) ? null : new BaseMenuBar();
-				}
-		};
+    public static final JMenuBarReflectiveProxy<JMenuBar>    BAR=
+            new JMenuBarReflectiveProxy<JMenuBar>(JMenuBar.class, true) {
+                /* Since it implements some very useful interfaces
+                 * @see net.community.chest.dom.transform.AbstractReflectiveProxy#fromXml(org.w3c.dom.Element)
+                 */
+                @Override
+                @CoVariantReturn
+                public BaseMenuBar createInstance (Element elem) throws Exception
+                {
+                    return (null == elem) ? null : new BaseMenuBar();
+                }
+        };
 }

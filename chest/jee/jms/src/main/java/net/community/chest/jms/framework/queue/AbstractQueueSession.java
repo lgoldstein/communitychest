@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jms.framework.queue;
 
@@ -20,28 +20,28 @@ import net.community.chest.jms.framework.AbstractSession;
  * @since Jun 8, 2010 8:29:18 AM
  */
 public abstract class AbstractQueueSession extends AbstractSession implements QueueSession {
-	protected AbstractQueueSession ()
-	{
-		super();
-	}
-	/*
-	 * @see javax.jms.QueueSession#createReceiver(javax.jms.Queue)
-	 */
-	@Override
-	public QueueReceiver createReceiver (Queue queue) throws JMSException
-	{
-		return createReceiver(queue, null);
-	}
-	/*
-	 * @see javax.jms.Session#createProducer(javax.jms.Destination)
-	 */
-	@Override
-	@CoVariantReturn
-	public QueueSender createProducer (Destination destination)
-			throws JMSException
-	{
-		if (!(destination instanceof Queue))
-			throw new JMSException("createProducer(" + destination + ") not a queue");
-		return createSender((Queue) destination);
-	}
+    protected AbstractQueueSession ()
+    {
+        super();
+    }
+    /*
+     * @see javax.jms.QueueSession#createReceiver(javax.jms.Queue)
+     */
+    @Override
+    public QueueReceiver createReceiver (Queue queue) throws JMSException
+    {
+        return createReceiver(queue, null);
+    }
+    /*
+     * @see javax.jms.Session#createProducer(javax.jms.Destination)
+     */
+    @Override
+    @CoVariantReturn
+    public QueueSender createProducer (Destination destination)
+            throws JMSException
+    {
+        if (!(destination instanceof Queue))
+            throw new JMSException("createProducer(" + destination + ") not a queue");
+        return createSender((Queue) destination);
+    }
 }

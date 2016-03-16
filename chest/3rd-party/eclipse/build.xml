@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-eclipse-libs" default="build-eclipse-libs" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds the Eclipse libraries helpers JAR(s) $Rev: 628 $
-		</description>
-		
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="module.base.target.name" value="eclipse-utils"/>
-		<property name="eclipse.libs.root.dir" value="${module.root.folder}"/>
-		<import file="${eclipse.libs.root.dir}${file.separator}build-base.xml"/>
+    <project name="build-eclipse-libs" default="build-eclipse-libs" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds the Eclipse libraries helpers JAR(s) $Rev: 628 $
+        </description>
 
-		<target name="build-eclipse-libs" depends="jar-eclipse-libs-module-files" description="Builds helper Eclipse classes"/>
-		<target name="clean-eclipse-libs" depends="clean-eclipse-libs-module-build" description="Cleans up helper Eclipse classes and JAR"/>
-	</project>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="module.base.target.name" value="eclipse-utils"/>
+        <property name="eclipse.libs.root.dir" value="${module.root.folder}"/>
+        <import file="${eclipse.libs.root.dir}${file.separator}build-base.xml"/>
+
+        <target name="build-eclipse-libs" depends="jar-eclipse-libs-module-files" description="Builds helper Eclipse classes"/>
+        <target name="clean-eclipse-libs" depends="clean-eclipse-libs-module-build" description="Cleans up helper Eclipse classes and JAR"/>
+    </project>

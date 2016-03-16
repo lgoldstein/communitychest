@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ui.components.table.file;
 
@@ -16,15 +16,15 @@ import net.community.chest.util.collection.CollectionsUtils;
  * @since Aug 4, 2009 2:15:18 PM
  */
 public enum FilesTableColumns {
-	NAME,
-	SIZE,
-	TYPE,
-	MODTIME,
-	ATTRS;
+    NAME,
+    SIZE,
+    TYPE,
+    MODTIME,
+    ATTRS;
 
-	public static final List<FilesTableColumns>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final FilesTableColumns fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<FilesTableColumns>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final FilesTableColumns fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 }

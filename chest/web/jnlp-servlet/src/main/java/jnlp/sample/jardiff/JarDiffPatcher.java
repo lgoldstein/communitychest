@@ -1,6 +1,6 @@
 /*
- * @(#)JarDiffPatcher.java	1.7 05/11/17
- * 
+ * @(#)JarDiffPatcher.java    1.7 05/11/17
+ *
  * Copyright (c) 2006 Sun Microsystems, Inc. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@
  */
 
 package jnlp.sample.jardiff;
- 
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -72,152 +72,152 @@ public class JarDiffPatcher implements JarDiffConstants, Patcher {
 
     public static ResourceBundle getResources ()
     {
-    	return JarDiff.getResources();
+        return JarDiff.getResources();
     }
 
     public JarDiffPatcher ()
     {
-    	super();
+        super();
     }
     /*
      * @see jnlp.sample.jardiff.Patcher#applyPatch(jnlp.sample.jardiff.Patcher.PatchDelegate, java.lang.String, java.lang.String, java.io.OutputStream)
      */
     @Override
-	public void applyPatch (Patcher.PatchDelegate delegate, String oldJarPath, String jarDiffPath, OutputStream result) throws IOException
+    public void applyPatch (Patcher.PatchDelegate delegate, String oldJarPath, String jarDiffPath, OutputStream result) throws IOException
     {
-    	final File 					oldFile=new File(oldJarPath), diffFile=new File(jarDiffPath);
-        final JarFile				oldJar=new JarFile(oldFile), jarDiff=new JarFile(diffFile);
-        final Collection<String>	ignoreSet=new HashSet<String>();
-        final Map<String,String>	renameMap=new TreeMap<String,String>();
-            
+        final File                     oldFile=new File(oldJarPath), diffFile=new File(jarDiffPath);
+        final JarFile                oldJar=new JarFile(oldFile), jarDiff=new JarFile(diffFile);
+        final Collection<String>    ignoreSet=new HashSet<String>();
+        final Map<String,String>    renameMap=new TreeMap<String,String>();
+
         determineNameMapping(jarDiff, ignoreSet, renameMap);
-	   
-	    // Files to implicit move
-	    final Collection<String> oldjarNames=new HashSet<String>();
-	    for (final Enumeration<JarEntry> oldEntries = oldJar.entries(); (oldEntries != null) && oldEntries.hasMoreElements(); )
-	    {
-	    	final JarEntry	e=oldEntries.nextElement();
-	    	final String	en=(null == e) ? null : e.getName();
-	    	if ((null == en) || (en.length() <= 0))
-	    		continue;
 
-	    	oldjarNames.add(en);
-	    }
-	   
-	    // size depends on the three parameters below, which is 
-	    // basically the counter for each loop that do the actual
-	    // writes to the output file
-	    // since oldjarNames.size() changes in the first two loop
-	    // below, we need to adjust the size accordingly also when
-	    // oldjarNames.size() changes
-	    // get all keys in renameMap
-	    final Collection<? extends Map.Entry<String,String>>	pairs=renameMap.entrySet();
-	    long size = oldjarNames.size() + ((null == pairs) ? 0 : pairs.size()) + jarDiff.size(), currentEntry = 0L;
+        // Files to implicit move
+        final Collection<String> oldjarNames=new HashSet<String>();
+        for (final Enumeration<JarEntry> oldEntries = oldJar.entries(); (oldEntries != null) && oldEntries.hasMoreElements(); )
+        {
+            final JarEntry    e=oldEntries.nextElement();
+            final String    en=(null == e) ? null : e.getName();
+            if ((null == en) || (en.length() <= 0))
+                continue;
 
-	    // Handle all remove commands	   
-	    oldjarNames.removeAll(ignoreSet);
-	    size -= ignoreSet.size();
-           	   
-            	 
-	    // Add content from JARDiff 
-        final JarOutputStream	jos=new JarOutputStream(result);
+            oldjarNames.add(en);
+        }
+
+        // size depends on the three parameters below, which is
+        // basically the counter for each loop that do the actual
+        // writes to the output file
+        // since oldjarNames.size() changes in the first two loop
+        // below, we need to adjust the size accordingly also when
+        // oldjarNames.size() changes
+        // get all keys in renameMap
+        final Collection<? extends Map.Entry<String,String>>    pairs=renameMap.entrySet();
+        long size = oldjarNames.size() + ((null == pairs) ? 0 : pairs.size()) + jarDiff.size(), currentEntry = 0L;
+
+        // Handle all remove commands
+        oldjarNames.removeAll(ignoreSet);
+        size -= ignoreSet.size();
+
+
+        // Add content from JARDiff
+        final JarOutputStream    jos=new JarOutputStream(result);
         try
         {
-		    for (final Enumeration<JarEntry> entries=jarDiff.entries(); (entries != null)&& entries.hasMoreElements(); )
-		    {
-		    	final JarEntry entry=entries.nextElement();
-		    	final String	en=(null == entry) ? null : entry.getName();
-		    	if (!INDEX_NAME.equals(en))
-		    	{
-		    		updateDelegate(delegate, currentEntry, size);
-		    		currentEntry++;
-				
-		    		writeEntry(jos, entry, jarDiff);
+            for (final Enumeration<JarEntry> entries=jarDiff.entries(); (entries != null)&& entries.hasMoreElements(); )
+            {
+                final JarEntry entry=entries.nextElement();
+                final String    en=(null == entry) ? null : entry.getName();
+                if (!INDEX_NAME.equals(en))
+                {
+                    updateDelegate(delegate, currentEntry, size);
+                    currentEntry++;
 
-		    		// Remove entry from oldjarNames since no implicit 
-		    		//	move is needed
-		    		final boolean wasInOld = oldjarNames.remove(en);
-		    		// Update progress counters. If it was in old, we do 
-		    		// not need an implicit move, so adjust total size.
-		    		if (wasInOld)
-		    			size--;
-		    	}		    	
-		    	else
-		    	{
-		    		// no write is done, decrement size
-		    		size--;		
-		    	}
-		    }
+                    writeEntry(jos, entry, jarDiff);
 
-		    // go through the renameMap and apply move for each entry
-		    if ((pairs != null) && (pairs.size() > 0))
-		    {
-		    	for (final Map.Entry<String,String> p : pairs) 
-		    	{
-		    		// Apply move <oldName> <newName> command
-		    		final String	newName=(null == p) ? null : p.getKey(),
-		    						oldName=(null == p) ? null : p.getValue();
-		    		// Get source JarEntry
-		    		final JarEntry oldEntry=
-		    			((null == oldName) || (oldName.length() <= 0)) ? null : oldJar.getJarEntry(oldName);
-		    		if (oldEntry == null)
-		    		{
-		    			final String moveCmd=MOVE_COMMAND + oldName + " " + newName;
-		    			handleException("jardiff.error.badmove", moveCmd);
-		    		} 
+                    // Remove entry from oldjarNames since no implicit
+                    //    move is needed
+                    final boolean wasInOld = oldjarNames.remove(en);
+                    // Update progress counters. If it was in old, we do
+                    // not need an implicit move, so adjust total size.
+                    if (wasInOld)
+                        size--;
+                }
+                else
+                {
+                    // no write is done, decrement size
+                    size--;
+                }
+            }
 
-		    		// Create dest JarEntry  
-		    		final JarEntry newEntry=new JarEntry(newName);	
-		    		newEntry.setTime(oldEntry.getTime());
-		    		newEntry.setSize(oldEntry.getSize());
-		    		newEntry.setCompressedSize(oldEntry.getCompressedSize());
-		    		newEntry.setCrc(oldEntry.getCrc());
-		    		newEntry.setMethod(oldEntry.getMethod());
-		    		newEntry.setExtra(oldEntry.getExtra());
-		    		newEntry.setComment(oldEntry.getComment());
-	
-		    		updateDelegate(delegate, currentEntry, size);
-		    		currentEntry++;
-	
-		    		writeEntry(jos, newEntry, oldJar.getInputStream(oldEntry));
+            // go through the renameMap and apply move for each entry
+            if ((pairs != null) && (pairs.size() > 0))
+            {
+                for (final Map.Entry<String,String> p : pairs)
+                {
+                    // Apply move <oldName> <newName> command
+                    final String    newName=(null == p) ? null : p.getKey(),
+                                    oldName=(null == p) ? null : p.getValue();
+                    // Get source JarEntry
+                    final JarEntry oldEntry=
+                        ((null == oldName) || (oldName.length() <= 0)) ? null : oldJar.getJarEntry(oldName);
+                    if (oldEntry == null)
+                    {
+                        final String moveCmd=MOVE_COMMAND + oldName + " " + newName;
+                        handleException("jardiff.error.badmove", moveCmd);
+                    }
 
-		    		// 	Remove entry from oldjarNames since no implicit move is needed
-		    		final boolean wasInOld=oldjarNames.remove(oldName);
-		    		// Update progress counters. If it was in old, we do 
-		    		// not need an implicit move, so adjust total size.
-		    		if (wasInOld)
-		    			size--;
-		    	}
-		    }
+                    // Create dest JarEntry
+                    final JarEntry newEntry=new JarEntry(newName);
+                    newEntry.setTime(oldEntry.getTime());
+                    newEntry.setSize(oldEntry.getSize());
+                    newEntry.setCompressedSize(oldEntry.getCompressedSize());
+                    newEntry.setCrc(oldEntry.getCrc());
+                    newEntry.setMethod(oldEntry.getMethod());
+                    newEntry.setExtra(oldEntry.getExtra());
+                    newEntry.setComment(oldEntry.getComment());
 
-		    // implicit move
-		    for (final String name : oldjarNames)
-		    {
-		    	final JarEntry entry=
-		    		((null == name) || (name.length() <= 0)) ? null : oldJar.getJarEntry(name);
-		    	if (null == entry)
-		    		continue;
+                    updateDelegate(delegate, currentEntry, size);
+                    currentEntry++;
 
-		    	updateDelegate(delegate, currentEntry, size);
-		    	currentEntry++;
-                                                  
-			    writeEntry(jos, entry, oldJar);                  
-		    }
-            
-		    updateDelegate(delegate, currentEntry, size);
-          
-		    jos.finish();
+                    writeEntry(jos, newEntry, oldJar.getInputStream(oldEntry));
+
+                    //     Remove entry from oldjarNames since no implicit move is needed
+                    final boolean wasInOld=oldjarNames.remove(oldName);
+                    // Update progress counters. If it was in old, we do
+                    // not need an implicit move, so adjust total size.
+                    if (wasInOld)
+                        size--;
+                }
+            }
+
+            // implicit move
+            for (final String name : oldjarNames)
+            {
+                final JarEntry entry=
+                    ((null == name) || (name.length() <= 0)) ? null : oldJar.getJarEntry(name);
+                if (null == entry)
+                    continue;
+
+                updateDelegate(delegate, currentEntry, size);
+                currentEntry++;
+
+                writeEntry(jos, entry, oldJar);
+            }
+
+            updateDelegate(delegate, currentEntry, size);
+
+            jos.finish();
         }
         finally
         {
-        	jos.close();
+            jos.close();
         }
     }
-    
+
     private static void updateDelegate (Patcher.PatchDelegate delegate, long currentSize, long size)
     {
-    	if (delegate != null)
-    		delegate.patching((size != 0L) ? (int)(currentSize/size) : 0);
+        if (delegate != null)
+            delegate.patching((size != 0L) ? (int)(currentSize/size) : 0);
     }
 
     private void determineNameMapping (JarFile jarDiff, Collection<String> ignoreSet, Map<String,String> renameMap) throws IOException
@@ -225,81 +225,81 @@ public class JarDiffPatcher implements JarDiffConstants, Patcher {
         final InputStream is=jarDiff.getInputStream(jarDiff.getEntry(INDEX_NAME));
         if (is == null)
         {
-        	handleException("jardiff.error.noindex", null);
-        	return;
+            handleException("jardiff.error.noindex", null);
+            return;
         }
 
         final LineNumberReader indexReader=new LineNumberReader(new InputStreamReader(is, "UTF-8"));
         try
         {
-        	String line = indexReader.readLine();
-        	if ((line == null) || !line.equals(VERSION_HEADER))
-        	{
-        		handleException("jardiff.error.badheader", line);
-        		return;
-        	}
-        
-        	while ((line=indexReader.readLine()) != null)
-        	{
-        		if (line.startsWith(REMOVE_COMMAND))
-        		{
-        			final List<String> sub=getSubpaths(line.substring(REMOVE_COMMAND.length()));
-        			if ((null == sub) || (sub.size() != 1))
-        			{
-        				handleException("jardiff.error.badremove", line);
-        				return;
-        			}
-        			ignoreSet.add(sub.get(0));
-        		}
-        		else if (line.startsWith(MOVE_COMMAND))
-        		{
-        			final List<String> sub=getSubpaths(line.substring(MOVE_COMMAND.length()));
-        			if ((null == sub) || (sub.size() != 2))
-        			{
-        				handleException("jardiff.error.badmove", line);
-        				return;
-        			}
-        			// target of move should be the key
-        			final String	prev=renameMap.put(sub.get(1), sub.get(0));
-        			if (prev != null)
-        			{
-        				// invalid move - should not move to same target twice
-        				handleException("jardiff.error.badmove", line);
-        				return;
-        			}
-        		}
-        		else if (line.length() > 0)
-        		{
-        			handleException("jardiff.error.badcommand", line);
-        			return;
-        		}
-        	}
+            String line = indexReader.readLine();
+            if ((line == null) || !line.equals(VERSION_HEADER))
+            {
+                handleException("jardiff.error.badheader", line);
+                return;
+            }
+
+            while ((line=indexReader.readLine()) != null)
+            {
+                if (line.startsWith(REMOVE_COMMAND))
+                {
+                    final List<String> sub=getSubpaths(line.substring(REMOVE_COMMAND.length()));
+                    if ((null == sub) || (sub.size() != 1))
+                    {
+                        handleException("jardiff.error.badremove", line);
+                        return;
+                    }
+                    ignoreSet.add(sub.get(0));
+                }
+                else if (line.startsWith(MOVE_COMMAND))
+                {
+                    final List<String> sub=getSubpaths(line.substring(MOVE_COMMAND.length()));
+                    if ((null == sub) || (sub.size() != 2))
+                    {
+                        handleException("jardiff.error.badmove", line);
+                        return;
+                    }
+                    // target of move should be the key
+                    final String    prev=renameMap.put(sub.get(1), sub.get(0));
+                    if (prev != null)
+                    {
+                        // invalid move - should not move to same target twice
+                        handleException("jardiff.error.badmove", line);
+                        return;
+                    }
+                }
+                else if (line.length() > 0)
+                {
+                    handleException("jardiff.error.badcommand", line);
+                    return;
+                }
+            }
         }
         finally
         {
-        	indexReader.close();
+            indexReader.close();
         }
     }
-    
+
     private void handleException (String errorMsg, String line) throws IOException
     {
-    	try
-    	{
-    		final ResourceBundle	rb=getResources();
-    		if (!rb.containsKey(errorMsg))
-    	    	throw new StreamCorruptedException(errorMsg + ": " + line);
-    	}
-    	catch(MissingResourceException mre)
-    	{
-    		throw new IOException(mre.getClass().getName() + "[" + errorMsg + "](" + mre.getMessage() + "): " + line);
-    	}
+        try
+        {
+            final ResourceBundle    rb=getResources();
+            if (!rb.containsKey(errorMsg))
+                throw new StreamCorruptedException(errorMsg + ": " + line);
+        }
+        catch(MissingResourceException mre)
+        {
+            throw new IOException(mre.getClass().getName() + "[" + errorMsg + "](" + mre.getMessage() + "): " + line);
+        }
     }
 
     private static List<String> getSubpaths (String path)
     {
-    	int 				index=0, length=(null == path) ? 0  : path.length();
-        final List<String>	sub=new ArrayList<String>();
-        
+        int                 index=0, length=(null == path) ? 0  : path.length();
+        final List<String>    sub=new ArrayList<String>();
+
         while (index < length)
         {
             while (index < length && Character.isWhitespace(path.charAt(index)))
@@ -310,7 +310,7 @@ public class JarDiffPatcher implements JarDiffConstants, Patcher {
                 int start = index;
                 int last = start;
                 String subString = null;
-                
+
                 while (index < length)
                 {
                     char aChar = path.charAt(index);
@@ -340,20 +340,20 @@ public class JarDiffPatcher implements JarDiffConstants, Patcher {
 
         return sub;
     }
-    
+
     private void writeEntry(JarOutputStream jos, JarEntry entry,
                             JarFile file) throws IOException {
         writeEntry(jos, entry, file.getInputStream(entry));
     }
-    
+
     private void writeEntry(JarOutputStream jos, JarEntry entry,
                             InputStream data) throws IOException {
         //Create a new ZipEntry to clear the compressed size. 5079423
         jos.putNextEntry(new ZipEntry(entry.getName()));
-        
+
         // Read the entry
         int size = data.read(newBytes);
-        
+
         while (size != -1) {
             jos.write(newBytes, 0, size);
             size = data.read(newBytes);

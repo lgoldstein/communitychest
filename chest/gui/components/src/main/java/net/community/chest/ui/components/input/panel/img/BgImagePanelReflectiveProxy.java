@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ui.components.input.panel.img;
 
@@ -16,31 +16,31 @@ import net.community.chest.ui.helpers.panel.HelperPanelReflectiveProxy;
  *
  */
 public class BgImagePanelReflectiveProxy<P extends BgImagePanel> extends HelperPanelReflectiveProxy<P> {
-	protected BgImagePanelReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected BgImagePanelReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public BgImagePanelReflectiveProxy (Class<P> objClass)
-		throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public BgImagePanelReflectiveProxy (Class<P> objClass)
+        throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final String	BGIMG_ATTR="bgImage";
-	/*
-	 * @see net.community.chest.dom.transform.ReflectiveAttributesProxy#updateObjectAttribute(java.lang.Object, java.lang.String, java.lang.String, java.lang.reflect.Method)
-	 */
-	@Override
-	protected P updateObjectAttribute (P src, String name, String value, Method setter) throws Exception
-	{
-		if (BGIMG_ATTR.equalsIgnoreCase(name))
-			return updateObjectResourceAttribute(src, name, value, setter);
+    public static final String    BGIMG_ATTR="bgImage";
+    /*
+     * @see net.community.chest.dom.transform.ReflectiveAttributesProxy#updateObjectAttribute(java.lang.Object, java.lang.String, java.lang.String, java.lang.reflect.Method)
+     */
+    @Override
+    protected P updateObjectAttribute (P src, String name, String value, Method setter) throws Exception
+    {
+        if (BGIMG_ATTR.equalsIgnoreCase(name))
+            return updateObjectResourceAttribute(src, name, value, setter);
 
-		return super.updateObjectAttribute(src, name, value, setter);
-	}
+        return super.updateObjectAttribute(src, name, value, setter);
+    }
 
-	public static final BgImagePanelReflectiveProxy<BgImagePanel>	BGIMGPNL=
-			new BgImagePanelReflectiveProxy<BgImagePanel>(BgImagePanel.class, true);
+    public static final BgImagePanelReflectiveProxy<BgImagePanel>    BGIMGPNL=
+            new BgImagePanelReflectiveProxy<BgImagePanel>(BgImagePanel.class, true);
 }

@@ -41,97 +41,97 @@ import javax.servlet.http.HttpServletResponse;
 
 public class HeadRequestResponse extends DownloadResponse {
     private String _mimeType;
-	public String getMimeType ()
-	{
-		return _mimeType;
-	}
+    public String getMimeType ()
+    {
+        return _mimeType;
+    }
 
-	public void setMimeType (String mimeType)
-	{
-		_mimeType = mimeType;
-	}
+    public void setMimeType (String mimeType)
+    {
+        _mimeType = mimeType;
+    }
 
-	private String _versionId;
-	public String getVersionId ()
-	{
-		return _versionId;
-	}
+    private String _versionId;
+    public String getVersionId ()
+    {
+        return _versionId;
+    }
 
-	public void setVersionId (String versionId)
-	{
-		_versionId = versionId;
-	}
+    public void setVersionId (String versionId)
+    {
+        _versionId = versionId;
+    }
 
-	private long _lastModified;
-	public long getLastModified ()
-	{
-		return _lastModified;
-	}
+    private long _lastModified;
+    public long getLastModified ()
+    {
+        return _lastModified;
+    }
 
-	public void setLastModified (long lastModified)
-	{
-		_lastModified = lastModified;
-	}
+    public void setLastModified (long lastModified)
+    {
+        _lastModified = lastModified;
+    }
 
-	public void setLastModified (Date d)
-	{
-		setLastModified((null == d) ? 0L : d.getTime());
-	}
+    public void setLastModified (Date d)
+    {
+        setLastModified((null == d) ? 0L : d.getTime());
+    }
 
-	public void setLastModified (Calendar c)
-	{
-		setLastModified((null == c) ? 0L : c.getTimeInMillis());
-	}
+    public void setLastModified (Calendar c)
+    {
+        setLastModified((null == c) ? 0L : c.getTimeInMillis());
+    }
 
-	private int _contentLength;
-	public int getContentLength ()
-	{
-		return _contentLength;
-	}
+    private int _contentLength;
+    public int getContentLength ()
+    {
+        return _contentLength;
+    }
 
-	public void setContentLength (int contentLength)
-	{
-		_contentLength = contentLength;
-	}
+    public void setContentLength (int contentLength)
+    {
+        _contentLength = contentLength;
+    }
 
-	public HeadRequestResponse (String mimeType, String versionId, long lastModified, int contentLength)
-	{
-		_mimeType = mimeType;
-		_versionId = versionId;
-		_lastModified = lastModified;
-		_contentLength = contentLength;
-	}
+    public HeadRequestResponse (String mimeType, String versionId, long lastModified, int contentLength)
+    {
+        _mimeType = mimeType;
+        _versionId = versionId;
+        _lastModified = lastModified;
+        _contentLength = contentLength;
+    }
 
-	public HeadRequestResponse ()
-	{
-		this(null, null, 0L, 0);
-	}
-	/*
-	 * @see jnlp.sample.servlet.DownloadResponse#sendRespond(javax.servlet.http.HttpServletResponse)
-	 */
-	@Override
-	public void sendRespond (HttpServletResponse response) throws IOException
-	{		
-		// Set header information
+    public HeadRequestResponse ()
+    {
+        this(null, null, 0L, 0);
+    }
+    /*
+     * @see jnlp.sample.servlet.DownloadResponse#sendRespond(javax.servlet.http.HttpServletResponse)
+     */
+    @Override
+    public void sendRespond (HttpServletResponse response) throws IOException
+    {
+        // Set header information
         response.setStatus(HttpServletResponse.SC_OK);
-		response.setContentType(getMimeType());
-		response.setContentLength(getContentLength());
+        response.setContentType(getMimeType());
+        response.setContentLength(getContentLength());
 
-		final String	vid=getVersionId();
-		if ((vid != null) && (vid.length() > 0))
+        final String    vid=getVersionId();
+        if ((vid != null) && (vid.length() > 0))
             response.setHeader(HEADER_JNLP_VERSION, vid);
 
-		final long	lastMod=getLastModified();
-		if (lastMod != 0L)
+        final long    lastMod=getLastModified();
+        if (lastMod != 0L)
             response.setDateHeader(HEADER_LASTMOD, lastMod);
     }
 
-	/*
-	 * @see jnlp.sample.servlet.download.DownloadResponse#clone()
-	 */
-	@Override
-	public HeadRequestResponse /* co-variant return */ clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}
+    /*
+     * @see jnlp.sample.servlet.download.DownloadResponse#clone()
+     */
+    @Override
+    public HeadRequestResponse /* co-variant return */ clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
 }

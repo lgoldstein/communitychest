@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.serial;
 
@@ -20,89 +20,89 @@ import net.community.chest.win32.core.DataFormatConverter;
  *
  */
 public class MemberReferenceRecord extends SerializationRecord
-	   implements PubliclyCloneable<MemberReferenceRecord>,
-	   			  ElementEncoder<MemberReferenceRecord> {
-	private static final long serialVersionUID = 5637623745581385976L;
+       implements PubliclyCloneable<MemberReferenceRecord>,
+                     ElementEncoder<MemberReferenceRecord> {
+    private static final long serialVersionUID = 5637623745581385976L;
 
-	private long _reference;
+    private long _reference;
 
-	public MemberReferenceRecord ()
-	{
-		super(RecordTypeEnumeration.MemberReference);
-	}
+    public MemberReferenceRecord ()
+    {
+        super(RecordTypeEnumeration.MemberReference);
+    }
 
-	public MemberReferenceRecord (InputStream in) throws IOException
-	{
-		super(RecordTypeEnumeration.MemberReference);
+    public MemberReferenceRecord (InputStream in) throws IOException
+    {
+        super(RecordTypeEnumeration.MemberReference);
 
-		Object	result=read(in);
-		if (result != this)
-			throw new StreamCorruptedException("Mismatched read data instance");
-	}
+        Object    result=read(in);
+        if (result != this)
+            throw new StreamCorruptedException("Mismatched read data instance");
+    }
 
-	public long getReference ()
-	{
-		return _reference;
-	}
+    public long getReference ()
+    {
+        return _reference;
+    }
 
-	public void setReference (long reference)
-	{
-		_reference = reference;
-	}
+    public void setReference (long reference)
+    {
+        _reference = reference;
+    }
 
-	@Override
-	@CoVariantReturn
-	public MemberReferenceRecord read (InputStream in) throws IOException
-	{
-		return getClass().cast(super.read(in));
-	}
+    @Override
+    @CoVariantReturn
+    public MemberReferenceRecord read (InputStream in) throws IOException
+    {
+        return getClass().cast(super.read(in));
+    }
 
-	@Override
-	public void readRecordData (InputStream in) throws IOException
-	{
-		final long	refId=DataFormatConverter.readUnsignedInt32(in);
-		if (refId <= 0L)
-			throw new StreamCorruptedException("Illegal reference value: " + refId);
-		setReference(refId);
-		logInternal("Reference=" + refId);
-	}
+    @Override
+    public void readRecordData (InputStream in) throws IOException
+    {
+        final long    refId=DataFormatConverter.readUnsignedInt32(in);
+        if (refId <= 0L)
+            throw new StreamCorruptedException("Illegal reference value: " + refId);
+        setReference(refId);
+        logInternal("Reference=" + refId);
+    }
 
-	@Override
-	public void writeRecordData (OutputStream out) throws IOException
-	{
-		DataFormatConverter.writeUnsignedInt32(out, getReference());
-	}
+    @Override
+    public void writeRecordData (OutputStream out) throws IOException
+    {
+        DataFormatConverter.writeUnsignedInt32(out, getReference());
+    }
 
-	@Override
-	public MemberReferenceRecord clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}
-	@Override
-	public int hashCode ()
-	{
-		return super.hashCode()
-		    + (int) getReference();
-	}
-	
-	@Override
-	public boolean equals (Object obj)
-	{
-		if (!super.equals(obj))
-			return false;
-		if (this == obj)
-			return true;
-		
-		MemberReferenceRecord	other=(MemberReferenceRecord) obj;
-		if (getReference() == other.getReference())
-			return true;
-		else
-			return false;
-	}
+    @Override
+    public MemberReferenceRecord clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
+    @Override
+    public int hashCode ()
+    {
+        return super.hashCode()
+            + (int) getReference();
+    }
 
-	@Override
-	public String toString ()
-	{
-		return super.toString() + "@" + getReference();
-	}
+    @Override
+    public boolean equals (Object obj)
+    {
+        if (!super.equals(obj))
+            return false;
+        if (this == obj)
+            return true;
+
+        MemberReferenceRecord    other=(MemberReferenceRecord) obj;
+        if (getReference() == other.getReference())
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public String toString ()
+    {
+        return super.toString() + "@" + getReference();
+    }
 }

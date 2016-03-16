@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.io.dom;
 
@@ -27,79 +27,79 @@ import net.community.chest.io.input.ReaderEmbedder;
  *
  * <P>Attempts to resolve the {@link InputSource} to a {@link Reader} to use
  * for parsing</P>
- * 
+ *
  * @author Lyor G.
  * @since Aug 26, 2009 9:19:21 AM
  */
 public abstract class AbstractIODocumentBuilder extends AbstractDocumentBuilder {
-	protected AbstractIODocumentBuilder ()
-	{
-		super();
-	}
+    protected AbstractIODocumentBuilder ()
+    {
+        super();
+    }
 
-	public abstract Document parse (Reader r) throws SAXException, IOException;
-	/*
-	 * @see net.community.chest.dom.AbstractDocumentBuilder#parse(java.io.File)
-	 */
-	@Override
-	public Document parse (File f) throws SAXException, IOException
-	{
-		if (null == f)
-			throw new IOException("parse() no " + File.class.getSimpleName() + " specified");
+    public abstract Document parse (Reader r) throws SAXException, IOException;
+    /*
+     * @see net.community.chest.dom.AbstractDocumentBuilder#parse(java.io.File)
+     */
+    @Override
+    public Document parse (File f) throws SAXException, IOException
+    {
+        if (null == f)
+            throw new IOException("parse() no " + File.class.getSimpleName() + " specified");
 
-		Reader	r=null;
-		try
-		{
-			r = new BufferedReader(new FileReader(f), IOCopier.DEFAULT_COPY_SIZE);
-			return parse(r);
-		}
-		finally
-		{
-			FileUtil.closeAll(r);
-		}
-	}
-	/*
-	 * @see javax.xml.parsers.DocumentBuilder#parse(org.xml.sax.InputSource)
-	 */
-	@Override
-	public Document parse (InputSource is) throws SAXException, IOException
-	{
-		if (null == is)
-			throw new IOException("parse() no " + InputSource.class.getSimpleName() + " specified");
+        Reader    r=null;
+        try
+        {
+            r = new BufferedReader(new FileReader(f), IOCopier.DEFAULT_COPY_SIZE);
+            return parse(r);
+        }
+        finally
+        {
+            FileUtil.closeAll(r);
+        }
+    }
+    /*
+     * @see javax.xml.parsers.DocumentBuilder#parse(org.xml.sax.InputSource)
+     */
+    @Override
+    public Document parse (InputSource is) throws SAXException, IOException
+    {
+        if (null == is)
+            throw new IOException("parse() no " + InputSource.class.getSimpleName() + " specified");
 
-		Reader	r=is.getCharacterStream();
-		if (null == r)
-		{
-			InputStream	in=is.getByteStream();
-			if (null == in)
-				return parse(is.getSystemId());
-			else
-				return parse(in, "");
-		}
+        Reader    r=is.getCharacterStream();
+        if (null == r)
+        {
+            InputStream    in=is.getByteStream();
+            if (null == in)
+                return parse(is.getSystemId());
+            else
+                return parse(in, "");
+        }
 
-		return parse(r);
-	}
-	/*
-	 * @see javax.xml.parsers.DocumentBuilder#parse(java.io.InputStream, java.lang.String)
-	 */
-	@Override
-	public Document parse (InputStream is, String systemId)
-			throws SAXException, IOException
-	{
-		if (null == is)
-			throw new IOException("parse() no " + InputStream.class.getSimpleName() + " specified");
+        return parse(r);
+    }
+    /*
+     * @see javax.xml.parsers.DocumentBuilder#parse(java.io.InputStream, java.lang.String)
+     */
+    @Override
+    public Document parse (InputStream is, String systemId)
+            throws SAXException, IOException
+    {
+        if (null == is)
+            throw new IOException("parse() no " + InputStream.class.getSimpleName() + " specified");
 
-		InputStream	in=(is instanceof BufferedInputStream) ? is
-				: new BufferedInputStream(new InputStreamEmbedder(is, false), IOCopier.DEFAULT_COPY_SIZE);
-		Reader		r=new ReaderEmbedder(new InputStreamReader(in), false);
-		try
-		{
-			return parse(r);
-		}
-		finally
-		{
-			// just for code elegance since no real closure occurs
-			FileUtil.closeAll(r);
-		}
-	}
+        InputStream    in=(is instanceof BufferedInputStream) ? is
+                : new BufferedInputStream(new InputStreamEmbedder(is, false), IOCopier.DEFAULT_COPY_SIZE);
+        Reader        r=new ReaderEmbedder(new InputStreamReader(in), false);
+        try
+        {
+            return parse(r);
+        }
+        finally
+        {
+            // just for code elegance since no real closure occurs
+            FileUtil.closeAll(r);
+        }
+    }
 }

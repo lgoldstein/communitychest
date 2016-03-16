@@ -11,10 +11,10 @@ import org.rrd4j.DsType;
  * @since Jan 8, 2008 12:31:36 PM
  */
 public final class DsTypeExt extends DOMEnumExt<DsType> {
-	private DsTypeExt ()
-	{
-		super(DsType.class);
-	}
+    private DsTypeExt ()
+    {
+        super(DsType.class);
+    }
 
-	public static final DsTypeExt	DEFAULT=new DsTypeExt();
+    public static final DsTypeExt    DEFAULT=new DsTypeExt();
 }

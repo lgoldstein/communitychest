@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.plot.category;
 
@@ -13,19 +13,19 @@ import org.jfree.chart.plot.CombinedDomainCategoryPlot;
  * @since Feb 8, 2009 2:22:34 PM
  */
 public class CombinedDomainCategoryPlotReflectiveProxy<P extends CombinedDomainCategoryPlot>
-		extends CategoryPlotReflectiveProxy<P> {
+        extends CategoryPlotReflectiveProxy<P> {
 
-	protected CombinedDomainCategoryPlotReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected CombinedDomainCategoryPlotReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public CombinedDomainCategoryPlotReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public CombinedDomainCategoryPlotReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final CombinedDomainCategoryPlotReflectiveProxy<CombinedDomainCategoryPlot>	COMBDOMAINCATPLOT=
-		new CombinedDomainCategoryPlotReflectiveProxy<CombinedDomainCategoryPlot>(CombinedDomainCategoryPlot.class, true);
+    public static final CombinedDomainCategoryPlotReflectiveProxy<CombinedDomainCategoryPlot>    COMBDOMAINCATPLOT=
+        new CombinedDomainCategoryPlotReflectiveProxy<CombinedDomainCategoryPlot>(CombinedDomainCategoryPlot.class, true);
 }

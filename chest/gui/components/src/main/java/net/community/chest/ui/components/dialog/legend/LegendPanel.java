@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ui.components.dialog.legend;
 
@@ -29,140 +29,140 @@ import org.w3c.dom.Element;
  * @since Jan 11, 2009 12:46:56 PM
  */
 public class LegendPanel extends PresetGridLayoutPanel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -238086921667578017L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -238086921667578017L;
 
-	public LegendPanel (int hgap, int vgap, Document doc, boolean autoLayout)
-	{
-		super(0, 1, hgap, vgap, doc, autoLayout);
-	}
+    public LegendPanel (int hgap, int vgap, Document doc, boolean autoLayout)
+    {
+        super(0, 1, hgap, vgap, doc, autoLayout);
+    }
 
-	public LegendPanel (int hgap, int vgap, Element elem, boolean autoLayout)
-	{
-		this(hgap, vgap, (null == elem) ? null : new StandaloneDocumentImpl(elem), autoLayout);
-	}
+    public LegendPanel (int hgap, int vgap, Element elem, boolean autoLayout)
+    {
+        this(hgap, vgap, (null == elem) ? null : new StandaloneDocumentImpl(elem), autoLayout);
+    }
 
-	public LegendPanel (int hgap, int vgap, boolean autoLayout)
-	{
-		this(hgap, vgap, (Document) null, autoLayout);
-	}
+    public LegendPanel (int hgap, int vgap, boolean autoLayout)
+    {
+        this(hgap, vgap, (Document) null, autoLayout);
+    }
 
-	public LegendPanel (int hgap, int vgap)
-	{
-		this(hgap, vgap, true);
-	}
+    public LegendPanel (int hgap, int vgap)
+    {
+        this(hgap, vgap, true);
+    }
 
-	public LegendPanel (Document doc, boolean autoLayout)
-	{
-		this(0, 5, doc, autoLayout);
-	}
+    public LegendPanel (Document doc, boolean autoLayout)
+    {
+        this(0, 5, doc, autoLayout);
+    }
 
-	public LegendPanel (boolean autoLayout)
-	{
-		this((Document) null, autoLayout);
-	}
+    public LegendPanel (boolean autoLayout)
+    {
+        this((Document) null, autoLayout);
+    }
 
-	public LegendPanel ()
-	{
-		this(true);
-	}
+    public LegendPanel ()
+    {
+        this(true);
+    }
 
-	public LegendPanel (Document doc)
-	{
-		this(doc, true);
-	}
+    public LegendPanel (Document doc)
+    {
+        this(doc, true);
+    }
 
-	public LegendPanel (Element elem, boolean autoLayout)
-	{
-		this((null == elem) ? null : new StandaloneDocumentImpl(elem), autoLayout);
-	}
-	
-	public LegendPanel (Element elem)
-	{
-		this(elem, true);
-	}
+    public LegendPanel (Element elem, boolean autoLayout)
+    {
+        this((null == elem) ? null : new StandaloneDocumentImpl(elem), autoLayout);
+    }
 
-	public boolean isLegendSection (String name, Element elem)
-	{
-		if ((null == name) || (name.length() <= 0) || (null == elem))
-			return false;
+    public LegendPanel (Element elem)
+    {
+        this(elem, true);
+    }
 
-		return true;
-	}
+    public boolean isLegendSection (String name, Element elem)
+    {
+        if ((null == name) || (name.length() <= 0) || (null == elem))
+            return false;
 
-	public XmlValueInstantiator<? extends Component> getLegendEntryConverter (Element elem)
-	{
-		return (null == elem) ? null : JLabelReflectiveProxy.LABEL;
-	}
+        return true;
+    }
 
-	public Component createLegendEntry (String name, Element elem)
-	{
-		try
-		{
-			final XmlValueInstantiator<? extends Component>	lsi=getLegendEntryConverter(elem);
-			return (null == lsi) ? null : lsi.fromXml(elem);
-		}
-		catch(Exception e)
-		{
-			throw new IllegalStateException("createLegendEntry(" + name + ") " + e.getClass().getName() + " while handling element=" + DOMUtils.toString(elem) + ": " + e.getMessage());
-		}
-	}
-	/* Each section is assumed to be a legend entry
-	 * @see net.community.chest.ui.helpers.panel.HelperPanel#layoutSection(java.lang.String, org.w3c.dom.Element)
-	 */
-	@Override
-	public void layoutSection (String name, Element elem)
-	{
-		if (isLegendSection(name, elem))
-		{
-			final Component	c=createLegendEntry(name, elem);
-			if (c != null)
-				add(c);
-		}
+    public XmlValueInstantiator<? extends Component> getLegendEntryConverter (Element elem)
+    {
+        return (null == elem) ? null : JLabelReflectiveProxy.LABEL;
+    }
 
-		super.layoutSection(name, elem);
-	}
+    public Component createLegendEntry (String name, Element elem)
+    {
+        try
+        {
+            final XmlValueInstantiator<? extends Component>    lsi=getLegendEntryConverter(elem);
+            return (null == lsi) ? null : lsi.fromXml(elem);
+        }
+        catch(Exception e)
+        {
+            throw new IllegalStateException("createLegendEntry(" + name + ") " + e.getClass().getName() + " while handling element=" + DOMUtils.toString(elem) + ": " + e.getMessage());
+        }
+    }
+    /* Each section is assumed to be a legend entry
+     * @see net.community.chest.ui.helpers.panel.HelperPanel#layoutSection(java.lang.String, org.w3c.dom.Element)
+     */
+    @Override
+    public void layoutSection (String name, Element elem)
+    {
+        if (isLegendSection(name, elem))
+        {
+            final Component    c=createLegendEntry(name, elem);
+            if (c != null)
+                add(c);
+        }
 
-	public Component addLegendEntry (final String t, final Icon i)
-	{
-		if (((null == t) || (t.length() <= 0)) && (null == i))
-			return null;
+        super.layoutSection(name, elem);
+    }
 
-		final JLabel	lbl=new JLabel(t, i, SwingConstants.LEFT);
-		add(lbl);
-		return lbl;
-	}
+    public Component addLegendEntry (final String t, final Icon i)
+    {
+        if (((null == t) || (t.length() <= 0)) && (null == i))
+            return null;
 
-	public Component addLegendEntry (final Map.Entry<String, ? extends Icon> le)
-	{
-		return (null == le) ? null : addLegendEntry(le.getKey(), le.getValue());
-	}
+        final JLabel    lbl=new JLabel(t, i, SwingConstants.LEFT);
+        add(lbl);
+        return lbl;
+    }
 
-	public Collection<Component> addLegendEntries (final Collection<? extends Map.Entry<String, ? extends Icon>> ll)
-	{
-		final int	numEntries=(null == ll) ? 0 : ll.size();
-		if (numEntries <= 0)
-			return null;
+    public Component addLegendEntry (final Map.Entry<String, ? extends Icon> le)
+    {
+        return (null == le) ? null : addLegendEntry(le.getKey(), le.getValue());
+    }
 
-		Collection<Component>	rl=null;
-		for (final Map.Entry<String, ? extends Icon> le : ll)
-		{
-			final Component	c=addLegendEntry(le);
-			if (null == c)
-				continue;
+    public Collection<Component> addLegendEntries (final Collection<? extends Map.Entry<String, ? extends Icon>> ll)
+    {
+        final int    numEntries=(null == ll) ? 0 : ll.size();
+        if (numEntries <= 0)
+            return null;
 
-			if (null == rl)
-				rl = new LinkedList<Component>();
-			rl.add(c);
-		}
+        Collection<Component>    rl=null;
+        for (final Map.Entry<String, ? extends Icon> le : ll)
+        {
+            final Component    c=addLegendEntry(le);
+            if (null == c)
+                continue;
 
-		return rl;
-	}
+            if (null == rl)
+                rl = new LinkedList<Component>();
+            rl.add(c);
+        }
 
-	public Collection<Component> addLegendEntries(@SuppressWarnings("unchecked") final Map.Entry<String, ? extends Icon> ... ll)
-	{
-		return ((null == ll) || (ll.length <= 0)) ? null : addLegendEntries(Arrays.asList(ll));
-	}
+        return rl;
+    }
+
+    public Collection<Component> addLegendEntries(@SuppressWarnings("unchecked") final Map.Entry<String, ? extends Icon> ... ll)
+    {
+        return ((null == ll) || (ll.length <= 0)) ? null : addLegendEntries(Arrays.asList(ll));
+    }
 }

@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="ant-apps-base" default="ant-apps-base" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Serves as 'base' inclusion file with common definitions for the Ant
-			applications $Rev: 561 $
-		</description>
+    <project name="ant-apps-base" default="ant-apps-base" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Serves as 'base' inclusion file with common definitions for the Ant
+            applications $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
+            <!-- Preamble definitions -->
         <dirname property="ant.apps.root.dir" file="${ant.file}"/>
-		<dirname property="apache.apps.root.dir" file="${ant.apps.root.dir}"/>
-		<property name="parent.root.dir" value="${apache.apps.root.dir}"/>
-		<property name="module.root.folder" value="${ant.apps.root.dir}"/>
-		<property name="module.base.target.name" value="apache-ant-apps"/>
+        <dirname property="apache.apps.root.dir" file="${ant.apps.root.dir}"/>
+        <property name="parent.root.dir" value="${apache.apps.root.dir}"/>
+        <property name="module.root.folder" value="${ant.apps.root.dir}"/>
+        <property name="module.base.target.name" value="apache-ant-apps"/>
 
-		<import file="${apache.apps.root.dir}${file.separator}build-base.xml"/>
-		<property name="ant.apps.base.pkg.name" value="${apache.apps.base.pkg.name}.ant"/>
+        <import file="${apache.apps.root.dir}${file.separator}build-base.xml"/>
+        <property name="ant.apps.base.pkg.name" value="${apache.apps.base.pkg.name}.ant"/>
 
         <target name="ant-apps-base" depends="apache-apps-base" unless="skip.ant.apps.base.target">
             <property name="skip.ant.apps.base.target" value="true"/>
         </target>
 
-			<!-- Default target(s) from which modules should derive their own -->
-		<target name="jar-ant-app-module-files" depends="ant-apps-base,jar-apache-app-module-files"/>
-		<target name="clean-ant-app-module-build" depends="ant-apps-base,clean-apache-app-module-build"/>
+            <!-- Default target(s) from which modules should derive their own -->
+        <target name="jar-ant-app-module-files" depends="ant-apps-base,jar-apache-app-module-files"/>
+        <target name="clean-ant-app-module-build" depends="ant-apps-base,clean-apache-app-module-build"/>
 
-		<target name="jar-ant-app-application-files" depends="ant-apps-base,jar-apache-app-application-files"/>
-		<target name="clean-ant-app-application-build" depends="ant-apps-base,clean-apache-app-application-build"/>
-	</project>
+        <target name="jar-ant-app-application-files" depends="ant-apps-base,jar-apache-app-application-files"/>
+        <target name="clean-ant-app-application-build" depends="ant-apps-base,clean-apache-app-application-build"/>
+    </project>

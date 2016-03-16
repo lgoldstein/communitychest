@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="test-ant-helpers" default="test-ant-helpers">
-		<description>
-			ANT helpers tests
-		</description>
+    <project name="test-ant-helpers" default="test-ant-helpers">
+        <description>
+            ANT helpers tests
+        </description>
 
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<property name="module.base.target.name" value="ant-helpers-test"/>
-		<dirname property="apache.libs.root.dir" file="${module.root.folder}"/>
-		<property name="parent.root.dir" value="${apache.libs.root.dir}"/>
-		<dirname property="3rd.party.root.dir" file="${apache.libs.root.dir}"/>
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <property name="module.base.target.name" value="ant-helpers-test"/>
+        <dirname property="apache.libs.root.dir" file="${module.root.folder}"/>
+        <property name="parent.root.dir" value="${apache.libs.root.dir}"/>
+        <dirname property="3rd.party.root.dir" file="${apache.libs.root.dir}"/>
         <dirname property="project.root.dir" file="${3rd.party.root.dir}"/>
 
-		<!-- NOTE CAUSES SOME KIND OF ERROR
-		<import file="${apache.libs.root.dir}${file.separator}build-base.xml"/>
-		<target name="test-helpers-base" depends="apache-libs-base">
-		-->
-		<import file="${project.root.dir}${file.separator}build-base.xml"/>
+        <!-- NOTE CAUSES SOME KIND OF ERROR
+        <import file="${apache.libs.root.dir}${file.separator}build-base.xml"/>
+        <target name="test-helpers-base" depends="apache-libs-base">
+        -->
+        <import file="${project.root.dir}${file.separator}build-base.xml"/>
 
-		<property name="extra.apache.tasks.jar.location" value="${community.lib.folder}${file.separator}net.community-ant-core-tasks.jar"/>
-		<target name="test-helpers-base" depends="chest-base">
-			<taskdef resource="net/community/chest/apache/ant/antlib.xml"
-					 format="xml"
-					 classpath="${extra.apache.tasks.jar.location}"
-				/>
-		</target>
+        <property name="extra.apache.tasks.jar.location" value="${community.lib.folder}${file.separator}net.community-ant-core-tasks.jar"/>
+        <target name="test-helpers-base" depends="chest-base">
+            <taskdef resource="net/community/chest/apache/ant/antlib.xml"
+                     format="xml"
+                     classpath="${extra.apache.tasks.jar.location}"
+                />
+        </target>
 
-		<property name="mvnsync.root.folder" value="${java.io.tmpdir}${file.separator}mvnsync"/>
-		<property name="mvnsync.jars.folder" value="${mvnsync.root.folder}${file.separator}${lib.sub.folder.name}"/>
-		<property name="mvnsync.srcs.folder" value="${mvnsync.root.folder}${file.separator}${src.sub.folder.name}"/>
-		<property name="mvnsync.poms.folder" value="${mvnsync.root.folder}${file.separator}pom"/>
-		<target name="test-mvn-sync" depends="test-helpers-base" description="Runs the MVNSYNC task test">
-			<mvnsync verbose="true" downloadSources="true"
-					 srcdir="${mvnsync.srcs.folder}"
-					 pomdir="${mvnsync.poms.folder}">
-	            <localRepository path="${mvnsync.jars.folder}" layout="default"/>
+        <property name="mvnsync.root.folder" value="${java.io.tmpdir}${file.separator}mvnsync"/>
+        <property name="mvnsync.jars.folder" value="${mvnsync.root.folder}${file.separator}${lib.sub.folder.name}"/>
+        <property name="mvnsync.srcs.folder" value="${mvnsync.root.folder}${file.separator}${src.sub.folder.name}"/>
+        <property name="mvnsync.poms.folder" value="${mvnsync.root.folder}${file.separator}pom"/>
+        <target name="test-mvn-sync" depends="test-helpers-base" description="Runs the MVNSYNC task test">
+            <mvnsync verbose="true" downloadSources="true"
+                     srcdir="${mvnsync.srcs.folder}"
+                     pomdir="${mvnsync.poms.folder}">
+                <localRepository path="${mvnsync.jars.folder}" layout="default"/>
 
-				<remoteRepository id="ibiblio" 	url="http://www.ibiblio.org/maven2/"/>
-				<!--
-				<remoteRepository id="java.net" url="https://maven-repository.dev.java.net/nonav/repository/" layout="legacy"/>
-				<remoteRepository id="jboss"	url="http://repository.jboss.com/maven2/"/>
-				<remoteRepository id="unavail"  url="http://dist.sourcelabs.com/sash/repo/"/>
-				<remoteRepository id="hmsinc"   url="https://internal.hmsinc.com/m2-repo/"/>
-				-->
-				<remoteRepository id="repo1"	url="http://repo1.maven.org/maven2/"/>
+                <remoteRepository id="ibiblio"     url="http://www.ibiblio.org/maven2/"/>
+                <!--
+                <remoteRepository id="java.net" url="https://maven-repository.dev.java.net/nonav/repository/" layout="legacy"/>
+                <remoteRepository id="jboss"    url="http://repository.jboss.com/maven2/"/>
+                <remoteRepository id="unavail"  url="http://dist.sourcelabs.com/sash/repo/"/>
+                <remoteRepository id="hmsinc"   url="https://internal.hmsinc.com/m2-repo/"/>
+                -->
+                <remoteRepository id="repo1"    url="http://repo1.maven.org/maven2/"/>
 
-				<dependency groupId="log4j" artifactId="log4j" version="1.2.15" scope="compile"/>
-			</mvnsync>
-		</target>
+                <dependency groupId="log4j" artifactId="log4j" version="1.2.15" scope="compile"/>
+            </mvnsync>
+        </target>
 
-		<property name="winverupdate.root.folder" value="${java.io.tmpdir}${file.separator}winverupdate"/>
-		<target name="test-winver-update" depends="test-helpers-base" description="Runs the WINVER task test">
-			<winverupdate versionValue="1.2.3.4">
-				<fileset dir="${winverupdate.root.folder}" includes="**${file.separator}*.rc"/>
-			</winverupdate>
-		</target>
+        <property name="winverupdate.root.folder" value="${java.io.tmpdir}${file.separator}winverupdate"/>
+        <target name="test-winver-update" depends="test-helpers-base" description="Runs the WINVER task test">
+            <winverupdate versionValue="1.2.3.4">
+                <fileset dir="${winverupdate.root.folder}" includes="**${file.separator}*.rc"/>
+            </winverupdate>
+        </target>
 
-		<target name="test-read-pom-properties" depends="test-helpers-base" description="Runs the READPOMPROPS task test">
-			<readpomprops verbose="true" file="${community.root.dir}${file.separator}pom.xml"/>
-			<replaceprops file="${java.io.tmpdir}${file.separator}pom.xml">
-			</replaceprops>
-		</target>
+        <target name="test-read-pom-properties" depends="test-helpers-base" description="Runs the READPOMPROPS task test">
+            <readpomprops verbose="true" file="${community.root.dir}${file.separator}pom.xml"/>
+            <replaceprops file="${java.io.tmpdir}${file.separator}pom.xml">
+            </replaceprops>
+        </target>
 
-		<target name="test-ant-helpers" depends="test-read-pom-properties" description="Runs the test">
-		</target>
-	</project>
+        <target name="test-ant-helpers" depends="test-read-pom-properties" description="Runs the test">
+        </target>
+    </project>

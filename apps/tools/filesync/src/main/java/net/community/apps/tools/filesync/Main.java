@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.filesync;
 
@@ -15,24 +15,24 @@ import net.community.chest.CoVariantReturn;
  * @since Feb 15, 2009 3:25:43 PM
  */
 public final class Main extends BaseMain {
-	private Main (final String ... args)
-	{
-		super(args);
-	}
-	/*
-	 * @see net.community.apps.common.BaseMain#createMainFrameInstance()
-	 */
-	@Override
-	@CoVariantReturn
-	protected MainFrame createMainFrameInstance () throws Exception
-	{
-		return new MainFrame(getMainArguments());
-	}
+    private Main (final String ... args)
+    {
+        super(args);
+    }
+    /*
+     * @see net.community.apps.common.BaseMain#createMainFrameInstance()
+     */
+    @Override
+    @CoVariantReturn
+    protected MainFrame createMainFrameInstance () throws Exception
+    {
+        return new MainFrame(getMainArguments());
+    }
 
-	//////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
 
-	public static void main (final String[] args)
-	{
-		SwingUtilities.invokeLater(new Main(args));
-	}
+    public static void main (final String[] args)
+    {
+        SwingUtilities.invokeLater(new Main(args));
+    }
 }

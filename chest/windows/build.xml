@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-windows" default="build-windows">
-		<description>
-			Builds the WIN32 JAR(s) and LIB(s) $Rev: 561 $
-		</description>
+    <project name="build-windows" default="build-windows">
+        <description>
+            Builds the WIN32 JAR(s) and LIB(s) $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <import file="${module.root.folder}${file.separator}build-base.xml"/>
 
-		<target name="build-win32-core-utils" depends="base-win32" unless="skip.build.win32.core.utils" description="Builds core utilities JAR(s) and LIB(s)">
-			<ant dir="${module.root.folder}${file.separator}core" target="build-win32-core-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.win32.core.utils" value="true"/>
-		</target>
+        <target name="build-win32-core-utils" depends="base-win32" unless="skip.build.win32.core.utils" description="Builds core utilities JAR(s) and LIB(s)">
+            <ant dir="${module.root.folder}${file.separator}core" target="build-win32-core-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.win32.core.utils" value="true"/>
+        </target>
 
-		<!-- Main/default target -->
-		<target name="build-windows" description="Builds the WIN32 JAR(s) and LIB(s)"
-				depends="build-win32-core-utils"
-			/>
+        <!-- Main/default target -->
+        <target name="build-windows" description="Builds the WIN32 JAR(s) and LIB(s)"
+                depends="build-win32-core-utils"
+            />
 
-		<target name="clean-windows" depends="base-win32" description="Deletes win32 products">
-			<ant dir="${module.root.folder}${file.separator}core" target="clean-win32-core-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-		</target>
-	</project>
+        <target name="clean-windows" depends="base-win32" description="Deletes win32 products">
+            <ant dir="${module.root.folder}${file.separator}core" target="clean-win32-core-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+        </target>
+    </project>

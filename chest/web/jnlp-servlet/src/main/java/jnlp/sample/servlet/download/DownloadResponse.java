@@ -1,6 +1,6 @@
 /*
- * @(#)DownloadResponse.java	1.8 07/03/15
- * 
+ * @(#)DownloadResponse.java    1.8 07/03/15
+ *
  * Copyright (c) 2006 Sun Microsystems, Inc. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,15 +44,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import jnlp.sample.util.ObjectUtil;
 
-/** 
+/**
  * A class used to encapsulate a file response, and
  * factory methods to create some common types.
  */
-abstract public class DownloadResponse implements Cloneable {    
-	public static final String HEADER_LASTMOD      = "Last-Modified";    
-	public static final String HEADER_JNLP_VERSION = "x-java-jnlp-version-id";
-	public static final String JNLP_ERROR_MIMETYPE = "application/x-java-jnlp-error";
-    
+abstract public class DownloadResponse implements Cloneable {
+    public static final String HEADER_LASTMOD      = "Last-Modified";
+    public static final String HEADER_JNLP_VERSION = "x-java-jnlp-version-id";
+    public static final String JNLP_ERROR_MIMETYPE = "application/x-java-jnlp-error";
+
     public static final int STS_00_OK           = 0;
     public static final int ERR_10_NO_RESOURCE  = 10;
     public static final int ERR_11_NO_VERSION   = 11;
@@ -73,15 +73,15 @@ abstract public class DownloadResponse implements Cloneable {
      * @see java.lang.Object#toString()
      */
     @Override
-	public String toString () { return getClass().getName(); }
+    public String toString () { return getClass().getName(); }
     /*
-	 * @see java.lang.Object#clone()
-	 */
-	@Override
-	public DownloadResponse /* co-variant return */ clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public DownloadResponse /* co-variant return */ clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
     /**
      * @param response The {@link HttpServletResponse} to post response to
      * @throws IOException If failed to write the response
@@ -89,33 +89,33 @@ abstract public class DownloadResponse implements Cloneable {
     public abstract void sendRespond (HttpServletResponse response) throws IOException;
 
     /*---------- Factory methods for error responses --------------*/
-    private static NotFoundResponse	_notFoundResp	/* =null */;
+    private static NotFoundResponse    _notFoundResp    /* =null */;
     public static synchronized DownloadResponse getNotFoundResponse ()
-    { 
-    	if (null == _notFoundResp)
-    		_notFoundResp = new NotFoundResponse();
-    	return _notFoundResp;
+    {
+        if (null == _notFoundResp)
+            _notFoundResp = new NotFoundResponse();
+        return _notFoundResp;
     }
 
-    private static NoContentResponse	_noContentResp	/* =null */;
+    private static NoContentResponse    _noContentResp    /* =null */;
     public static final synchronized DownloadResponse getNoContentResponse ()
-    { 
-    	if (null == _noContentResp)
-    		_noContentResp = new NoContentResponse();
-    	return _noContentResp;
+    {
+        if (null == _noContentResp)
+            _noContentResp = new NoContentResponse();
+        return _noContentResp;
     }
 
     public static DownloadResponse getJnlpErrorResponse (int jnlpErrorCode)
-    { 
-    	return new JnlpErrorResponse(jnlpErrorCode);
+    {
+        return new JnlpErrorResponse(jnlpErrorCode);
     }
 
-    private static NotModifiedResponse	_notModifiedResp	/* =null */;
+    private static NotModifiedResponse    _notModifiedResp    /* =null */;
     public static final synchronized DownloadResponse getNotModifiedResponse ()
     {
-    	if (null == _notModifiedResp)
-    		_notModifiedResp = new NotModifiedResponse();
-    	return _notModifiedResp;
+        if (null == _notModifiedResp)
+            _notModifiedResp = new NotModifiedResponse();
+        return _notModifiedResp;
     }
 
     public static DownloadResponse getHeadRequestResponse (String mimeType, String versionId, long lastModified, int contentLength)
@@ -125,22 +125,22 @@ abstract public class DownloadResponse implements Cloneable {
 
     public static DownloadResponse getFileDownloadResponse (byte[] content, String mimeType, long timestamp, String versionId)
     {
-    	return new ByteArrayFileDownloadResponse(content, mimeType, versionId, timestamp);
-    }	
-    
+        return new ByteArrayFileDownloadResponse(content, mimeType, versionId, timestamp);
+    }
+
 
     public static DownloadResponse getFileDownloadResponse (File file, String mimeType, long timestamp, String versionId)
     {
-    	return new DiskFileDownloadResponse(file, mimeType, versionId, timestamp);
-    }	
+        return new DiskFileDownloadResponse(file, mimeType, versionId, timestamp);
+    }
 
     public static DownloadResponse getFileDownloadResponse (URL resource, String mimeType, long timestamp, String versionId)
     {
-		if (ObjectUtil.isFileResource(resource))
-			return getFileDownloadResponse(ObjectUtil.toFile(resource), mimeType, timestamp, versionId);
-		else
-			return new ResourceFileDownloadResponse(resource, mimeType, versionId, timestamp);
-    }	
+        if (ObjectUtil.isFileResource(resource))
+            return getFileDownloadResponse(ObjectUtil.toFile(resource), mimeType, timestamp, versionId);
+        else
+            return new ResourceFileDownloadResponse(resource, mimeType, versionId, timestamp);
+    }
 }
 
 

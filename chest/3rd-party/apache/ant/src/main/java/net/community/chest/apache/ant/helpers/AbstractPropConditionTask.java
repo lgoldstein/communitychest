@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.apache.ant.helpers;
 
@@ -16,12 +16,12 @@ import org.apache.tools.ant.taskdefs.condition.Condition;
  * @since Jul 12, 2009 9:39:02 AM
  */
 public abstract class AbstractPropConditionTask extends ExtendedTask implements Condition {
-	protected AbstractPropConditionTask ()
-	{
-		super();
-	}
+    protected AbstractPropConditionTask ()
+    {
+        super();
+    }
 
-    private String	_property;
+    private String    _property;
     /**
      * Set the name of the property which will be set if the particular resource
      * is available.
@@ -34,10 +34,10 @@ public abstract class AbstractPropConditionTask extends ExtendedTask implements 
 
     public String getProperty ()
     {
-    	return _property;
+        return _property;
     }
 
-    private String	_valueTrue="true";
+    private String    _valueTrue="true";
     /**
      * Set the value to be given to the property if the desired resource is
      * available.
@@ -50,7 +50,7 @@ public abstract class AbstractPropConditionTask extends ExtendedTask implements 
 
     public String getValue ()
     {
-    	return _valueTrue;
+        return _valueTrue;
     }
 
     private String _valueFalse /* =NULL */;
@@ -65,21 +65,21 @@ public abstract class AbstractPropConditionTask extends ExtendedTask implements 
 
     public String getElse ()
     {
-    	return _valueFalse;
+        return _valueFalse;
     }
     /*
      * @see org.apache.tools.ant.Task#execute()
      */
     @Override
-	public void execute () throws BuildException
-	{
-    	final String	propName=getProperty();
+    public void execute () throws BuildException
+    {
+        final String    propName=getProperty();
         if ((null == propName) || (propName.length() <= 0))
             throw new BuildException("property attribute is required", getLocation());
 
-        final Project	p=getProject();
-        final String	propVal=eval() ? getValue() : getElse();
+        final Project    p=getProject();
+        final String    propVal=eval() ? getValue() : getElse();
         if (propVal != null)
             p.setProperty(propName, propVal);
-	}
+    }
 }

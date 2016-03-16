@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ejb;
 
@@ -16,32 +16,32 @@ import java.security.Identity;
  */
 @SuppressWarnings("deprecation")
 public class EmptyMessageDrivenContext extends AbstractMessageDrivenContexHelper {
-	public EmptyMessageDrivenContext ()
-	{
-		super();
-	}
-	/*
-	 * @see javax.ejb.EJBContext#isCallerInRole(java.security.Identity)
-	 */
-	@Override
-	public boolean isCallerInRole (Identity role)
-	{
-		return false;
-	}
-	/*
-	 * @see javax.ejb.EJBContext#isCallerInRole(java.lang.String)
-	 */
-	@Override
-	public boolean isCallerInRole (String roleName)
-	{
-		return false;
-	}
-	/*
-	 * @see javax.ejb.EJBContext#lookup(java.lang.String)
-	 */
-	@Override
-	public Object lookup (String name)
-	{
-		return null;
-	}
+    public EmptyMessageDrivenContext ()
+    {
+        super();
+    }
+    /*
+     * @see javax.ejb.EJBContext#isCallerInRole(java.security.Identity)
+     */
+    @Override
+    public boolean isCallerInRole (Identity role)
+    {
+        return false;
+    }
+    /*
+     * @see javax.ejb.EJBContext#isCallerInRole(java.lang.String)
+     */
+    @Override
+    public boolean isCallerInRole (String roleName)
+    {
+        return false;
+    }
+    /*
+     * @see javax.ejb.EJBContext#lookup(java.lang.String)
+     */
+    @Override
+    public Object lookup (String name)
+    {
+        return null;
+    }
 }

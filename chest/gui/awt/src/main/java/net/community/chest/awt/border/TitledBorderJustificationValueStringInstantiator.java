@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.border;
 
@@ -15,41 +15,41 @@ import net.community.chest.lang.StringUtil;
  * @since Feb 8, 2009 9:02:20 AM
  */
 public class TitledBorderJustificationValueStringInstantiator extends AbstractXmlValueStringInstantiator<Integer> {
-	public TitledBorderJustificationValueStringInstantiator ()
-	{
-		super(Integer.class);
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
-	 */
-	@Override
-	public String convertInstance (Integer inst) throws Exception
-	{
-		if (null == inst)
-			return null;
+    public TitledBorderJustificationValueStringInstantiator ()
+    {
+        super(Integer.class);
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
+     */
+    @Override
+    public String convertInstance (Integer inst) throws Exception
+    {
+        if (null == inst)
+            return null;
 
-		final TitledBorderJustification	st=TitledBorderJustification.fromJustification(inst.intValue());
-		if (null == st)
-			throw new NoSuchElementException("convertInstance(" + inst + ") unknown value");
+        final TitledBorderJustification    st=TitledBorderJustification.fromJustification(inst.intValue());
+        if (null == st)
+            throw new NoSuchElementException("convertInstance(" + inst + ") unknown value");
 
-		return st.toString();
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
-	 */
-	@Override
-	public Integer newInstance (String v) throws Exception
-	{
-		final String	s=StringUtil.getCleanStringValue(v);
-		if ((null == s) || (s.length() <= 0))
-			return null;
+        return st.toString();
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
+     */
+    @Override
+    public Integer newInstance (String v) throws Exception
+    {
+        final String    s=StringUtil.getCleanStringValue(v);
+        if ((null == s) || (s.length() <= 0))
+            return null;
 
-		final TitledBorderJustification	st=TitledBorderJustification.fromString(s);
-		if (null == st)
-			throw new NoSuchElementException("newInstance(" + s + ") unknown value");
+        final TitledBorderJustification    st=TitledBorderJustification.fromString(s);
+        if (null == st)
+            throw new NoSuchElementException("newInstance(" + s + ") unknown value");
 
-		return Integer.valueOf(st.getJustification());
-	}
+        return Integer.valueOf(st.getJustification());
+    }
 
-	public static final TitledBorderJustificationValueStringInstantiator	DEFAULT=new TitledBorderJustificationValueStringInstantiator();
+    public static final TitledBorderJustificationValueStringInstantiator    DEFAULT=new TitledBorderJustificationValueStringInstantiator();
 }

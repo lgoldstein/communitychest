@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.axis.value;
 
@@ -27,34 +27,34 @@ public enum DateTickUnitTypeEnum {
     SECOND(DateTickUnitType.SECOND),
     MSEC(DateTickUnitType.MILLISECOND);
 
-	private final DateTickUnitType	_u;
-	public final DateTickUnitType getUnitType ()
-	{
-		return _u;
-	}
-	
-	DateTickUnitTypeEnum (DateTickUnitType u)
-	{
-		_u = u;
-	}
+    private final DateTickUnitType    _u;
+    public final DateTickUnitType getUnitType ()
+    {
+        return _u;
+    }
 
-	public static final List<DateTickUnitTypeEnum>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final DateTickUnitTypeEnum fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    DateTickUnitTypeEnum (DateTickUnitType u)
+    {
+        _u = u;
+    }
 
-	public static final DateTickUnitTypeEnum fromUnitType (final DateTickUnitType u)
-	{
-		if (null == u)
-			return null;
+    public static final List<DateTickUnitTypeEnum>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final DateTickUnitTypeEnum fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-		for (final DateTickUnitTypeEnum v : VALUES)
-		{
-			if ((v != null) && u.equals(v.getUnitType()))
-				return v;
-		}
+    public static final DateTickUnitTypeEnum fromUnitType (final DateTickUnitType u)
+    {
+        if (null == u)
+            return null;
 
-		return null;
-	}
+        for (final DateTickUnitTypeEnum v : VALUES)
+        {
+            if ((v != null) && u.equals(v.getUnitType()))
+                return v;
+        }
+
+        return null;
+    }
 }

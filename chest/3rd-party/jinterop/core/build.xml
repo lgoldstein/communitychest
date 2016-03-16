@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-jinterop-core" default="build-jinterop-core" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds some helper J-Interop core classes $Rev: 561 $
-		</description>
+    <project name="build-jinterop-core" default="build-jinterop-core" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds some helper J-Interop core classes $Rev: 561 $
+        </description>
 
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<property name="module.base.target.name" value="jinterop-core"/>
-		<dirname property="jinterop.libs.root.dir" file="${module.root.folder}"/>
-		<property name="parent.root.dir" value="${jinterop.libs.root.dir}"/>
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <property name="module.base.target.name" value="jinterop-core"/>
+        <dirname property="jinterop.libs.root.dir" file="${module.root.folder}"/>
+        <property name="parent.root.dir" value="${jinterop.libs.root.dir}"/>
         <property name="default.classpath.ref.name" value="jinterop.core.helpers.path"/>
 
-		<import file="${jinterop.libs.root.dir}${file.separator}build-base.xml"/>
+        <import file="${jinterop.libs.root.dir}${file.separator}build-base.xml"/>
 
-        	<!-- define dependencies -->
-		<mvn:dependencies 	pathId="jinterop.core.dependencies.path" useScope="compile"
-							settingsFile="${maven.settings.file.path}"
-				>
+            <!-- define dependencies -->
+        <mvn:dependencies     pathId="jinterop.core.dependencies.path" useScope="compile"
+                            settingsFile="${maven.settings.file.path}"
+                >
             <localRepository path="${maven.local.repository.folder}" layout="default"/>
 
-			<dependency groupId="org.jinterop"
-						artifactId="j-interop"
-						version="${jinterop.core.jar.version}"
-						scope="compile"/>
-			<dependency groupId="org.jinterop"
-						artifactId="j-interopdeps"
-						version="${jinterop.deps.jar.version}"
-						scope="compile"/>
-			<dependency groupId="org.samba.jcifs"
-						artifactId="jcifs"
-						version="${jcifs.jar.version}"
-						scope="compile"/>
-		</mvn:dependencies>
+            <dependency groupId="org.jinterop"
+                        artifactId="j-interop"
+                        version="${jinterop.core.jar.version}"
+                        scope="compile"/>
+            <dependency groupId="org.jinterop"
+                        artifactId="j-interopdeps"
+                        version="${jinterop.deps.jar.version}"
+                        scope="compile"/>
+            <dependency groupId="org.samba.jcifs"
+                        artifactId="jcifs"
+                        version="${jcifs.jar.version}"
+                        scope="compile"/>
+        </mvn:dependencies>
 
         <path id="jinterop.core.helpers.path">
-        	<path refid="community.modules.jars"/>
-    		<path refid="jinterop.core.dependencies.path"/>
-		</path>
+            <path refid="community.modules.jars"/>
+            <path refid="jinterop.core.dependencies.path"/>
+        </path>
 
-		<target name="build-jinterop-core" depends="jar-jinterop-libs-module-files" description="Builds helper J-Interop core classes"/>
-		<target name="clean-jinterop-core" depends="clean-jinterop-libs-module-build" description="Cleans up helper J-Interop core classes and JAR"/>
-	</project>
+        <target name="build-jinterop-core" depends="jar-jinterop-libs-module-files" description="Builds helper J-Interop core classes"/>
+        <target name="clean-jinterop-core" depends="clean-jinterop-libs-module-build" description="Cleans up helper J-Interop core classes and JAR"/>
+    </project>

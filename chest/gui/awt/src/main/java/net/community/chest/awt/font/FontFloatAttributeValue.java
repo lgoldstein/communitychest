@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.font;
 
@@ -10,5 +10,5 @@ package net.community.chest.awt.font;
  * @since Jun 30, 2009 3:00:17 PM
  */
 public interface FontFloatAttributeValue {
-	Float getAttributeValue ();
+    Float getAttributeValue ();
 }

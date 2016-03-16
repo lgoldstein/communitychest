@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.format.pe;
 
@@ -88,7 +88,7 @@ public class DosHeaderStub
         for (int index=0; index < RESERVED_2_WORDS; index++) {
             e_res2[index] = DataFormatConverter.readUnsignedInt16(in);
         }
-        
+
         setExtendedHeaderOffset(DataFormatConverter.readUnsignedInt32(in));
         return this;
     }

@@ -6,13 +6,13 @@
  * @since Jun 15, 2009 12:56:28 PM
  */
 public final class NonImportableExample {
-	private NonImportableExample ()
-	{
-		// do nothing
-	}
+    private NonImportableExample ()
+    {
+        // do nothing
+    }
 
-	public static final void importMe ()
-	{
-		System.out.println("I was imported");
-	}
+    public static final void importMe ()
+    {
+        System.out.println("I was imported");
+    }
 }

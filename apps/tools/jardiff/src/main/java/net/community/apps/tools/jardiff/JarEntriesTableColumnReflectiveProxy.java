@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.jardiff;
 
@@ -12,10 +12,10 @@ import net.community.chest.ui.helpers.table.EnumTableColumnReflectiveProxy;
  *
  */
 public class JarEntriesTableColumnReflectiveProxy extends EnumTableColumnReflectiveProxy<JarEntriesTableColumns,JarEntriesTableColInfo> {
-	public JarEntriesTableColumnReflectiveProxy ()
-	{
-		super(JarEntriesTableColumns.class, JarEntriesTableColInfo.class, true);
-	}
+    public JarEntriesTableColumnReflectiveProxy ()
+    {
+        super(JarEntriesTableColumns.class, JarEntriesTableColInfo.class, true);
+    }
 
-	public static final JarEntriesTableColumnReflectiveProxy	DEFAULT=new JarEntriesTableColumnReflectiveProxy();
+    public static final JarEntriesTableColumnReflectiveProxy    DEFAULT=new JarEntriesTableColumnReflectiveProxy();
 }

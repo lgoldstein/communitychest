@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.svnkit.core.wc;
 
@@ -17,31 +17,31 @@ import org.tmatesoft.svn.core.wc.SVNInfo;
  *
  */
 public class SVNInfoCollection extends ArrayList<SVNInfo> implements ISVNInfoHandler {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7825144260277851890L;
-	public SVNInfoCollection ()
-	{
-		super();
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7825144260277851890L;
+    public SVNInfoCollection ()
+    {
+        super();
+    }
 
-	public SVNInfoCollection (Collection<? extends SVNInfo> c)
-	{
-		super(c);
-	}
+    public SVNInfoCollection (Collection<? extends SVNInfo> c)
+    {
+        super(c);
+    }
 
-	public SVNInfoCollection (int initialCapacity)
-	{
-		super(initialCapacity);
-	}
-	/*
-	 * @see org.tmatesoft.svn.core.wc.ISVNInfoHandler#handleInfo(org.tmatesoft.svn.core.wc.SVNInfo)
-	 */
-	@Override
-	public void handleInfo (SVNInfo info) throws SVNException
-	{
-		if ((info != null) && add(info))
-			return;
-	}
+    public SVNInfoCollection (int initialCapacity)
+    {
+        super(initialCapacity);
+    }
+    /*
+     * @see org.tmatesoft.svn.core.wc.ISVNInfoHandler#handleInfo(org.tmatesoft.svn.core.wc.SVNInfo)
+     */
+    @Override
+    public void handleInfo (SVNInfo info) throws SVNException
+    {
+        if ((info != null) && add(info))
+            return;
+    }
 }

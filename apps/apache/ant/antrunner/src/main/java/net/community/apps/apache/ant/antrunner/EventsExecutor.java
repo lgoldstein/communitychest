@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.apache.ant.antrunner;
 
@@ -12,8 +12,8 @@ import net.community.chest.apache.ant.build.EmbeddedHandlerLogger;
  * @since Jul 31, 2008 1:25:59 PM
  */
 public class EventsExecutor extends EmbeddedHandlerLogger {
-	public EventsExecutor ()
-	{
-		super(MainFrame.getBuildEventsHandler());
-	}
+    public EventsExecutor ()
+    {
+        super(MainFrame.getBuildEventsHandler());
+    }
 }

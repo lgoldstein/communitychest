@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.concurrent;
 
@@ -24,219 +24,219 @@ import org.junit.Test;
  * @since Oct 10, 2011 12:49:22 PM
  */
 public class BlockingSetTest extends AbstractTestSupport {
-	public BlockingSetTest ()
-	{
-		super();
-	}
-	/**
-	 * Makes sure that {@link BlockingSet#add(Object)} behaves like a set 
-	 */
-	@Test
-	public void testSetLikeBehavior ()
-	{
-		final BlockingSet<Integer>	blkSet=new BlockingSet<Integer>();
-		final Set<Integer>			valSet=new TreeSet<Integer>();
-		for (int	index=0; index < Byte.MAX_VALUE; index++)
-		{
-			final Integer	value=Integer.valueOf(RANDOMIZER.nextInt());
-			assertMatches("Mismatched insertion result on " + value, blkSet.add(value), valSet.add(value));
-			assertEquals("Mismatched sizes on insertion of " + value, blkSet.size(), valSet.size());
-		}
+    public BlockingSetTest ()
+    {
+        super();
+    }
+    /**
+     * Makes sure that {@link BlockingSet#add(Object)} behaves like a set
+     */
+    @Test
+    public void testSetLikeBehavior ()
+    {
+        final BlockingSet<Integer>    blkSet=new BlockingSet<Integer>();
+        final Set<Integer>            valSet=new TreeSet<Integer>();
+        for (int    index=0; index < Byte.MAX_VALUE; index++)
+        {
+            final Integer    value=Integer.valueOf(RANDOMIZER.nextInt());
+            assertMatches("Mismatched insertion result on " + value, blkSet.add(value), valSet.add(value));
+            assertEquals("Mismatched sizes on insertion of " + value, blkSet.size(), valSet.size());
+        }
 
-		for (final Integer value : valSet)
-		{
-			assertTrue("Value not found: " + value, blkSet.contains(value));
-			assertTrue("Failed to offer " + value, blkSet.offer(value));
-			assertEquals("Mismatched sizes on offer of " + value, blkSet.size(), valSet.size());
-		}
-		
-		assertTrue("Missing values", blkSet.containsAll(valSet));
-	}
+        for (final Integer value : valSet)
+        {
+            assertTrue("Value not found: " + value, blkSet.contains(value));
+            assertTrue("Failed to offer " + value, blkSet.offer(value));
+            assertEquals("Mismatched sizes on offer of " + value, blkSet.size(), valSet.size());
+        }
 
-	@Test
-	public void testPollingEmptySet () throws InterruptedException
-	{
-		final BlockingSet<Integer>	blkSet=new BlockingSet<Integer>();
-		assertNull("Unexpected initial polled value", blkSet.poll());
+        assertTrue("Missing values", blkSet.containsAll(valSet));
+    }
 
-		final long		waitTime=TimeUnit.MILLISECONDS.toNanos(107L + RANDOMIZER.nextInt(Byte.MAX_VALUE));
-		final long		waitStart=System.nanoTime();
-		final Object	result=blkSet.poll(waitTime, TimeUnit.NANOSECONDS);
-		final long		waitEnd=System.nanoTime(), nanoWait=waitEnd - waitStart;
+    @Test
+    public void testPollingEmptySet () throws InterruptedException
+    {
+        final BlockingSet<Integer>    blkSet=new BlockingSet<Integer>();
+        assertNull("Unexpected initial polled value", blkSet.poll());
 
-		assertNull("Unexpected result after " + nanoWait + " nanos: " + result, result);
-		assertTrue("Wait time too small: expected=" + waitTime + "/waited=" + nanoWait, nanoWait >= waitTime);
-		assertTrue("Wait time too big: expected=" + waitTime + "/waited=" + nanoWait,
-				   nanoWait < (waitTime + TimeUnit.MILLISECONDS.toNanos(100L)));
-	}
+        final long        waitTime=TimeUnit.MILLISECONDS.toNanos(107L + RANDOMIZER.nextInt(Byte.MAX_VALUE));
+        final long        waitStart=System.nanoTime();
+        final Object    result=blkSet.poll(waitTime, TimeUnit.NANOSECONDS);
+        final long        waitEnd=System.nanoTime(), nanoWait=waitEnd - waitStart;
 
-	@Test
-	public void testMultithreadedPoll () throws InterruptedException
-	{
-		final BlockingSet<Integer>	blkSet=new BlockingSet<Integer>();
-		final Set<Integer>			valSet=new TreeSet<Integer>();
-		{
-			int	numDuplicates=0;
-			for (int	index=0; index < Short.MAX_VALUE; index++)
-			{
-				// we generate duplicate values on purpose
-				final Integer	value=Integer.valueOf(RANDOMIZER.nextInt(Short.MAX_VALUE / Long.SIZE));
-				assertTrue("Failed to offer value=" + value, blkSet.offer(value));
-				if (!valSet.add(value))
-					numDuplicates++;
-			}
+        assertNull("Unexpected result after " + nanoWait + " nanos: " + result, result);
+        assertTrue("Wait time too small: expected=" + waitTime + "/waited=" + nanoWait, nanoWait >= waitTime);
+        assertTrue("Wait time too big: expected=" + waitTime + "/waited=" + nanoWait,
+                   nanoWait < (waitTime + TimeUnit.MILLISECONDS.toNanos(100L)));
+    }
 
-			assertTrue("No duplicates generated", numDuplicates > 0);
-		}
+    @Test
+    public void testMultithreadedPoll () throws InterruptedException
+    {
+        final BlockingSet<Integer>    blkSet=new BlockingSet<Integer>();
+        final Set<Integer>            valSet=new TreeSet<Integer>();
+        {
+            int    numDuplicates=0;
+            for (int    index=0; index < Short.MAX_VALUE; index++)
+            {
+                // we generate duplicate values on purpose
+                final Integer    value=Integer.valueOf(RANDOMIZER.nextInt(Short.MAX_VALUE / Long.SIZE));
+                assertTrue("Failed to offer value=" + value, blkSet.offer(value));
+                if (!valSet.add(value))
+                    numDuplicates++;
+            }
 
-		final Map<String,Set<Integer>>	valsMap=new TreeMap<String,Set<Integer>>(String.CASE_INSENSITIVE_ORDER);
-		final List<Thread> 				tList=startConsumerThreads(blkSet, valsMap);
-		_logger.info("Started consumers");
+            assertTrue("No duplicates generated", numDuplicates > 0);
+        }
 
-		waitForEmptySet(blkSet, valSet.size());
-		_logger.info("Set empty");
+        final Map<String,Set<Integer>>    valsMap=new TreeMap<String,Set<Integer>>(String.CASE_INSENSITIVE_ORDER);
+        final List<Thread>                 tList=startConsumerThreads(blkSet, valsMap);
+        _logger.info("Started consumers");
 
-		stopConsumerThreads(tList);
-		_logger.info("Stopped consumers");
+        waitForEmptySet(blkSet, valSet.size());
+        _logger.info("Set empty");
 
-		assertMultithreadedResults(valsMap, valSet);
-	}
+        stopConsumerThreads(tList);
+        _logger.info("Stopped consumers");
 
-	@Test
-	public void testPipelinedPoll () throws InterruptedException
-	{
-		final BlockingSet<Integer>		blkSet=new BlockingSet<Integer>();
-		final Map<String,Set<Integer>>	valsMap=new TreeMap<String,Set<Integer>>(String.CASE_INSENSITIVE_ORDER);
-		final List<Thread> 				tList=startConsumerThreads(blkSet, valsMap);
-		_logger.info("Started consumers");
+        assertMultithreadedResults(valsMap, valSet);
+    }
 
-		final Set<Integer>	valSet=new TreeSet<Integer>();
-		for (int	index=1; index <= Short.MAX_VALUE; index++)
-		{
-			// we generate duplicate values on purpose
-			final Integer	value=Integer.valueOf(RANDOMIZER.nextInt(Short.MAX_VALUE / Long.SIZE));
-			if (!valSet.add(value))
-				continue;
+    @Test
+    public void testPipelinedPoll () throws InterruptedException
+    {
+        final BlockingSet<Integer>        blkSet=new BlockingSet<Integer>();
+        final Map<String,Set<Integer>>    valsMap=new TreeMap<String,Set<Integer>>(String.CASE_INSENSITIVE_ORDER);
+        final List<Thread>                 tList=startConsumerThreads(blkSet, valsMap);
+        _logger.info("Started consumers");
 
-			final long		waitTime=1L + RANDOMIZER.nextInt(Byte.SIZE);
-			Thread.sleep(waitTime);
+        final Set<Integer>    valSet=new TreeSet<Integer>();
+        for (int    index=1; index <= Short.MAX_VALUE; index++)
+        {
+            // we generate duplicate values on purpose
+            final Integer    value=Integer.valueOf(RANDOMIZER.nextInt(Short.MAX_VALUE / Long.SIZE));
+            if (!valSet.add(value))
+                continue;
 
-			assertTrue("Failed to offer " + value, blkSet.offer(value));
-		}
+            final long        waitTime=1L + RANDOMIZER.nextInt(Byte.SIZE);
+            Thread.sleep(waitTime);
 
-		waitForEmptySet(blkSet, valSet.size());
-		_logger.info("Set empty");
+            assertTrue("Failed to offer " + value, blkSet.offer(value));
+        }
 
-		stopConsumerThreads(tList);
-		_logger.info("Stopped consumers");
+        waitForEmptySet(blkSet, valSet.size());
+        _logger.info("Set empty");
 
-		assertMultithreadedResults(valsMap, valSet);
-	}
+        stopConsumerThreads(tList);
+        _logger.info("Stopped consumers");
 
-	private List<Thread> startConsumerThreads (final BlockingSet<Integer>		blkSet,
-											   final Map<String,Set<Integer>>	valsMap)
-	{
-		final int			NUM_THREADS=Byte.SIZE;
-		final List<Thread> 	tList=new ArrayList<Thread>(NUM_THREADS);
-		for (int	index=0; index < NUM_THREADS; index++)
-		{
-			final String	name="tConsumer" + index;
-			assertNull("Multiple mappings for " + name, valsMap.put(name, new TreeSet<Integer>()));
+        assertMultithreadedResults(valsMap, valSet);
+    }
 
-			final Thread	t=new Thread(new Runnable() {
-					/*
-					 * @see java.lang.Runnable#run()
-					 */
-					@SuppressWarnings("synthetic-access")
-					@Override
-					public void run ()
-					{
-						final Thread		curThread=Thread.currentThread();
-						final String		tName=curThread.getName();
-						final Set<Integer>	tValues=valsMap.get(tName);
-						for (int	numValues=0; ; )
-						{
-							final long		waitTime=TimeUnit.MILLISECONDS.toNanos(1L + RANDOMIZER.nextInt(Long.SIZE));
-							try
-							{
-								final Integer	value=blkSet.poll(waitTime, TimeUnit.NANOSECONDS);
-								if (value == null)
-									continue;
+    private List<Thread> startConsumerThreads (final BlockingSet<Integer>        blkSet,
+                                               final Map<String,Set<Integer>>    valsMap)
+    {
+        final int            NUM_THREADS=Byte.SIZE;
+        final List<Thread>     tList=new ArrayList<Thread>(NUM_THREADS);
+        for (int    index=0; index < NUM_THREADS; index++)
+        {
+            final String    name="tConsumer" + index;
+            assertNull("Multiple mappings for " + name, valsMap.put(name, new TreeSet<Integer>()));
 
-								final boolean	result=tValues.add(value);
-								if (result)
-									numValues++;
+            final Thread    t=new Thread(new Runnable() {
+                    /*
+                     * @see java.lang.Runnable#run()
+                     */
+                    @SuppressWarnings("synthetic-access")
+                    @Override
+                    public void run ()
+                    {
+                        final Thread        curThread=Thread.currentThread();
+                        final String        tName=curThread.getName();
+                        final Set<Integer>    tValues=valsMap.get(tName);
+                        for (int    numValues=0; ; )
+                        {
+                            final long        waitTime=TimeUnit.MILLISECONDS.toNanos(1L + RANDOMIZER.nextInt(Long.SIZE));
+                            try
+                            {
+                                final Integer    value=blkSet.poll(waitTime, TimeUnit.NANOSECONDS);
+                                if (value == null)
+                                    continue;
 
-								if (_logger.isLoggable(Level.FINE))
-									_logger.fine("run(" + tName + ") process value=" + value + ": " + result);
-							}
-							catch(InterruptedException e)
-							{
-								_logger.info("Stopped after " + numValues + " distinct values");
-								curThread.interrupt();
-								break;
-							}
-						}
-					}
-				});
-			t.setName(name);
-			tList.add(t);
-			t.start();
-			
-			if (_logger.isLoggable(Level.FINE))
-				_logger.fine("Started " + name);
-		}
+                                final boolean    result=tValues.add(value);
+                                if (result)
+                                    numValues++;
 
-		return tList;
-	}
+                                if (_logger.isLoggable(Level.FINE))
+                                    _logger.fine("run(" + tName + ") process value=" + value + ": " + result);
+                            }
+                            catch(InterruptedException e)
+                            {
+                                _logger.info("Stopped after " + numValues + " distinct values");
+                                curThread.interrupt();
+                                break;
+                            }
+                        }
+                    }
+                });
+            t.setName(name);
+            tList.add(t);
+            t.start();
 
-	private void waitForEmptySet (final BlockingSet<?> blkSet, final int maxWaitLoop)
-			throws InterruptedException
-	{
-		for (int index=0; index < maxWaitLoop; index++)
-		{
-			if (blkSet.isEmpty())
-			{
-				if (_logger.isLoggable(Level.FINE))
-					_logger.fine("Set enmptied after " + index + " retries");
-				break;
-			}
+            if (_logger.isLoggable(Level.FINE))
+                _logger.fine("Started " + name);
+        }
 
-			Thread.sleep(Byte.MAX_VALUE);
-			if (index > 0)
-				_logger.info("Sleep " + index + " out of " + maxWaitLoop);
-		}
-	}
+        return tList;
+    }
 
-	private void stopConsumerThreads (final Collection<? extends Thread> tList)
-		throws InterruptedException
-	{
-		for (final Thread t : tList)
-		{
-			t.interrupt();
-			t.join(2 * Byte.MAX_VALUE);
-			if (t.isAlive())
-				_logger.warning("Thread still alive: " + t.getName());
-			else if (_logger.isLoggable(Level.FINE))
-				_logger.fine("Thread stopped: " + t.getName());
-		}
-	}
+    private void waitForEmptySet (final BlockingSet<?> blkSet, final int maxWaitLoop)
+            throws InterruptedException
+    {
+        for (int index=0; index < maxWaitLoop; index++)
+        {
+            if (blkSet.isEmpty())
+            {
+                if (_logger.isLoggable(Level.FINE))
+                    _logger.fine("Set enmptied after " + index + " retries");
+                break;
+            }
 
-	private void assertMultithreadedResults (final Map<String,? extends Collection<Integer>>	valsMap,
-											 final Collection<Integer>							valSet)
-	{
-		final Set<Integer>	procSet=new HashSet<Integer>(valSet.size());
-		for (final Map.Entry<String,? extends Collection<Integer>> valEntry : valsMap.entrySet())
-		{
-			final String				name=valEntry.getKey();
-			final Collection<Integer>	accVals=valEntry.getValue();
-			for (final Integer value : accVals)
-				assertFalse(name + ": duplicated value " + value, procSet.contains(value));
-			procSet.addAll(accVals);
-		}
+            Thread.sleep(Byte.MAX_VALUE);
+            if (index > 0)
+                _logger.info("Sleep " + index + " out of " + maxWaitLoop);
+        }
+    }
 
-		assertEquals("Mismatched processed values set", valSet.size(), procSet.size());
-		assertTrue("Not all values processed", procSet.containsAll(valSet));
-	}
+    private void stopConsumerThreads (final Collection<? extends Thread> tList)
+        throws InterruptedException
+    {
+        for (final Thread t : tList)
+        {
+            t.interrupt();
+            t.join(2 * Byte.MAX_VALUE);
+            if (t.isAlive())
+                _logger.warning("Thread still alive: " + t.getName());
+            else if (_logger.isLoggable(Level.FINE))
+                _logger.fine("Thread stopped: " + t.getName());
+        }
+    }
+
+    private void assertMultithreadedResults (final Map<String,? extends Collection<Integer>>    valsMap,
+                                             final Collection<Integer>                            valSet)
+    {
+        final Set<Integer>    procSet=new HashSet<Integer>(valSet.size());
+        for (final Map.Entry<String,? extends Collection<Integer>> valEntry : valsMap.entrySet())
+        {
+            final String                name=valEntry.getKey();
+            final Collection<Integer>    accVals=valEntry.getValue();
+            for (final Integer value : accVals)
+                assertFalse(name + ": duplicated value " + value, procSet.contains(value));
+            procSet.addAll(accVals);
+        }
+
+        assertEquals("Mismatched processed values set", valSet.size(), procSet.size());
+        assertTrue("Not all values processed", procSet.containsAll(valSet));
+    }
 
 }

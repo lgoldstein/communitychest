@@ -12,33 +12,33 @@ import net.community.chest.util.map.MapEntryImpl;
  * @since Aug 6, 2007 2:35:17 PM
  */
 public class StringMapEntry<V> extends MapEntryImpl<String,V> {
-	public StringMapEntry ()
-	{
-		super();
-	}
+    public StringMapEntry ()
+    {
+        super();
+    }
 
-	public StringMapEntry (Map.Entry<String,? extends V> e)
-	{
-		super(e);
-	}
+    public StringMapEntry (Map.Entry<String,? extends V> e)
+    {
+        super(e);
+    }
 
-	public StringMapEntry (String key, V value)
-	{
-		super(key, value);
-	}
+    public StringMapEntry (String key, V value)
+    {
+        super(key, value);
+    }
 
-	public StringMapEntry (String key)
-	{
-		super(key);
-	}
-	/*
-	 * @see net.community.chest.util.map.MapEntryImpl#isEmpty()
-	 */
-	@Override
-	public boolean isEmpty ()
-	{
-		final String	k=getKey();
-		final V			v=getValue();
-		return ((null == k) || (k.length() <= 0)) && (null == v);
-	}
+    public StringMapEntry (String key)
+    {
+        super(key);
+    }
+    /*
+     * @see net.community.chest.util.map.MapEntryImpl#isEmpty()
+     */
+    @Override
+    public boolean isEmpty ()
+    {
+        final String    k=getKey();
+        final V            v=getValue();
+        return ((null == k) || (k.length() <= 0)) && (null == v);
+    }
 }

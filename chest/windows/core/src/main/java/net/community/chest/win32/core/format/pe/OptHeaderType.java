@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.format.pe;
 
@@ -20,11 +20,11 @@ public enum OptHeaderType {
     public final short getMagicValue() {
         return _magicValue;
     }
-    
+
     OptHeaderType(short magicValue) {
         _magicValue = magicValue;
     }
-    
+
     public static final Set<OptHeaderType>  VALUES=
             Collections.unmodifiableSet(EnumSet.allOf(OptHeaderType.class));
     public static final OptHeaderType fromMagicNumber(short magicValue) {
@@ -33,7 +33,7 @@ public enum OptHeaderType {
                 return type;
             }
         }
-        
+
         return null;
     }
 }

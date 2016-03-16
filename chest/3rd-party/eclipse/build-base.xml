@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="eclipse-libs-base" default="eclipse-libs-base" xmlns:mvn="antlib:org.eclipse.maven.artifact.ant">
-		<description>
-			Serves as 'base' inclusion file with common definitions for the CHEST
-			eclipse helper JAR(s) sub-project(s) $Rev: 561 $
-		</description>
+    <project name="eclipse-libs-base" default="eclipse-libs-base" xmlns:mvn="antlib:org.eclipse.maven.artifact.ant">
+        <description>
+            Serves as 'base' inclusion file with common definitions for the CHEST
+            eclipse helper JAR(s) sub-project(s) $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="eclipse.libs.root.dir" file="${ant.file}"/>
+            <!-- Preamble definitions -->
+        <dirname property="eclipse.libs.root.dir" file="${ant.file}"/>
         <dirname property="3rd.party.root.dir" file="${eclipse.libs.root.dir}"/>
-		<property name="parent.root.dir" value="${3rd.party.root.dir}"/>
-		<property name="module.root.folder" value="${eclipse.libs.root.dir}"/>
-		<basename property="module.base.target.name" file="${eclipse.libs.root.dir}"/>
+        <property name="parent.root.dir" value="${3rd.party.root.dir}"/>
+        <property name="module.root.folder" value="${eclipse.libs.root.dir}"/>
+        <basename property="module.base.target.name" file="${eclipse.libs.root.dir}"/>
 
-		<import file="${3rd.party.root.dir}${file.separator}build-base.xml"/>
+        <import file="${3rd.party.root.dir}${file.separator}build-base.xml"/>
 
-		<target name="eclipse-libs-base" depends="3rd-party-base" unless="skip.eclipse.libs.base.target">
-			<property name="skip.eclipse.libs.base.target" value="true"/>
-		</target>
+        <target name="eclipse-libs-base" depends="3rd-party-base" unless="skip.eclipse.libs.base.target">
+            <property name="skip.eclipse.libs.base.target" value="true"/>
+        </target>
 
-			<!-- Default target(s) from which modules should derive their own -->
-		<target name="jar-eclipse-libs-module-files" depends="eclipse-libs-base,jar-3rd-party-module-files"/>
-		<target name="clean-eclipse-libs-module-build" depends="eclipse-libs-base,clean-3rd-party-module-build"/>
-	</project>
+            <!-- Default target(s) from which modules should derive their own -->
+        <target name="jar-eclipse-libs-module-files" depends="eclipse-libs-base,jar-3rd-party-module-files"/>
+        <target name="clean-eclipse-libs-module-build" depends="eclipse-libs-base,clean-3rd-party-module-build"/>
+    </project>

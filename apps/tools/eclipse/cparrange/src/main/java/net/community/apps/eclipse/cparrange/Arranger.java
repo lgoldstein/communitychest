@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package net.community.apps.eclipse.cparrange;
 
@@ -19,29 +19,29 @@ import org.w3c.dom.Element;
  * @since Aug 12, 2008 10:29:28 AM
  */
 public class Arranger extends ClasspathFileTransformer {
-	public Arranger ()
-	{
-		super();
-	}
-	/*
-	 * @see net.community.chest.eclipse.classpath.ClasspathFileTransformer#getClasspathEntryComparator()
-	 */
-	@Override
-	public Comparator<? super Element> getClasspathEntryComparator ()
-	{
-		return EntriesComparator.DEFAULT;
-	}
+    public Arranger ()
+    {
+        super();
+    }
+    /*
+     * @see net.community.chest.eclipse.classpath.ClasspathFileTransformer#getClasspathEntryComparator()
+     */
+    @Override
+    public Comparator<? super Element> getClasspathEntryComparator ()
+    {
+        return EntriesComparator.DEFAULT;
+    }
 
-	public final URL getDefaultIcon ()
-	{
-		final Class<?>	c=getClass();
-		final String	cn=(null == c) ? null : c.getSimpleName();
-		if ((null == cn) || (cn.length() <= 0))
-			return null;
+    public final URL getDefaultIcon ()
+    {
+        final Class<?>    c=getClass();
+        final String    cn=(null == c) ? null : c.getSimpleName();
+        if ((null == cn) || (cn.length() <= 0))
+            return null;
 
-		final String	fn=FileUtil.adjustFileName(cn, AbstractImageReader.PNG_SUFFIX);
-		return c.getResource(fn);
-	}
+        final String    fn=FileUtil.adjustFileName(cn, AbstractImageReader.PNG_SUFFIX);
+        return c.getResource(fn);
+    }
 
-	public static final Arranger	ARRANGER=new Arranger();
+    public static final Arranger    ARRANGER=new Arranger();
 }

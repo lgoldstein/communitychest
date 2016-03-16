@@ -10,10 +10,10 @@ import java.util.jar.JarEntry;
  * @since Oct 21, 2007 8:47:17 AM
  */
 public interface JarEntryHandler {
-	/**
-	 * @param je The {@link JarEntry} to be handled
-	 * @return Zero to keep enumerating the entries, positive to stop
-	 * enumeration (no error), negative - error + stop enumeration
-	 */
-	int handleJAREntry (JarEntry je);
+    /**
+     * @param je The {@link JarEntry} to be handled
+     * @return Zero to keep enumerating the entries, positive to stop
+     * enumeration (no error), negative - error + stop enumeration
+     */
+    int handleJAREntry (JarEntry je);
 }

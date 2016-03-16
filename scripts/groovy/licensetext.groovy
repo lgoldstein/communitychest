@@ -321,7 +321,8 @@ static Path resolvePathSpecification(String path) {
 
 	Path p = Paths.get(path)
 	p = p.normalize()
-	return p.toAbsolutePath()
+	p = p.toAbsolutePath()
+	return p.toRealPath()
 }
 
 static String stripQuotes(String v) {

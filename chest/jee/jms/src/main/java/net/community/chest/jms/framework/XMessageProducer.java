@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jms.framework;
 
@@ -14,7 +14,7 @@ import javax.jms.MessageProducer;
  * @since Jun 8, 2010 1:55:57 PM
  */
 public interface XMessageProducer extends MessageProducer {
-	void setDestination (Destination dst) throws JMSException;
-	boolean isDisableMessageID () throws JMSException;
-	boolean isDisableMessageTimestamp () throws JMSException;
+    void setDestination (Destination dst) throws JMSException;
+    boolean isDisableMessageID () throws JMSException;
+    boolean isDisableMessageTimestamp () throws JMSException;
 }

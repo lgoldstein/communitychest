@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.apache.ant.helpers;
 
@@ -21,37 +21,37 @@ import org.apache.tools.ant.types.FileSet;
  * @since Jul 9, 2009 10:18:11 AM
  */
 public abstract class AbstractFilesInputTask<V> extends ExtendedTask {
-	protected AbstractFilesInputTask ()
-	{
-		super();
-	}
-	/**
-	 * Source filesets vector
-	 */
-	private final Vector<FileSet> _filesets=new Vector<FileSet>();
-	public Vector<FileSet> getFilesets ()
-	{
-		return _filesets;
-	}
-	/**
-	 * (Single) source file
-	 */
-	private File	_file	/* =null */;
-	public File getFile ()
-	{
-		return _file;
-	}
+    protected AbstractFilesInputTask ()
+    {
+        super();
+    }
+    /**
+     * Source filesets vector
+     */
+    private final Vector<FileSet> _filesets=new Vector<FileSet>();
+    public Vector<FileSet> getFilesets ()
+    {
+        return _filesets;
+    }
+    /**
+     * (Single) source file
+     */
+    private File    _file    /* =null */;
+    public File getFile ()
+    {
+        return _file;
+    }
 
-	public void setFile (final File srcFile) throws BuildException
-	{
-		final Vector<FileSet>	filesets=getFilesets();
-		final int				numFilesets=
-			(null == filesets) ? 0 : filesets.size();
+    public void setFile (final File srcFile) throws BuildException
+    {
+        final Vector<FileSet>    filesets=getFilesets();
+        final int                numFilesets=
+            (null == filesets) ? 0 : filesets.size();
         if (numFilesets > 0)
-        	throw new BuildException("Cannot specify 'srcfile' and 'fileset' in same task", getLocation());
+            throw new BuildException("Cannot specify 'srcfile' and 'fileset' in same task", getLocation());
 
         _file = srcFile;
-	}
+    }
     /**
      * Adds a set of files.
      * @param set set of files to be added
@@ -59,8 +59,8 @@ public abstract class AbstractFilesInputTask<V> extends ExtendedTask {
      */
     public void addFileset (final FileSet set) throws BuildException
     {
-    	if (getFile() != null)
-        	throw new BuildException("Cannot specify 'srcfile' and 'fileset' in same task", getLocation());
+        if (getFile() != null)
+            throw new BuildException("Cannot specify 'srcfile' and 'fileset' in same task", getLocation());
         _filesets.addElement(set);
     }
     /**
@@ -70,9 +70,9 @@ public abstract class AbstractFilesInputTask<V> extends ExtendedTask {
     public void setVerbose (final boolean verbose)
     {
         if (verbose)
-        	setVerbosity(Project.MSG_INFO);
+            setVerbosity(Project.MSG_INFO);
         else
-        	setVerbosity(Project.MSG_VERBOSE);
+            setVerbosity(Project.MSG_VERBOSE);
     }
     /**
      * @param inFile input {@link File} to be processed
@@ -90,29 +90,29 @@ public abstract class AbstractFilesInputTask<V> extends ExtendedTask {
      */
     protected V processFileSets (final Collection<? extends FileSet> filesets) throws BuildException
     {
-        final int	numFilesets=(null == filesets) ? 0 : filesets.size();
-        if (numFilesets <= 0)	// some fileset(s) MUST be specified
+        final int    numFilesets=(null == filesets) ? 0 : filesets.size();
+        if (numFilesets <= 0)    // some fileset(s) MUST be specified
             throw new BuildException("no filesets specified", getLocation());
 
-        V	ret=null;
+        V    ret=null;
         for (final FileSet fs : filesets)
         {
             if (null == fs)
-                continue;	// should not happen
+                continue;    // should not happen
 
-            final FileScanner	scanner=fs.getDirectoryScanner(getProject());
-            final String[]		files=(null == scanner) ? null : scanner.getIncludedFiles();
-            final int			numFiles=(null == files) ? 0 : files.length;
+            final FileScanner    scanner=fs.getDirectoryScanner(getProject());
+            final String[]        files=(null == scanner) ? null : scanner.getIncludedFiles();
+            final int            numFiles=(null == files) ? 0 : files.length;
             if (numFiles <= 0)
-            	continue;	// OK if no files in file set
+                continue;    // OK if no files in file set
 
-            final File	baseDir=scanner.getBasedir();
-            for (final String	fileName : files)
+            final File    baseDir=scanner.getBasedir();
+            for (final String    fileName : files)
             {
                 if ((null == fileName) || (fileName.length() <= 0))
-                    continue;	// should not happen
+                    continue;    // should not happen
 
-                final File	inFile=new File(baseDir, fileName);
+                final File    inFile=new File(baseDir, fileName);
                 ret = processSingleFile(inFile);
             }
         }
@@ -122,15 +122,15 @@ public abstract class AbstractFilesInputTask<V> extends ExtendedTask {
 
     protected V executeProcessing () throws BuildException
     {
-		final File	srcFile=getFile();
-		return 	(null == srcFile) ? processFileSets(getFilesets()) : processSingleFile(srcFile);
+        final File    srcFile=getFile();
+        return     (null == srcFile) ? processFileSets(getFilesets()) : processSingleFile(srcFile);
     }
-	/*
-	 * @see org.apache.tools.ant.Task#execute()
-	 */
-	@Override
-	public void execute () throws BuildException
-	{
-		executeProcessing();
-	}
+    /*
+     * @see org.apache.tools.ant.Task#execute()
+     */
+    @Override
+    public void execute () throws BuildException
+    {
+        executeProcessing();
+    }
 }

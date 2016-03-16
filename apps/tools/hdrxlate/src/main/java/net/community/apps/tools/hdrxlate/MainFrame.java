@@ -28,146 +28,146 @@ import org.w3c.dom.Element;
  * @since Aug 22, 2007 12:29:00 PM
  */
 final class MainFrame extends HelperFrame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8458857147165080083L;
-	public static final int			MIN_WIDTH=150, MIN_HEIGHT=120, MAX_HEIGHT=150;
-    public static final Dimension	DEFAULT_INITIAL_SIZE=new Dimension(400, MAX_HEIGHT);
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8458857147165080083L;
+    public static final int            MIN_WIDTH=150, MIN_HEIGHT=120, MAX_HEIGHT=150;
+    public static final Dimension    DEFAULT_INITIAL_SIZE=new Dimension(400, MAX_HEIGHT);
 
     protected Dimension getInitialSize ()
     {
-    	return DEFAULT_INITIAL_SIZE;
+        return DEFAULT_INITIAL_SIZE;
     }
 
-    public static final Insets	COMMON_INSETS=new Insets(5,5,5,5);
+    public static final Insets    COMMON_INSETS=new Insets(5,5,5,5);
 
-    private JTextField	_encField	/* =null */;
+    private JTextField    _encField    /* =null */;
     protected void encodeHeader ()
     {
-    	try
-    	{
-	    	final String	decText=(null == _decField) /* should not happen */ ? null : _decField.getText(),
-	    					encText=RFCHeaderDefinitions.encodeHdrValue(decText, null);
-	    	if (_encField != null)	// should not be otherwise
-	    		_encField.setText(encText);
-    	}
-    	catch(Exception e)
-    	{
-    		JOptionPane.showMessageDialog(this, e.getClass().getName() + ": " + e.getMessage(), "Encoding failed", JOptionPane.ERROR_MESSAGE);
-    	}
+        try
+        {
+            final String    decText=(null == _decField) /* should not happen */ ? null : _decField.getText(),
+                            encText=RFCHeaderDefinitions.encodeHdrValue(decText, null);
+            if (_encField != null)    // should not be otherwise
+                _encField.setText(encText);
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, e.getClass().getName() + ": " + e.getMessage(), "Encoding failed", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private final LRFieldWithButtonPanel getFieldWithButtonPanel (final String btnName, final ActionListener l)
     {
-    	final LRFieldWithButtonPanel	p=new LRFieldWithButtonPanel();
-    	final JButton					b=p.getButton();
-    	b.setText(btnName);
-    	b.addActionListener(l);
-   
-    	final JTextField	f=p.getTextField();
-    	f.addActionListener(l);
-    	return p;
+        final LRFieldWithButtonPanel    p=new LRFieldWithButtonPanel();
+        final JButton                    b=p.getButton();
+        b.setText(btnName);
+        b.addActionListener(l);
+
+        final JTextField    f=p.getTextField();
+        f.addActionListener(l);
+        return p;
     }
 
     private final JPanel getEncodePanel ()
     {
-    	final LRFieldWithButtonPanel	p=getFieldWithButtonPanel("Decode", new ActionListener() {
-				/*
-				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-				 */
-				@Override
-				public void actionPerformed (ActionEvent e)
-				{
-					decodeHeader();
-				}
-			});
+        final LRFieldWithButtonPanel    p=getFieldWithButtonPanel("Decode", new ActionListener() {
+                /*
+                 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+                 */
+                @Override
+                public void actionPerformed (ActionEvent e)
+                {
+                    decodeHeader();
+                }
+            });
 
-    	_encField = p.getTextField();
-    	return p;
+        _encField = p.getTextField();
+        return p;
     }
 
-    private JTextField	_decField	/* =null */;
+    private JTextField    _decField    /* =null */;
     protected void decodeHeader ()
     {
-    	try
-    	{
-	    	final String	encText=(null == _encField) /* should not happen */ ? null : _encField.getText(),
-	    					decText=RFCHeaderDefinitions.decodeHdrValue(encText, true);
-	    	if (_decField != null)	// should not be otherwise
-	    		_decField.setText(decText);
-    	}
-    	catch(Exception e)
-    	{
-    		JOptionPane.showMessageDialog(this, e.getClass().getName() + ": " + e.getMessage(), "Decoding failed", JOptionPane.ERROR_MESSAGE);
-    	}
+        try
+        {
+            final String    encText=(null == _encField) /* should not happen */ ? null : _encField.getText(),
+                            decText=RFCHeaderDefinitions.decodeHdrValue(encText, true);
+            if (_decField != null)    // should not be otherwise
+                _decField.setText(decText);
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, e.getClass().getName() + ": " + e.getMessage(), "Decoding failed", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private final JPanel getDecodePanel ()
     {
-    	final LRFieldWithButtonPanel	p=getFieldWithButtonPanel("Encode", new ActionListener() {
-				/*
-				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-				 */
-				@Override
-				public void actionPerformed (ActionEvent e)
-				{
-					encodeHeader();
-				}
-			});
+        final LRFieldWithButtonPanel    p=getFieldWithButtonPanel("Encode", new ActionListener() {
+                /*
+                 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+                 */
+                @Override
+                public void actionPerformed (ActionEvent e)
+                {
+                    encodeHeader();
+                }
+            });
 
-    	_decField = p.getTextField();
-    	return p;
+        _decField = p.getTextField();
+        return p;
     }
     /**
      * Default title of the application
      */
-    public static final String	DEFAULT_TITLE="Headers translator";
+    public static final String    DEFAULT_TITLE="Headers translator";
 
     protected void limitResizing ()
     {
-		final Dimension	d=AWTUtils.checkDimensions(this, MIN_WIDTH, (-1), MIN_HEIGHT, MAX_HEIGHT);
-		if (d != null)
-			setSize(d);
+        final Dimension    d=AWTUtils.checkDimensions(this, MIN_WIDTH, (-1), MIN_HEIGHT, MAX_HEIGHT);
+        if (d != null)
+            setSize(d);
     }
     /*
-	 * @see net.community.chest.ui.helpers.frame.HelperFrame#layoutComponent(org.w3c.dom.Element)
-	 */
-	@Override
-	public void layoutComponent (Element elem) throws RuntimeException
-	{
-		super.layoutComponent(elem);
+     * @see net.community.chest.ui.helpers.frame.HelperFrame#layoutComponent(org.w3c.dom.Element)
+     */
+    @Override
+    public void layoutComponent (Element elem) throws RuntimeException
+    {
+        super.layoutComponent(elem);
 
-		final Container	ctPane=getContentPane();
-		ctPane.setLayout(new GridLayout(3, 1, 5, 5));
-		// close the application if frame closed
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		// make the frame appear in mid-screen by default
-		setLocationRelativeTo(null);
+        final Container    ctPane=getContentPane();
+        ctPane.setLayout(new GridLayout(3, 1, 5, 5));
+        // close the application if frame closed
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        // make the frame appear in mid-screen by default
+        setLocationRelativeTo(null);
 
-		// give some initial size information
-		final Dimension	dim=getInitialSize();
-		setPreferredSize(dim);
-		setSize(dim);
+        // give some initial size information
+        final Dimension    dim=getInitialSize();
+        setPreferredSize(dim);
+        setSize(dim);
 
-		ctPane.add(getEncodePanel());
-		ctPane.add(getDecodePanel());
+        ctPane.add(getEncodePanel());
+        ctPane.add(getDecodePanel());
 
-		addComponentListener(new ComponentAdapter() {
-				/*
-				 * @see java.awt.event.ComponentAdapter#componentResized(java.awt.event.ComponentEvent)
-				 */
-				@Override
-				public void componentResized (ComponentEvent e)
-				{
-					if (e != null)
-						limitResizing();
-				}
-			});
-	}
+        addComponentListener(new ComponentAdapter() {
+                /*
+                 * @see java.awt.event.ComponentAdapter#componentResized(java.awt.event.ComponentEvent)
+                 */
+                @Override
+                public void componentResized (ComponentEvent e)
+                {
+                    if (e != null)
+                        limitResizing();
+                }
+            });
+    }
 
-	MainFrame ()
-	{
-		super(DEFAULT_TITLE);
-	}
+    MainFrame ()
+    {
+        super(DEFAULT_TITLE);
+    }
 }

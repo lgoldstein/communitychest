@@ -1,39 +1,39 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-			     http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<groupId>net.community.chest.net</groupId>
-		<artifactId>parent</artifactId>
-		<version>1.8.1.0</version>
-		<relativePath>../pom.xml</relativePath>
-	</parent>
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>net.community.chest.net</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.8.1.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>chest-net-common</artifactId>
-	<packaging>jar</packaging>
-	<name>Networking Common Utilities</name>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>chest-net-common</artifactId>
+    <packaging>jar</packaging>
+    <name>Networking Common Utilities</name>
 
-	<dependencies>
-		<dependency>
-			<groupId>net.community.chest.base-utils</groupId>
-			<artifactId>chest-jdk</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.community.chest.base-utils</groupId>
-			<artifactId>chest-io</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.community.chest.base-utils</groupId>
-			<artifactId>chest-mail</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.community.chest.base-utils</groupId>
-			<artifactId>chest-jdk</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>net.community.chest.base-utils</groupId>
+            <artifactId>chest-jdk</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.community.chest.base-utils</groupId>
+            <artifactId>chest-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.community.chest.base-utils</groupId>
+            <artifactId>chest-mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.community.chest.base-utils</groupId>
+            <artifactId>chest-jdk</artifactId>
            <version>${project.version}</version>
-			<type>test-jar</type>
-			<scope>test</scope>
+            <type>test-jar</type>
+            <scope>test</scope>
        </dependency>
-	</dependencies>
+    </dependencies>
 </project>

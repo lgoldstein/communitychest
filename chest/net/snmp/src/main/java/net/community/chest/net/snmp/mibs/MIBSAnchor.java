@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.net.snmp.mibs;
 
@@ -11,8 +11,8 @@ package net.community.chest.net.snmp.mibs;
  * @since May 26, 2009 10:55:41 AM
  */
 public final class MIBSAnchor {
-	private MIBSAnchor ()
-	{
-		// no instance
-	}
+    private MIBSAnchor ()
+    {
+        // no instance
+    }
 }

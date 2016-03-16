@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.filesync;
 
@@ -17,13 +17,13 @@ import net.community.chest.util.collection.CollectionsUtils;
  * @since Apr 5, 2009 12:02:50 PM
  */
 public enum SyncAction {
-	ADD,
-	REMOVE,
-	UPDATE;
+    ADD,
+    REMOVE,
+    UPDATE;
 
-	public static final List<SyncAction>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final SyncAction fromString (String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<SyncAction>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final SyncAction fromString (String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 }

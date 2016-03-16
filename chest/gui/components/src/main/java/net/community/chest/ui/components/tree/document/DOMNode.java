@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ui.components.tree.document;
 
@@ -16,49 +16,49 @@ import net.community.chest.ui.helpers.tree.TypedTreeNode;
  * @since Jan 5, 2009 2:42:15 PM
  */
 public class DOMNode<N extends Node> extends TypedTreeNode<N> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3362436807268832853L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3362436807268832853L;
 
-	public DOMNode (Class<N> nodeClass, N nodeObject, String nodeText, boolean withChildren)
-	{
-		super(nodeClass, nodeObject, nodeText, withChildren);
-	}
+    public DOMNode (Class<N> nodeClass, N nodeObject, String nodeText, boolean withChildren)
+    {
+        super(nodeClass, nodeObject, nodeText, withChildren);
+    }
 
-	public DOMNode (Class<N> nodeClass, N nodeObject, boolean withChildren)
-	{
-		this(nodeClass, nodeObject, null, withChildren);
-	}
+    public DOMNode (Class<N> nodeClass, N nodeObject, boolean withChildren)
+    {
+        this(nodeClass, nodeObject, null, withChildren);
+    }
 
-	public DOMNode (Class<N> nodeClass, N nodeObject, String nodeText)
-	{
-		this(nodeClass, nodeObject, nodeText, true);
-	}
+    public DOMNode (Class<N> nodeClass, N nodeObject, String nodeText)
+    {
+        this(nodeClass, nodeObject, nodeText, true);
+    }
 
-	public DOMNode (Class<N> nodeClass, N nodeObject)
-	{
-		this(nodeClass, nodeObject, null);
-	}
+    public DOMNode (Class<N> nodeClass, N nodeObject)
+    {
+        this(nodeClass, nodeObject, null);
+    }
 
-	public DOMNode (Class<N> nodeClass)
-	{
-		this(nodeClass, null);
-	}
-	/*
-	 * @see net.community.chest.ui.helpers.tree.TypedTreeNode#getNodeText(java.lang.Object)
-	 */
-	@Override
-	public String getNodeText (N nodeObject)
-	{
-		if (nodeObject != null)
-			return nodeObject.getNodeName();
+    public DOMNode (Class<N> nodeClass)
+    {
+        this(nodeClass, null);
+    }
+    /*
+     * @see net.community.chest.ui.helpers.tree.TypedTreeNode#getNodeText(java.lang.Object)
+     */
+    @Override
+    public String getNodeText (N nodeObject)
+    {
+        if (nodeObject != null)
+            return nodeObject.getNodeName();
 
-		return super.getNodeText(nodeObject);
-	}
+        return super.getNodeText(nodeObject);
+    }
 
-	public NodeTypeEnum getNodeType ()
-	{
-		return NodeTypeEnum.fromNode(getAssignedValue());
-	}
+    public NodeTypeEnum getNodeType ()
+    {
+        return NodeTypeEnum.fromNode(getAssignedValue());
+    }
 }

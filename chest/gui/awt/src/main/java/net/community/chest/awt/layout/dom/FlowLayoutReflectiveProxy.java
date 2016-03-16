@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.layout.dom;
 
@@ -16,25 +16,25 @@ import net.community.chest.convert.ValueStringInstantiator;
  * @since Aug 20, 2008 1:20:59 PM
  */
 public class FlowLayoutReflectiveProxy<L extends FlowLayout> extends AbstractLayoutManagerReflectiveProxy<L> {
-	public FlowLayoutReflectiveProxy (Class<L> objClass) throws IllegalArgumentException
-	{
-		super(objClass);
-	}
-	// special handling
-	public static final String	ALIGNMENT_ATTR="alignment";
-	/*
-	 * @see net.community.chest.awt.dom.UIReflectiveAttributesProxy#resolveAttributeInstantiator(java.lang.String, java.lang.Class)
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	protected <C> ValueStringInstantiator<C> resolveAttributeInstantiator (String name, Class<C> type) throws Exception
-	{
-		if (ALIGNMENT_ATTR.equalsIgnoreCase(name))
-			return (ValueStringInstantiator<C>) FlowLayoutAlignmentValueStringInstantiator.DEFAULT;
+    public FlowLayoutReflectiveProxy (Class<L> objClass) throws IllegalArgumentException
+    {
+        super(objClass);
+    }
+    // special handling
+    public static final String    ALIGNMENT_ATTR="alignment";
+    /*
+     * @see net.community.chest.awt.dom.UIReflectiveAttributesProxy#resolveAttributeInstantiator(java.lang.String, java.lang.Class)
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    protected <C> ValueStringInstantiator<C> resolveAttributeInstantiator (String name, Class<C> type) throws Exception
+    {
+        if (ALIGNMENT_ATTR.equalsIgnoreCase(name))
+            return (ValueStringInstantiator<C>) FlowLayoutAlignmentValueStringInstantiator.DEFAULT;
 
-		return super.resolveAttributeInstantiator(name, type);
-	}
+        return super.resolveAttributeInstantiator(name, type);
+    }
 
-	public static final  FlowLayoutReflectiveProxy<FlowLayout>	FLOW=
-				new FlowLayoutReflectiveProxy<FlowLayout>(FlowLayout.class);
+    public static final  FlowLayoutReflectiveProxy<FlowLayout>    FLOW=
+                new FlowLayoutReflectiveProxy<FlowLayout>(FlowLayout.class);
 }

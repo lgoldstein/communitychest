@@ -1,6 +1,6 @@
 /*
- * @(#)ErrorResponseException.java	1.6 05/11/17
- * 
+ * @(#)ErrorResponseException.java    1.6 05/11/17
+ *
  * Copyright (c) 2006 Sun Microsystems, Inc. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,28 +44,28 @@ import jnlp.sample.servlet.download.DownloadResponse;
  */
 public class ErrorResponseException extends Exception {
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 4629125031550381380L;
-	private final DownloadResponse _downloadResponse;
-    
+     *
+     */
+    private static final long serialVersionUID = 4629125031550381380L;
+    private final DownloadResponse _downloadResponse;
+
     public ErrorResponseException (DownloadResponse downloadResponse)
     {
-    	_downloadResponse = downloadResponse;
+        _downloadResponse = downloadResponse;
     }
-    
+
     public DownloadResponse getDownloadResponse ()
-    { 
-    	return _downloadResponse;
-    }        
+    {
+        return _downloadResponse;
+    }
     /*
      * @see java.lang.Throwable#toString()
      */
     @Override
-	public String toString()
+    public String toString()
     {
-    	final DownloadResponse	resp=getDownloadResponse();	
-    	return (null == resp) ? "" : resp.toString();
+        final DownloadResponse    resp=getDownloadResponse();
+        return (null == resp) ? "" : resp.toString();
     }
 }
 

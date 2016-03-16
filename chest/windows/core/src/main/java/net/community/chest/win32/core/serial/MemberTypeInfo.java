@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.serial;
 
@@ -25,126 +25,126 @@ import net.community.chest.util.collection.CollectionsUtils;
  *
  */
 public class MemberTypeInfo extends LogHelper
-		implements Serializable,
-				   PubliclyCloneable<MemberTypeInfo>,
-				   ElementEncoder<MemberTypeInfo> {
-	private static final long serialVersionUID = -6970826405803910729L;
+        implements Serializable,
+                   PubliclyCloneable<MemberTypeInfo>,
+                   ElementEncoder<MemberTypeInfo> {
+    private static final long serialVersionUID = -6970826405803910729L;
 
-	private List<BinaryTypeEnumeration>	_memberTypes;
-	private List<Object> _additionalInfos;
+    private List<BinaryTypeEnumeration>    _memberTypes;
+    private List<Object> _additionalInfos;
 
-	public MemberTypeInfo (BinaryTypeEnumeration... /* order is important + may have duplicates */ memberTypes)
-	{
-		this((ArraysUtils.length(memberTypes) <= 0) ? null : Arrays.asList(memberTypes));
-	}
+    public MemberTypeInfo (BinaryTypeEnumeration... /* order is important + may have duplicates */ memberTypes)
+    {
+        this((ArraysUtils.length(memberTypes) <= 0) ? null : Arrays.asList(memberTypes));
+    }
 
-	public MemberTypeInfo (List<BinaryTypeEnumeration> /* order is important + may have duplicates */ memberTypes)
-	{
-		_memberTypes = memberTypes;
-	}
+    public MemberTypeInfo (List<BinaryTypeEnumeration> /* order is important + may have duplicates */ memberTypes)
+    {
+        _memberTypes = memberTypes;
+    }
 
-	public MemberTypeInfo (int numMembers, InputStream in) throws IOException
-	{
-		Object	result=read(numMembers, in);
-		if (result != this)
-			throw new StreamCorruptedException("Mismatched read data instance");
-	}
+    public MemberTypeInfo (int numMembers, InputStream in) throws IOException
+    {
+        Object    result=read(numMembers, in);
+        if (result != this)
+            throw new StreamCorruptedException("Mismatched read data instance");
+    }
 
-	public List<BinaryTypeEnumeration> getMemberTypes ()
-	{
-		return _memberTypes;
-	}
+    public List<BinaryTypeEnumeration> getMemberTypes ()
+    {
+        return _memberTypes;
+    }
 
-	public void setMemberTypes (List<BinaryTypeEnumeration> memberTypes)
-	{
-		_memberTypes = memberTypes;
-	}
+    public void setMemberTypes (List<BinaryTypeEnumeration> memberTypes)
+    {
+        _memberTypes = memberTypes;
+    }
 
-	public List<Object> getAdditionalInfos ()
-	{
-		return _additionalInfos;
-	}
+    public List<Object> getAdditionalInfos ()
+    {
+        return _additionalInfos;
+    }
 
-	public void setAdditionalInfos (List<Object> additionalInfos)
-	{
-		_additionalInfos = additionalInfos;
-	}
+    public void setAdditionalInfos (List<Object> additionalInfos)
+    {
+        _additionalInfos = additionalInfos;
+    }
 
-	@Override
-	public MemberTypeInfo read (InputStream in) throws IOException
-	{
-		return read(CollectionsUtils.size(getMemberTypes()), in);
-	}
+    @Override
+    public MemberTypeInfo read (InputStream in) throws IOException
+    {
+        return read(CollectionsUtils.size(getMemberTypes()), in);
+    }
 
-	public MemberTypeInfo read (int numMembers, InputStream in) throws IOException
-	{
-		final List<BinaryTypeEnumeration>	memberTypes=(numMembers > 0) ? new ArrayList<BinaryTypeEnumeration>(numMembers) : null;
-		for (int index=0; index < numMembers; index++)
-		{
-			final BinaryTypeEnumeration	typeVal=BinaryTypeEnumeration.read(in);
-			memberTypes.add(typeVal);
-		}
-		
-		setMemberTypes(memberTypes);
-		logInternal("memberTypes: " + getMemberTypes());
-		
-		if (CollectionsUtils.size(memberTypes) > 0)
-		{
-			final List<Object>	additionalInfos=new ArrayList<Object>(memberTypes.size());
-			for (final BinaryTypeEnumeration typeValue : memberTypes)
-			{
-				Object	moreInfo=typeValue.readAdditionalInfo(in);
-				additionalInfos.add(moreInfo);
-			}
+    public MemberTypeInfo read (int numMembers, InputStream in) throws IOException
+    {
+        final List<BinaryTypeEnumeration>    memberTypes=(numMembers > 0) ? new ArrayList<BinaryTypeEnumeration>(numMembers) : null;
+        for (int index=0; index < numMembers; index++)
+        {
+            final BinaryTypeEnumeration    typeVal=BinaryTypeEnumeration.read(in);
+            memberTypes.add(typeVal);
+        }
 
-			setAdditionalInfos(additionalInfos);
-		}
-		else
-		{
-			setAdditionalInfos(null);
-		}
+        setMemberTypes(memberTypes);
+        logInternal("memberTypes: " + getMemberTypes());
 
-		logInternal("additionalInfos=" + getAdditionalInfos());
-		return this;
-	}
+        if (CollectionsUtils.size(memberTypes) > 0)
+        {
+            final List<Object>    additionalInfos=new ArrayList<Object>(memberTypes.size());
+            for (final BinaryTypeEnumeration typeValue : memberTypes)
+            {
+                Object    moreInfo=typeValue.readAdditionalInfo(in);
+                additionalInfos.add(moreInfo);
+            }
 
-	@Override
-	public void write (OutputStream out) throws IOException
-	{
-		final Collection<BinaryTypeEnumeration>	memberTypes=getMemberTypes();
-		if (CollectionsUtils.size(memberTypes) > 0)
-		{
-			for (final BinaryTypeEnumeration typeVal : memberTypes)
-				typeVal.write(out);
-		}
+            setAdditionalInfos(additionalInfos);
+        }
+        else
+        {
+            setAdditionalInfos(null);
+        }
 
-		// TODO Auto-generated method stub
-		throw new StreamCorruptedException("TODO - write additional infos");
-	}
+        logInternal("additionalInfos=" + getAdditionalInfos());
+        return this;
+    }
 
-	@Override
-	public MemberTypeInfo clone () throws CloneNotSupportedException
-	{
-		MemberTypeInfo	other=getClass().cast(super.clone());
-		Collection<BinaryTypeEnumeration>	memberTypes=getMemberTypes();
-		if (CollectionsUtils.size(memberTypes) <= 0)
-			other.setMemberTypes(null);
-		else
-			other.setMemberTypes(new ArrayList<BinaryTypeEnumeration>(memberTypes));
-		
-		final List<Object>	additionalInfo=getAdditionalInfos();
-		if (CollectionsUtils.size(additionalInfo) <= 0)
-			other.setAdditionalInfos(null);
-		else
-			other.setAdditionalInfos(new ArrayList<Object>(additionalInfo));
-		return other;
-	}
+    @Override
+    public void write (OutputStream out) throws IOException
+    {
+        final Collection<BinaryTypeEnumeration>    memberTypes=getMemberTypes();
+        if (CollectionsUtils.size(memberTypes) > 0)
+        {
+            for (final BinaryTypeEnumeration typeVal : memberTypes)
+                typeVal.write(out);
+        }
 
-	@Override
-	public String toString ()
-	{
-		return "types=" + getMemberTypes()
-			 + ";more=" + getAdditionalInfos()
-				;
-	}
+        // TODO Auto-generated method stub
+        throw new StreamCorruptedException("TODO - write additional infos");
+    }
+
+    @Override
+    public MemberTypeInfo clone () throws CloneNotSupportedException
+    {
+        MemberTypeInfo    other=getClass().cast(super.clone());
+        Collection<BinaryTypeEnumeration>    memberTypes=getMemberTypes();
+        if (CollectionsUtils.size(memberTypes) <= 0)
+            other.setMemberTypes(null);
+        else
+            other.setMemberTypes(new ArrayList<BinaryTypeEnumeration>(memberTypes));
+
+        final List<Object>    additionalInfo=getAdditionalInfos();
+        if (CollectionsUtils.size(additionalInfo) <= 0)
+            other.setAdditionalInfos(null);
+        else
+            other.setAdditionalInfos(new ArrayList<Object>(additionalInfo));
+        return other;
+    }
+
+    @Override
+    public String toString ()
+    {
+        return "types=" + getMemberTypes()
+             + ";more=" + getAdditionalInfos()
+                ;
+    }
 }

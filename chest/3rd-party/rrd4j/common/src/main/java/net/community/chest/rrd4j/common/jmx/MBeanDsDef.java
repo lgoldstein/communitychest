@@ -14,49 +14,49 @@ import org.w3c.dom.Element;
  * @since Jan 10, 2008 3:23:36 PM
  */
 public class MBeanDsDef extends DsDefExt {
-	public MBeanDsDef (String dsName, DsType dsType, long heartbeat, double minValue, double maxValue)
-	{
-		super(dsName, dsType, heartbeat, minValue, maxValue);
-	}
+    public MBeanDsDef (String dsName, DsType dsType, long heartbeat, double minValue, double maxValue)
+    {
+        super(dsName, dsType, heartbeat, minValue, maxValue);
+    }
 
-	public MBeanDsDef (String dsName, DsType dsType, TimeUnits htUnits, long htValue, double minValue, double maxValue)
-	{
-		super(dsName, dsType, htUnits, htValue, minValue, maxValue);
-	}
+    public MBeanDsDef (String dsName, DsType dsType, TimeUnits htUnits, long htValue, double minValue, double maxValue)
+    {
+        super(dsName, dsType, htUnits, htValue, minValue, maxValue);
+    }
 
-	public MBeanDsDef (String dsName, DsType dsType, long heartbeat)
-	{
-		super(dsName, dsType, heartbeat);
-	}
+    public MBeanDsDef (String dsName, DsType dsType, long heartbeat)
+    {
+        super(dsName, dsType, heartbeat);
+    }
 
-	public MBeanDsDef (String dsName, DsType dsType, TimeUnits htUnits, long htValue)
-	{
-		super(dsName, dsType, htUnits, htValue);
-	}
+    public MBeanDsDef (String dsName, DsType dsType, TimeUnits htUnits, long htValue)
+    {
+        super(dsName, dsType, htUnits, htValue);
+    }
 
-	private String	_attrName	/* =null */;
-	public String getMBeanAttributeName ()
-	{
-		return _attrName;
-	}
+    private String    _attrName    /* =null */;
+    public String getMBeanAttributeName ()
+    {
+        return _attrName;
+    }
 
-	public void setMBeanAttributeName (String name)
-	{
-		_attrName = name;
-	}
+    public void setMBeanAttributeName (String name)
+    {
+        _attrName = name;
+    }
 
-	public String setMBeanAttributeName (Element elem) throws Exception
-	{
-		final String	val=elem.getAttribute(MBeanFeatureDescriptor.NAME_ATTR);
-		if ((val != null) && (val.length() > 0))
-			setMBeanAttributeName(val);
+    public String setMBeanAttributeName (Element elem) throws Exception
+    {
+        final String    val=elem.getAttribute(MBeanFeatureDescriptor.NAME_ATTR);
+        if ((val != null) && (val.length() > 0))
+            setMBeanAttributeName(val);
 
-		return val;
-	}
+        return val;
+    }
 
-	public MBeanDsDef (Element elem) throws Exception
-	{
-		super(elem);
-		setMBeanAttributeName(elem);
-	}
+    public MBeanDsDef (Element elem) throws Exception
+    {
+        super(elem);
+        setMBeanAttributeName(elem);
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.math;
 
@@ -13,11 +13,11 @@ import net.community.chest.AbstractTestSupport;
  * @since Aug 30, 2012 3:32:54 PM
  */
 public abstract class AbstractMathTestSupport extends AbstractTestSupport {
-	protected final Random	_randomizer;
+    protected final Random    _randomizer;
 
-	protected AbstractMathTestSupport ()
-	{
-		_randomizer = new Random(System.nanoTime());
-	}
+    protected AbstractMathTestSupport ()
+    {
+        _randomizer = new Random(System.nanoTime());
+    }
 
 }

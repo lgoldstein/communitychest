@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.net.snmp.io;
 
@@ -14,21 +14,21 @@ import net.community.chest.net.snmp.mibs.MIBSAnchor;
  * @since Aug 2, 2011 12:53:38 PM
  */
 public class DefaultMIBDefinitionResolver extends AbstractMIBDefinitionResolver {
-	/**
-	 * Singleton reentrant instance
-	 */
-	public static final DefaultMIBDefinitionResolver	INSTANCE=new DefaultMIBDefinitionResolver();
+    /**
+     * Singleton reentrant instance
+     */
+    public static final DefaultMIBDefinitionResolver    INSTANCE=new DefaultMIBDefinitionResolver();
 
-	public DefaultMIBDefinitionResolver ()
-	{
-		super();
-	}
-	/*
-	 * @see net.community.chest.net.snmp.io.MIBDefinitionResolver#lookupMIB(java.lang.String)
-	 */
-	@Override
-	public URL lookupMIB (String mibName)
-	{
-		return MIBSAnchor.class.getResource(mibName);
-	}
+    public DefaultMIBDefinitionResolver ()
+    {
+        super();
+    }
+    /*
+     * @see net.community.chest.net.snmp.io.MIBDefinitionResolver#lookupMIB(java.lang.String)
+     */
+    @Override
+    public URL lookupMIB (String mibName)
+    {
+        return MIBSAnchor.class.getResource(mibName);
+    }
 }

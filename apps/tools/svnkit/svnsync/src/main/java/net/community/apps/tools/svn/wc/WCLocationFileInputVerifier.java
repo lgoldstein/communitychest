@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.svn.wc;
 
@@ -15,25 +15,25 @@ import net.community.chest.ui.components.input.text.file.FileInputVerifier;
  * @since Aug 5, 2009 12:39:39 PM
  */
 public class WCLocationFileInputVerifier extends FileInputVerifier {
-	public WCLocationFileInputVerifier ()
-	{
-		super();
-	}
-	/*
-	 * @see net.community.chest.ui.components.input.text.file.FileInputVerifier#verifyFile(java.io.File)
-	 */
-	@Override
-	public boolean verifyFile (File f) throws RuntimeException
-	{
-		if ((null == f) || (!f.isDirectory()))
-			return false;
+    public WCLocationFileInputVerifier ()
+    {
+        super();
+    }
+    /*
+     * @see net.community.chest.ui.components.input.text.file.FileInputVerifier#verifyFile(java.io.File)
+     */
+    @Override
+    public boolean verifyFile (File f) throws RuntimeException
+    {
+        if ((null == f) || (!f.isDirectory()))
+            return false;
 
-		if (SVNFoldersFilter.isSVNParentFolder(f))
-			return false;
+        if (SVNFoldersFilter.isSVNParentFolder(f))
+            return false;
 
-		return true;
-	}
+        return true;
+    }
 
-	public static final WCLocationFileInputVerifier	DEFAULT=
-			new WCLocationFileInputVerifier();
+    public static final WCLocationFileInputVerifier    DEFAULT=
+            new WCLocationFileInputVerifier();
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ui.helpers.panel.input;
 
@@ -11,18 +11,18 @@ package net.community.chest.ui.helpers.panel.input;
  * @since Aug 20, 2008 3:15:53 PM
  */
 public class LRFieldWithButtonReflectiveProxy<P extends LRFieldWithButtonPanel>
-		extends FieldWithButtonPanelReflectiveProxy<P> {
-	public LRFieldWithButtonReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+        extends FieldWithButtonPanelReflectiveProxy<P> {
+    public LRFieldWithButtonReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	protected LRFieldWithButtonReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected LRFieldWithButtonReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public static final LRFieldWithButtonReflectiveProxy<LRFieldWithButtonPanel>	LRFLDBTNPNL=
-		new LRFieldWithButtonReflectiveProxy<LRFieldWithButtonPanel>(LRFieldWithButtonPanel.class, true);
+    public static final LRFieldWithButtonReflectiveProxy<LRFieldWithButtonPanel>    LRFLDBTNPNL=
+        new LRFieldWithButtonReflectiveProxy<LRFieldWithButtonPanel>(LRFieldWithButtonPanel.class, true);
 }

@@ -8,13 +8,13 @@ package net.community.chest.reflect;
  * @since Dec 11, 2007 3:03:29 PM
  */
 public class JDKInstantiatorsMap extends StringInstantiatorsMap {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8816700567183605132L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8816700567183605132L;
 
-	public JDKInstantiatorsMap ()
-	{
-		super();
-	}
+    public JDKInstantiatorsMap ()
+    {
+        super();
+    }
 }

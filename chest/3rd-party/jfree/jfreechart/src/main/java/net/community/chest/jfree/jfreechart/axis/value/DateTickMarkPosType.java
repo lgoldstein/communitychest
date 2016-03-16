@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.axis.value;
 
@@ -23,35 +23,35 @@ public enum DateTickMarkPosType {
     MIDDLE(DateTickMarkPosition.MIDDLE),
     END(DateTickMarkPosition.END);
 
-    private final DateTickMarkPosition	_p;
-	public final DateTickMarkPosition getPosition ()
-	{
-		return _p;
-	}
-	
-	DateTickMarkPosType (DateTickMarkPosition p)
-	{
-		_p = p;
-	}
+    private final DateTickMarkPosition    _p;
+    public final DateTickMarkPosition getPosition ()
+    {
+        return _p;
+    }
 
-	public static final List<DateTickMarkPosType>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final DateTickMarkPosType fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    DateTickMarkPosType (DateTickMarkPosition p)
+    {
+        _p = p;
+    }
 
-	public static final DateTickMarkPosType fromPosition (final DateTickMarkPosition p)
-	{
-		if (null == p)
-			return null;
+    public static final List<DateTickMarkPosType>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final DateTickMarkPosType fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-		for (final DateTickMarkPosType v : VALUES)
-		{
-			final DateTickMarkPosition	vp=(null == v) ? null : v.getPosition();
-			if (p.equals(vp))
-				return v;
-		}
+    public static final DateTickMarkPosType fromPosition (final DateTickMarkPosition p)
+    {
+        if (null == p)
+            return null;
 
-		return null;
-	}
+        for (final DateTickMarkPosType v : VALUES)
+        {
+            final DateTickMarkPosition    vp=(null == v) ? null : v.getPosition();
+            if (p.equals(vp))
+                return v;
+        }
+
+        return null;
+    }
 }

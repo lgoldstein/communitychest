@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.jgit.browser.reflog;
 
@@ -16,14 +16,14 @@ import net.community.chest.util.collection.CollectionsUtils;
  *
  */
 public enum ReflogEntryColumns {
-	NAME,
-	EMAIL,
-	TIMESTAMP,
-	COMMENT;
+    NAME,
+    EMAIL,
+    TIMESTAMP,
+    COMMENT;
 
-	public static final List<ReflogEntryColumns>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final ReflogEntryColumns fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<ReflogEntryColumns>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final ReflogEntryColumns fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 }

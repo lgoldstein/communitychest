@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing.component.list;
 
@@ -15,41 +15,41 @@ import net.community.chest.lang.StringUtil;
  * @since Feb 8, 2009 9:34:34 AM
  */
 public class ListLayoutOrientationValueStringInstantiator extends AbstractXmlValueStringInstantiator<Integer> {
-	public ListLayoutOrientationValueStringInstantiator ()
-	{
-		super(Integer.class);
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
-	 */
-	@Override
-	public String convertInstance (Integer inst) throws Exception
-	{
-		if (null == inst)
-			return null;
+    public ListLayoutOrientationValueStringInstantiator ()
+    {
+        super(Integer.class);
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
+     */
+    @Override
+    public String convertInstance (Integer inst) throws Exception
+    {
+        if (null == inst)
+            return null;
 
-		final ListLayoutOrientation	st=ListLayoutOrientation.fromOrienation(inst.intValue());
-		if (null == st)
-			throw new NoSuchElementException("convertInstance(" + inst + ") unknown value");
+        final ListLayoutOrientation    st=ListLayoutOrientation.fromOrienation(inst.intValue());
+        if (null == st)
+            throw new NoSuchElementException("convertInstance(" + inst + ") unknown value");
 
-		return st.toString();
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
-	 */
-	@Override
-	public Integer newInstance (String v) throws Exception
-	{
-		final String	s=StringUtil.getCleanStringValue(v);
-		if ((null == s) || (s.length() <= 0))
-			return null;
+        return st.toString();
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
+     */
+    @Override
+    public Integer newInstance (String v) throws Exception
+    {
+        final String    s=StringUtil.getCleanStringValue(v);
+        if ((null == s) || (s.length() <= 0))
+            return null;
 
-		final ListLayoutOrientation	st=ListLayoutOrientation.fromString(s);
-		if (null == st)
-			throw new NoSuchElementException("newInstance(" + s + ") unknown value");
+        final ListLayoutOrientation    st=ListLayoutOrientation.fromString(s);
+        if (null == st)
+            throw new NoSuchElementException("newInstance(" + s + ") unknown value");
 
-		return Integer.valueOf(st.getOrientation());
-	}
+        return Integer.valueOf(st.getOrientation());
+    }
 
-	public static final ListLayoutOrientationValueStringInstantiator	DEFAULT=new ListLayoutOrientationValueStringInstantiator();
+    public static final ListLayoutOrientationValueStringInstantiator    DEFAULT=new ListLayoutOrientationValueStringInstantiator();
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ui.helpers;
 
@@ -12,9 +12,9 @@ package net.community.chest.ui.helpers;
  * @since Oct 30, 2008 11:34:30 AM
  */
 public interface ComponentInitializer {
-	/**
-	 * Initializes the component
-	 * @throws RuntimeException If failed to initialize
-	 */
-	void layoutComponent () throws RuntimeException;
+    /**
+     * Initializes the component
+     * @throws RuntimeException If failed to initialize
+     */
+    void layoutComponent () throws RuntimeException;
 }

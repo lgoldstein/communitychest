@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-net-common-utils" default="build-net-common-utils">
-		<description>
-			Builds the common net utilities JAR $Rev: 561 $
-		</description>
+    <project name="build-net-common-utils" default="build-net-common-utils">
+        <description>
+            Builds the common net utilities JAR $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="module.base.target.name" value="net-common"/>
-		<property name="module.vcproj.name" value="chestnet"/>
-	    <dirname property="base.net.root.dir" file="${module.root.folder}"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="module.base.target.name" value="net-common"/>
+        <property name="module.vcproj.name" value="chestnet"/>
+        <dirname property="base.net.root.dir" file="${module.root.folder}"/>
 
-		<import file="${base.net.root.dir}${file.separator}build-base.xml"/>
+        <import file="${base.net.root.dir}${file.separator}build-base.xml"/>
 
-		<target name="build-net-common-utils"
-				depends="jar-base-net-module-files,build-local-products"
-				description="Builds the common net utilitites JAR"/>
-		<target name="clean-net-common-utils"
+        <target name="build-net-common-utils"
+                depends="jar-base-net-module-files,build-local-products"
+                description="Builds the common net utilitites JAR"/>
+        <target name="clean-net-common-utils"
                         depends="clean-base-net-module-build,clean-local-products"
                         description="Removes the common net utilities object files and JAR"/>
-	</project>
+    </project>
 

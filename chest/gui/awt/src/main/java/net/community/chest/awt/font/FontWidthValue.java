@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.font;
 
@@ -18,43 +18,43 @@ import net.community.chest.util.collection.CollectionsUtils;
  * @since Jun 18, 2009 7:38:38 AM
  */
 public enum FontWidthValue implements FontFloatAttributeValue {
-	CONDENSED(TextAttribute.WIDTH_CONDENSED),
-	SEMICONDENSED(TextAttribute.WIDTH_SEMI_CONDENSED),
-	REGULAR(TextAttribute.WIDTH_REGULAR),
-	SEMIEXTENDED(TextAttribute.WIDTH_SEMI_EXTENDED),
-	EXTENDED(TextAttribute.WIDTH_EXTENDED); 
+    CONDENSED(TextAttribute.WIDTH_CONDENSED),
+    SEMICONDENSED(TextAttribute.WIDTH_SEMI_CONDENSED),
+    REGULAR(TextAttribute.WIDTH_REGULAR),
+    SEMIEXTENDED(TextAttribute.WIDTH_SEMI_EXTENDED),
+    EXTENDED(TextAttribute.WIDTH_EXTENDED);
 
-	private final Float	_v;
-	/*
-	 * @see net.community.chest.awt.font.FontFloatAttributeValue#getAttributeValue()
-	 */
-	@Override
-	public final Float getAttributeValue ()
-	{
-		return _v;
-	}
-	
-	FontWidthValue (Float v)
-	{
-		_v = v;
-	}
+    private final Float    _v;
+    /*
+     * @see net.community.chest.awt.font.FontFloatAttributeValue#getAttributeValue()
+     */
+    @Override
+    public final Float getAttributeValue ()
+    {
+        return _v;
+    }
 
-	public static final List<FontWidthValue>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final FontWidthValue fromString (final String name)
-	{
-		return CollectionsUtils.fromString(VALUES, name, false);
-	}
+    FontWidthValue (Float v)
+    {
+        _v = v;
+    }
 
-	public static final FontWidthValue fromValue (final float f)
-	{
-		if (Float.isInfinite(f) || Float.isNaN(f))
-			return null;
+    public static final List<FontWidthValue>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final FontWidthValue fromString (final String name)
+    {
+        return CollectionsUtils.fromString(VALUES, name, false);
+    }
 
-		return FontUtils.fromAttributeValue(f, VALUES);
-	} 
+    public static final FontWidthValue fromValue (final float f)
+    {
+        if (Float.isInfinite(f) || Float.isNaN(f))
+            return null;
 
-	public static final FontWidthValue fromValue (final Float f)
-	{
-		return (null == f) ? null : fromValue(f.floatValue());
-	}
+        return FontUtils.fromAttributeValue(f, VALUES);
+    }
+
+    public static final FontWidthValue fromValue (final Float f)
+    {
+        return (null == f) ? null : fromValue(f.floatValue());
+    }
 }

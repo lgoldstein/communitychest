@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.layout.dom;
 
@@ -13,8 +13,8 @@ import java.awt.LayoutManager2;
  * @since Aug 20, 2008 1:10:56 PM
  */
 public abstract class AbstractLayoutManager2ReflectiveProxy<L extends LayoutManager2> extends AbstractLayoutManagerReflectiveProxy<L> {
-	protected AbstractLayoutManager2ReflectiveProxy (Class<L> objClass) throws IllegalArgumentException
-	{
-		super(objClass);
-	}
+    protected AbstractLayoutManager2ReflectiveProxy (Class<L> objClass) throws IllegalArgumentException
+    {
+        super(objClass);
+    }
 }

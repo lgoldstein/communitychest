@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-math-utils" default="build-math-utils">
-		<description>
-			Builds the math JAR $Rev: 561 $
-		</description>
+    <project name="build-math-utils" default="build-math-utils">
+        <description>
+            Builds the math JAR $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="module.base.target.name" value="math"/>
-	    <dirname property="base.utils.root.dir" file="${module.root.folder}"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="module.base.target.name" value="math"/>
+        <dirname property="base.utils.root.dir" file="${module.root.folder}"/>
 
-		<import file="${base.utils.root.dir}${file.separator}build-base.xml"/>
+        <import file="${base.utils.root.dir}${file.separator}build-base.xml"/>
 
-		<target name="build-math-utils" depends="jar-base-utils-module-files" description="Builds the math JAR"/>
-		<target name="clean-math-utils" depends="clean-base-utils-module-build" description="Removes the math object files and JAR"/>
-	</project>
+        <target name="build-math-utils" depends="jar-base-utils-module-files" description="Builds the math JAR"/>
+        <target name="clean-math-utils" depends="clean-base-utils-module-build" description="Removes the math object files and JAR"/>
+    </project>
 

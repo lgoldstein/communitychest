@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing.component.panel;
 
@@ -16,28 +16,28 @@ import net.community.chest.swing.component.scroll.VerticalPolicy;
  * @since Apr 1, 2009 9:40:07 AM
  */
 public class DefaultPanelScroll extends ScrolledComponent<JPanel> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7270688790677685399L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7270688790677685399L;
 
-	public DefaultPanelScroll (JPanel view, VerticalPolicy vp, HorizontalPolicy hp)
-	{
-		super(JPanel.class, view, vp, hp);
-	}
+    public DefaultPanelScroll (JPanel view, VerticalPolicy vp, HorizontalPolicy hp)
+    {
+        super(JPanel.class, view, vp, hp);
+    }
 
-	public DefaultPanelScroll (VerticalPolicy vp, HorizontalPolicy hp)
-	{
-		this(null, vp, hp);
-	}
+    public DefaultPanelScroll (VerticalPolicy vp, HorizontalPolicy hp)
+    {
+        this(null, vp, hp);
+    }
 
-	public DefaultPanelScroll (JPanel view)
-	{
-		this(view, VerticalPolicy.BYNEED, HorizontalPolicy.BYNEED);
-	}
+    public DefaultPanelScroll (JPanel view)
+    {
+        this(view, VerticalPolicy.BYNEED, HorizontalPolicy.BYNEED);
+    }
 
-	public DefaultPanelScroll ()
-	{
-		this(null);
-	}
+    public DefaultPanelScroll ()
+    {
+        this(null);
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.spring.test.features;
 
@@ -17,23 +17,23 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class InvertedLifecycleAnnotations implements InitializingBean, DisposableBean {
-	public InvertedLifecycleAnnotations ()
-	{
-		super();
-	}
+    public InvertedLifecycleAnnotations ()
+    {
+        super();
+    }
 
-	@Override
-	@PreDestroy
-	public void afterPropertiesSet () throws Exception
-	{
-		System.out.append(getClass().getSimpleName()).println("#afterPropertiesSet()");
-	}
+    @Override
+    @PreDestroy
+    public void afterPropertiesSet () throws Exception
+    {
+        System.out.append(getClass().getSimpleName()).println("#afterPropertiesSet()");
+    }
 
-	@Override
-	@PostConstruct
-	public void destroy () throws Exception
-	{
-		System.out.append(getClass().getSimpleName()).println("#destroy()");
-	}
+    @Override
+    @PostConstruct
+    public void destroy () throws Exception
+    {
+        System.out.append(getClass().getSimpleName()).println("#destroy()");
+    }
 
 }

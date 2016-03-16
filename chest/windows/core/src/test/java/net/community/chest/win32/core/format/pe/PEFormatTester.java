@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.format.pe;
 
@@ -30,59 +30,59 @@ import net.community.chest.win32.core.format.pe.rsrc.ResourceDirectoryTableHeade
  * @since Jun 15, 2009 2:54:31 PM
  */
 public class PEFormatTester extends TestBase {
-	public static final List<SectionTableEntry> testPEFormatAnalyzer (
-			final PrintStream out, final InputStream inStream)
-		throws IOException
-	{
-	    final DosHeaderStub dosStub=new DosHeaderStub(inStream);
-	    {
-	        final long hdrOffset=dosStub.getExtendedHeaderOffset(), skipOffset=hdrOffset - DosHeaderStub.HEADER_OFFSET_VALUE - 4L;
-	        if (skipOffset < 0L) {
-	            throw new StreamCorruptedException("Bad extended header skip offset: " + skipOffset);
-	        }
-	        
-	        FileIOUtils.skipFully(inStream, skipOffset);
-	    }
+    public static final List<SectionTableEntry> testPEFormatAnalyzer (
+            final PrintStream out, final InputStream inStream)
+        throws IOException
+    {
+        final DosHeaderStub dosStub=new DosHeaderStub(inStream);
+        {
+            final long hdrOffset=dosStub.getExtendedHeaderOffset(), skipOffset=hdrOffset - DosHeaderStub.HEADER_OFFSET_VALUE - 4L;
+            if (skipOffset < 0L) {
+                throw new StreamCorruptedException("Bad extended header skip offset: " + skipOffset);
+            }
 
-		final PEHeaderData			hdr=new PEHeaderData(inStream);
-		final COFFFileHeader		ch=hdr.getCoffHeader();
-		out.println("\tCOFF Header: " + ch);
+            FileIOUtils.skipFully(inStream, skipOffset);
+        }
 
-		final OptHeaderStdFields	oh=hdr.getStdHeaderFields();
-		out.println("\tOpt (std) Header: " + oh);
+        final PEHeaderData            hdr=new PEHeaderData(inStream);
+        final COFFFileHeader        ch=hdr.getCoffHeader();
+        out.println("\tCOFF Header: " + ch);
 
-		final OptHeaderWin32Fields	wh=hdr.getWinHeaderFields();
-		out.println("\tOpt (win) Header" + wh);
+        final OptHeaderStdFields    oh=hdr.getStdHeaderFields();
+        out.println("\tOpt (std) Header: " + oh);
 
-		{
-			final List<? extends ImageDataDirectoryEntry> 										el=
-				wh.getDirEntries();
-			final Map<ImageDataDirectoryEntry.DirEntryType,? extends ImageDataDirectoryEntry>	em=
-				ImageDataDirectoryEntry.buildEntriesMap(el, true);
-			final Collection<? extends Map.Entry<ImageDataDirectoryEntry.DirEntryType,? extends ImageDataDirectoryEntry>>	dl=
-				((null == em) || (em.size() <= 0)) ? null : em.entrySet();
-			if ((dl != null) && (dl.size() > 0))
-			{
-				for (final Map.Entry<ImageDataDirectoryEntry.DirEntryType,? extends ImageDataDirectoryEntry> de : dl)
-					out.println("\t\t[" + de.getKey() + "] " + de.getValue());
-			}
-		}
+        final OptHeaderWin32Fields    wh=hdr.getWinHeaderFields();
+        out.println("\tOpt (win) Header" + wh);
 
-		final List<SectionTableEntry>	sl=hdr.getSections();
+        {
+            final List<? extends ImageDataDirectoryEntry>                                         el=
+                wh.getDirEntries();
+            final Map<ImageDataDirectoryEntry.DirEntryType,? extends ImageDataDirectoryEntry>    em=
+                ImageDataDirectoryEntry.buildEntriesMap(el, true);
+            final Collection<? extends Map.Entry<ImageDataDirectoryEntry.DirEntryType,? extends ImageDataDirectoryEntry>>    dl=
+                ((null == em) || (em.size() <= 0)) ? null : em.entrySet();
+            if ((dl != null) && (dl.size() > 0))
+            {
+                for (final Map.Entry<ImageDataDirectoryEntry.DirEntryType,? extends ImageDataDirectoryEntry> de : dl)
+                    out.println("\t\t[" + de.getKey() + "] " + de.getValue());
+            }
+        }
+
+        final List<SectionTableEntry>    sl=hdr.getSections();
         Collections.sort(sl, SectionTableEntry.BY_RAW_DATA_POINTER);
-		if ((sl != null) && (sl.size() > 0))
-		{
-			out.println("\tSections");
-			for (final SectionTableEntry se : sl)
-				out.println("\t\t" + se);
-		}
+        if ((sl != null) && (sl.size() > 0))
+        {
+            out.println("\tSections");
+            for (final SectionTableEntry se : sl)
+                out.println("\t\t" + se);
+        }
 
-		return sl;
-	}
+        return sl;
+    }
 
     /* -------------------------------------------------------------------- */
-	
-	private static final void showResourceSection(final PrintStream out, final InputStream inStream) throws IOException {
+
+    private static final void showResourceSection(final PrintStream out, final InputStream inStream) throws IOException {
         final ResourceDirectoryTableHeader  th=new ResourceDirectoryTableHeader(inStream);
         out.println("\t\t\t\t" + th);
 
@@ -116,13 +116,13 @@ public class PEFormatTester extends TestBase {
                 break;
         }
 */
-	}
+    }
 
-	/* -------------------------------------------------------------------- */
-	
-	public static final void showSectionTableEntries (
-	            final PrintStream out, final Collection<? extends SectionTableEntry> sl, final TrackingInputStream inStream)
-	                    throws IOException {
+    /* -------------------------------------------------------------------- */
+
+    public static final void showSectionTableEntries (
+                final PrintStream out, final Collection<? extends SectionTableEntry> sl, final TrackingInputStream inStream)
+                        throws IOException {
        for (final SectionTableEntry se : sl) {
             out.println("\t\t\tProcessing " + se);
 
@@ -137,7 +137,7 @@ public class PEFormatTester extends TestBase {
             }
 
             FileIOUtils.skipFully(inStream, skOffset);
-            
+
             final String    sectionName=se.getName();
             if (".rsrc".equals(sectionName)) {
                 showResourceSection(out, inStream);
@@ -145,76 +145,76 @@ public class PEFormatTester extends TestBase {
                 System.err.println("Unknown section type: " + sectionName);
             }
         }
-	}
+    }
 
     /* -------------------------------------------------------------------- */
-	
-	private static final void runPEFormatAnalyzer(final PrintStream out, final BufferedReader in, final String filePath)
-	{
-		for ( ; ; )
-		{
-			out.println("Processing " + filePath);
-	
-			try
-				{
-				TrackingInputStream	inStream=null;
-	
-				try
-				{
-					inStream = new TrackingInputStream(
-							new BufferedInputStream(
-									new FileInputStream(filePath), IOCopier.DEFAULT_COPY_SIZE));
-	
-					Collection<? extends SectionTableEntry>    sl=testPEFormatAnalyzer(out, inStream);
-					showSectionTableEntries(out, sl, inStream);
-				}
-				finally
-				{
-					FileUtil.closeAll(inStream);
-				}
-			}
-			catch(Exception e)
-			{
-				System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			}
-			
-			final String	ans=getval(out, in, "again [y]/n");
-			if ((ans != null) && (ans.length() > 0) && (Character.toLowerCase(ans.charAt(0)) != 'y'))
-				break;
-		}
-	}
 
-	/* -------------------------------------------------------------------- */
+    private static final void runPEFormatAnalyzer(final PrintStream out, final BufferedReader in, final String filePath)
+    {
+        for ( ; ; )
+        {
+            out.println("Processing " + filePath);
 
-	// args[i] an EXE/DLL File path
-	public static final int testPEFormatAnalyzer (
-			final PrintStream out, final BufferedReader in, final String ... args)
-	{
-		final int	numArgs=(null == args) ? 0 : args.length;
-		for (int aIndex=0; ; aIndex++)
-		{
-			final String	s=(aIndex < numArgs) ? args[aIndex] : getval(out, in, "file path (or Quit)");
-			final int		sLen=(null == s) ? 0 : s.length();
-			if (sLen <= 0)
-				continue;
-			if (isQuit(s))
-				break;
+            try
+                {
+                TrackingInputStream    inStream=null;
 
-			runPEFormatAnalyzer(out, in, s);
-		}
+                try
+                {
+                    inStream = new TrackingInputStream(
+                            new BufferedInputStream(
+                                    new FileInputStream(filePath), IOCopier.DEFAULT_COPY_SIZE));
 
-		return 0;
-	}
+                    Collection<? extends SectionTableEntry>    sl=testPEFormatAnalyzer(out, inStream);
+                    showSectionTableEntries(out, sl, inStream);
+                }
+                finally
+                {
+                    FileUtil.closeAll(inStream);
+                }
+            }
+            catch(Exception e)
+            {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
 
-	//////////////////////////////////////////////////////////////////////////
+            final String    ans=getval(out, in, "again [y]/n");
+            if ((ans != null) && (ans.length() > 0) && (Character.toLowerCase(ans.charAt(0)) != 'y'))
+                break;
+        }
+    }
 
-	public static void main (String[] args)
-	{
-		final BufferedReader	in=getStdin();
-		final int				nErr=testPEFormatAnalyzer(System.out, in, args);
-		if (nErr != 0)
-			System.err.println("test failed (err=" + nErr + ")");
-		else
-			System.out.println("OK");
-	}
+    /* -------------------------------------------------------------------- */
+
+    // args[i] an EXE/DLL File path
+    public static final int testPEFormatAnalyzer (
+            final PrintStream out, final BufferedReader in, final String ... args)
+    {
+        final int    numArgs=(null == args) ? 0 : args.length;
+        for (int aIndex=0; ; aIndex++)
+        {
+            final String    s=(aIndex < numArgs) ? args[aIndex] : getval(out, in, "file path (or Quit)");
+            final int        sLen=(null == s) ? 0 : s.length();
+            if (sLen <= 0)
+                continue;
+            if (isQuit(s))
+                break;
+
+            runPEFormatAnalyzer(out, in, s);
+        }
+
+        return 0;
+    }
+
+    //////////////////////////////////////////////////////////////////////////
+
+    public static void main (String[] args)
+    {
+        final BufferedReader    in=getStdin();
+        final int                nErr=testPEFormatAnalyzer(System.out, in, args);
+        if (nErr != 0)
+            System.err.println("test failed (err=" + nErr + ")");
+        else
+            System.out.println("OK");
+    }
 }

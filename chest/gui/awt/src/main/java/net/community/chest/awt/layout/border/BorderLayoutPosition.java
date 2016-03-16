@@ -9,59 +9,59 @@ import net.community.chest.util.collection.CollectionsUtils;
 
 /**
  * Copyright 2007 as per GPLv2
- * 
+ *
  * Provides an enumeration of the available positions for the {@link BorderLayout}
  * string constant
- * 
+ *
  * @author Lyor G.
  * @since Jun 18, 2007 4:35:37 PM
  */
 public enum BorderLayoutPosition {
-	NORTH(BorderLayout.NORTH),
-	SOUTH(BorderLayout.SOUTH),
-	EAST(BorderLayout.EAST),
-	WEST(BorderLayout.WEST),
-	CENTER(BorderLayout.CENTER),
-	
-	BEFORE_FIRST_LINE(BorderLayout.BEFORE_FIRST_LINE),
-	AFTER_LAST_LINE(BorderLayout.AFTER_LAST_LINE),
-	BEFORE_LINE_BEGINS(BorderLayout.BEFORE_LINE_BEGINS),
-	AFTER_LINE_ENDS(BorderLayout.AFTER_LINE_ENDS),
+    NORTH(BorderLayout.NORTH),
+    SOUTH(BorderLayout.SOUTH),
+    EAST(BorderLayout.EAST),
+    WEST(BorderLayout.WEST),
+    CENTER(BorderLayout.CENTER),
 
-	PAGE_START(BorderLayout.PAGE_START),
-	PAGE_END(BorderLayout.PAGE_END),
-	LINE_START(BorderLayout.LINE_START),
-	LINE_END(BorderLayout.LINE_END);
+    BEFORE_FIRST_LINE(BorderLayout.BEFORE_FIRST_LINE),
+    AFTER_LAST_LINE(BorderLayout.AFTER_LAST_LINE),
+    BEFORE_LINE_BEGINS(BorderLayout.BEFORE_LINE_BEGINS),
+    AFTER_LINE_ENDS(BorderLayout.AFTER_LINE_ENDS),
 
-	private final String	_position;
-	public String getPosition ()
-	{
-		return _position;
-	}
+    PAGE_START(BorderLayout.PAGE_START),
+    PAGE_END(BorderLayout.PAGE_END),
+    LINE_START(BorderLayout.LINE_START),
+    LINE_END(BorderLayout.LINE_END);
 
-	BorderLayoutPosition (String position)
-	{
-		_position = position;
-	}
+    private final String    _position;
+    public String getPosition ()
+    {
+        return _position;
+    }
 
-	public static final List<BorderLayoutPosition>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final BorderLayoutPosition fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    BorderLayoutPosition (String position)
+    {
+        _position = position;
+    }
 
-	public static final BorderLayoutPosition fromPosition (final String p)
-	{
-		if ((null == p) || (p.length() <= 0))
-			return null;
+    public static final List<BorderLayoutPosition>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final BorderLayoutPosition fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-		for (final BorderLayoutPosition v : VALUES)
-		{
-			final String	vp=(null == v) ? null : v.getPosition();
-			if (p.equalsIgnoreCase(vp))
-				return v;
-		}
+    public static final BorderLayoutPosition fromPosition (final String p)
+    {
+        if ((null == p) || (p.length() <= 0))
+            return null;
 
-		return null;
-	}
+        for (final BorderLayoutPosition v : VALUES)
+        {
+            final String    vp=(null == v) ? null : v.getPosition();
+            if (p.equalsIgnoreCase(vp))
+                return v;
+        }
+
+        return null;
+    }
 }

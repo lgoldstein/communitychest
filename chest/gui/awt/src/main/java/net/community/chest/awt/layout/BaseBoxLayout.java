@@ -13,23 +13,23 @@ import org.w3c.dom.Element;
  * @since Mar 20, 2008 8:11:46 AM
  */
 public class BaseBoxLayout extends BoxLayout {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1112352771486102570L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1112352771486102570L;
 
-	public BaseBoxLayout (Container target, int axis)
-	{
-		super(target, axis);
-	}
+    public BaseBoxLayout (Container target, int axis)
+    {
+        super(target, axis);
+    }
 
-	public BaseBoxLayout (Container target, BoxLayoutAxis axis)
-	{
-		this(target, axis.getAxis());
-	}
+    public BaseBoxLayout (Container target, BoxLayoutAxis axis)
+    {
+        this(target, axis.getAxis());
+    }
 
-	public BaseBoxLayout (Container target, Element elem)
-	{
-		this(target, BoxLayoutAxis.fromElement(elem));
-	}
+    public BaseBoxLayout (Container target, Element elem)
+    {
+        this(target, BoxLayoutAxis.fromElement(elem));
+    }
 }

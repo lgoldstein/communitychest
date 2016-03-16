@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-		<!-- holds various GUI resources specifications
-		
-			NOTE: icon references are relative to the 'images' sub-folder
-		 -->
-	<resources>
-			<!-- defines the main frame -->
-		<section 	name="main-frame"
-					title="JMX XML Accessor"
-					defaultCloseOperation="EXIT"
-					relativePreferredSize="75,80"
-					relativeSize="75,80"
-					iconImage="jmx-advanced.png"
-				>
-			<layout class="border"/>
-				<!-- defines the main-menu -->
-			<menu name="main-menu">
-					<!-- NOTE: assigned commands MUST match what the application expects -->
-				<menu text="File" mnemonic="VK_F" actionCommand="file">
-					<accessibleContext description="Loads/Saves the XML request/response"/>
-					<item text="Connect" mnemonic="VK_N" actionCommand="connect" accelerator="control N" icon="Open.gif"/>
-					<separator/>
-					<item text="Load" mnemonic="VK_L" actionCommand="load" accelerator="control O" icon="XMLFile.gif"/>
-					<item text="Save" mnemonic="VK_S" actionCommand="save" accelerator="control S" icon="Save.gif"/>
-					<item text="Refresh" mnemonic="VK_R" actionCommand="refresh" accelerator="F5" icon="Refresh.gif"/>
-					<separator/>
-					<item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
-				</menu>
-				<menu text="Help" actionCommand="help" icon="Help.gif">
-					<accessibleContext description="Shows various information about the application"/>
-					<item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
-				</menu>
-			</menu>
-		</section>
+        <!-- holds various GUI resources specifications
 
-		<section name="main-toolbar" floatable="false">
-			<button actionCommand="connect" tooltipText="Connect to remote server"/>
-			<button actionCommand="load"  	tooltipText="Load from XML file"/>
-			<button actionCommand="save"  	tooltipText="Save to XML file"/>
-			<button actionCommand="refresh"	tooltipText="Refresh contents"/>
-		</section>
+            NOTE: icon references are relative to the 'images' sub-folder
+         -->
+    <resources>
+            <!-- defines the main frame -->
+        <section     name="main-frame"
+                    title="JMX XML Accessor"
+                    defaultCloseOperation="EXIT"
+                    relativePreferredSize="75,80"
+                    relativeSize="75,80"
+                    iconImage="jmx-advanced.png"
+                >
+            <layout class="border"/>
+                <!-- defines the main-menu -->
+            <menu name="main-menu">
+                    <!-- NOTE: assigned commands MUST match what the application expects -->
+                <menu text="File" mnemonic="VK_F" actionCommand="file">
+                    <accessibleContext description="Loads/Saves the XML request/response"/>
+                    <item text="Connect" mnemonic="VK_N" actionCommand="connect" accelerator="control N" icon="Open.gif"/>
+                    <separator/>
+                    <item text="Load" mnemonic="VK_L" actionCommand="load" accelerator="control O" icon="XMLFile.gif"/>
+                    <item text="Save" mnemonic="VK_S" actionCommand="save" accelerator="control S" icon="Save.gif"/>
+                    <item text="Refresh" mnemonic="VK_R" actionCommand="refresh" accelerator="F5" icon="Refresh.gif"/>
+                    <separator/>
+                    <item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
+                </menu>
+                <menu text="Help" actionCommand="help" icon="Help.gif">
+                    <accessibleContext description="Shows various information about the application"/>
+                    <item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
+                </menu>
+            </menu>
+        </section>
 
-			<!-- dialog used to load the XML request file -->
-		<section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select XML request file">
-			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
-					description="XML files"
-					exts="xml"
-				/>
-		</section>
+        <section name="main-toolbar" floatable="false">
+            <button actionCommand="connect" tooltipText="Connect to remote server"/>
+            <button actionCommand="load"      tooltipText="Load from XML file"/>
+            <button actionCommand="save"      tooltipText="Save to XML file"/>
+            <button actionCommand="refresh"    tooltipText="Refresh contents"/>
+        </section>
 
-			<!-- dialog used to save the XML response file -->
-		<section name="save-file-dialog" fileSelectionMode="files" dialogTitle="Select XML response file">
-			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
-					description="XML files"
-					exts="xml"
-				/>
-		</section>
+            <!-- dialog used to load the XML request file -->
+        <section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select XML request file">
+            <filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+                    description="XML files"
+                    exts="xml"
+                />
+        </section>
 
-			<!-- dialog used to show the manifest -->
-		<section name="show-manifest-dialog" title="Manifest" modal="true">
-			<column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
-			<column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
-		</section>
+            <!-- dialog used to save the XML response file -->
+        <section name="save-file-dialog" fileSelectionMode="files" dialogTitle="Select XML response file">
+            <filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+                    description="XML files"
+                    exts="xml"
+                />
+        </section>
 
-		<section name="main-fonts">
-			<font id="default-font" name="Tahoma" style="plain" size="11"/>
-		</section>
-	</resources>
+            <!-- dialog used to show the manifest -->
+        <section name="show-manifest-dialog" title="Manifest" modal="true">
+            <column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
+            <column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
+        </section>
+
+        <section name="main-fonts">
+            <font id="default-font" name="Tahoma" style="plain" size="11"/>
+        </section>
+    </resources>

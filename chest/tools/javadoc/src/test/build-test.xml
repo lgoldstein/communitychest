@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="test-javadoc-tools" default="test-javadoc-tools">
-		<description>
-			Tests the JDK tools Javadoc helpers JAR $Rev: 561 $
-		</description>
+    <project name="test-javadoc-tools" default="test-javadoc-tools">
+        <description>
+            Tests the JDK tools Javadoc helpers JAR $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="javadoc.tools.src.dir" value="${parent.root.dir}"/>
-		<dirname property="javadoc.tools.root.dir" file="${javadoc.tools.src.dir}"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="javadoc.tools.src.dir" value="${parent.root.dir}"/>
+        <dirname property="javadoc.tools.root.dir" file="${javadoc.tools.src.dir}"/>
         <dirname property="jdk.tools.root.dir" file="${javadoc.tools.root.dir}"/>
-		<property name="module.base.target.name" value="test-javadoc"/>
+        <property name="module.base.target.name" value="test-javadoc"/>
 
-		<import file="${jdk.tools.root.dir}${file.separator}build-base.xml"/>
+        <import file="${jdk.tools.root.dir}${file.separator}build-base.xml"/>
 
-		<property name="mbean.doclet.test.src.dir" value="${project.root.dir}${file.separator}jdk${file.separator}src${file.separator}test${file.separator}java"/>
-		<property name="mbean.doclet.test.dst.dir" value="${java.io.tmpdir}"/>
-		<property name="mbean.doclet.test.pkg.name" value="net.community.chest.test"/>
+        <property name="mbean.doclet.test.src.dir" value="${project.root.dir}${file.separator}jdk${file.separator}src${file.separator}test${file.separator}java"/>
+        <property name="mbean.doclet.test.dst.dir" value="${java.io.tmpdir}"/>
+        <property name="mbean.doclet.test.pkg.name" value="net.community.chest.test"/>
 
-		<property name="mbean.extra.classes.list" value="none"/>
-		<property name="mbean.dst.overwrite" value="false"/>
+        <property name="mbean.extra.classes.list" value="none"/>
+        <property name="mbean.dst.overwrite" value="false"/>
 
-		<target name="test-javadoc-tools" depends="jdk-tools-base" description="Runs the test">
-			<mkdir dir="${mbean.doclet.test.dst.dir}"/>
-			<javadoc public="true" failonerror="true" packagenames="${mbean.doclet.test.pkg.name}.*">
-				<classpath>
-					<path refid="${javac.classpath.ref.name}"/>
-				</classpath>
-				<doclet name="net.community.chest.tools.javadoc.mbean.MBeanInterface"
-						path="${community.lib.folder}${file.separator}net.community-tools-javadoc.jar">
-			 		<param name="-targetdir" value="${mbean.doclet.test.dst.dir}"/>
-			 		<param name="-pkgparent" value="${mbean.doclet.test.pkg.name}"/>
-			 		<param name="-extraclasses" value="${mbean.extra.classes.list}"/>
-					<param name="-srcroot" value="${mbean.doclet.test.src.dir}"/>
-					<param name="-overwrite" value="${mbean.dst.overwrite}"/>
-					<param name="-sccrevid" value="123456890"/>
-					<param name="-sccurl" value="http://some.where.net"/>
-				</doclet>
-				<packageset dir="${mbean.doclet.test.src.dir}"/>
-			</javadoc>
-			<echo message="Created files in ${mbean.doclet.test.dst.dir}" level="info"/>
-		</target>
-	</project>
+        <target name="test-javadoc-tools" depends="jdk-tools-base" description="Runs the test">
+            <mkdir dir="${mbean.doclet.test.dst.dir}"/>
+            <javadoc public="true" failonerror="true" packagenames="${mbean.doclet.test.pkg.name}.*">
+                <classpath>
+                    <path refid="${javac.classpath.ref.name}"/>
+                </classpath>
+                <doclet name="net.community.chest.tools.javadoc.mbean.MBeanInterface"
+                        path="${community.lib.folder}${file.separator}net.community-tools-javadoc.jar">
+                     <param name="-targetdir" value="${mbean.doclet.test.dst.dir}"/>
+                     <param name="-pkgparent" value="${mbean.doclet.test.pkg.name}"/>
+                     <param name="-extraclasses" value="${mbean.extra.classes.list}"/>
+                    <param name="-srcroot" value="${mbean.doclet.test.src.dir}"/>
+                    <param name="-overwrite" value="${mbean.dst.overwrite}"/>
+                    <param name="-sccrevid" value="123456890"/>
+                    <param name="-sccurl" value="http://some.where.net"/>
+                </doclet>
+                <packageset dir="${mbean.doclet.test.src.dir}"/>
+            </javadoc>
+            <echo message="Created files in ${mbean.doclet.test.dst.dir}" level="info"/>
+        </target>
+    </project>

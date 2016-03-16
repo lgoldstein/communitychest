@@ -1,6 +1,6 @@
 /*
- * @(#)XMLAttribute.java	1.6 05/11/17
- * 
+ * @(#)XMLAttribute.java    1.6 05/11/17
+ *
  * Copyright (c) 2006 Sun Microsystems, Inc. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,19 +44,19 @@ public class XMLAttribute {
     private String _name;
     private String _value;
     private XMLAttribute _next;
-    
+
     public XMLAttribute(String name, String value) {
-	_name = name;
-	_value = value;
-	_next = null;
+    _name = name;
+    _value = value;
+    _next = null;
     }
-    
+
     public XMLAttribute(String name, String value, XMLAttribute next) {
-	_name = name;
-	_value = value;
-	_next = next;
+    _name = name;
+    _value = value;
+    _next = next;
     }
-    
+
     public String getName()  { return _name; }
     public String getValue() { return _value; }
     public XMLAttribute getNext() { return _next; }
@@ -65,40 +65,40 @@ public class XMLAttribute {
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-	public boolean equals (Object o)
+    public boolean equals (Object o)
     {
-    	if (!(o instanceof XMLAttribute))
-    		return false;
-    	if (this == o)
-    		return true;
+        if (!(o instanceof XMLAttribute))
+            return false;
+        if (this == o)
+            return true;
 
-    	final XMLAttribute other = (XMLAttribute)o;
-    	return ObjectUtil.match(getName(), other.getName())
-    		&& ObjectUtil.match(getValue(), other.getValue())
-    		&& ObjectUtil.match(getNext(), other.getNext());
+        final XMLAttribute other = (XMLAttribute)o;
+        return ObjectUtil.match(getName(), other.getName())
+            && ObjectUtil.match(getValue(), other.getValue())
+            && ObjectUtil.match(getNext(), other.getNext());
     }
     /*
      * @see java.lang.Object#toString()
      */
     @Override
-	public String toString ()
+    public String toString ()
     {
-    	final XMLAttribute	n=getNext();
-    	if (n != null)
-    		return getName() + "=\"" + getValue() + "\" " + n.toString();
-    	else
-    		return getName() + "=\"" + getValue() + "\"";
+        final XMLAttribute    n=getNext();
+        if (n != null)
+            return getName() + "=\"" + getValue() + "\" " + n.toString();
+        else
+            return getName() + "=\"" + getValue() + "\"";
     }
-	/*
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode ()
-	{
-		return ObjectUtil.objectHashCode(getName())
-			 + ObjectUtil.objectHashCode(getValue())
-			 + ObjectUtil.objectHashCode(getNext());
-	}
+    /*
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode ()
+    {
+        return ObjectUtil.objectHashCode(getName())
+             + ObjectUtil.objectHashCode(getValue())
+             + ObjectUtil.objectHashCode(getNext());
+    }
 }
 
 

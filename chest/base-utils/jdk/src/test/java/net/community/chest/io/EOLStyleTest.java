@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.io;
 
@@ -15,40 +15,40 @@ import org.junit.Test;
  * @since Aug 24, 2011 1:18:21 PM
  */
 public class EOLStyleTest extends AbstractEnumTestSupport {
-	public EOLStyleTest ()
-	{
-		super();
-	}
+    public EOLStyleTest ()
+    {
+        super();
+    }
 
-	@Test
-	public void testFromString () throws Exception
-	{
-		assertFromNameValidity(EOLStyle.class);
-	}
+    @Test
+    public void testFromString () throws Exception
+    {
+        assertFromNameValidity(EOLStyle.class);
+    }
 
-	@Test
-	public void testFromStyleChars ()
-	{
-		assertSame("Mismatched CRLF style", EOLStyle.CRLF, EOLStyle.fromStyleChars("\r\n"));
-		assertSame("Mismatched LF style", EOLStyle.LF, EOLStyle.fromStyleChars("\n"));
-	}
-	
-	@Test
-	public void testLocalStyle ()
-	{
-		assertEquals("Mismatched line separator", EOLStyle.LOCAL.getStyleString(), System.getProperty("line.separator"));
-	}
-	
-	@Test
-	public void testAppendEOL () throws IOException
-	{
-		final StringBuilder	sb=new StringBuilder();	
-		for (final EOLStyle style : EOLStyle.VALUES)
-		{
-			sb.setLength(0);
+    @Test
+    public void testFromStyleChars ()
+    {
+        assertSame("Mismatched CRLF style", EOLStyle.CRLF, EOLStyle.fromStyleChars("\r\n"));
+        assertSame("Mismatched LF style", EOLStyle.LF, EOLStyle.fromStyleChars("\n"));
+    }
 
-			assertSame("Mismatched appendable instance for style=" + style.name(), sb, style.appendEOL(sb));
-			assertEquals("Mismatched EOL value for style=" + style.name(), style.getStyleString(), sb.toString());
-		}
-	}
+    @Test
+    public void testLocalStyle ()
+    {
+        assertEquals("Mismatched line separator", EOLStyle.LOCAL.getStyleString(), System.getProperty("line.separator"));
+    }
+
+    @Test
+    public void testAppendEOL () throws IOException
+    {
+        final StringBuilder    sb=new StringBuilder();
+        for (final EOLStyle style : EOLStyle.VALUES)
+        {
+            sb.setLength(0);
+
+            assertSame("Mismatched appendable instance for style=" + style.name(), sb, style.appendEOL(sb));
+            assertEquals("Mismatched EOL value for style=" + style.name(), style.getStyleString(), sb.toString());
+        }
+    }
 }

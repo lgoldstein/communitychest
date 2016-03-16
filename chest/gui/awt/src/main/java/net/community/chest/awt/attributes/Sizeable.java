@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.attributes;
 
@@ -12,9 +12,9 @@ import java.awt.Dimension;
  * @since Mar 23, 2009 12:40:35 PM
  */
 public interface Sizeable {
-	public static final String		ATTR_NAME="size";
-	public static final Class<?>	ATTR_TYPE=Dimension.class;
+    public static final String        ATTR_NAME="size";
+    public static final Class<?>    ATTR_TYPE=Dimension.class;
 
-	Dimension getSize ();
-	void setSize (Dimension d);
+    Dimension getSize ();
+    void setSize (Dimension d);
 }

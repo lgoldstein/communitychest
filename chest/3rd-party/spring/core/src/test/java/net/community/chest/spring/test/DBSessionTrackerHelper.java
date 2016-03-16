@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.spring.test;
 
@@ -18,63 +18,63 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
  * @since Jan 20, 2011 11:02:08 AM
  */
 public class DBSessionTrackerHelper {
-	private final ApplicationContext	_context;
-	public final ApplicationContext getApplicationContext ()
-	{
-		return _context;
-	}
+    private final ApplicationContext    _context;
+    public final ApplicationContext getApplicationContext ()
+    {
+        return _context;
+    }
 
-	public DBSessionTrackerHelper (ApplicationContext context)
-	{
-		if ((_context=context) == null)
-			throw new IllegalStateException("No context provided");
-	}
-	
+    public DBSessionTrackerHelper (ApplicationContext context)
+    {
+        if ((_context=context) == null)
+            throw new IllegalStateException("No context provided");
+    }
 
-	private SessionFactory	_sessFactory;
-	public SessionFactory getSessionFactory ()
-	{
-		if (_sessFactory == null)
-		{
-			final ApplicationContext	ctx=getApplicationContext();
-			_sessFactory = (ctx == null) ? null : ctx.getBean(SessionFactory.class);
-		}
 
-		return _sessFactory;
-	}
+    private SessionFactory    _sessFactory;
+    public SessionFactory getSessionFactory ()
+    {
+        if (_sessFactory == null)
+        {
+            final ApplicationContext    ctx=getApplicationContext();
+            _sessFactory = (ctx == null) ? null : ctx.getBean(SessionFactory.class);
+        }
 
-	private boolean	_txParticipating;
-	// returns true if new session started, false if already in a session
-	public boolean startSession ()
-	{
-		final SessionFactory	sessFac=getSessionFactory();
-		if (TransactionSynchronizationManager.hasResource(sessFac))
-		{
-			// Do not modify the Session: just set the participate flag.
-			if (!_txParticipating)
-				_txParticipating = true;	// debug breakpoint
+        return _sessFactory;
+    }
 
-			return false;
-		}
-		// NOTE: the session factory interceptor is overridden by an empty one, because the
-		// real interceptor may not function correctly in this test-specific setup. 
-		final Session session=
-			SessionFactoryUtils.getSession(sessFac, EmptyInterceptor.INSTANCE, null);
-		session.setFlushMode(FlushMode.AUTO);
-		TransactionSynchronizationManager.bindResource(sessFac, new SessionHolder(session));
-		return true;
-	}
+    private boolean    _txParticipating;
+    // returns true if new session started, false if already in a session
+    public boolean startSession ()
+    {
+        final SessionFactory    sessFac=getSessionFactory();
+        if (TransactionSynchronizationManager.hasResource(sessFac))
+        {
+            // Do not modify the Session: just set the participate flag.
+            if (!_txParticipating)
+                _txParticipating = true;    // debug breakpoint
 
-	// returns true if session actually closed
-	public boolean endSession ()
-	{
-		if (_txParticipating)
-			return false;
+            return false;
+        }
+        // NOTE: the session factory interceptor is overridden by an empty one, because the
+        // real interceptor may not function correctly in this test-specific setup.
+        final Session session=
+            SessionFactoryUtils.getSession(sessFac, EmptyInterceptor.INSTANCE, null);
+        session.setFlushMode(FlushMode.AUTO);
+        TransactionSynchronizationManager.bindResource(sessFac, new SessionHolder(session));
+        return true;
+    }
 
-		final SessionFactory	sessFac=getSessionFactory();
-		final SessionHolder 	sessionHolder=
-				(SessionHolder) TransactionSynchronizationManager.unbindResource(sessFac);
-		SessionFactoryUtils.releaseSession(sessionHolder.getSession(), sessFac);
-		return true;
-	}
+    // returns true if session actually closed
+    public boolean endSession ()
+    {
+        if (_txParticipating)
+            return false;
+
+        final SessionFactory    sessFac=getSessionFactory();
+        final SessionHolder     sessionHolder=
+                (SessionHolder) TransactionSynchronizationManager.unbindResource(sessFac);
+        SessionFactoryUtils.releaseSession(sessionHolder.getSession(), sessFac);
+        return true;
+    }
 }

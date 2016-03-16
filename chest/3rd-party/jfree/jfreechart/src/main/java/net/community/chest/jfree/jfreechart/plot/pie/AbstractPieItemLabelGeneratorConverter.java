@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.plot.pie;
 
@@ -15,9 +15,9 @@ import org.jfree.chart.labels.AbstractPieItemLabelGenerator;
  * @since May 26, 2009 2:59:29 PM
  */
 public abstract class AbstractPieItemLabelGeneratorConverter<V extends AbstractPieItemLabelGenerator>
-		extends BaseGeneratorConverter<V> {
-	protected AbstractPieItemLabelGeneratorConverter (Class<V> objClass) throws IllegalArgumentException
-	{
-		super(objClass);
-	}
+        extends BaseGeneratorConverter<V> {
+    protected AbstractPieItemLabelGeneratorConverter (Class<V> objClass) throws IllegalArgumentException
+    {
+        super(objClass);
+    }
 }

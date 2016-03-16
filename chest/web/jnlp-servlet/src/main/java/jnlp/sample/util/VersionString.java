@@ -1,6 +1,6 @@
 /*
- * @(#)VersionString.java	1.6 05/11/17
- * 
+ * @(#)VersionString.java    1.6 05/11/17
+ *
  * Copyright (c) 2006 Sun Microsystems, Inc. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,92 +49,92 @@ import java.util.StringTokenizer;
  */
 public class VersionString {
     private final Collection<VersionID> _versionIds;
-    
+
     /* Constructs a VersionString object from string */
     public VersionString (String vs)
     {
-    	_versionIds = new LinkedList<VersionID>();
-    	if ((vs != null) && (vs.length() > 0))
-    	{
-    		for (final StringTokenizer st=new StringTokenizer(vs, " ", false); st.hasMoreElements(); )
-    		{
-    			// Note: The VersionID class takes care of a postfixed '+'
-    			final String	ids=st.nextToken();
-    			final VersionID	vid=new VersionID(ids);
-    			_versionIds.add(vid);
-    		}
-    	}
+        _versionIds = new LinkedList<VersionID>();
+        if ((vs != null) && (vs.length() > 0))
+        {
+            for (final StringTokenizer st=new StringTokenizer(vs, " ", false); st.hasMoreElements(); )
+            {
+                // Note: The VersionID class takes care of a postfixed '+'
+                final String    ids=st.nextToken();
+                final VersionID    vid=new VersionID(ids);
+                _versionIds.add(vid);
+            }
+        }
     }
     /* Check if this VersionString object contains the VersionID m */
     public boolean contains (VersionID m)
     {
-    	if (null == m)
-    		return false;
+        if (null == m)
+            return false;
 
-    	for (final VersionID vi : _versionIds)
-    	{
-    		if ((vi != null) && vi.match(m))
-    			return true;
-    	}
-    	return false;
+        for (final VersionID vi : _versionIds)
+        {
+            if ((vi != null) && vi.match(m))
+                return true;
+        }
+        return false;
     }
     /* Check if this VersionString object contains the VersionID m, given as a string */
     public boolean contains (String versionid)
     {
-    	if ((null == versionid) || (versionid.length() <= 0))
-    		return false;
+        if ((null == versionid) || (versionid.length() <= 0))
+            return false;
 
-    	return contains(new VersionID(versionid));
+        return contains(new VersionID(versionid));
     }
     /* Check if this VersionString object contains anything greater than m */
     public boolean containsGreaterThan (VersionID m)
     {
-    	if (null == m)
-    		return false;
+        if (null == m)
+            return false;
 
-    	for (final VersionID vi : _versionIds)
-    	{
-    		if ((vi != null) && vi.isGreaterThan(m))
-    			return true;
+        for (final VersionID vi : _versionIds)
+        {
+            if ((vi != null) && vi.isGreaterThan(m))
+                return true;
         }
 
-    	return false;
-    }   
-  
+        return false;
+    }
+
     /* Check if this VersionString object contains anything greater than the VersionID m, given as a string */
     public boolean containsGreaterThan (String versionid)
     {
-    	if ((null == versionid) || (versionid.length() <= 0))
-    		return false;
+        if ((null == versionid) || (versionid.length() <= 0))
+            return false;
 
-    	return containsGreaterThan(new VersionID(versionid));
+        return containsGreaterThan(new VersionID(versionid));
     }
     /* Check if the versionString 'vs' contains the VersionID 'vi' */
     static public boolean contains (String vs, String vi)
     {
-    	return (new VersionString(vs)).contains(vi);
+        return (new VersionString(vs)).contains(vi);
     }
     /*
      * @see java.lang.Object#toString()
      */
     @Override
-	public String toString ()
+    public String toString ()
     {
-    	StringBuilder sb=null;
-    	for (final VersionID vi : _versionIds)
-    	{
-    		final String	vs=(null == vi) ? null : vi.toString();
-    		if ((null == vs) || (vs.length() <= 0))
-    			continue;
+        StringBuilder sb=null;
+        for (final VersionID vi : _versionIds)
+        {
+            final String    vs=(null == vi) ? null : vi.toString();
+            if ((null == vs) || (vs.length() <= 0))
+                continue;
 
-    		if (null == sb)
-    			sb = new StringBuilder(_versionIds.size() * 16);
-    		else
-    			sb.append(' ');
-    		sb.append(vs);
-    	}
+            if (null == sb)
+                sb = new StringBuilder(_versionIds.size() * 16);
+            else
+                sb.append(' ');
+            sb.append(vs);
+        }
 
-    	return ((null == sb) || (sb.length() <= 0)) ? "" : sb.toString();
+        return ((null == sb) || (sb.length() <= 0)) ? "" : sb.toString();
     }
 }
 

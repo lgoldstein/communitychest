@@ -18,52 +18,52 @@ import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
  * @since Jan 10, 2008 9:40:51 AM
  */
 public abstract class BaseHttpAccessor extends AbstractJMXAccessorHelper {
-	protected BaseHttpAccessor ()
-	{
-		super();
-	}
+    protected BaseHttpAccessor ()
+    {
+        super();
+    }
 
-	private HostConfiguration	_host	/* =null */;
-	public synchronized HostConfiguration getHostConfiguration ()
-	{
-		if (null == _host)
-		{
-			final URI	u=getAccessURL();
-			if (null == u)
-				return null;
+    private HostConfiguration    _host    /* =null */;
+    public synchronized HostConfiguration getHostConfiguration ()
+    {
+        if (null == _host)
+        {
+            final URI    u=getAccessURL();
+            if (null == u)
+                return null;
 
-			_host = new HostConfiguration();
-			_host.setHost(u.getHost(), u.getPort(), u.getScheme());
-		}
+            _host = new HostConfiguration();
+            _host.setHost(u.getHost(), u.getPort(), u.getScheme());
+        }
 
-		return _host;
-	}
-	// CAVEAT EMPTOR !!!
-	public synchronized void setHostConfiguration (HostConfiguration host)
-	{
-		_host = host;
-	}
+        return _host;
+    }
+    // CAVEAT EMPTOR !!!
+    public synchronized void setHostConfiguration (HostConfiguration host)
+    {
+        _host = host;
+    }
 
-	private HttpConnectionManager	_mgr	/* =null */;
-	public synchronized HttpConnectionManager getConnectionManager ()
-	{
-		if (null == _mgr)
-			_mgr = new MultiThreadedHttpConnectionManager();
-		return _mgr;
-	}
-	// CAVEAT EMPTOR !!!
-	public synchronized void setConnectionManager (HttpConnectionManager mgr)
-	{
-		_mgr = mgr;
-	}
+    private HttpConnectionManager    _mgr    /* =null */;
+    public synchronized HttpConnectionManager getConnectionManager ()
+    {
+        if (null == _mgr)
+            _mgr = new MultiThreadedHttpConnectionManager();
+        return _mgr;
+    }
+    // CAVEAT EMPTOR !!!
+    public synchronized void setConnectionManager (HttpConnectionManager mgr)
+    {
+        _mgr = mgr;
+    }
 
-	public HttpClient getClientInstance () throws IOException
-	{
-		final HttpConnectionManager	mgr=getConnectionManager();
-		final HttpClient			hc=(null == mgr) ? null : new HttpClient(mgr);
-		if (null == hc)
-			throw new BindException("No client instance created");
+    public HttpClient getClientInstance () throws IOException
+    {
+        final HttpConnectionManager    mgr=getConnectionManager();
+        final HttpClient            hc=(null == mgr) ? null : new HttpClient(mgr);
+        if (null == hc)
+            throw new BindException("No client instance created");
 
-		return hc;
-	}
+        return hc;
+    }
 }

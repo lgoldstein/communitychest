@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-ant-runner" default="build-ant-runner" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds the ANT runner application $Rev: 561 $
-		</description>
-		
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="ant.apps.root.dir" value="${parent.root.dir}"/>
-		<property name="module.base.target.name" value="ant-runner"/>
+    <project name="build-ant-runner" default="build-ant-runner" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds the ANT runner application $Rev: 561 $
+        </description>
+
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="ant.apps.root.dir" value="${parent.root.dir}"/>
+        <property name="module.base.target.name" value="ant-runner"/>
         <property name="default.classpath.ref.name" value="ant.helpers.path"/>
 
-		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
-		<property name="module.application.base.pkg.name" value="${ant.apps.base.pkg.name}.${module.application.sub.pkg.name}"/>
+        <import file="${parent.root.dir}${file.separator}build-base.xml"/>
+        <property name="module.application.base.pkg.name" value="${ant.apps.base.pkg.name}.${module.application.sub.pkg.name}"/>
 
-		<property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-io.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-logging.${jar.file.suffix},
-													  ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
-													  ${community.base.pkg.name}-gui-components.${jar.file.suffix},
-													  ${community.base.pkg.name}-ant-helpers.${jar.file.suffix},
-													  ${community.base.pkg.name}-apps-common.${jar.file.suffix}"
-			/>
+        <property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-io.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-logging.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-gui-components.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-ant-helpers.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-apps-common.${jar.file.suffix}"
+            />
 
-    	<!-- define dependencies to use only pure ANT JAR(s) -->
-		<mvn:dependencies	pathId="ant.dependencies.path" useScope="compile"
-			  				settingsFile="${maven.settings.file.path}"
-				>
-        	<localRepository path="${maven.local.repository.folder}" layout="default"/>
+        <!-- define dependencies to use only pure ANT JAR(s) -->
+        <mvn:dependencies    pathId="ant.dependencies.path" useScope="compile"
+                              settingsFile="${maven.settings.file.path}"
+                >
+            <localRepository path="${maven.local.repository.folder}" layout="default"/>
 
-			<dependency groupId="org.apache.ant" artifactId="ant" version="${ant.jars.version}" scope="compile"/>
-			<dependency groupId="org.apache.ant" artifactId="ant-nodeps" version="${ant.jars.version}" scope="compile"/>
-		</mvn:dependencies>
+            <dependency groupId="org.apache.ant" artifactId="ant" version="${ant.jars.version}" scope="compile"/>
+            <dependency groupId="org.apache.ant" artifactId="ant-nodeps" version="${ant.jars.version}" scope="compile"/>
+        </mvn:dependencies>
 
-		<path id="ant.helpers.path">
-        	<path refid="community.modules.jars"/>
-    		<path refid="ant.dependencies.path"/>
-		</path>
+        <path id="ant.helpers.path">
+            <path refid="community.modules.jars"/>
+            <path refid="ant.dependencies.path"/>
+        </path>
 
-		<target name="copy-extra-ant-runner-files" depends="ant-apps-base">
-				<!-- copy some extra files -->
-			<mkdir dir="${module.application.folder}"/>
-			<copy preservelastmodified="true" verbose="true" todir="${module.application.folder}">
-				<fileset dir="${module.root.folder}" includes="antrunner.*"/>
-			</copy>
-			<fixcrlf file="${module.application.folder}${file.separator}antrunner.pl" eol="lf"/>
-			<fixcrlf file="${module.application.folder}${file.separator}antrunner.bat" eol="crlf"/>
-		</target>
+        <target name="copy-extra-ant-runner-files" depends="ant-apps-base">
+                <!-- copy some extra files -->
+            <mkdir dir="${module.application.folder}"/>
+            <copy preservelastmodified="true" verbose="true" todir="${module.application.folder}">
+                <fileset dir="${module.root.folder}" includes="antrunner.*"/>
+            </copy>
+            <fixcrlf file="${module.application.folder}${file.separator}antrunner.pl" eol="lf"/>
+            <fixcrlf file="${module.application.folder}${file.separator}antrunner.bat" eol="crlf"/>
+        </target>
 
-		<target name="build-ant-runner"
-				depends="jar-ant-app-module-files,
-						 copy-extra-ant-runner-files,
-						 jar-application-files"
-				description="Builds ANT runner application"/>
+        <target name="build-ant-runner"
+                depends="jar-ant-app-module-files,
+                         copy-extra-ant-runner-files,
+                         jar-application-files"
+                description="Builds ANT runner application"/>
 
-		<target name="clean-ant-runner"
-				depends="clean-ant-app-module-build,clean-ant-app-application-build"
-				description="Removes the ANT runner object files and JAR"/>
-	</project>
+        <target name="clean-ant-runner"
+                depends="clean-ant-app-module-build,clean-ant-app-application-build"
+                description="Removes the ANT runner object files and JAR"/>
+    </project>

@@ -12,23 +12,23 @@ import net.community.chest.ui.helpers.table.AlternateRowColorCellRenderer;
  */
 public class ManifestTableCellRenderer extends AlternateRowColorCellRenderer {
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 421444376348240878L;
-	public static final Color DFLT_ROWCOLOR=Color.RED, DFLT_ALTROWCOLOR=Color.YELLOW;
+     *
+     */
+    private static final long serialVersionUID = 421444376348240878L;
+    public static final Color DFLT_ROWCOLOR=Color.RED, DFLT_ALTROWCOLOR=Color.YELLOW;
 
-	public ManifestTableCellRenderer ()
-	{
-		super(DFLT_ROWCOLOR, DFLT_ALTROWCOLOR);
-	}
+    public ManifestTableCellRenderer ()
+    {
+        super(DFLT_ROWCOLOR, DFLT_ALTROWCOLOR);
+    }
 
-	public ManifestTableCellRenderer (Color... colors)
-	{
-		super(colors);
-	}
+    public ManifestTableCellRenderer (Color... colors)
+    {
+        super(colors);
+    }
 
-	public ManifestTableCellRenderer (Iterable<? extends Color> colors)
-	{
-		super(colors);
-	}
+    public ManifestTableCellRenderer (Iterable<? extends Color> colors)
+    {
+        super(colors);
+    }
 }

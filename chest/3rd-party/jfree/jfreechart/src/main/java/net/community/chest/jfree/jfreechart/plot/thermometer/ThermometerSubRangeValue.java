@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.plot.thermometer;
 
@@ -19,54 +19,54 @@ import org.jfree.chart.plot.ThermometerPlot;
  * @since Jun 21, 2010 2:50:32 PM
  */
 public enum ThermometerSubRangeValue {
-	NORMAL(ThermometerPlot.NORMAL, 'C'),
-	WARNING(ThermometerPlot.WARNING, 'W'),
-	CRITICAL(ThermometerPlot.CRITICAL, 'C');
+    NORMAL(ThermometerPlot.NORMAL, 'C'),
+    WARNING(ThermometerPlot.WARNING, 'W'),
+    CRITICAL(ThermometerPlot.CRITICAL, 'C');
 
-	private final int	_r;
-	public final int getRangeValue ()
-	{
-		return _r;
-	}
+    private final int    _r;
+    public final int getRangeValue ()
+    {
+        return _r;
+    }
 
-	public final char	_c;
-	public final char getRangeChar ()
-	{
-		return _c;
-	}
+    public final char    _c;
+    public final char getRangeChar ()
+    {
+        return _c;
+    }
 
-	ThermometerSubRangeValue (final int r, final char c)
-	{
-		_r = r;
-		_c = c;
-	}
+    ThermometerSubRangeValue (final int r, final char c)
+    {
+        _r = r;
+        _c = c;
+    }
 
-	public static final List<ThermometerSubRangeValue>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final ThermometerSubRangeValue fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<ThermometerSubRangeValue>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final ThermometerSubRangeValue fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-	public static final ThermometerSubRangeValue fromRangeValue (final int u)
-	{
-		for (final ThermometerSubRangeValue v : VALUES)
-		{
-			if ((v != null) && (v.getRangeValue() == u))
-				return v;
-		}
+    public static final ThermometerSubRangeValue fromRangeValue (final int u)
+    {
+        for (final ThermometerSubRangeValue v : VALUES)
+        {
+            if ((v != null) && (v.getRangeValue() == u))
+                return v;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public static final ThermometerSubRangeValue fromRangeChar (final char c)
-	{
-		final char	vc=Character.toUpperCase(c);
-		for (final ThermometerSubRangeValue v : VALUES)
-		{
-			if ((v != null) && (v.getRangeChar() == vc))
-				return v;
-		}
+    public static final ThermometerSubRangeValue fromRangeChar (final char c)
+    {
+        final char    vc=Character.toUpperCase(c);
+        for (final ThermometerSubRangeValue v : VALUES)
+        {
+            if ((v != null) && (v.getRangeChar() == vc))
+                return v;
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

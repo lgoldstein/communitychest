@@ -11,26 +11,26 @@ import net.community.chest.util.map.entries.StringPairEntry;
  * @since Aug 6, 2007 4:09:15 PM
  */
 public class ManifestTable extends TypedTable<StringPairEntry> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2323163093054098970L;
-	public ManifestTable (final ManifestTableModel model)
-	{
-		super(model);
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2323163093054098970L;
+    public ManifestTable (final ManifestTableModel model)
+    {
+        super(model);
+    }
 
-	public ManifestTable ()
-	{
-		this(new ManifestTableModel());
-	}
-	/*
-	 * @see javax.swing.JTable#getCellRenderer(int, int)
-	 */
-	@Override
-	@CoVariantReturn
-	public ManifestTableCellRenderer getCellRenderer (int row, int column)
-	{
-		return new ManifestTableCellRenderer();
-	}
+    public ManifestTable ()
+    {
+        this(new ManifestTableModel());
+    }
+    /*
+     * @see javax.swing.JTable#getCellRenderer(int, int)
+     */
+    @Override
+    @CoVariantReturn
+    public ManifestTableCellRenderer getCellRenderer (int row, int column)
+    {
+        return new ManifestTableCellRenderer();
+    }
 }

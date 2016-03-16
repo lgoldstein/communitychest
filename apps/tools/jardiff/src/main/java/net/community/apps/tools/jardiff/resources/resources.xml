@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-		<!-- holds various GUI resources specifications
-		
-			NOTE: icon references are relative to the 'images' sub-folder
-		 -->
-	<resources>
-			<!-- defines the main frame -->
-		<section 	name="main-frame"
-					title="JAR(s) Comparator"
-					defaultCloseOperation="EXIT"
-					relativePreferredSize="50,45"
-					relativeSize="50,45"
-					iconImage="Jardiff.ico"
-				>
-			<layout class="border"/>
-				<!-- defines the main-menu -->
-			<menu name="main-menu">
-					<!-- NOTE: assigned commands MUST match what the application expects -->
-				<menu text="File" mnemonic="VK_F" actionCommand="file">
-					<item text="Compare" mnemonic="VK_C" actionCommand="refresh" accelerator="F5" icon="Refresh.gif"/>
-					<item text="Stop" mnemonic="VK_S" actionCommand="stop" accelerator="F5" icon="Stop.gif"/>
-					<separator/>
-					<item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
-				</menu>
-				<menu text="Help" actionCommand="help" icon="Help.gif">
-					<accessibleContext description="Shows various information about the application"/>
-					<item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
-				</menu>
-			</menu>
-		</section>
+        <!-- holds various GUI resources specifications
 
-			<!-- dialog used to load the XML request file -->
-		<section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select JAR file">
-			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
-					description="Compressed files"
-					exts="jar,zip,war,ear"
-				/>
-		</section>
+            NOTE: icon references are relative to the 'images' sub-folder
+         -->
+    <resources>
+            <!-- defines the main frame -->
+        <section     name="main-frame"
+                    title="JAR(s) Comparator"
+                    defaultCloseOperation="EXIT"
+                    relativePreferredSize="50,45"
+                    relativeSize="50,45"
+                    iconImage="Jardiff.ico"
+                >
+            <layout class="border"/>
+                <!-- defines the main-menu -->
+            <menu name="main-menu">
+                    <!-- NOTE: assigned commands MUST match what the application expects -->
+                <menu text="File" mnemonic="VK_F" actionCommand="file">
+                    <item text="Compare" mnemonic="VK_C" actionCommand="refresh" accelerator="F5" icon="Refresh.gif"/>
+                    <item text="Stop" mnemonic="VK_S" actionCommand="stop" accelerator="F5" icon="Stop.gif"/>
+                    <separator/>
+                    <item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
+                </menu>
+                <menu text="Help" actionCommand="help" icon="Help.gif">
+                    <accessibleContext description="Shows various information about the application"/>
+                    <item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
+                </menu>
+            </menu>
+        </section>
 
-			<!-- Model for the JAR comparison tables -->
-		<section name="jar-entries-table">
-			<column name="Path" identifier="ENTRY_PATH" class="java.lang.String" width="50" />
-			<column name="Name" identifier="ENTRY_NAME" class="java.lang.String" width="35"/>
-			<column name="Size" identifier="ENTRY_SIZE" class="java.lang.Long" width="15" />
-		</section>
+            <!-- dialog used to load the XML request file -->
+        <section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select JAR file">
+            <filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+                    description="Compressed files"
+                    exts="jar,zip,war,ear"
+                />
+        </section>
 
-			<!-- JCheckBox(es) -->		
-		<section name="show-diffs-choice" text="Show differences" selected="true"/>
-		<section name="show-ident-choice" text="Show identical" selected="false"/>
-		<section name="check-data-choice" text="Compare contents" selected="false"/>
+            <!-- Model for the JAR comparison tables -->
+        <section name="jar-entries-table">
+            <column name="Path" identifier="ENTRY_PATH" class="java.lang.String" width="50" />
+            <column name="Name" identifier="ENTRY_NAME" class="java.lang.String" width="35"/>
+            <column name="Size" identifier="ENTRY_SIZE" class="java.lang.Long" width="15" />
+        </section>
 
-			<!-- dialog used to show the manifest -->
-		<section name="show-manifest-dialog" title="Manifest" modal="true">
-			<column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
-			<column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
-		</section>
+            <!-- JCheckBox(es) -->
+        <section name="show-diffs-choice" text="Show differences" selected="true"/>
+        <section name="show-ident-choice" text="Show identical" selected="false"/>
+        <section name="check-data-choice" text="Compare contents" selected="false"/>
 
-		<section name="main-fonts">
-			<font id="default-font" name="Tahoma" style="plain" size="11"/>
-		</section>
+            <!-- dialog used to show the manifest -->
+        <section name="show-manifest-dialog" title="Manifest" modal="true">
+            <column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
+            <column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
+        </section>
 
-		<section name="main-toolbar" floatable="false">
-			<button actionCommand="stop" 	enabled="false" tooltipText="Stop comparison"/>
-			<button actionCommand="refresh" enabled="false" tooltipText="Compare"/>
-		</section>
-	</resources>
+        <section name="main-fonts">
+            <font id="default-font" name="Tahoma" style="plain" size="11"/>
+        </section>
+
+        <section name="main-toolbar" floatable="false">
+            <button actionCommand="stop"     enabled="false" tooltipText="Stop comparison"/>
+            <button actionCommand="refresh" enabled="false" tooltipText="Compare"/>
+        </section>
+    </resources>

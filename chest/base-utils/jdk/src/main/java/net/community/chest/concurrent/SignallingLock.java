@@ -7,10 +7,10 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * <P>Copyright 2011 as per GPLv2</P>
- * 
+ *
  * This is a simple blocking &quot;queue&quot; that provides a signaling
  * method by which one can signal to the wait(er) that something agreed
- * between them has occurred 
+ * between them has occurred
  * @author Lyor G.
  */
 public class SignallingLock {
@@ -47,7 +47,7 @@ public class SignallingLock {
             lock.unlock();
         }
     }
-    
+
     /**
      * Blocks infinitely until someone signals (a.k.a. {@link #offer()}-s)
      * @throws InterruptedException If interrupted while awaiting a signal
@@ -67,7 +67,7 @@ public class SignallingLock {
             lock.unlock();
         }
     }
-    
+
     /**
      * Waits the specified amount of time to be signaled
      * @param timeout Timeout (msec.) to wait

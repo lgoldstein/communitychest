@@ -9,13 +9,13 @@ import net.community.chest.io.encode.DecodingException;
  * @since Aug 22, 2007 12:05:32 PM
  */
 public class QuotedPrintableDecodingException extends DecodingException {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7382091909093850920L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7382091909093850920L;
 
-	public QuotedPrintableDecodingException (String message, char c)
-	{
-		super(message, c);
-	}
+    public QuotedPrintableDecodingException (String message, char c)
+    {
+        super(message, c);
+    }
 }

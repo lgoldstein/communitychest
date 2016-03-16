@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.dom.xpath.manip;
 
@@ -13,5 +13,5 @@ import org.w3c.dom.Element;
  * @since May 7, 2009 10:54:59 AM
  */
 public interface XPathManipulationListener {
-	void handleManipulationExecutionResult (XPathManipulationData manip, Document doc, Element elem, Object result);
+    void handleManipulationExecutionResult (XPathManipulationData manip, Document doc, Element elem, Object result);
 }

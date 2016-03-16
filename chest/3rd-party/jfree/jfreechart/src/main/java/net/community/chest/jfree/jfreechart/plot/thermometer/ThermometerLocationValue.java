@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.plot.thermometer;
 
@@ -16,7 +16,7 @@ import org.jfree.chart.plot.ThermometerPlot;
  *
  * <P>An {@link Enum} that encapsulates the {@link ThermometerPlot#setAxisLocation(int)}
  * and {@link ThermometerPlot#setValueLocation(int)} arguments</P>
- * 
+ *
  * @author Lyor G.
  * @since Jun 21, 2010 2:38:44 PM
  */
@@ -26,31 +26,31 @@ public enum ThermometerLocationValue {
     LEFT(ThermometerPlot.LEFT),
     BULB(ThermometerPlot.BULB);
 
-    private final int	_l;
-	public final int getLocationValue ()
-	{
-		return _l;
-	}
-	
-	ThermometerLocationValue (final int l)
-	{
-		_l = l;
-	}
+    private final int    _l;
+    public final int getLocationValue ()
+    {
+        return _l;
+    }
 
-	public static final List<ThermometerLocationValue>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final ThermometerLocationValue fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    ThermometerLocationValue (final int l)
+    {
+        _l = l;
+    }
 
-	public static final ThermometerLocationValue fromLocationValue (final int l)
-	{
-		for (final ThermometerLocationValue v : VALUES)
-		{
-			if ((v != null) && (v.getLocationValue() == l))
-				return v;
-		}
+    public static final List<ThermometerLocationValue>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final ThermometerLocationValue fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-		return null;
-	}
+    public static final ThermometerLocationValue fromLocationValue (final int l)
+    {
+        for (final ThermometerLocationValue v : VALUES)
+        {
+            if ((v != null) && (v.getLocationValue() == l))
+                return v;
+        }
+
+        return null;
+    }
 }

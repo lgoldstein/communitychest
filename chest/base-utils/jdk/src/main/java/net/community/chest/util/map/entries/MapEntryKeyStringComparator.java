@@ -14,39 +14,39 @@ import net.community.chest.lang.StringUtil;
  * @since Oct 9, 2007 8:23:21 AM
  */
 public class MapEntryKeyStringComparator implements Comparator<Map.Entry<?,?>>{
-	private boolean	_caseSensitive	/* =false */;
-	public boolean isCaseSensitive ()
-	{
-		return _caseSensitive;
-	}
+    private boolean    _caseSensitive    /* =false */;
+    public boolean isCaseSensitive ()
+    {
+        return _caseSensitive;
+    }
 
-	public void setCaseSensitive (boolean enabled)
-	{
-		_caseSensitive = enabled;
-	}
-	public MapEntryKeyStringComparator (boolean caseSensitive)
-	{
-		_caseSensitive = caseSensitive;
-	}
+    public void setCaseSensitive (boolean enabled)
+    {
+        _caseSensitive = enabled;
+    }
+    public MapEntryKeyStringComparator (boolean caseSensitive)
+    {
+        _caseSensitive = caseSensitive;
+    }
 
-	public MapEntryKeyStringComparator ()
-	{
-		this(true);
-	}
-	/*
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-	 */
-	@Override
-	public int compare (Map.Entry<?,?> o1, Map.Entry<?,?> o2)
-	{
-		final Object	k1=(null == o1) ? null : o1.getKey(),
-						k2=(null == o2) ? null : o2.getKey();
-		final String	s1=(null == k1) ? null : k1.toString(),
-						s2=(null == k2) ? null : k2.toString();
+    public MapEntryKeyStringComparator ()
+    {
+        this(true);
+    }
+    /*
+     * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+     */
+    @Override
+    public int compare (Map.Entry<?,?> o1, Map.Entry<?,?> o2)
+    {
+        final Object    k1=(null == o1) ? null : o1.getKey(),
+                        k2=(null == o2) ? null : o2.getKey();
+        final String    s1=(null == k1) ? null : k1.toString(),
+                        s2=(null == k2) ? null : k2.toString();
 
-		return StringUtil.compareDataStrings(s1, s2, isCaseSensitive());
-	}
+        return StringUtil.compareDataStrings(s1, s2, isCaseSensitive());
+    }
 
-	public static final MapEntryKeyStringComparator	CASE_SENSITIVE=new MapEntryKeyStringComparator(true),
-													CASE_INSENSITIVE=new MapEntryKeyStringComparator(false);
+    public static final MapEntryKeyStringComparator    CASE_SENSITIVE=new MapEntryKeyStringComparator(true),
+                                                    CASE_INSENSITIVE=new MapEntryKeyStringComparator(false);
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.format.pe;
 
@@ -29,11 +29,11 @@ public enum OptHeaderSubsystemType {
     public final short getTypeValue() {
         return _typeValue;
     }
-    
+
     OptHeaderSubsystemType(short typeValue) {
         _typeValue = typeValue;
     }
-    
+
     public static final Set<OptHeaderSubsystemType> VALUES=
             Collections.unmodifiableSet(EnumSet.allOf(OptHeaderSubsystemType.class));
     public static final OptHeaderSubsystemType fromTypeValue(short typeValue) {
@@ -42,7 +42,7 @@ public enum OptHeaderSubsystemType {
                 return type;
             }
         }
-        
+
         return null;
     }
 }

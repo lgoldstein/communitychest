@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing.component.scroll;
 
@@ -29,35 +29,35 @@ public enum CornerPosition {
     UPLEADING(ScrollPaneConstants.UPPER_LEADING_CORNER),
     UPTRAILING(ScrollPaneConstants.UPPER_TRAILING_CORNER);
 
-	private final String	_p;
-	public final String getPosition ()
-	{
-		return _p;
-	}
-	
-	CornerPosition (String p)
-	{
-		_p = p;
-	}
+    private final String    _p;
+    public final String getPosition ()
+    {
+        return _p;
+    }
 
-	public static final List<CornerPosition>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final CornerPosition fromString (final String name)
-	{
-		return CollectionsUtils.fromString(VALUES, name, false);
-	}
+    CornerPosition (String p)
+    {
+        _p = p;
+    }
 
-	public static final CornerPosition fromPosition (final String p)
-	{
-		if ((null == p) || (p.length() <= 0))
-			return null;
+    public static final List<CornerPosition>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final CornerPosition fromString (final String name)
+    {
+        return CollectionsUtils.fromString(VALUES, name, false);
+    }
 
-		for (final CornerPosition v : VALUES)
-		{
-			final String	vp=(null == v) ? null : v.getPosition();
-			if (p.equalsIgnoreCase(vp))
-				return v;
-		}
+    public static final CornerPosition fromPosition (final String p)
+    {
+        if ((null == p) || (p.length() <= 0))
+            return null;
 
-		return null;
-	}
+        for (final CornerPosition v : VALUES)
+        {
+            final String    vp=(null == v) ? null : v.getPosition();
+            if (p.equalsIgnoreCase(vp))
+                return v;
+        }
+
+        return null;
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.io.url;
 
@@ -16,30 +16,30 @@ import net.community.chest.lang.StringUtil;
  * @since Nov 10, 2008 4:02:45 PM
  */
 public class URLComparator extends ByPathURLComparator {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5629573517967154970L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5629573517967154970L;
 
-	public URLComparator (boolean ascending) throws IllegalArgumentException
-	{
-		super(ascending);
-	}
-	/*
-	 * @see net.community.chest.util.AbstractComparator#compareValues(java.lang.Object, java.lang.Object)
-	 */
-	@Override
-	public int compareValues (final URL v1, final URL v2)
-	{
-		final String	p1=(null == v1) ? null : v1.getProtocol(),
-						p2=(null == v2) ? null : v2.getProtocol();
-		final int		nRes=StringUtil.compareDataStrings(p1, p2, false);
-		if (nRes != 0)
-			return nRes;
+    public URLComparator (boolean ascending) throws IllegalArgumentException
+    {
+        super(ascending);
+    }
+    /*
+     * @see net.community.chest.util.AbstractComparator#compareValues(java.lang.Object, java.lang.Object)
+     */
+    @Override
+    public int compareValues (final URL v1, final URL v2)
+    {
+        final String    p1=(null == v1) ? null : v1.getProtocol(),
+                        p2=(null == v2) ? null : v2.getProtocol();
+        final int        nRes=StringUtil.compareDataStrings(p1, p2, false);
+        if (nRes != 0)
+            return nRes;
 
-		return super.compareValues(v1, v2);
-	}
+        return super.compareValues(v1, v2);
+    }
 
-	public static final URLComparator	ASCENDING=new URLComparator(true),
-										DESCENDING=new URLComparator(false);
+    public static final URLComparator    ASCENDING=new URLComparator(true),
+                                        DESCENDING=new URLComparator(false);
 }

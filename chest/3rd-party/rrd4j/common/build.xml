@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-rrd4j-common" default="build-rrd4j-common" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds the RRD4J common utilities JAR $Rev: 561 $
-		</description>
+    <project name="build-rrd4j-common" default="build-rrd4j-common" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds the RRD4J common utilities JAR $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="rrd4j.libs.root.dir" value="${parent.root.dir}"/>
-		<property name="module.base.target.name" value="rrd4j-common"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="rrd4j.libs.root.dir" value="${parent.root.dir}"/>
+        <property name="module.base.target.name" value="rrd4j-common"/>
 
-		<import file="${rrd4j.libs.root.dir}${file.separator}build-base.xml"/>
-		
-		<target name="build-rrd4j-common" depends="jar-rrd4j-libs-module-files" description="Builds the RRD4J common utilities JAR"/>
-		<target name="clean-rrd4j-common" depends="clean-rrd4j-libs-module-build" description="Removes the RRD4J common object files and JAR"/>
-	</project>
+        <import file="${rrd4j.libs.root.dir}${file.separator}build-base.xml"/>
+
+        <target name="build-rrd4j-common" depends="jar-rrd4j-libs-module-files" description="Builds the RRD4J common utilities JAR"/>
+        <target name="clean-rrd4j-common" depends="clean-rrd4j-libs-module-build" description="Removes the RRD4J common object files and JAR"/>
+    </project>

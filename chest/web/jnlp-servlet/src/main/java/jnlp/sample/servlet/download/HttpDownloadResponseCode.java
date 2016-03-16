@@ -38,48 +38,48 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 public class HttpDownloadResponseCode extends DownloadResponse {
-	private int	_rspCode;
-	public int getResponseCode ()
-	{
-		return _rspCode;
-	}
+    private int    _rspCode;
+    public int getResponseCode ()
+    {
+        return _rspCode;
+    }
 
-	public void setResponseCode (int c)
-	{
-		_rspCode = c;
-	}
+    public void setResponseCode (int c)
+    {
+        _rspCode = c;
+    }
 
-	public HttpDownloadResponseCode (final int rspCode)
-	{
-		_rspCode = rspCode;
-	}
+    public HttpDownloadResponseCode (final int rspCode)
+    {
+        _rspCode = rspCode;
+    }
 
-	public HttpDownloadResponseCode ()
-	{
-		this(-1);
-	}
+    public HttpDownloadResponseCode ()
+    {
+        this(-1);
+    }
     /*
      * @see jnlp.sample.servlet.DownloadResponse#sendRespond(javax.servlet.http.HttpServletResponse)
      */
     @Override
-	public void sendRespond (HttpServletResponse response) throws IOException
-	{
-    	response.sendError(getResponseCode());
+    public void sendRespond (HttpServletResponse response) throws IOException
+    {
+        response.sendError(getResponseCode());
     }
-	/*
-	 * @see jnlp.sample.servlet.download.DownloadResponse#clone()
-	 */
-	@Override
-	public HttpDownloadResponseCode /* co-variant return */ clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}
-	/*
-	 * @see jnlp.sample.servlet.download.DownloadResponse#toString()
-	 */
-	@Override
-	public String toString ()
-	{
-		return super.toString() + "[" + getResponseCode() + "]";
-	}
+    /*
+     * @see jnlp.sample.servlet.download.DownloadResponse#clone()
+     */
+    @Override
+    public HttpDownloadResponseCode /* co-variant return */ clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
+    /*
+     * @see jnlp.sample.servlet.download.DownloadResponse#toString()
+     */
+    @Override
+    public String toString ()
+    {
+        return super.toString() + "[" + getResponseCode() + "]";
+    }
 }

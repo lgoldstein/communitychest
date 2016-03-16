@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-itext-apps" default="build-itext-apps" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds iText related applications $Rev: 561 $
-		</description>
+    <project name="build-itext-apps" default="build-itext-apps" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds iText related applications $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <import file="${module.root.folder}${file.separator}build-base.xml"/>
 
-		<target name="build-pdfconcat" depends="itext-apps-base" unless="skip.build.pdfconcat" description="Builds PDFCONCAT application">
-			<ant dir="${module.root.folder}${file.separator}pdfconcat" target="build-pdfconcat" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.pdfconcat" value="true"/>
-		</target>
+        <target name="build-pdfconcat" depends="itext-apps-base" unless="skip.build.pdfconcat" description="Builds PDFCONCAT application">
+            <ant dir="${module.root.folder}${file.separator}pdfconcat" target="build-pdfconcat" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.pdfconcat" value="true"/>
+        </target>
 
-		<target name="build-itext-apps"
-				depends="build-pdfconcat"
-				description="Builds itext related applications"/>
+        <target name="build-itext-apps"
+                depends="build-pdfconcat"
+                description="Builds itext related applications"/>
 
-		<target name="clean-itext-apps" depends="itext-apps-base" description="Cleans up itext related applications">
-			<ant dir="${module.root.folder}${file.separator}pdfconcat" target="clean-pdfconcat" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-		</target>
-	</project>
+        <target name="clean-itext-apps" depends="itext-apps-base" description="Cleans up itext related applications">
+            <ant dir="${module.root.folder}${file.separator}pdfconcat" target="clean-pdfconcat" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+        </target>
+    </project>

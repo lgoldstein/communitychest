@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.apache.maven.pom2cpsync;
 
@@ -15,24 +15,24 @@ import net.community.chest.CoVariantReturn;
  * @since Aug 14, 2008 11:33:31 AM
  */
 public final class Main extends BaseMain {
-	private Main (final String ... args)
-	{
-		super(args);
-	}
-	/*
-	 * @see net.community.apps.common.BaseMain#createMainFrameInstance()
-	 */
-	@Override
-	@CoVariantReturn
-	protected MainFrame createMainFrameInstance () throws Exception
-	{
-		return new MainFrame(getMainArguments());
-	}
+    private Main (final String ... args)
+    {
+        super(args);
+    }
+    /*
+     * @see net.community.apps.common.BaseMain#createMainFrameInstance()
+     */
+    @Override
+    @CoVariantReturn
+    protected MainFrame createMainFrameInstance () throws Exception
+    {
+        return new MainFrame(getMainArguments());
+    }
 
-	//////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
 
-	public static void main (String[] args)
-	{
-		SwingUtilities.invokeLater(new Main(args));
-	}
+    public static void main (String[] args)
+    {
+        SwingUtilities.invokeLater(new Main(args));
+    }
 }

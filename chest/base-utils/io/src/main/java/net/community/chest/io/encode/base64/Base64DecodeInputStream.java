@@ -12,45 +12,45 @@ import net.community.chest.io.output.BoundedArrayOutputStream;
  * 04/03/2004
  */
 public class Base64DecodeInputStream extends InputStreamEmbedder {
-	private final boolean              	_throwsException;
-	private BoundedArrayOutputStream	_ost /* =null */;
-	private byte[]                    	_obf=new byte[Base64.BASE64_INPUT_BLOCK_LEN];
-	private int                       	_obfPos /* =0 */, _obfCount /* =0 */;
-	private int[]                     	_inBuffer=new int[Base64.BASE64_OUTPUT_BLOCK_LEN];
-	private boolean                   	_done /* =false */;
-	/**
-	 * Base constructor
-	 * @param ist original input stream (assumed to have BASE64 encoded data)
-	 * @param throwsException if TRUE, then exception is thrown if invalid
-	 * BASE64 encoding encountered. Otherwise, the data is ignored
-	 * @param realClose if TRUE then calling {@link #close()} also closes
-	 * the underlying input stream
-	 * @throws IllegalArgumentException if bad/illegal stream
-	 */
-	public Base64DecodeInputStream (InputStream ist, boolean throwsException, boolean realClose) throws IllegalArgumentException
-	{
-		super(ist, realClose);
+    private final boolean                  _throwsException;
+    private BoundedArrayOutputStream    _ost /* =null */;
+    private byte[]                        _obf=new byte[Base64.BASE64_INPUT_BLOCK_LEN];
+    private int                           _obfPos /* =0 */, _obfCount /* =0 */;
+    private int[]                         _inBuffer=new int[Base64.BASE64_OUTPUT_BLOCK_LEN];
+    private boolean                       _done /* =false */;
+    /**
+     * Base constructor
+     * @param ist original input stream (assumed to have BASE64 encoded data)
+     * @param throwsException if TRUE, then exception is thrown if invalid
+     * BASE64 encoding encountered. Otherwise, the data is ignored
+     * @param realClose if TRUE then calling {@link #close()} also closes
+     * the underlying input stream
+     * @throws IllegalArgumentException if bad/illegal stream
+     */
+    public Base64DecodeInputStream (InputStream ist, boolean throwsException, boolean realClose) throws IllegalArgumentException
+    {
+        super(ist, realClose);
 
-		_throwsException = throwsException;
-		_ost = new BoundedArrayOutputStream(_obf);
-	}
-	/**
-	 * Simple constructor
-	 * @param ist original input stream (assumed to have BASE64 encoded data). Note:
-	 * if any non-BASE64 data is encountered, then exception is thrown
-	 * @param realClose if TRUE then calling {@link #close()} also closes
-	 * the underlying input stream
-	 * @throws IllegalArgumentException if bad/illegal stream
-	 */
-	public Base64DecodeInputStream (InputStream ist, boolean realClose) throws IllegalArgumentException
-	{
-		this(ist, true, realClose);
-	}
+        _throwsException = throwsException;
+        _ost = new BoundedArrayOutputStream(_obf);
+    }
+    /**
+     * Simple constructor
+     * @param ist original input stream (assumed to have BASE64 encoded data). Note:
+     * if any non-BASE64 data is encountered, then exception is thrown
+     * @param realClose if TRUE then calling {@link #close()} also closes
+     * the underlying input stream
+     * @throws IllegalArgumentException if bad/illegal stream
+     */
+    public Base64DecodeInputStream (InputStream ist, boolean realClose) throws IllegalArgumentException
+    {
+        this(ist, true, realClose);
+    }
 
-	public Base64DecodeInputStream (InputStream ist) throws IllegalArgumentException
-	{
-		this(ist, true);
-	}
+    public Base64DecodeInputStream (InputStream ist) throws IllegalArgumentException
+    {
+        this(ist, true);
+    }
 
     @Override
     public int read(byte[] b, int off, int len) throws IOException {
@@ -59,7 +59,7 @@ public class Base64DecodeInputStream extends InputStreamEmbedder {
             if (val == (-1)) {
                 return (pos - off);
             }
-            
+
             b[pos] = (byte) (val & 0x00FF);
         }
 

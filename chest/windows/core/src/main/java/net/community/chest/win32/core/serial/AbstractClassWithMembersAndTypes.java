@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.serial;
 
@@ -21,96 +21,96 @@ import net.community.chest.util.compare.AbstractComparator;
  *
  */
 public abstract class AbstractClassWithMembersAndTypes extends AbstractClassWithMembers {
-	private static final long serialVersionUID = -2222884094960210038L;
+    private static final long serialVersionUID = -2222884094960210038L;
 
-	private MemberTypeInfo	_memberTypeInfo;
+    private MemberTypeInfo    _memberTypeInfo;
 
-	protected AbstractClassWithMembersAndTypes (RecordTypeEnumeration recordType)
-	{
-		super(recordType);
-	}
+    protected AbstractClassWithMembersAndTypes (RecordTypeEnumeration recordType)
+    {
+        super(recordType);
+    }
 
-	public MemberTypeInfo getMemberTypeInfo ()
-	{
-		return _memberTypeInfo;
-	}
+    public MemberTypeInfo getMemberTypeInfo ()
+    {
+        return _memberTypeInfo;
+    }
 
-	public void setMemberTypeInfo (MemberTypeInfo memberTypeInfo)
-	{
-		_memberTypeInfo = memberTypeInfo;
-	}
+    public void setMemberTypeInfo (MemberTypeInfo memberTypeInfo)
+    {
+        _memberTypeInfo = memberTypeInfo;
+    }
 
-	@Override
-	@CoVariantReturn
-	public AbstractClassWithMembersAndTypes read (InputStream in) throws IOException
-	{
-		return getClass().cast(super.read(in));
-	}
+    @Override
+    @CoVariantReturn
+    public AbstractClassWithMembersAndTypes read (InputStream in) throws IOException
+    {
+        return getClass().cast(super.read(in));
+    }
 
-	@Override
-	public void readRecordData (InputStream in) throws IOException
-	{
-		super.readRecordData(in);
+    @Override
+    public void readRecordData (InputStream in) throws IOException
+    {
+        super.readRecordData(in);
 
-		ClassInfo	classInfo=getClassInfo();
-		if (classInfo == null)
-			throw new StreamCorruptedException("No " + ClassInfo.class.getSimpleName() + " data");
+        ClassInfo    classInfo=getClassInfo();
+        if (classInfo == null)
+            throw new StreamCorruptedException("No " + ClassInfo.class.getSimpleName() + " data");
 
-		Collection<String>	namesList=classInfo.getMemberNames();
-		setMemberTypeInfo(new MemberTypeInfo(CollectionsUtils.size(namesList), in));
-		logInternal("memberTypeInfo=" + getMemberTypeInfo());
-	}
+        Collection<String>    namesList=classInfo.getMemberNames();
+        setMemberTypeInfo(new MemberTypeInfo(CollectionsUtils.size(namesList), in));
+        logInternal("memberTypeInfo=" + getMemberTypeInfo());
+    }
 
-	@Override
-	public void writeRecordData (OutputStream out) throws IOException
-	{
-		super.writeRecordData(out);
+    @Override
+    public void writeRecordData (OutputStream out) throws IOException
+    {
+        super.writeRecordData(out);
 
-		MemberTypeInfo	memberInfo=getMemberTypeInfo();
-		if (memberInfo == null)
-			throw new StreamCorruptedException("No member info");
-		memberInfo.write(out);
-	}
+        MemberTypeInfo    memberInfo=getMemberTypeInfo();
+        if (memberInfo == null)
+            throw new StreamCorruptedException("No member info");
+        memberInfo.write(out);
+    }
 
-	@Override
-	@CoVariantReturn
-	public AbstractClassWithMembersAndTypes clone () throws CloneNotSupportedException
-	{
-		AbstractClassWithMembersAndTypes	other=getClass().cast(super.clone());
-		MemberTypeInfo	memberInfo=getMemberTypeInfo();
-		if (memberInfo != null)
-			other.setMemberTypeInfo(memberInfo.clone());
-		return other;
-	}
+    @Override
+    @CoVariantReturn
+    public AbstractClassWithMembersAndTypes clone () throws CloneNotSupportedException
+    {
+        AbstractClassWithMembersAndTypes    other=getClass().cast(super.clone());
+        MemberTypeInfo    memberInfo=getMemberTypeInfo();
+        if (memberInfo != null)
+            other.setMemberTypeInfo(memberInfo.clone());
+        return other;
+    }
 
-	@Override
-	public int hashCode ()
-	{
-		return super.hashCode()
-			+ ClassUtil.getObjectHashCode(getMemberTypeInfo())
-			;
-	}
+    @Override
+    public int hashCode ()
+    {
+        return super.hashCode()
+            + ClassUtil.getObjectHashCode(getMemberTypeInfo())
+            ;
+    }
 
-	@Override
-	public boolean equals (Object obj)
-	{
-		if (!super.equals(obj))
-			return false;
-		if (this == obj)
-			return true;
+    @Override
+    public boolean equals (Object obj)
+    {
+        if (!super.equals(obj))
+            return false;
+        if (this == obj)
+            return true;
 
-		AbstractClassWithMembersAndTypes	other=(AbstractClassWithMembersAndTypes) obj;
-		if (AbstractComparator.compareObjects(getMemberTypeInfo(), other.getMemberTypeInfo()))
-			return true;
-		else
-			return false;
-	}
+        AbstractClassWithMembersAndTypes    other=(AbstractClassWithMembersAndTypes) obj;
+        if (AbstractComparator.compareObjects(getMemberTypeInfo(), other.getMemberTypeInfo()))
+            return true;
+        else
+            return false;
+    }
 
-	@Override
-	public String toString ()
-	{
-		return super.toString()
-			+ ";members=" + getMemberTypeInfo()
-			;
-	}
+    @Override
+    public String toString ()
+    {
+        return super.toString()
+            + ";members=" + getMemberTypeInfo()
+            ;
+    }
 }

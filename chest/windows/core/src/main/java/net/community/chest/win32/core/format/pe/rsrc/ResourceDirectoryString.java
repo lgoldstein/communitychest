@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.format.pe.rsrc;
 
@@ -22,138 +22,138 @@ import net.community.chest.win32.core.DataFormatConverter;
  * @since Jun 16, 2009 3:45:57 PM
  */
 public class ResourceDirectoryString
-					implements Serializable,
-							   PubliclyCloneable<ResourceDirectoryString>,
-							   ElementEncoder<ResourceDirectoryString> {
-	private static final long serialVersionUID = -4247165312727727991L;
+                    implements Serializable,
+                               PubliclyCloneable<ResourceDirectoryString>,
+                               ElementEncoder<ResourceDirectoryString> {
+    private static final long serialVersionUID = -4247165312727727991L;
 
-	public ResourceDirectoryString ()
-	{
-		super();
-	}
+    public ResourceDirectoryString ()
+    {
+        super();
+    }
 
-	private int	_length;
-	public int getLength ()
-	{
-		return _length;
-	}
+    private int    _length;
+    public int getLength ()
+    {
+        return _length;
+    }
 
-	public void setLength (int length)
-	{
-		_length = length;
-	}
+    public void setLength (int length)
+    {
+        _length = length;
+    }
 
-	private String	_text;
-	public String getText ()
-	{
-		return _text;
-	}
+    private String    _text;
+    public String getText ()
+    {
+        return _text;
+    }
 
-	public void setText (String text)
-	{
-		_text = text;
-	}
+    public void setText (String text)
+    {
+        _text = text;
+    }
 
-	public static final String readDefaultText (final InputStream in, final int len) throws IOException
-	{
-		if (len <= 0)
-			return "";
+    public static final String readDefaultText (final InputStream in, final int len) throws IOException
+    {
+        if (len <= 0)
+            return "";
 
-		if ((len & 1) != 0)
-			throw new StreamCorruptedException("readDefaultText(len=" + len + ") not WORD aligned");
+        if ((len & 1) != 0)
+            throw new StreamCorruptedException("readDefaultText(len=" + len + ") not WORD aligned");
 
-		final byte[]	bytes=new byte[len];
-		final int		readLen=in.read(bytes);
-		if (readLen != len)
-			throw new StreamCorruptedException("readDefaultText(len=" + len + ") got only " + readLen + " bytes");
+        final byte[]    bytes=new byte[len];
+        final int        readLen=in.read(bytes);
+        if (readLen != len)
+            throw new StreamCorruptedException("readDefaultText(len=" + len + ") got only " + readLen + " bytes");
 
-		return DataFormatConverter.toUnicodeString(bytes);
-	}
+        return DataFormatConverter.toUnicodeString(bytes);
+    }
 
-	protected String readText (final InputStream in, final int len) throws IOException
-	{
-		return readDefaultText(in, len);
-	}
+    protected String readText (final InputStream in, final int len) throws IOException
+    {
+        return readDefaultText(in, len);
+    }
 
-	protected void writeText (final OutputStream out, final int len, final String s) throws IOException
-	{
-		// TODO implement this
-		throw new StreamCorruptedException("writeText(" + s + ")[" + len + "]=>" + out + " - N/A");
-	}
-	/*
-	 * @see net.community.chest.io.encode.ElementEncoder#read(java.io.InputStream)
-	 */
-	@Override
-	public ResourceDirectoryString read (InputStream in) throws IOException
-	{
-		final int	len=DataFormatConverter.readUnsignedInt16(in);
-		setLength(len);
-		setText(readText(in, len));
-		return this;
-	}
+    protected void writeText (final OutputStream out, final int len, final String s) throws IOException
+    {
+        // TODO implement this
+        throw new StreamCorruptedException("writeText(" + s + ")[" + len + "]=>" + out + " - N/A");
+    }
+    /*
+     * @see net.community.chest.io.encode.ElementEncoder#read(java.io.InputStream)
+     */
+    @Override
+    public ResourceDirectoryString read (InputStream in) throws IOException
+    {
+        final int    len=DataFormatConverter.readUnsignedInt16(in);
+        setLength(len);
+        setText(readText(in, len));
+        return this;
+    }
 
-	public void clear ()
-	{
-		setLength(0);
-		setText(null);
-	}
+    public void clear ()
+    {
+        setLength(0);
+        setText(null);
+    }
 
-	public ResourceDirectoryString (InputStream in) throws IOException
-	{
-		final Object	o=read(in);
-		if (o != this)
-			throw new StreamCorruptedException("Mismatched read entries");
-	}
-	/*
-	 * @see net.community.chest.io.encode.ElementEncoder#write(java.io.OutputStream)
-	 */
-	@Override
-	public void write (OutputStream out) throws IOException
-	{
-		final int	len=getLength();
-		DataFormatConverter.writeUnsignedInt16(out, len);
-		writeText(out, len, getText());
-	}
-	/*
-	 * @see java.lang.Object#clone()
-	 */
-	@Override
-	@CoVariantReturn
-	public ResourceDirectoryString clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}
-	/*
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals (Object obj)
-	{
-		if (!(obj instanceof ResourceDirectoryString))
-			return false;
-		if (this == obj)
-			return true;
+    public ResourceDirectoryString (InputStream in) throws IOException
+    {
+        final Object    o=read(in);
+        if (o != this)
+            throw new StreamCorruptedException("Mismatched read entries");
+    }
+    /*
+     * @see net.community.chest.io.encode.ElementEncoder#write(java.io.OutputStream)
+     */
+    @Override
+    public void write (OutputStream out) throws IOException
+    {
+        final int    len=getLength();
+        DataFormatConverter.writeUnsignedInt16(out, len);
+        writeText(out, len, getText());
+    }
+    /*
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    @CoVariantReturn
+    public ResourceDirectoryString clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
+    /*
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals (Object obj)
+    {
+        if (!(obj instanceof ResourceDirectoryString))
+            return false;
+        if (this == obj)
+            return true;
 
-		final ResourceDirectoryString	s=(ResourceDirectoryString) obj;
-		return (s.getLength() == getLength())
-			&& (0 == StringUtil.compareDataStrings(s.getText(), getText(), true))
-			;
-	}
-	/*
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode ()
-	{
-		return getLength() + StringUtil.getDataStringHashCode(getText(), true);
-	}
-	/*
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString ()
-	{
-		final String	t=getText();
-		return (null == t) ? "" : t;
-	}
+        final ResourceDirectoryString    s=(ResourceDirectoryString) obj;
+        return (s.getLength() == getLength())
+            && (0 == StringUtil.compareDataStrings(s.getText(), getText(), true))
+            ;
+    }
+    /*
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode ()
+    {
+        return getLength() + StringUtil.getDataStringHashCode(getText(), true);
+    }
+    /*
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString ()
+    {
+        final String    t=getText();
+        return (null == t) ? "" : t;
+    }
 }

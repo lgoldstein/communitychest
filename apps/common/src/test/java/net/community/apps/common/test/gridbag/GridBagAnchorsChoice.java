@@ -12,27 +12,27 @@ import net.community.chest.ui.helpers.combobox.EnumComboBox;
  * @since Mar 19, 2008 1:33:42 PM
  */
 public class GridBagAnchorsChoice extends EnumComboBox<GridBagAnchorType> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1159194208906359288L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1159194208906359288L;
 
-	/*
-	 * @see net.community.chest.ui.helpers.combobox.EnumComboBox#getEnumValues()
-	 */
-	@Override
-	public synchronized List<GridBagAnchorType> getEnumValues ()
-	{
-		return GridBagAnchorType.VALUES;
-	}
+    /*
+     * @see net.community.chest.ui.helpers.combobox.EnumComboBox#getEnumValues()
+     */
+    @Override
+    public synchronized List<GridBagAnchorType> getEnumValues ()
+    {
+        return GridBagAnchorType.VALUES;
+    }
 
-	public GridBagAnchorsChoice (boolean autoPopulate)
-	{
-		super(GridBagAnchorType.class, autoPopulate);
-	}
+    public GridBagAnchorsChoice (boolean autoPopulate)
+    {
+        super(GridBagAnchorType.class, autoPopulate);
+    }
 
-	public GridBagAnchorsChoice ()
-	{
-		this(false);
-	}
+    public GridBagAnchorsChoice ()
+    {
+        this(false);
+    }
 }

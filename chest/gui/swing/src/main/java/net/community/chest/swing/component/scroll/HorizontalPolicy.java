@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing.component.scroll;
 
@@ -18,35 +18,35 @@ import net.community.chest.util.collection.CollectionsUtils;
  * @since Dec 3, 2008 4:00:29 PM
  */
 public enum HorizontalPolicy {
-	BYNEED(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED),
-	NEVER(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER),
-	ALWAYS(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+    BYNEED(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED),
+    NEVER(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER),
+    ALWAYS(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-	private final int	_v;
-	public final int getPolicy ()
-	{
-		return _v;
-	}
-	
-	HorizontalPolicy (int v)
-	{
-		_v = v;
-	}
+    private final int    _v;
+    public final int getPolicy ()
+    {
+        return _v;
+    }
 
-	public static final List<HorizontalPolicy>	VALUES=Collections.unmodifiableList(Arrays.asList(values()))	/* =null */;
-	public static final HorizontalPolicy fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    HorizontalPolicy (int v)
+    {
+        _v = v;
+    }
 
-	public static final HorizontalPolicy fromPolicy (final int p)
-	{
-		for (final HorizontalPolicy v : VALUES)
-		{
-			if ((v != null) && (v.getPolicy() == p))
-				return v;
-		}
+    public static final List<HorizontalPolicy>    VALUES=Collections.unmodifiableList(Arrays.asList(values()))    /* =null */;
+    public static final HorizontalPolicy fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-		return null;
-	}
+    public static final HorizontalPolicy fromPolicy (final int p)
+    {
+        for (final HorizontalPolicy v : VALUES)
+        {
+            if ((v != null) && (v.getPolicy() == p))
+                return v;
+        }
+
+        return null;
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.io.encode.base64;
 
@@ -16,20 +16,20 @@ import net.community.chest.util.collection.CollectionsUtils;
  * @since Feb 16, 2009 1:21:11 PM
  */
 public enum Base64EncodeOptions {
-	/**
-	 * Whether to insert line breaks every 76 characters in the output.
-	 */
-	BREAK,
-	/**
-	 * Whether to use CRLF instead of just LF
-	 */
-	CRLF;
+    /**
+     * Whether to insert line breaks every 76 characters in the output.
+     */
+    BREAK,
+    /**
+     * Whether to use CRLF instead of just LF
+     */
+    CRLF;
 
-	private static final List<Base64EncodeOptions>	VALUES=
-		Collections.unmodifiableList(Arrays.asList(values()));
+    private static final List<Base64EncodeOptions>    VALUES=
+        Collections.unmodifiableList(Arrays.asList(values()));
 
-	public static final Base64EncodeOptions fromString (final String name)
-	{
-		return CollectionsUtils.fromString(VALUES, name, false);
-	}
+    public static final Base64EncodeOptions fromString (final String name)
+    {
+        return CollectionsUtils.fromString(VALUES, name, false);
+    }
 }

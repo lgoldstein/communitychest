@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing.component.dialog;
 
@@ -11,18 +11,18 @@ package net.community.chest.swing.component.dialog;
  * @since Dec 16, 2008 10:43:16 AM
  */
 public class BaseDialogReflectiveProxy<D extends BaseDialog> extends JDialogReflectiveProxy<D> {
-	// need it for "setLocale" and other extensions
-	public BaseDialogReflectiveProxy (Class<D> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    // need it for "setLocale" and other extensions
+    public BaseDialogReflectiveProxy (Class<D> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	protected BaseDialogReflectiveProxy (Class<D> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected BaseDialogReflectiveProxy (Class<D> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public static final BaseDialogReflectiveProxy<BaseDialog>	BASEDLG=
-			new BaseDialogReflectiveProxy<BaseDialog>(BaseDialog.class, true);
+    public static final BaseDialogReflectiveProxy<BaseDialog>    BASEDLG=
+            new BaseDialogReflectiveProxy<BaseDialog>(BaseDialog.class, true);
 }

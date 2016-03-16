@@ -1,6 +1,6 @@
 /*
- * @(#)Patcher.java	1.6 05/11/17
- * 
+ * @(#)Patcher.java    1.6 05/11/17
+ *
  * Copyright (c) 2006 Sun Microsystems, Inc. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without

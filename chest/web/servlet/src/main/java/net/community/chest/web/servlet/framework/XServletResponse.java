@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.web.servlet.framework;
 
@@ -16,7 +16,7 @@ import javax.servlet.ServletResponse;
  * @since Jun 15, 2010 11:46:43 AM
  */
 public interface XServletResponse extends ServletResponse {
-	int getContentLength ();
-	void setOutputStream (ServletOutputStream value) throws IOException;
-	void setCommitted (boolean value);
+    int getContentLength ();
+    void setOutputStream (ServletOutputStream value) throws IOException;
+    void setCommitted (boolean value);
 }

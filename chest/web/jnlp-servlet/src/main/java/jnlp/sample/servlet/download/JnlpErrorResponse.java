@@ -43,78 +43,78 @@ import javax.servlet.http.HttpServletResponse;
 import jnlp.sample.servlet.JnlpDownloadServlet;
 
 public class JnlpErrorResponse extends DownloadResponse {
-	private String _message;
-	public String getMessage ()
-	{
-		return _message;
-	}
+    private String _message;
+    public String getMessage ()
+    {
+        return _message;
+    }
 
-	public void setMessage (String m)
-	{
-		_message = m;
-	}
+    public void setMessage (String m)
+    {
+        _message = m;
+    }
 
-	public String getMessage (int jnlpErrorCode)
-	{
-		final String msg=Integer.toString(jnlpErrorCode);
-		String		dsc="No description";
-	    try
-	    {
-	    	final ResourceBundle	rb=JnlpDownloadServlet.getDefaultResourceBundle();
-	    	final String			errKey="servlet.jnlp.err." + msg;
-	    	if ((rb != null) && rb.containsKey(errKey))
-	    		dsc = rb.getString(errKey);
-	    }
-	    catch (MissingResourceException mre)
-	    {
-	    	/* ignore - can happen if some unknown/not-covered error code */
-	    }	    	    
+    public String getMessage (int jnlpErrorCode)
+    {
+        final String msg=Integer.toString(jnlpErrorCode);
+        String        dsc="No description";
+        try
+        {
+            final ResourceBundle    rb=JnlpDownloadServlet.getDefaultResourceBundle();
+            final String            errKey="servlet.jnlp.err." + msg;
+            if ((rb != null) && rb.containsKey(errKey))
+                dsc = rb.getString(errKey);
+        }
+        catch (MissingResourceException mre)
+        {
+            /* ignore - can happen if some unknown/not-covered error code */
+        }
 
-	    return msg + " " + dsc;
-	}
-	
-	public String setMessage (int jnlpErrorCode)
-	{
-		final String	m=getMessage(jnlpErrorCode);
-		setMessage(m);
-		return m;
-	}
+        return msg + " " + dsc;
+    }
 
-	public JnlpErrorResponse (String m)
-	{
-		_message = m;
-	}
+    public String setMessage (int jnlpErrorCode)
+    {
+        final String    m=getMessage(jnlpErrorCode);
+        setMessage(m);
+        return m;
+    }
 
-	public JnlpErrorResponse (int jnlpErrorCode)
-	{
-		setMessage(jnlpErrorCode);
-	}
+    public JnlpErrorResponse (String m)
+    {
+        _message = m;
+    }
 
-	public JnlpErrorResponse ()
-	{
-		this(null);
-	}
-	/*
-	 * @see jnlp.sample.servlet.DownloadResponse#sendRespond(javax.servlet.http.HttpServletResponse)
-	 */
-	@Override
-	public void sendRespond (HttpServletResponse response) throws IOException
-	{
-		response.setContentType(JNLP_ERROR_MIMETYPE);
-		PrintWriter pw=response.getWriter();
-		pw.println(getMessage());
-	}
-	/*
-	 * @see jnlp.sample.servlet.DownloadResponse#toString()
-	 */
-	@Override
-	public String toString () { return super.toString() + "[" + getMessage() + "]"; }
-	/*
-	 * @see jnlp.sample.servlet.download.DownloadResponse#clone()
-	 */
-	@Override
-	public JnlpErrorResponse /* co-variant return */ clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}
+    public JnlpErrorResponse (int jnlpErrorCode)
+    {
+        setMessage(jnlpErrorCode);
+    }
+
+    public JnlpErrorResponse ()
+    {
+        this(null);
+    }
+    /*
+     * @see jnlp.sample.servlet.DownloadResponse#sendRespond(javax.servlet.http.HttpServletResponse)
+     */
+    @Override
+    public void sendRespond (HttpServletResponse response) throws IOException
+    {
+        response.setContentType(JNLP_ERROR_MIMETYPE);
+        PrintWriter pw=response.getWriter();
+        pw.println(getMessage());
+    }
+    /*
+     * @see jnlp.sample.servlet.DownloadResponse#toString()
+     */
+    @Override
+    public String toString () { return super.toString() + "[" + getMessage() + "]"; }
+    /*
+     * @see jnlp.sample.servlet.download.DownloadResponse#clone()
+     */
+    @Override
+    public JnlpErrorResponse /* co-variant return */ clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
 }

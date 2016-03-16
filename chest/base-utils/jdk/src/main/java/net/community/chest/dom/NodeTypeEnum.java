@@ -27,82 +27,82 @@ import org.w3c.dom.Text;
  * @since Nov 6, 2007 3:01:13 PM
  */
 public enum NodeTypeEnum {
-	ELEMENT(Node.ELEMENT_NODE, Element.class),
-	ATTRIBUTE(Node.ATTRIBUTE_NODE, Attr.class),
-	TEXT(Node.TEXT_NODE, Text.class),
-	CDATA(Node.CDATA_SECTION_NODE, CDATASection.class),
-	ENTITYREF(Node.ENTITY_REFERENCE_NODE, EntityReference.class),
-	ENTITY(Node.ENTITY_NODE,Entity.class),
-	PROCINST(Node.PROCESSING_INSTRUCTION_NODE,ProcessingInstruction.class),
-	COMMENT(Node.COMMENT_NODE,Comment.class),
-	DOCUMENT(Node.DOCUMENT_NODE,Document.class),
-	DOCTYPE(Node.DOCUMENT_TYPE_NODE,DocumentType.class),
-	DOCFRAG(Node.DOCUMENT_FRAGMENT_NODE,DocumentFragment.class),
-	NOTATION(Node.NOTATION_NODE,Notation.class);
+    ELEMENT(Node.ELEMENT_NODE, Element.class),
+    ATTRIBUTE(Node.ATTRIBUTE_NODE, Attr.class),
+    TEXT(Node.TEXT_NODE, Text.class),
+    CDATA(Node.CDATA_SECTION_NODE, CDATASection.class),
+    ENTITYREF(Node.ENTITY_REFERENCE_NODE, EntityReference.class),
+    ENTITY(Node.ENTITY_NODE,Entity.class),
+    PROCINST(Node.PROCESSING_INSTRUCTION_NODE,ProcessingInstruction.class),
+    COMMENT(Node.COMMENT_NODE,Comment.class),
+    DOCUMENT(Node.DOCUMENT_NODE,Document.class),
+    DOCTYPE(Node.DOCUMENT_TYPE_NODE,DocumentType.class),
+    DOCFRAG(Node.DOCUMENT_FRAGMENT_NODE,DocumentFragment.class),
+    NOTATION(Node.NOTATION_NODE,Notation.class);
 
-	private final short	_nodeType;
-	public short getNodeType ()
-	{
-		return _nodeType;
-	}
+    private final short    _nodeType;
+    public short getNodeType ()
+    {
+        return _nodeType;
+    }
 
-	public boolean isSameNodeType (final Node n)
-	{
-		return (n != null) && (getNodeType() == n.getNodeType());
-	}
+    public boolean isSameNodeType (final Node n)
+    {
+        return (n != null) && (getNodeType() == n.getNodeType());
+    }
 
-	private final Class<? extends Node>	_nodeClass;
-	public Class<? extends Node> getNodeClass ()
-	{
-		return _nodeClass;
-	}
+    private final Class<? extends Node>    _nodeClass;
+    public Class<? extends Node> getNodeClass ()
+    {
+        return _nodeClass;
+    }
 
-	NodeTypeEnum (final short nodeType, final Class<? extends Node> nodeClass)
-	{
-		_nodeType = nodeType;
-		_nodeClass = nodeClass;
-	}
+    NodeTypeEnum (final short nodeType, final Class<? extends Node> nodeClass)
+    {
+        _nodeType = nodeType;
+        _nodeClass = nodeClass;
+    }
 
-	public static final List<NodeTypeEnum>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static NodeTypeEnum fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<NodeTypeEnum>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static NodeTypeEnum fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-	public static NodeTypeEnum fromNodeType (final short nodeType)
-	{
-		if (nodeType <= 0)
-			return null;
+    public static NodeTypeEnum fromNodeType (final short nodeType)
+    {
+        if (nodeType <= 0)
+            return null;
 
-		for (final NodeTypeEnum v : VALUES)
-		{
-			if ((v != null) && (v.getNodeType() == nodeType))
-				return v;
-		}
+        for (final NodeTypeEnum v : VALUES)
+        {
+            if ((v != null) && (v.getNodeType() == nodeType))
+                return v;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public static NodeTypeEnum fromNode (final Node n)
-	{
-		if (null == n)
-			return null;
+    public static NodeTypeEnum fromNode (final Node n)
+    {
+        if (null == n)
+            return null;
 
-		return fromNodeType(n.getNodeType());
-	}
+        return fromNodeType(n.getNodeType());
+    }
 
-	public static NodeTypeEnum fromNodeClass (final Class<?> nodeClass)
-	{
-		if (null == nodeClass)
-			return null;
+    public static NodeTypeEnum fromNodeClass (final Class<?> nodeClass)
+    {
+        if (null == nodeClass)
+            return null;
 
-		for (final NodeTypeEnum v : VALUES)
-		{
-			final Class<?>	vc=(null == v) /* should not happen */ ? null : v.getNodeClass();
-			if ((vc != null) && vc.isAssignableFrom(nodeClass))
-				return v;
-		}
+        for (final NodeTypeEnum v : VALUES)
+        {
+            final Class<?>    vc=(null == v) /* should not happen */ ? null : v.getNodeClass();
+            if ((vc != null) && vc.isAssignableFrom(nodeClass))
+                return v;
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

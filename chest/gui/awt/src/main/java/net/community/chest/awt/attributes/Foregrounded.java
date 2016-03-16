@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.attributes;
 
@@ -12,9 +12,9 @@ import java.awt.Color;
  * @since Dec 30, 2008 8:38:46 AM
  */
 public interface Foregrounded {
-	public static final String		ATTR_NAME="foreground";
-	public static final Class<?>	ATTR_TYPE=Color.class;
+    public static final String        ATTR_NAME="foreground";
+    public static final Class<?>    ATTR_TYPE=Color.class;
 
-	Color getForeground ();
-	void setForeground (Color c);
+    Color getForeground ();
+    void setForeground (Color c);
 }

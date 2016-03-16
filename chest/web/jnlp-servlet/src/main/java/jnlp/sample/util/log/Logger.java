@@ -1,6 +1,6 @@
 /*
- * @(#)Logger.java	1.6 05/11/17
- * 
+ * @(#)Logger.java    1.6 05/11/17
+ *
  * Copyright (c) 2006 Sun Microsystems, Inc. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,25 +39,25 @@ package jnlp.sample.util.log;
 /* A logging object used by the servlets */
 public interface Logger  {
     // Logging levels
-    public final static int NONE           	 = 0; 
-    public static final String NONE_KEY    	 = "NONE";
-    public final static int FATAL          	 = 1; 
-    public static final String FATAL_KEY   	 = "FATAL";
-    public final static int WARNING        	 = 2; 
+    public final static int NONE                = 0;
+    public static final String NONE_KEY         = "NONE";
+    public final static int FATAL               = 1;
+    public static final String FATAL_KEY        = "FATAL";
+    public final static int WARNING             = 2;
     public static final String WARNING_KEY       = "WARNING";
-    public final static int INFORMATIONAL        = 3; 
+    public final static int INFORMATIONAL        = 3;
     public static final String INFORMATIONAL_KEY = "INFORMATIONAL";
-    public final static int DEBUG                = 4; 
+    public final static int DEBUG                = 4;
     public static final String DEBUG_KEY         = "DEBUG";
-    public final static int TRACE                = 5; 
+    public final static int TRACE                = 5;
     public static final String TRACE_KEY         = "TRACE";
-    
+
     int getLoggingLevel ();
     void setLoggingLevel (int level);
 
     String getLoggerName ();
 
-    // Logging API. Fatal, Warning, and Informational are localized 
+    // Logging API. Fatal, Warning, and Informational are localized
     void logArgs (int level, String key, Throwable t, Object ... messageArguments);
 
     void fatal (String key, Throwable throwable);

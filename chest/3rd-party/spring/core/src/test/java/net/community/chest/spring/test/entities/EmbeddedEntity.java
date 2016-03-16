@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.spring.test.entities;
 
@@ -17,89 +17,89 @@ import net.community.chest.lang.StringUtil;
  */
 @Embeddable
 public class EmbeddedEntity implements Serializable, Cloneable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -460441490363498494L;
-	public EmbeddedEntity ()
-	{
-		super();
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = -460441490363498494L;
+    public EmbeddedEntity ()
+    {
+        super();
+    }
 
-	public EmbeddedEntity (String name, String address)
-	{
-		_name = name;
-		_address = address;
-	}
+    public EmbeddedEntity (String name, String address)
+    {
+        _name = name;
+        _address = address;
+    }
 
-	private String	_name;
-	@Column(name="NAME", nullable=true, length=128, unique=false)
-	public String getName ()
-	{
-		return _name;
-	}
+    private String    _name;
+    @Column(name="NAME", nullable=true, length=128, unique=false)
+    public String getName ()
+    {
+        return _name;
+    }
 
-	public void setName (String name)
-	{
-		_name = name;
-	}
+    public void setName (String name)
+    {
+        _name = name;
+    }
 
-	private String	_address;
-	@Column(name="ADDRESS", nullable=true, length=80, unique=false)
-	public String getAddress ()
-	{
-		return _address;
-	}
+    private String    _address;
+    @Column(name="ADDRESS", nullable=true, length=80, unique=false)
+    public String getAddress ()
+    {
+        return _address;
+    }
 
-	public void setAddress (String address)
-	{
-		_address = address;
-	}
+    public void setAddress (String address)
+    {
+        _address = address;
+    }
 
-	/*
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode ()
-	{
-		return StringUtil.getDataStringHashCode(getName(), false)
-			 + StringUtil.getDataStringHashCode(getAddress(), true)
-			 ;
-	}
-	/*
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals (Object obj)
-	{
-		if (this == obj)
-			return true;
+    /*
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode ()
+    {
+        return StringUtil.getDataStringHashCode(getName(), false)
+             + StringUtil.getDataStringHashCode(getAddress(), true)
+             ;
+    }
+    /*
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals (Object obj)
+    {
+        if (this == obj)
+            return true;
 
-		final Class<?>	c=(obj == null) ? null : obj.getClass();
-		if (c != getClass())
-			return false;
+        final Class<?>    c=(obj == null) ? null : obj.getClass();
+        if (c != getClass())
+            return false;
 
-		final EmbeddedEntity	oe=(EmbeddedEntity) obj;
-		if ((StringUtil.compareDataStrings(getName(), oe.getName(), false) == 0)
-		 && (StringUtil.compareDataStrings(getAddress(), oe.getAddress(), true) == 0))
-			return true;
+        final EmbeddedEntity    oe=(EmbeddedEntity) obj;
+        if ((StringUtil.compareDataStrings(getName(), oe.getName(), false) == 0)
+         && (StringUtil.compareDataStrings(getAddress(), oe.getAddress(), true) == 0))
+            return true;
 
-		return false;
-	}
-	/*
-	 * @see java.lang.Object#clone()
-	 */
-	@Override
-	public EmbeddedEntity clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}
-	/*
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString ()
-	{
-		return getName() + "=" + getAddress();
-	}
+        return false;
+    }
+    /*
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public EmbeddedEntity clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
+    /*
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString ()
+    {
+        return getName() + "=" + getAddress();
+    }
 }

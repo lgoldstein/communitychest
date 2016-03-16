@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-net-jgit-utils" default="build-net-jgit-utils" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds the jGit net utilities JAR $Rev$
-		</description>
+    <project name="build-net-jgit-utils" default="build-net-jgit-utils" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds the jGit net utilities JAR $Rev$
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="module.base.target.name" value="net-jgit"/>
-	    <dirname property="base.net.root.dir" file="${module.root.folder}"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="module.base.target.name" value="net-jgit"/>
+        <dirname property="base.net.root.dir" file="${module.root.folder}"/>
         <property name="default.classpath.ref.name" value="jgit.helpers.path"/>
 
-		<import file="${base.net.root.dir}${file.separator}build-base.xml"/>
+        <import file="${base.net.root.dir}${file.separator}build-base.xml"/>
 
-	    	<!-- define dependencies -->
-		<mvn:dependencies 	pathId="jgit.dependencies.path" useScope="compile"
-							settingsFile="${maven.settings.file.path}"
-				>
-	        <localRepository path="${maven.local.repository.folder}" layout="default"/>
-	
-			<dependency groupId="org.eclipse.jgit"
-						artifactId="org.eclipse.jgit"
-						version="${jgit.jar.version}"
-						scope="compile"
-				/>
-		</mvn:dependencies>
-	
-	    <path id="jgit.helpers.path">
-	    	<path refid="community.modules.jars"/>
-			<path refid="jgit.dependencies.path"/>
-		</path>
+            <!-- define dependencies -->
+        <mvn:dependencies     pathId="jgit.dependencies.path" useScope="compile"
+                            settingsFile="${maven.settings.file.path}"
+                >
+            <localRepository path="${maven.local.repository.folder}" layout="default"/>
 
-		<target name="build-net-jgit-utils" depends="jar-base-net-module-files" description="Builds the jgit net utilitites JAR"/>
-		<target name="clean-net-jgit-utils" depends="clean-base-net-module-build" description="Removes the jgit net utilities object files and JAR"/>
-	</project>
+            <dependency groupId="org.eclipse.jgit"
+                        artifactId="org.eclipse.jgit"
+                        version="${jgit.jar.version}"
+                        scope="compile"
+                />
+        </mvn:dependencies>
+
+        <path id="jgit.helpers.path">
+            <path refid="community.modules.jars"/>
+            <path refid="jgit.dependencies.path"/>
+        </path>
+
+        <target name="build-net-jgit-utils" depends="jar-base-net-module-files" description="Builds the jgit net utilitites JAR"/>
+        <target name="clean-net-jgit-utils" depends="clean-base-net-module-build" description="Removes the jgit net utilities object files and JAR"/>
+    </project>
 

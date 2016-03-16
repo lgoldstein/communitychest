@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.serial;
 
@@ -25,144 +25,144 @@ import net.community.chest.win32.core.DataFormatConverter;
  *
  */
 public class ClassInfo extends LogHelper
-		implements ElementEncoder<ClassInfo>, PubliclyCloneable<ClassInfo>, Serializable, ObjectIdCarrier {
-	private static final long serialVersionUID = 4992140721668903685L;
+        implements ElementEncoder<ClassInfo>, PubliclyCloneable<ClassInfo>, Serializable, ObjectIdCarrier {
+    private static final long serialVersionUID = 4992140721668903685L;
 
-	public static final int	MAX_MEMBERS_COUNT=0xFFFF;
+    public static final int    MAX_MEMBERS_COUNT=0xFFFF;
 
-	private long	_objectId;
-	private String	_name;
-	private List<String>	_memberNames;
+    private long    _objectId;
+    private String    _name;
+    private List<String>    _memberNames;
 
-	public ClassInfo ()
-	{
-		super();
-	}
+    public ClassInfo ()
+    {
+        super();
+    }
 
-	public ClassInfo (InputStream in) throws IOException
-	{
-		Object	result=read(in);
-		if (result != this)
-			throw new StreamCorruptedException("Mismatched read data instance");
-	}
+    public ClassInfo (InputStream in) throws IOException
+    {
+        Object    result=read(in);
+        if (result != this)
+            throw new StreamCorruptedException("Mismatched read data instance");
+    }
 
-	@Override
-	public long getObjectId ()
-	{
-		return _objectId;
-	}
+    @Override
+    public long getObjectId ()
+    {
+        return _objectId;
+    }
 
-	@Override
-	public void setObjectId (long objectId)
-	{
-		_objectId = objectId;
-	}
+    @Override
+    public void setObjectId (long objectId)
+    {
+        _objectId = objectId;
+    }
 
-	public String getName ()
-	{
-		return _name;
-	}
+    public String getName ()
+    {
+        return _name;
+    }
 
-	public void setName (String name)
-	{
-		_name = name;
-	}
+    public void setName (String name)
+    {
+        _name = name;
+    }
 
-	public List<String> getMemberNames ()
-	{
-		return _memberNames;
-	}
+    public List<String> getMemberNames ()
+    {
+        return _memberNames;
+    }
 
-	public void setMemberNames (List<String> memberNames)
-	{
-		_memberNames = memberNames;
-	}
+    public void setMemberNames (List<String> memberNames)
+    {
+        _memberNames = memberNames;
+    }
 
-	@Override
-	public ClassInfo clone () throws CloneNotSupportedException
-	{
-		ClassInfo	other=getClass().cast(super.clone());
-		Collection<String>	namesList=other.getMemberNames();
-		if ((namesList == null) || namesList.isEmpty())
-			other.setMemberNames(null);
-		else
-			other.setMemberNames(new ArrayList<String>(namesList));
-		return other;
-	}
+    @Override
+    public ClassInfo clone () throws CloneNotSupportedException
+    {
+        ClassInfo    other=getClass().cast(super.clone());
+        Collection<String>    namesList=other.getMemberNames();
+        if ((namesList == null) || namesList.isEmpty())
+            other.setMemberNames(null);
+        else
+            other.setMemberNames(new ArrayList<String>(namesList));
+        return other;
+    }
 
-	@Override
-	public ClassInfo read (InputStream in) throws IOException
-	{
-		setObjectId(DataFormatConverter.readUnsignedInt32(in));
-		logInternal("objectID=" + getObjectId());
+    @Override
+    public ClassInfo read (InputStream in) throws IOException
+    {
+        setObjectId(DataFormatConverter.readUnsignedInt32(in));
+        logInternal("objectID=" + getObjectId());
 
-		String	className=SerializationFormatConverter.readLengthPrefixedString(in);
-		if ((className == null) || (className.length() <= 0))
-			throw new StreamCorruptedException("Missing class name");
-		setName(className);
-		logInternal("name=" + getName());
-		
-		int	count=DataFormatConverter.readSignedInt32(in);
-		if (count < 0)
-			throw new StreamCorruptedException("Bad members count: " + count);
-		/*
-		 * NOTE: the standard does not impose this restriction but we
-		 * place it here in case the received value is corrupted due to
-		 * malformed parsing of the serialization stream.
-		 */
-		if (count > MAX_MEMBERS_COUNT)
-			throw new StreamCorruptedException("Unreasonable members count: " + count);
-		logInternal("# members=" + count);
+        String    className=SerializationFormatConverter.readLengthPrefixedString(in);
+        if ((className == null) || (className.length() <= 0))
+            throw new StreamCorruptedException("Missing class name");
+        setName(className);
+        logInternal("name=" + getName());
 
-		setMemberNames(SerializationFormatConverter.readLengthPrefixedStringList(in, count));
-		logInternal("names=" + getMemberNames());
-		return this;
-	}
+        int    count=DataFormatConverter.readSignedInt32(in);
+        if (count < 0)
+            throw new StreamCorruptedException("Bad members count: " + count);
+        /*
+         * NOTE: the standard does not impose this restriction but we
+         * place it here in case the received value is corrupted due to
+         * malformed parsing of the serialization stream.
+         */
+        if (count > MAX_MEMBERS_COUNT)
+            throw new StreamCorruptedException("Unreasonable members count: " + count);
+        logInternal("# members=" + count);
 
-	@Override
-	public void write (OutputStream out) throws IOException
-	{
-		DataFormatConverter.writeUnsignedInt32(out, getObjectId());
-		SerializationFormatConverter.writeLengthPrefixedString(out, getName());
+        setMemberNames(SerializationFormatConverter.readLengthPrefixedStringList(in, count));
+        logInternal("names=" + getMemberNames());
+        return this;
+    }
 
-		Collection<String>	namesList=getMemberNames();
-		DataFormatConverter.writeSignedInt32(out, (namesList == null) ? 0 : namesList.size());
-		SerializationFormatConverter.writeLengthPrefixedStringList(out, namesList);
-	}
+    @Override
+    public void write (OutputStream out) throws IOException
+    {
+        DataFormatConverter.writeUnsignedInt32(out, getObjectId());
+        SerializationFormatConverter.writeLengthPrefixedString(out, getName());
 
-	@Override
-	public int hashCode ()
-	{
-		return (int) getObjectId()
-			+ StringUtil.getDataStringHashCode(getName(), true)
-			+ CollectionsUtils.size(getMemberNames())	// order may differ
-			;
-	}
-	
-	@Override
-	public boolean equals (Object obj)
-	{
-		if (obj == null)
-			return false;
-		if (this == obj)
-			return true;
-		if (getClass() != obj.getClass())
-			return false;
-		
-		ClassInfo	other=(ClassInfo) obj;
-		if ((getObjectId() == other.getObjectId())
-		 && (StringUtil.compareDataStrings(getName(), other.getName(), true) == 0)
-		 && CollectionsUtils.isSameMembers(getMemberNames(), other.getMemberNames()))
-			return true;
-		else
-			return false;
-	}
+        Collection<String>    namesList=getMemberNames();
+        DataFormatConverter.writeSignedInt32(out, (namesList == null) ? 0 : namesList.size());
+        SerializationFormatConverter.writeLengthPrefixedStringList(out, namesList);
+    }
 
-	@Override
-	public String toString ()
-	{
-		return getName() + "@" + getObjectId()
-			 + ";members=" + getMemberNames()
-			 ;
-	}
+    @Override
+    public int hashCode ()
+    {
+        return (int) getObjectId()
+            + StringUtil.getDataStringHashCode(getName(), true)
+            + CollectionsUtils.size(getMemberNames())    // order may differ
+            ;
+    }
+
+    @Override
+    public boolean equals (Object obj)
+    {
+        if (obj == null)
+            return false;
+        if (this == obj)
+            return true;
+        if (getClass() != obj.getClass())
+            return false;
+
+        ClassInfo    other=(ClassInfo) obj;
+        if ((getObjectId() == other.getObjectId())
+         && (StringUtil.compareDataStrings(getName(), other.getName(), true) == 0)
+         && CollectionsUtils.isSameMembers(getMemberNames(), other.getMemberNames()))
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public String toString ()
+    {
+        return getName() + "@" + getObjectId()
+             + ";members=" + getMemberNames()
+             ;
+    }
 }

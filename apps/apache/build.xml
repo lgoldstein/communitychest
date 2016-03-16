@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-apache-apps" default="build-apache-apps" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds Apache related applications $Rev: 561 $
-		</description>
+    <project name="build-apache-apps" default="build-apache-apps" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds Apache related applications $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <import file="${module.root.folder}${file.separator}build-base.xml"/>
 
-		<target name="build-ant-apps" depends="apache-apps-base" unless="skip.build.ant.apps" description="Builds ANT applications">
-			<ant dir="${module.root.folder}${file.separator}ant" target="build-ant-apps" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.ant.apps" value="true"/>
-		</target>
+        <target name="build-ant-apps" depends="apache-apps-base" unless="skip.build.ant.apps" description="Builds ANT applications">
+            <ant dir="${module.root.folder}${file.separator}ant" target="build-ant-apps" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.ant.apps" value="true"/>
+        </target>
 
-		<target name="build-maven-apps" depends="apache-apps-base" unless="skip.build.maven.apps" description="Builds MAVEN applications">
-			<ant dir="${module.root.folder}${file.separator}maven" target="build-maven-apps" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.mavent.apps" value="true"/>
-		</target>
+        <target name="build-maven-apps" depends="apache-apps-base" unless="skip.build.maven.apps" description="Builds MAVEN applications">
+            <ant dir="${module.root.folder}${file.separator}maven" target="build-maven-apps" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.mavent.apps" value="true"/>
+        </target>
 
-		<target name="build-http-client-apps" depends="apache-apps-base" unless="skip.build.http.client.apps" description="Builds HTTP client applications">
-			<ant dir="${module.root.folder}${file.separator}http-client" target="build-http-client-apps" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.mavent.apps" value="true"/>
-		</target>
+        <target name="build-http-client-apps" depends="apache-apps-base" unless="skip.build.http.client.apps" description="Builds HTTP client applications">
+            <ant dir="${module.root.folder}${file.separator}http-client" target="build-http-client-apps" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.mavent.apps" value="true"/>
+        </target>
 
-		<target name="build-apache-apps"
-				depends="build-http-client-apps,build-ant-apps,build-maven-apps"
-				description="Builds Apache related applications"/>
+        <target name="build-apache-apps"
+                depends="build-http-client-apps,build-ant-apps,build-maven-apps"
+                description="Builds Apache related applications"/>
 
-		<target name="clean-apache-apps" depends="apache-apps-base" description="Cleans up Apache related applications">
-			<ant dir="${module.root.folder}${file.separator}ant" target="clean-ant-apps" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}maven" target="clean-maven-apps" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}http-client" target="clean-http-client-apps" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-		</target>
-	</project>
+        <target name="clean-apache-apps" depends="apache-apps-base" description="Cleans up Apache related applications">
+            <ant dir="${module.root.folder}${file.separator}ant" target="clean-ant-apps" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}maven" target="clean-maven-apps" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}http-client" target="clean-http-client-apps" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+        </target>
+    </project>

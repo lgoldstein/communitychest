@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.apache.log4j.appender;
 
@@ -13,5 +13,5 @@ import org.apache.log4j.spi.OptionHandler;
  * @since Nov 21, 2010 1:51:24 PM
  */
 public interface AppenderSkeletonController extends Appender, OptionHandler {
-	// nothing further
+    // nothing further
 }

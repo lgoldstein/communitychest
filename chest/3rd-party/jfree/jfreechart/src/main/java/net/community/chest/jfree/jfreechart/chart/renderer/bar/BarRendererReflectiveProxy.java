@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.chart.renderer.bar;
 
@@ -15,17 +15,17 @@ import org.jfree.chart.renderer.category.BarRenderer;
  * @since Jun 8, 2009 1:32:18 PM
  */
 public class BarRendererReflectiveProxy<R extends BarRenderer> extends AbstractCategoryItemRendererReflectiveProxy<R> {
-	protected BarRendererReflectiveProxy (Class<R> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
-	
-	public BarRendererReflectiveProxy (Class<R> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    protected BarRendererReflectiveProxy (Class<R> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public static final BarRendererReflectiveProxy<BarRenderer>	BAR=
-		new BarRendererReflectiveProxy<BarRenderer>(BarRenderer.class, true);
+    public BarRendererReflectiveProxy (Class<R> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
+
+    public static final BarRendererReflectiveProxy<BarRenderer>    BAR=
+        new BarRendererReflectiveProxy<BarRenderer>(BarRenderer.class, true);
 }

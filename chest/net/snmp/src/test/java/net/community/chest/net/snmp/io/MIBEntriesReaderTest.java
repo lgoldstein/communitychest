@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.net.snmp.io;
 
@@ -24,51 +24,51 @@ import org.junit.Test;
  * @since Aug 2, 2011 12:29:32 PM
  */
 public class MIBEntriesReaderTest extends Assert {
-	public MIBEntriesReaderTest ()
-	{
-		super();
-	}
+    public MIBEntriesReaderTest ()
+    {
+        super();
+    }
 
-	@Ignore
-	@Test
-	public void testMIBEntriesReader () throws IOException
-	{
-		final String[]	MIBS={	// NOTE: order may be important due to OID(s)
-				"SNMPv2-MIB",
-				"IF-MIB",
-				"INET-ADDRESS-MIB",
-				"TCP-MIB",
-				"UDP-MIB"
-			};
-		OIDAliasMap	oidsMap=OIDAliasMap.getDefaultAliases();
-		final MIBDefinitionResolver	testResolver=new LoggingMIBDefinitionResolver(System.out, DefaultMIBDefinitionResolver.INSTANCE);
-		for (final String mibName : MIBS)
-		{
-			final URL	url=testResolver.lookupMIB(mibName);
-			assertNotNull("Missing " + mibName + " resource", url);
+    @Ignore
+    @Test
+    public void testMIBEntriesReader () throws IOException
+    {
+        final String[]    MIBS={    // NOTE: order may be important due to OID(s)
+                "SNMPv2-MIB",
+                "IF-MIB",
+                "INET-ADDRESS-MIB",
+                "TCP-MIB",
+                "UDP-MIB"
+            };
+        OIDAliasMap    oidsMap=OIDAliasMap.getDefaultAliases();
+        final MIBDefinitionResolver    testResolver=new LoggingMIBDefinitionResolver(System.out, DefaultMIBDefinitionResolver.INSTANCE);
+        for (final String mibName : MIBS)
+        {
+            final URL    url=testResolver.lookupMIB(mibName);
+            assertNotNull("Missing " + mibName + " resource", url);
 
-			InputStream			inStream=testResolver.openMIB(mibName);
-			MIBEntriesReader	r=null;
-			try
-			{
-				r = new MIBEntriesReader(oidsMap, new InputStreamReader(inStream));
-				r.setResolver(testResolver);
-				
-				final Collection<MIBAttributeEntry>	el=new LinkedList<MIBAttributeEntry>(), cl=r.readMIBEntries(el);
-				assertSame("Mismatched entries list instance(s)", el, cl);
-			}
-			catch(IOException e)
-			{
-				fail("Failed (" + e.getClass().getName() + ") to read mib=" + mibName + ": " + e.getMessage());
-				throw e;	// dead code actually...
-			}
-			finally
-			{
-				if (r != null)
-					oidsMap = r.getAliases();
+            InputStream            inStream=testResolver.openMIB(mibName);
+            MIBEntriesReader    r=null;
+            try
+            {
+                r = new MIBEntriesReader(oidsMap, new InputStreamReader(inStream));
+                r.setResolver(testResolver);
 
-				FileUtil.closeAll(r, inStream);
-			}
-		}
-	}
+                final Collection<MIBAttributeEntry>    el=new LinkedList<MIBAttributeEntry>(), cl=r.readMIBEntries(el);
+                assertSame("Mismatched entries list instance(s)", el, cl);
+            }
+            catch(IOException e)
+            {
+                fail("Failed (" + e.getClass().getName() + ") to read mib=" + mibName + ": " + e.getMessage());
+                throw e;    // dead code actually...
+            }
+            finally
+            {
+                if (r != null)
+                    oidsMap = r.getAliases();
+
+                FileUtil.closeAll(r, inStream);
+            }
+        }
+    }
 }

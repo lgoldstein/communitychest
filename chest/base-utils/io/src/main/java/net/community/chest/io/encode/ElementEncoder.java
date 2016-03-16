@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.io.encode;
 
@@ -15,6 +15,6 @@ import java.io.OutputStream;
  * @since Jun 15, 2009 1:54:42 PM
  */
 public interface ElementEncoder<V> {
-	V read (InputStream in) throws IOException;
-	void write (OutputStream out) throws IOException;
+    V read (InputStream in) throws IOException;
+    void write (OutputStream out) throws IOException;
 }

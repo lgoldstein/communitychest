@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.db.sql.persistence;
 
@@ -12,28 +12,28 @@ import javax.persistence.Table;
  * @since Nov 13, 2011 2:20:46 PM
  */
 public final class PersistenceUtils {
-	private PersistenceUtils ()
-	{
-		// no instance
-	}
+    private PersistenceUtils ()
+    {
+        // no instance
+    }
 
-	public static final String resolveTableName (final Class<?> clazz)
-	{
-		if (clazz == null)
-			return null;
+    public static final String resolveTableName (final Class<?> clazz)
+    {
+        if (clazz == null)
+            return null;
 
-		{
-			final Table	tbl=clazz.getAnnotation(Table.class);
-			if (tbl != null)
-				return tbl.name();
-		}
+        {
+            final Table    tbl=clazz.getAnnotation(Table.class);
+            if (tbl != null)
+                return tbl.name();
+        }
 
-		{
-			final Entity	entity=clazz.getAnnotation(Entity.class);
-			if (entity != null)
-				return entity.name();
-		}
+        {
+            final Entity    entity=clazz.getAnnotation(Entity.class);
+            if (entity != null)
+                return entity.name();
+        }
 
-		return clazz.getSimpleName();
-	}
+        return clazz.getSimpleName();
+    }
 }

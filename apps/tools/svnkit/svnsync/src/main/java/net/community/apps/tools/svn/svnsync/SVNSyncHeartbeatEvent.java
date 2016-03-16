@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.svn.svnsync;
 
@@ -14,22 +14,22 @@ import net.community.chest.awt.AWTUtils;
  * @since Nov 10, 2010 8:35:22 AM
  */
 final class SVNSyncHeartbeatEvent extends AWTEvent {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5344047987256156073L;
-	public static final int	ID=AWTUtils.assignUserEventID();
-	private final SVNSynchronizer	_sync;
-	public final SVNSynchronizer getSynchronizer ()
-	{
-		return _sync;
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5344047987256156073L;
+    public static final int    ID=AWTUtils.assignUserEventID();
+    private final SVNSynchronizer    _sync;
+    public final SVNSynchronizer getSynchronizer ()
+    {
+        return _sync;
+    }
 
-	public SVNSyncHeartbeatEvent (SVNSynchronizer sourceValue, SVNSyncMainFrame target)
-	{
-		super(target, ID);
+    public SVNSyncHeartbeatEvent (SVNSynchronizer sourceValue, SVNSyncMainFrame target)
+    {
+        super(target, ID);
 
-		if ((_sync=sourceValue) == null)
-			throw new IllegalStateException("No synchronizer instance provided");
-	}
+        if ((_sync=sourceValue) == null)
+            throw new IllegalStateException("No synchronizer instance provided");
+    }
 }

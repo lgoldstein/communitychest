@@ -14,34 +14,34 @@ import net.community.chest.reflect.AttributeMethodType;
  * @since Mar 20, 2008 9:14:17 AM
  */
 public class AccessibleContextReflectiveProxy<C extends AccessibleContext> extends UIReflectiveAttributesProxy<C> {
-	protected AccessibleContextReflectiveProxy (Class<C> objClass, boolean registerAsDefault) throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected AccessibleContextReflectiveProxy (Class<C> objClass, boolean registerAsDefault) throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public AccessibleContextReflectiveProxy (Class<C> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public AccessibleContextReflectiveProxy (Class<C> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final String	ACESSIBLE_ATTR_PREFIX="accessible";
-	/* Allow dropping the "Accessible" prefix from the setter name 
-	 * @see net.community.chest.dom.transform.AbstractReflectiveProxy#getEffectiveAttributeName(java.lang.String)
-	 */
-	@Override
-	public String getEffectiveAttributeName (final String name)
-	{
-		final int	nLen=(null == name) ? 0 : name.length();
-		if (nLen <= 0)
-			return name;
+    public static final String    ACESSIBLE_ATTR_PREFIX="accessible";
+    /* Allow dropping the "Accessible" prefix from the setter name
+     * @see net.community.chest.dom.transform.AbstractReflectiveProxy#getEffectiveAttributeName(java.lang.String)
+     */
+    @Override
+    public String getEffectiveAttributeName (final String name)
+    {
+        final int    nLen=(null == name) ? 0 : name.length();
+        if (nLen <= 0)
+            return name;
 
-		// check if starts with specified prefix already
-		if (StringUtil.startsWith(name, ACESSIBLE_ATTR_PREFIX, true, false))
-			return name;	// OK if already starts with prefix
+        // check if starts with specified prefix already
+        if (StringUtil.startsWith(name, ACESSIBLE_ATTR_PREFIX, true, false))
+            return name;    // OK if already starts with prefix
 
-		return ACESSIBLE_ATTR_PREFIX + AttributeMethodType.getAdjustedAttributeName(name);
-	}
+        return ACESSIBLE_ATTR_PREFIX + AttributeMethodType.getAdjustedAttributeName(name);
+    }
 
-	public static final AccessibleContextReflectiveProxy<AccessibleContext>	ACCCTX=
-		new AccessibleContextReflectiveProxy<AccessibleContext>(AccessibleContext.class, true);
+    public static final AccessibleContextReflectiveProxy<AccessibleContext>    ACCCTX=
+        new AccessibleContextReflectiveProxy<AccessibleContext>(AccessibleContext.class, true);
 }

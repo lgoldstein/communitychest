@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.border;
 
@@ -22,54 +22,54 @@ import org.w3c.dom.Element;
  * @since Dec 10, 2008 9:03:47 AM
  */
 public abstract class BorderReflectiveProxy<B extends Border> extends UIReflectiveAttributesProxy<B> {
-	protected BorderReflectiveProxy (Class<B> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    protected BorderReflectiveProxy (Class<B> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	protected BorderReflectiveProxy (Class<B> objClass, boolean registerAsDefault)
-			throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected BorderReflectiveProxy (Class<B> objClass, boolean registerAsDefault)
+            throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public static final XmlValueInstantiator<? extends Border> getBorderInstantiator (final Element elem)
-	{
-		final String	type=(null == elem) ? null : elem.getAttribute(CLASS_ATTR);
-		if ((null == type) || (type.length() <= 0))
-			return null;
+    public static final XmlValueInstantiator<? extends Border> getBorderInstantiator (final Element elem)
+    {
+        final String    type=(null == elem) ? null : elem.getAttribute(CLASS_ATTR);
+        if ((null == type) || (type.length() <= 0))
+            return null;
 
-		if ("titled".equalsIgnoreCase(type))
-			return TitledBorderReflectiveProxy.TITLED;
-		else if ("compound".equalsIgnoreCase(type))
-			return CompoundBorderReflectiveProxy.COMPOUND;
+        if ("titled".equalsIgnoreCase(type))
+            return TitledBorderReflectiveProxy.TITLED;
+        else if ("compound".equalsIgnoreCase(type))
+            return CompoundBorderReflectiveProxy.COMPOUND;
 
-		// assume covers all others
-		try
-		{
-			return BorderValueInstantiator.getSpecificBorderInstantiator(type);
-		}
-		catch(Exception e)
-		{
-			throw ExceptionUtil.toRuntimeException(e);
-		}
-	}
+        // assume covers all others
+        try
+        {
+            return BorderValueInstantiator.getSpecificBorderInstantiator(type);
+        }
+        catch(Exception e)
+        {
+            throw ExceptionUtil.toRuntimeException(e);
+        }
+    }
 
-	public static final String	BORDER_ELEM_NAME="border";
-	public boolean isBorderElement (final Element elem, final String tagName)
-	{
-		return isMatchingElement(elem, tagName, BORDER_ELEM_NAME);
-	}
+    public static final String    BORDER_ELEM_NAME="border";
+    public boolean isBorderElement (final Element elem, final String tagName)
+    {
+        return isMatchingElement(elem, tagName, BORDER_ELEM_NAME);
+    }
 
-	public XmlValueInstantiator<? extends Border> getBorderProxy (final Element elem) throws Exception
-	{
-		if (null == elem)
-			return null;
-		// uses the class attribute to determine type of instantiator to return
-		final XmlValueInstantiator<? extends Border>	proxy=getBorderInstantiator(elem);
-		if (null == proxy)
-			throw new NoSuchElementException("getBorderProxy(" + DOMUtils.toString(elem) + ") no proxy available");
+    public XmlValueInstantiator<? extends Border> getBorderProxy (final Element elem) throws Exception
+    {
+        if (null == elem)
+            return null;
+        // uses the class attribute to determine type of instantiator to return
+        final XmlValueInstantiator<? extends Border>    proxy=getBorderInstantiator(elem);
+        if (null == proxy)
+            throw new NoSuchElementException("getBorderProxy(" + DOMUtils.toString(elem) + ") no proxy available");
 
-		return proxy;
-	}
+        return proxy;
+    }
 }

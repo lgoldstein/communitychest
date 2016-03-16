@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-ant-apps" default="build-ant-apps" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds ANT applications $Rev: 561 $
-		</description>
+    <project name="build-ant-apps" default="build-ant-apps" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds ANT applications $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <import file="${module.root.folder}${file.separator}build-base.xml"/>
 
-		<target name="build-ant-runner" depends="ant-apps-base" unless="skip.build.ant.runner" description="Builds ANT runner application">
-			<ant dir="${module.root.folder}${file.separator}antrunner" target="build-ant-runner" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.ant.runner" value="true"/>
-		</target>
+        <target name="build-ant-runner" depends="ant-apps-base" unless="skip.build.ant.runner" description="Builds ANT runner application">
+            <ant dir="${module.root.folder}${file.separator}antrunner" target="build-ant-runner" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.ant.runner" value="true"/>
+        </target>
 
-		<target name="build-ant-apps" depends="build-ant-runner" description="Builds ANT applications"/>
+        <target name="build-ant-apps" depends="build-ant-runner" description="Builds ANT applications"/>
 
-		<target name="clean-ant-apps" depends="ant-apps-base" description="Cleans up ANT applications">
-			<ant dir="${module.root.folder}${file.separator}antrunner" target="clean-ant-runner" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-		</target>
-	</project>
+        <target name="clean-ant-apps" depends="ant-apps-base" description="Cleans up ANT applications">
+            <ant dir="${module.root.folder}${file.separator}antrunner" target="clean-ant-runner" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+        </target>
+    </project>

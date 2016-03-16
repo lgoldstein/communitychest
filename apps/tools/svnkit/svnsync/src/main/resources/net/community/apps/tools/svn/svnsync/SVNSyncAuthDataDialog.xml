@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dialog name="SVNSyncAuthDataDialog"
-		modal="true"
-		resizable="false"
-		title="Authentication data"
-		defaultCloseOperation="DISPOSE"
-		relativePreferredSize="25,10"
-		relativeSize="16,10">
-	<buttonsPanel>
-		<button	name="okBtn" actionCommand="OK" text="OK" />
-	</buttonsPanel>
+        modal="true"
+        resizable="false"
+        title="Authentication data"
+        defaultCloseOperation="DISPOSE"
+        relativePreferredSize="25,10"
+        relativeSize="16,10">
+    <buttonsPanel>
+        <button    name="okBtn" actionCommand="OK" text="OK" />
+    </buttonsPanel>
 </dialog>

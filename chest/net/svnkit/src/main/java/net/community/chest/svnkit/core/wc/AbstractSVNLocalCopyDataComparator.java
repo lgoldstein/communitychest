@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.svnkit.core.wc;
 
@@ -12,14 +12,14 @@ import net.community.chest.util.compare.AbstractComparator;
  * @since Aug 6, 2009 11:32:19 AM
  */
 public abstract class AbstractSVNLocalCopyDataComparator
-			extends AbstractComparator<SVNLocalCopyData> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1892172475250138651L;
+            extends AbstractComparator<SVNLocalCopyData> {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1892172475250138651L;
 
-	protected AbstractSVNLocalCopyDataComparator (boolean reverseMatch)
-	{
-		super(SVNLocalCopyData.class, reverseMatch);
-	}
+    protected AbstractSVNLocalCopyDataComparator (boolean reverseMatch)
+    {
+        super(SVNLocalCopyData.class, reverseMatch);
+    }
 }

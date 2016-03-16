@@ -15,16 +15,16 @@ import org.w3c.dom.Element;
  * @since Jul 31, 2008 1:14:40 PM
  */
 public class LogMessagesArea extends LoggingTextPane {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7627485429039632193L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7627485429039632193L;
 
-	public LogMessagesArea (Font logsFont, Element elem)
-	{
-		setEditable(false);
-		setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-		setFont(logsFont);
-		layoutComponent(elem);
-	}
+    public LogMessagesArea (Font logsFont, Element elem)
+    {
+        setEditable(false);
+        setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        setFont(logsFont);
+        layoutComponent(elem);
+    }
 }

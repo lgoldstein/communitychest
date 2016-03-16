@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.attributes;
 
@@ -10,9 +10,9 @@ package net.community.chest.awt.attributes;
  * @since Dec 30, 2008 8:33:24 AM
  */
 public interface Textable {
-	public static final String		ATTR_NAME="text";
-	public static final Class<?>	ATTR_TYPE=String.class;
+    public static final String        ATTR_NAME="text";
+    public static final Class<?>    ATTR_TYPE=String.class;
 
-	String getText ();
-	void setText (String t);
+    String getText ();
+    void setText (String t);
 }

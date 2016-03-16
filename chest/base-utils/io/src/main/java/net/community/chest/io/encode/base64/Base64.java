@@ -133,10 +133,10 @@ import net.community.chest.util.set.SetsUtils;
  * @since ostermillerutils 1.00.00
  */
 public final class Base64 {
-	private Base64 ()
-	{
-		// no instance
-	}
+    private Base64 ()
+    {
+        // no instance
+    }
     /**
      * Symbol that represents the end of an input stream
      *
@@ -186,7 +186,7 @@ public final class Base64 {
      * <B>Note:</B> this value is actually the <U>upper limit</U> - i.e., all
      * the <U>legal</U> values are <U>less</U> than this value (but non-negative)
      */
-    public static final byte	MAX_BASE64_ENCODE_VALUE=(byte) base64Chars.length;
+    public static final byte    MAX_BASE64_ENCODE_VALUE=(byte) base64Chars.length;
     /**
      * @param value value to be checked
      * @return TRUE if this value is an index into the BASE64 encoding characters table
@@ -194,21 +194,21 @@ public final class Base64 {
      */
     public static final boolean isBase64EncodeValue (byte value)
     {
-		return (value >= 0) && (value < MAX_BASE64_ENCODE_VALUE);
+        return (value >= 0) && (value < MAX_BASE64_ENCODE_VALUE);
     }
-	/**
-	 * Padding character used to complete encoding to a multiple of 4
-	 */
-	public static final char BASE64_PAD_CHAR='=';
-	/**
-	 * @param value value to extract the matching BASE64 encoding character 
-	 * @return character or {@link #BASE64_PAD_CHAR} if illegal value
-	 * @see #isBase64EncodeValue(byte)
-	 */
-	public static final char getBase64EncodeChar (byte value)
-	{
-		return isBase64EncodeValue(value) ? (char) base64Chars[value] : BASE64_PAD_CHAR;
-	}
+    /**
+     * Padding character used to complete encoding to a multiple of 4
+     */
+    public static final char BASE64_PAD_CHAR='=';
+    /**
+     * @param value value to extract the matching BASE64 encoding character
+     * @return character or {@link #BASE64_PAD_CHAR} if illegal value
+     * @see #isBase64EncodeValue(byte)
+     */
+    public static final char getBase64EncodeChar (byte value)
+    {
+        return isBase64EncodeValue(value) ? (char) base64Chars[value] : BASE64_PAD_CHAR;
+    }
     /**
      * Reverse lookup table for the Base64 alphabet.
      * reversebase64Chars[byte] gives n for the nth Base64
@@ -241,25 +241,25 @@ public final class Base64 {
      */
     public static final boolean isBase64EncodeChar (final char ch)
     {
-    	return (('A' <= ch) && (ch <= 'Z'))
-    		|| (('a' <= ch) && (ch <= 'z'))
-    		|| (('0' <= ch) && (ch <= '9'))
-    		|| ('+' == ch)
-    		|| ('/' == ch)
-    		// including padding
-    		|| (BASE64_PAD_CHAR == ch)
-    		// including whitespace
-    		|| (' ' == ch)
-    		|| ('\r' == ch)
-    		|| ('\n' == ch)
-    		|| ('\f' == ch)
-    		|| ('\t' == ch)
-    		;
+        return (('A' <= ch) && (ch <= 'Z'))
+            || (('a' <= ch) && (ch <= 'z'))
+            || (('0' <= ch) && (ch <= '9'))
+            || ('+' == ch)
+            || ('/' == ch)
+            // including padding
+            || (BASE64_PAD_CHAR == ch)
+            // including whitespace
+            || (' ' == ch)
+            || ('\r' == ch)
+            || ('\n' == ch)
+            || ('\f' == ch)
+            || ('\t' == ch)
+            ;
     }
 
     public static String encodeToString (byte ... bytes)
     {
-    	return new String(encode(bytes));
+        return new String(encode(bytes));
     }
     /**
      * Encode a String in Base64.
@@ -274,7 +274,7 @@ public final class Base64 {
      */
     public static String encode (String string)
     {
-    	return encodeToString(string.getBytes());
+        return encodeToString(string.getBytes());
     }
     /**
      * Encode a String in Base64.
@@ -290,53 +290,53 @@ public final class Base64 {
     public static String encode(String string, String enc) throws UnsupportedEncodingException {
         return new String(encode(string.getBytes(enc)), enc);
     }
-	/**
-	 * Number of bytes for each BASE64 input block
-	 */
-	public static final int BASE64_INPUT_BLOCK_LEN=3;
-	/**
-	 * Number of characters for each BASE64 output block
-	 */
-	public static final int BASE64_OUTPUT_BLOCK_LEN=4;
-	/**
-	 * @param nSize input size for the BASE64 encoding
-	 * @return maximum number characters that will be required to encode the
-	 * provide input size (<=0 if initial size is <=0)
-	 */
-	public static final int getMaxExpectedEncodeSize (final int nSize)
-	{
-		if (nSize <= 0)
-			return nSize;
+    /**
+     * Number of bytes for each BASE64 input block
+     */
+    public static final int BASE64_INPUT_BLOCK_LEN=3;
+    /**
+     * Number of characters for each BASE64 output block
+     */
+    public static final int BASE64_OUTPUT_BLOCK_LEN=4;
+    /**
+     * @param nSize input size for the BASE64 encoding
+     * @return maximum number characters that will be required to encode the
+     * provide input size (<=0 if initial size is <=0)
+     */
+    public static final int getMaxExpectedEncodeSize (final int nSize)
+    {
+        if (nSize <= 0)
+            return nSize;
 
-		final int	numInputBlocks=nSize / BASE64_INPUT_BLOCK_LEN,
-					// each input block requires one output block
-					outputSize=numInputBlocks * BASE64_OUTPUT_BLOCK_LEN;
+        final int    numInputBlocks=nSize / BASE64_INPUT_BLOCK_LEN,
+                    // each input block requires one output block
+                    outputSize=numInputBlocks * BASE64_OUTPUT_BLOCK_LEN;
 
-		// if not an exact multiple of the input block size, then will need one more output block
-		if ((nSize % BASE64_INPUT_BLOCK_LEN) != 0)
-			return outputSize + BASE64_OUTPUT_BLOCK_LEN;
+        // if not an exact multiple of the input block size, then will need one more output block
+        if ((nSize % BASE64_INPUT_BLOCK_LEN) != 0)
+            return outputSize + BASE64_OUTPUT_BLOCK_LEN;
 
-		return outputSize;
-	}
-	/**
-	 * @param nSize number of input characters for BASE64 decoding
-	 * @return maximum number of bytes/characters that will be required to
-	 * store the decoded value (<=0 if initial size is <=0)
-	 */
-	public static final int getMaxExpectedDecodeSize (final int nSize)
-	{
-		if (nSize <= 0)
-			return nSize;
+        return outputSize;
+    }
+    /**
+     * @param nSize number of input characters for BASE64 decoding
+     * @return maximum number of bytes/characters that will be required to
+     * store the decoded value (<=0 if initial size is <=0)
+     */
+    public static final int getMaxExpectedDecodeSize (final int nSize)
+    {
+        if (nSize <= 0)
+            return nSize;
 
-		final int	numOutputBlocks=nSize / BASE64_OUTPUT_BLOCK_LEN,
-					// each output block yields one input block
-					outputSize=numOutputBlocks * BASE64_INPUT_BLOCK_LEN;
-		// this should not really happen, but take it into account
-		if ((nSize % BASE64_OUTPUT_BLOCK_LEN) != 0)
-			return outputSize + BASE64_INPUT_BLOCK_LEN;
+        final int    numOutputBlocks=nSize / BASE64_OUTPUT_BLOCK_LEN,
+                    // each output block yields one input block
+                    outputSize=numOutputBlocks * BASE64_INPUT_BLOCK_LEN;
+        // this should not really happen, but take it into account
+        if ((nSize % BASE64_OUTPUT_BLOCK_LEN) != 0)
+            return outputSize + BASE64_INPUT_BLOCK_LEN;
 
-		return outputSize;
-	}
+        return outputSize;
+    }
     /**
      * Encode bytes in Base64.
      * No line breaks or other white space are inserted into the encoded data.
@@ -374,24 +374,24 @@ public final class Base64 {
             throw new RuntimeException(x);
         }
     }
-	/**
-	 * Encode bytes in Base64.
-	 * No line breaks or other white space are inserted into the encoded data.
-	 *
-	 * @param bytes The data to encode.
-	 * @return Encoded bytes.
-	 *
-	 * @since ostermillerutils 1.00.00
-	 */
-	public static byte[] encode (byte ... bytes)
-	{
-		return encode(bytes, 0, bytes.length);
-	}
-	/**
-	 * Standard BASE64 encoding line break len
-	 */
-	public static final int ENCLINE_STDLEN=76;
-	/**
+    /**
+     * Encode bytes in Base64.
+     * No line breaks or other white space are inserted into the encoded data.
+     *
+     * @param bytes The data to encode.
+     * @return Encoded bytes.
+     *
+     * @since ostermillerutils 1.00.00
+     */
+    public static byte[] encode (byte ... bytes)
+    {
+        return encode(bytes, 0, bytes.length);
+    }
+    /**
+     * Standard BASE64 encoding line break len
+     */
+    public static final int ENCLINE_STDLEN=76;
+    /**
      * Encode data from the InputStream to the OutputStream in Base64.
      * @param in Stream from which to read data that needs to be encoded.
      * @param out Stream to which to write encoded data.
@@ -401,17 +401,17 @@ public final class Base64 {
      */
     public static void encode (InputStream in, OutputStream out, Collection<Base64EncodeOptions> options) throws IOException
     {
-    	final Base64EncodeOutputStream	bos=new Base64EncodeOutputStream(out, options, true);
-    	for (int	v=in.read(); v != (-1); v=in.read())
-    		bos.write(v);
+        final Base64EncodeOutputStream    bos=new Base64EncodeOutputStream(out, options, true);
+        for (int    v=in.read(); v != (-1); v=in.read())
+            bos.write(v);
 
-    	FileUtil.closeAll(bos);	// finalize encoding
+        FileUtil.closeAll(bos);    // finalize encoding
         out.flush();
     }
 
     public static void encode (InputStream in, OutputStream out, Base64EncodeOptions ... options) throws IOException
     {
-    	encode(in, out, SetsUtils.setOf(options));
+        encode(in, out, SetsUtils.setOf(options));
     }
     /**
      * Encode data from the InputStream to the OutputStream in Base64.
@@ -424,7 +424,7 @@ public final class Base64 {
      */
     public static void encode (InputStream in, OutputStream out) throws IOException
     {
-    	encode(in, out, Base64EncodeOptions.BREAK);
+        encode(in, out, Base64EncodeOptions.BREAK);
     }
     /**
      * Decode a Base64 encoded String.
@@ -573,7 +573,7 @@ public final class Base64 {
      */
     public static byte[] decodeToBytes (String string, boolean throwException) throws IOException
     {
-    	return decode(string.getBytes(), throwException);
+        return decode(string.getBytes(), throwException);
     }
     /**
      * Decode a Base64 encoded String.
@@ -650,7 +650,7 @@ public final class Base64 {
      */
     public static byte[] decodeToBytes (byte[] bytes, boolean throwException) throws IOException
     {
-    	return decode(bytes, throwException);
+        return decode(bytes, throwException);
     }
     /**
      * Decode Base64 encoded bytes.
@@ -678,50 +678,50 @@ public final class Base64 {
      */
     public static byte[] decode (byte[] bytes, boolean throwExceptions) throws IOException
     {
-    	InputStream				in=null;
-    	ByteArrayOutputStream	out=null;
-    	try
-    	{
-    		in=new ByteArrayInputStream(bytes);
-	        // calculate the length of the resulting output.
-	        // in general it will be at most 3/4 the size of the input
-	        // but the input length must be divisible by four.
-	        // If it isn't the next largest size that is divisible
-	        // by four is used.
-	        int mod;
-	        int length = bytes.length;
-	        if ((mod = length % BASE64_OUTPUT_BLOCK_LEN) != 0){
-	            length += BASE64_OUTPUT_BLOCK_LEN - mod;
-	        }
-	        length = ((length * BASE64_INPUT_BLOCK_LEN) / BASE64_OUTPUT_BLOCK_LEN);
-	        out = new ByteArrayOutputStream(length);
-	        decode(in, out, throwExceptions);
+        InputStream                in=null;
+        ByteArrayOutputStream    out=null;
+        try
+        {
+            in=new ByteArrayInputStream(bytes);
+            // calculate the length of the resulting output.
+            // in general it will be at most 3/4 the size of the input
+            // but the input length must be divisible by four.
+            // If it isn't the next largest size that is divisible
+            // by four is used.
+            int mod;
+            int length = bytes.length;
+            if ((mod = length % BASE64_OUTPUT_BLOCK_LEN) != 0){
+                length += BASE64_OUTPUT_BLOCK_LEN - mod;
+            }
+            length = ((length * BASE64_INPUT_BLOCK_LEN) / BASE64_OUTPUT_BLOCK_LEN);
+            out = new ByteArrayOutputStream(length);
+            decode(in, out, throwExceptions);
 
-	        final byte[]	decBytes=out.toByteArray();
-	        return decBytes;
-    	}
-    	finally
-    	{
-    		FileUtil.closeAll(in, out);
-    	}
+            final byte[]    decBytes=out.toByteArray();
+            return decBytes;
+        }
+        finally
+        {
+            FileUtil.closeAll(in, out);
+        }
     }
 
     public static byte[] decode (byte ... bytes) throws IOException
     {
-    	return decode(bytes, true);
+        return decode(bytes, true);
     }
 
     public static void decode (byte[] bytes, int offset, int len, OutputStream out) throws IOException
     {
-    	ByteArrayInputStream in=new ByteArrayInputStream(bytes, offset, len);
-    	try
-    	{
-    		decode(in, out, false);
-    	}
-    	finally
-    	{
-    		FileUtil.closeAll(in);
-    	}
+        ByteArrayInputStream in=new ByteArrayInputStream(bytes, offset, len);
+        try
+        {
+            decode(in, out, false);
+        }
+        finally
+        {
+            FileUtil.closeAll(in);
+        }
     }
     /**
      * Decode Base64 encoded bytes to the an OutputStream.
@@ -736,8 +736,8 @@ public final class Base64 {
      */
     public static void decode (byte[] bytes, OutputStream out) throws IOException
     {
-    	if ((bytes != null) && (bytes.length > 0))
-    		decode(bytes, 0, bytes.length, out);
+        if ((bytes != null) && (bytes.length > 0))
+            decode(bytes, 0, bytes.length, out);
     }
     /**
      * Reads the next (decoded) Base64 character from the input stream.
@@ -756,10 +756,10 @@ public final class Base64 {
         do {
             read = in.read();
             if (read == END_OF_INPUT)
-	            return END_OF_INPUT;
+                return END_OF_INPUT;
 
             if ((read < 0) || (read > reverseBase64Chars.length))
-            	throw new IOException("Read BASE64 character out of range: " + read);
+                throw new IOException("Read BASE64 character out of range: " + read);
 
             read = reverseBase64Chars[read];
             if (throwExceptions && ((read == NON_BASE_64) || ((numPadding > 0) && (read > NON_BASE_64))))
@@ -771,7 +771,7 @@ public final class Base64 {
 
                 // check if too much padding supplied
                 if ((numPadding >= BASE64_INPUT_BLOCK_LEN) && throwExceptions)
-                	throw new Base64DecodingException("too much padding at end of block", BASE64_PAD_CHAR);
+                    throw new Base64DecodingException("too much padding at end of block", BASE64_PAD_CHAR);
             }
         } while (read <= NON_BASE_64);
 
@@ -793,16 +793,16 @@ public final class Base64 {
         ByteArrayOutputStream out=null;
         try
         {
-        	out = new ByteArrayOutputStream();
-        	decode(in, out, false);
-        	
-        	final byte[]	resBytes=out.toByteArray();
-        	return resBytes;
+            out = new ByteArrayOutputStream();
+            decode(in, out, false);
+
+            final byte[]    resBytes=out.toByteArray();
+            return resBytes;
         }
         finally
         {
-        	FileUtil.closeAll(out);
-    	}
+            FileUtil.closeAll(out);
+        }
     }
     /**
      * Decode Base64 encoded data from the InputStream to a String.
@@ -855,44 +855,44 @@ public final class Base64 {
     {
         decode(in, out, true);
     }
-	/**
-	 * Decodes a BASE64 output block and writes the result to the output stream.
-	 * @param inBuffer buffer containing the data to be decoded - Note: it must be AT LEAST (!) of length
-	 * BASE64_OUTPUT_BLOCK_LEN (any data beyond that is ignored), and must contain only VALID BASE64 characters.
-	 * While the length is not checked, any buffer size smaller than BASE64_OUTPUT_BLOCK_LEN will cause an
-	 * "array-out-of-bounds" exception
-	 * @param out output stream to write to
-	 * @return TRUE if end of encoding found (i.e. END-OO-INPUT
-	 * @throws IOException
-	 */
+    /**
+     * Decodes a BASE64 output block and writes the result to the output stream.
+     * @param inBuffer buffer containing the data to be decoded - Note: it must be AT LEAST (!) of length
+     * BASE64_OUTPUT_BLOCK_LEN (any data beyond that is ignored), and must contain only VALID BASE64 characters.
+     * While the length is not checked, any buffer size smaller than BASE64_OUTPUT_BLOCK_LEN will cause an
+     * "array-out-of-bounds" exception
+     * @param out output stream to write to
+     * @return TRUE if end of encoding found (i.e. END-OO-INPUT
+     * @throws IOException
+     */
     protected static boolean decodeBase64Block (final int[] inBuffer, OutputStream out)  throws IOException
     {
-		// Calculate the output
-		// The first two bytes of our in buffer should always be valid (if not, then this is end of input)
-		// but we must check to make sure the other two bytes
-		// are not END_OF_INPUT before using them.
-		// The basic idea is that the four bytes will get reconstituted
-		// into three bytes along these lines:
-		// [xxAAAAAA] [xxBBBBBB] [xxCCCCCC] [xxDDDDDD]
-		//      [AAAAAABB] [BBBBCCCC] [CCDDDDDD]
-		// bytes are considered to be zero when absent.
+        // Calculate the output
+        // The first two bytes of our in buffer should always be valid (if not, then this is end of input)
+        // but we must check to make sure the other two bytes
+        // are not END_OF_INPUT before using them.
+        // The basic idea is that the four bytes will get reconstituted
+        // into three bytes along these lines:
+        // [xxAAAAAA] [xxBBBBBB] [xxCCCCCC] [xxDDDDDD]
+        //      [AAAAAABB] [BBBBCCCC] [CCDDDDDD]
+        // bytes are considered to be zero when absent.
 
-		final int[]   outBuffer={
-			// six A and two B
-			((END_OF_INPUT == inBuffer[0]) || (END_OF_INPUT == inBuffer[1])) ? END_OF_INPUT : (((inBuffer[0] << 2) | (inBuffer[1] >> 4)) & 0x00FF),
-			// four B and four C
-			(END_OF_INPUT == inBuffer[2]) ? END_OF_INPUT : (((inBuffer[1] << 4) | (inBuffer[2] >> 2)) & 0x00FF),
-			// two C and six D
-			(END_OF_INPUT == inBuffer[3]) ? END_OF_INPUT : (((inBuffer[2] << 6) | inBuffer[3]) & 0x00FF)
-		};
+        final int[]   outBuffer={
+            // six A and two B
+            ((END_OF_INPUT == inBuffer[0]) || (END_OF_INPUT == inBuffer[1])) ? END_OF_INPUT : (((inBuffer[0] << 2) | (inBuffer[1] >> 4)) & 0x00FF),
+            // four B and four C
+            (END_OF_INPUT == inBuffer[2]) ? END_OF_INPUT : (((inBuffer[1] << 4) | (inBuffer[2] >> 2)) & 0x00FF),
+            // two C and six D
+            (END_OF_INPUT == inBuffer[3]) ? END_OF_INPUT : (((inBuffer[2] << 6) | inBuffer[3]) & 0x00FF)
+        };
 
-		for (int    i=0; i < outBuffer.length; i++)
-			if (END_OF_INPUT == outBuffer[i])
+        for (int    i=0; i < outBuffer.length; i++)
+            if (END_OF_INPUT == outBuffer[i])
                 return true; // end of encoding found
-			else
-				out.write(outBuffer[i]);
+            else
+                out.write(outBuffer[i]);
 
-		return false;   // not end of encoding
+        return false;   // not end of encoding
     }
     /**
      * Reads a BASE64 block from the input stream
@@ -903,22 +903,22 @@ public final class Base64 {
      * @return TRUE if the first 2 characters are <B><U>NOT</U></B> valid BASE64 characters
      * @throws IOException if read error
      */
-	protected static boolean readBase64Block (final InputStream in, final int[] inBuffer, final boolean throwExceptions) throws IOException
-	{
-	    int nPos=0;
+    protected static boolean readBase64Block (final InputStream in, final int[] inBuffer, final boolean throwExceptions) throws IOException
+    {
+        int nPos=0;
 
-	    // read up to BASE64_OUTPUT_BLOCK_LEN or END_OF_INPUT - whichever comes first
-	    for ( ; nPos < BASE64_OUTPUT_BLOCK_LEN; nPos++)
-		    if (END_OF_INPUT == (inBuffer[nPos]=readBase64(in, throwExceptions)))
-			    break;
+        // read up to BASE64_OUTPUT_BLOCK_LEN or END_OF_INPUT - whichever comes first
+        for ( ; nPos < BASE64_OUTPUT_BLOCK_LEN; nPos++)
+            if (END_OF_INPUT == (inBuffer[nPos]=readBase64(in, throwExceptions)))
+                break;
 
-	    // fill-in all other data with "END_OF_INPUT" just be sure
-	    for (int    aPos=nPos; aPos < BASE64_OUTPUT_BLOCK_LEN; aPos++)
-		    inBuffer[aPos] =  END_OF_INPUT;
+        // fill-in all other data with "END_OF_INPUT" just be sure
+        for (int    aPos=nPos; aPos < BASE64_OUTPUT_BLOCK_LEN; aPos++)
+            inBuffer[aPos] =  END_OF_INPUT;
 
-	    // TRUE if the first 2 characters are NOT valid BASE64 characters
-	    return (nPos < 2);
-	}
+        // TRUE if the first 2 characters are NOT valid BASE64 characters
+        return (nPos < 2);
+    }
     /**
      * Decode Base64 encoded data from the InputStream to the OutputStream.
      * Characters in the Base64 alphabet, white space and equals sign are
@@ -941,8 +941,8 @@ public final class Base64 {
         // read bytes unmapping them from their ASCII encoding in the process
         // we must read at least two bytes to be able to output anything
         for (boolean done=readBase64Block(in, inBuffer, throwExceptions); !done; done=readBase64Block(in, inBuffer, throwExceptions))
-	        if (decodeBase64Block(inBuffer, out))
-		        break;
+            if (decodeBase64Block(inBuffer, out))
+                break;
 
         out.flush();
     }
@@ -1066,33 +1066,33 @@ public final class Base64 {
     public static boolean isBase64 (final InputStream in) throws IOException
     {
         long numBase64Chars=0L;
-        for (int	read=in.read(), numPadding=0; read != -1; read=in.read())
+        for (int    read=in.read(), numPadding=0; read != -1; read=in.read())
         {
-        	if ((read < 0) || (read >= reverseBase64Chars.length))
-        		return false;
+            if ((read < 0) || (read >= reverseBase64Chars.length))
+                return false;
 
-        	read = reverseBase64Chars[read];
+            read = reverseBase64Chars[read];
             if (NON_BASE_64 == read)
                 return false;
             if (NON_BASE_64_WHITESPACE == read)
-            	continue;	// skip whitespace
+                continue;    // skip whitespace
 
             if (NON_BASE_64_PADDING == read)
             {
                 numPadding++;
                 numBase64Chars++;
             }
-            else if (numPadding > 0)	// valid BASE64 character after padding is illegal
+            else if (numPadding > 0)    // valid BASE64 character after padding is illegal
                 return false;
             else
                 numBase64Chars++;
         }
 
         if (numBase64Chars <= 0L)
-	        return false;
+            return false;
         // number of characters MUST be a full multiple of a BASE64 block
         if ((numBase64Chars % BASE64_OUTPUT_BLOCK_LEN) != 0)
-	        return false;
+            return false;
         return true;
     }
     /**
@@ -1100,113 +1100,113 @@ public final class Base64 {
      * @param options take into account line breaks, and if so are they CRLF
      * @return required buffer size to hold BASE64 encoding of specified raw size
      */
-	public static int calculateEncodedSize (int nRawSize, Collection<Base64EncodeOptions> options)
-	{
-		int	ulB64Size=0, ulB64Blocks=0;
+    public static int calculateEncodedSize (int nRawSize, Collection<Base64EncodeOptions> options)
+    {
+        int    ulB64Size=0, ulB64Blocks=0;
 
-		// calculate expected size if we encode "pure" MIME (w/o CRLF)
-		ulB64Blocks = (nRawSize / BASE64_INPUT_BLOCK_LEN);
-		if ((nRawSize % BASE64_INPUT_BLOCK_LEN) != 0)
-			ulB64Blocks++;
-		ulB64Size = (ulB64Blocks * BASE64_OUTPUT_BLOCK_LEN);
+        // calculate expected size if we encode "pure" MIME (w/o CRLF)
+        ulB64Blocks = (nRawSize / BASE64_INPUT_BLOCK_LEN);
+        if ((nRawSize % BASE64_INPUT_BLOCK_LEN) != 0)
+            ulB64Blocks++;
+        ulB64Size = (ulB64Blocks * BASE64_OUTPUT_BLOCK_LEN);
 
-		// adjust expected output size if required CRLF
-		if ((options != null) && options.contains(Base64EncodeOptions.BREAK))
-		{
-			int ulB64Lines=(ulB64Size / ENCLINE_STDLEN);
-			int ulB64LastLine=(ulB64Size % ENCLINE_STDLEN);
+        // adjust expected output size if required CRLF
+        if ((options != null) && options.contains(Base64EncodeOptions.BREAK))
+        {
+            int ulB64Lines=(ulB64Size / ENCLINE_STDLEN);
+            int ulB64LastLine=(ulB64Size % ENCLINE_STDLEN);
 
-			/* check if last line complete */
-			if (ulB64LastLine != 0)
-				ulB64Lines++;
+            /* check if last line complete */
+            if (ulB64LastLine != 0)
+                ulB64Lines++;
 
-			/* take into account CR/LF at end of each line */
-			if (options.contains(Base64EncodeOptions.CRLF))
-				ulB64Size += (ulB64Lines * 2);
-			else
-				ulB64Size += ulB64Lines;
-		}
+            /* take into account CR/LF at end of each line */
+            if (options.contains(Base64EncodeOptions.CRLF))
+                ulB64Size += (ulB64Lines * 2);
+            else
+                ulB64Size += ulB64Lines;
+        }
 
-		return ulB64Size;
-	}
-	/**
-	 * Calculates the expected decoded size of a BASE64 encoded data
-	 * @param ulEncSize encoded size
-	 * @param ulLineLen line length (used only if ENCOPT_BREAK_LINES option specified)
-	 * @param options original options used to encode
-	 * @return expected decoded size (within 2 bytes due to last block ambiguity!!!)
-	 */
-	public static int calculateDecodedSize (final int ulEncSize, final int ulLineLen, final Collection<Base64EncodeOptions> options)
-	{
-		final boolean	breakLines=(options != null) && options.contains(Base64EncodeOptions.BREAK);
-		if ((ulLineLen <= 0) || (!breakLines))
-			return (ulEncSize * BASE64_INPUT_BLOCK_LEN) / BASE64_OUTPUT_BLOCK_LEN;
+        return ulB64Size;
+    }
+    /**
+     * Calculates the expected decoded size of a BASE64 encoded data
+     * @param ulEncSize encoded size
+     * @param ulLineLen line length (used only if ENCOPT_BREAK_LINES option specified)
+     * @param options original options used to encode
+     * @return expected decoded size (within 2 bytes due to last block ambiguity!!!)
+     */
+    public static int calculateDecodedSize (final int ulEncSize, final int ulLineLen, final Collection<Base64EncodeOptions> options)
+    {
+        final boolean    breakLines=(options != null) && options.contains(Base64EncodeOptions.BREAK);
+        if ((ulLineLen <= 0) || (!breakLines))
+            return (ulEncSize * BASE64_INPUT_BLOCK_LEN) / BASE64_OUTPUT_BLOCK_LEN;
 
-		// extra number of characters added for CRLF
-		final boolean	useCRLF=(options != null) && options.contains(Base64EncodeOptions.CRLF);
-		final int		b64XtraLen=useCRLF ? 2 : 1;
-		final int		ulB64FLL= ulLineLen + b64XtraLen;
-		// take into account CRLF when calculating number of full lines
-		int		ulB64Lines=(ulEncSize / ulB64FLL);
-		// number of bytes taken by full lines
-		int 	ulB64LSize = (ulB64Lines * ulB64FLL);
-		// remainder - non-full line
-		int		ulB64RemLen = ulEncSize - ulB64LSize;
+        // extra number of characters added for CRLF
+        final boolean    useCRLF=(options != null) && options.contains(Base64EncodeOptions.CRLF);
+        final int        b64XtraLen=useCRLF ? 2 : 1;
+        final int        ulB64FLL= ulLineLen + b64XtraLen;
+        // take into account CRLF when calculating number of full lines
+        int        ulB64Lines=(ulEncSize / ulB64FLL);
+        // number of bytes taken by full lines
+        int     ulB64LSize = (ulB64Lines * ulB64FLL);
+        // remainder - non-full line
+        int        ulB64RemLen = ulEncSize - ulB64LSize;
 
-		// calculate "pure" B64 size - w/o the CRLF(s)
-		ulB64LSize -= (ulB64Lines * b64XtraLen);
-		ulB64LSize += ulB64RemLen;
+        // calculate "pure" B64 size - w/o the CRLF(s)
+        ulB64LSize -= (ulB64Lines * b64XtraLen);
+        ulB64LSize += ulB64RemLen;
 
-		// number of decode blocks * each encode block yields one decoded block
-		return (ulB64LSize * BASE64_INPUT_BLOCK_LEN) / BASE64_OUTPUT_BLOCK_LEN;
-	}
-	/**
-	 * Calculates the expected decoded size of a BASE64 encoded data
-	 * @param ulEncSize encoded size - assume standard line length and CRLF break between lines
-	 * @return expected decoded size (within 2 bytes due to last block ambiguity!!!)
-	 */
-	public static int calculateDecodedSize (final int ulEncSize)
-	{
-		return calculateDecodedSize(ulEncSize, ENCLINE_STDLEN, Base64EncodeOutputStream.DEFAULT_OPTIONS);
-	}
+        // number of decode blocks * each encode block yields one decoded block
+        return (ulB64LSize * BASE64_INPUT_BLOCK_LEN) / BASE64_OUTPUT_BLOCK_LEN;
+    }
+    /**
+     * Calculates the expected decoded size of a BASE64 encoded data
+     * @param ulEncSize encoded size - assume standard line length and CRLF break between lines
+     * @return expected decoded size (within 2 bytes due to last block ambiguity!!!)
+     */
+    public static int calculateDecodedSize (final int ulEncSize)
+    {
+        return calculateDecodedSize(ulEncSize, ENCLINE_STDLEN, Base64EncodeOutputStream.DEFAULT_OPTIONS);
+    }
 
-	public static final <A extends Appendable> A append (byte[] hb, int startIndex, int len, A sb) throws UnsupportedEncodingException, IOException
-	{
-		if (null == sb)
-			throw new IOException("No " + Appendable.class.getSimpleName() + " instance");
+    public static final <A extends Appendable> A append (byte[] hb, int startIndex, int len, A sb) throws UnsupportedEncodingException, IOException
+    {
+        if (null == sb)
+            throw new IOException("No " + Appendable.class.getSimpleName() + " instance");
 
-		final byte[]  b64Enc=encode(hb, startIndex, len);
-		final String  b64Val=new String(b64Enc, "US-ASCII");
-		sb.append(b64Val);
-		return sb;
-	}
+        final byte[]  b64Enc=encode(hb, startIndex, len);
+        final String  b64Val=new String(b64Enc, "US-ASCII");
+        sb.append(b64Val);
+        return sb;
+    }
 
-	public static final <A extends Appendable> A append (A sb, byte ... hb) throws UnsupportedEncodingException, IOException
-	{
-		return append(hb, 0, ((null == hb) ? 0 : hb.length), sb);
-	}
+    public static final <A extends Appendable> A append (A sb, byte ... hb) throws UnsupportedEncodingException, IOException
+    {
+        return append(hb, 0, ((null == hb) ? 0 : hb.length), sb);
+    }
 
-	public static final void serialize (final OutputStream out, final Serializable obj, final Collection<Base64EncodeOptions> options) throws IOException
-	{
-		if (null == out)
-			throw new IOException("No " + OutputStream.class.getSimpleName() + " provided");
-		if (null == obj)
-			throw new StreamCorruptedException("No " + Serializable.class.getSimpleName() + " instance");
+    public static final void serialize (final OutputStream out, final Serializable obj, final Collection<Base64EncodeOptions> options) throws IOException
+    {
+        if (null == out)
+            throw new IOException("No " + OutputStream.class.getSimpleName() + " provided");
+        if (null == obj)
+            throw new StreamCorruptedException("No " + Serializable.class.getSimpleName() + " instance");
 
-		ObjectOutputStream	so=null;
-		try
-		{
-			so = new ObjectOutputStream(new Base64EncodeOutputStream(out, IOCopier.DEFAULT_COPY_SIZE, options, true, false));
-			so.writeObject(obj);
-		}
-		finally
-		{
-			FileUtil.closeAll(so);
-		}
-	}
+        ObjectOutputStream    so=null;
+        try
+        {
+            so = new ObjectOutputStream(new Base64EncodeOutputStream(out, IOCopier.DEFAULT_COPY_SIZE, options, true, false));
+            so.writeObject(obj);
+        }
+        finally
+        {
+            FileUtil.closeAll(so);
+        }
+    }
 
-	public static final void serialize (final OutputStream out, final Serializable obj, final Base64EncodeOptions ... options) throws IOException
-	{
-		serialize(out, obj, SetsUtils.setOf(options));
-	}
+    public static final void serialize (final OutputStream out, final Serializable obj, final Base64EncodeOptions ... options) throws IOException
+    {
+        serialize(out, obj, SetsUtils.setOf(options));
+    }
 }

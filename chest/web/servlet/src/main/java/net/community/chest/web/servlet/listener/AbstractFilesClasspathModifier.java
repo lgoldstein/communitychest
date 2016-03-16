@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.web.servlet.listener;
 
@@ -21,28 +21,28 @@ import net.community.chest.lang.ExceptionUtil;
  * @since Jun 6, 2011 10:38:27 AM
  */
 public abstract class AbstractFilesClasspathModifier extends AbstractURLsClasspathModifier {
-	protected AbstractFilesClasspathModifier ()
-	{
-		super();
-	}
-	/**
-	 * @return A {@link Collection} of {@link File}-s to be added to the
-	 * current {@link Thread#getContextClassLoader()} - ignored if <code>null</code>/empty
-	 */
-	protected abstract Collection<? extends File> getClasspathFiles ();
-	/*
-	 * @see net.community.chest.web.servlet.listener.AbstractURLsClasspathModifier#getClasspathURLs()
-	 */
-	@Override
-	protected Collection<? extends URL> getClasspathURLs ()
-	{
-		try
-		{
-			return FileUtil.toURL(getClasspathFiles());
-		}
-		catch(Exception e)
-		{
-			throw ExceptionUtil.toRuntimeException(e);
-		}
-	}
+    protected AbstractFilesClasspathModifier ()
+    {
+        super();
+    }
+    /**
+     * @return A {@link Collection} of {@link File}-s to be added to the
+     * current {@link Thread#getContextClassLoader()} - ignored if <code>null</code>/empty
+     */
+    protected abstract Collection<? extends File> getClasspathFiles ();
+    /*
+     * @see net.community.chest.web.servlet.listener.AbstractURLsClasspathModifier#getClasspathURLs()
+     */
+    @Override
+    protected Collection<? extends URL> getClasspathURLs ()
+    {
+        try
+        {
+            return FileUtil.toURL(getClasspathFiles());
+        }
+        catch(Exception e)
+        {
+            throw ExceptionUtil.toRuntimeException(e);
+        }
+    }
 }

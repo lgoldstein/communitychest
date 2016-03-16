@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest;
 
@@ -95,7 +95,7 @@ public class JvmTester {
     private static void showDetails(PrintStream out) {
         out.append("File separator: ").println(File.separator);
         out.append("Byte order: ").println(ByteOrder.nativeOrder());
-        
+
         File[]  roots=File.listRoots();
         if ((roots != null) && (roots.length > 0)) {
             out.append("Roots:");
@@ -111,15 +111,15 @@ public class JvmTester {
             String  algorithm=getval(stdout, stdin, "algorithm (or Quit)");
             if ((algorithm == null) || (algorithm.length() <= 0)) continue;
             if (isQuit(algorithm)) break;
-            
+
             String  keySize=getval(stdout, stdin, algorithm + " key size");
             if ((keySize == null) || (keySize.length() <= 0)) continue;
             if (isQuit(keySize)) break;
-            
+
             stdout.append("\tGenerate ").append(algorithm).append(" key size=").println(keySize);
             KeyPairGenerator    kg=KeyPairGenerator.getInstance(algorithm.toUpperCase());
             kg.initialize(Integer.parseInt(keySize));
-            
+
             KeyPair kp=kg.generateKeyPair();
             Key     key=kp.getPrivate();
             stdout.append("\tGenerated ").append(key.getAlgorithm()).append(" key size=").println(keySize);
@@ -149,7 +149,7 @@ public class JvmTester {
         showMemoryUsage("Heap", mxBean.getHeapMemoryUsage(), stdout);
         showMemoryUsage("Non-heap", mxBean.getNonHeapMemoryUsage(), stdout);
     }
-    
+
     private static void showMemoryUsage(String type, MemoryUsage usage, PrintStream stdout) {
         stdout.append('\t').println(type);
         stdout.append("\t\t").append("Initial: ").println(usage.getInit());
@@ -169,7 +169,7 @@ public class JvmTester {
             if ((ans == null) || (ans.length() <= 0)) continue;
             out.println("===> executing " + ans);
             if (isQuit(ans)) break;
-            
+
             final char  op=Character.toLowerCase(ans.charAt(0));
             try {
                 switch(op) {

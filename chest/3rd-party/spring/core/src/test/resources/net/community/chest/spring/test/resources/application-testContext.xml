@@ -6,103 +6,103 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-3.0.xsd
-           http://www.springframework.org/schema/tx 
-     	   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
            http://www.springframework.org/schema/jdbc
            http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
            http://www.springframework.org/schema/util
            http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-		<!-- Enabled annotation-based beans definitions -->               
-	<context:annotation-config />
+        <!-- Enabled annotation-based beans definitions -->
+    <context:annotation-config />
 
-		<!-- Import properties from a file -->
-	<context:property-placeholder location="classpath*:**/application-testContext.properties" />
-		<!--  re-read into Properties so we can use Spring @Value annotation -->
-	<util:properties id="testProperties" location="classpath:net/community/chest/spring/test/resources/application-testContext.properties"/>
-	
-		<!-- Automatically scan classes for @Component, @Service, @Controller, @Component -->
-	<context:component-scan base-package="net.community.chest.spring.test"/>
+        <!-- Import properties from a file -->
+    <context:property-placeholder location="classpath*:**/application-testContext.properties" />
+        <!--  re-read into Properties so we can use Spring @Value annotation -->
+    <util:properties id="testProperties" location="classpath:net/community/chest/spring/test/resources/application-testContext.properties"/>
 
-	<bean id="sysout" class="net.community.chest.spring.test.beans.OutputAppender"
-			p:writeToErr="${sysout.appender.writeToErr}" />
+        <!-- Automatically scan classes for @Component, @Service, @Controller, @Component -->
+    <context:component-scan base-package="net.community.chest.spring.test"/>
 
-		<!-- Creates an in-memory HSQLDB Database -->
-	<!-- jdbc:embedded-database id="dataSource" / -->
-		<!-- see http://static.springsource.org/spring/docs/3.0.3.RELEASE/spring-framework-reference/html/beans.html#beans-p-namespace -->
-	<bean id="dataSource"
-		  class="org.apache.commons.dbcp.BasicDataSource"
-		  destroy-method="close"
-    		p:driverClassName="#{testProperties['jdbc.driverClassName']}"
-    		p:url="#{testProperties['jdbc.url']}"
-    		p:username="#{testProperties['jdbc.username']}"
-    		p:password="#{testProperties['jdbc.password']}" />
+    <bean id="sysout" class="net.community.chest.spring.test.beans.OutputAppender"
+            p:writeToErr="${sysout.appender.writeToErr}" />
 
-		<!-- create initial tables structure -->
-	<jdbc:initialize-database data-source="dataSource">
-		<jdbc:script location="${jdbc.initLocation}"/>
-	</jdbc:initialize-database>
+        <!-- Creates an in-memory HSQLDB Database -->
+    <!-- jdbc:embedded-database id="dataSource" / -->
+        <!-- see http://static.springsource.org/spring/docs/3.0.3.RELEASE/spring-framework-reference/html/beans.html#beans-p-namespace -->
+    <bean id="dataSource"
+          class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close"
+            p:driverClassName="#{testProperties['jdbc.driverClassName']}"
+            p:url="#{testProperties['jdbc.url']}"
+            p:username="#{testProperties['jdbc.username']}"
+            p:password="#{testProperties['jdbc.password']}" />
 
-		<!-- Automatically scan classes for @Entity (and other persistence related annotations  -->
-	<bean id="sessionFactory"
-		  class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
-   			p:dataSource-ref="dataSource"
-   			p:packagesToScan="${entities.packages}">
-   		<property name="hibernateProperties">
-   			<props>
-      	 		<prop key="hibernate.dialect">${hibernate.dialect}</prop>
-				<!-- # see org.hibernate.cfg.SettingsFactory line 32 (org.hibernate.cfg.Environment.HBM2DDL_AUTO) -->
-      	 		<prop key="hibernate.hbm2ddl.auto">false</prop>
-         		<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-         		<prop key="hibernate.cache.provider_class">${hibernate.cache.provider_class}</prop>
-   			</props>
-   		</property>
-		<!-- see org.hibernate.cfg.Configuration#setListeners
-			 and org.hibernate.event.EventListeners for available keys
-   			 and existing default implementation classes to derive from,
-   			 as well as http://j4fry.blogspot.com/2009/06/hibernate-event-listeners-with-spring.html
-   		-->
-		<!-- property name="eventListeners">
-  			<map>  
-   				<entry key="save-update">
-					<bean id="saveOrUpdateEntityEventListener"
-						  class="net.community.chest.spring.test.listener.EntitiesSaveOrUpdateEventListener">
-						<property name="output" ref="sysout" />
-					</bean>
-   				</entry>
-   				<entry key="save">
-					<bean id="saveEntityEventListener"
-						  class="net.community.chest.spring.test.listener.EntitiesSaveEventListener">
-						<property name="output" ref="sysout" />
-					</bean>
-   				</entry>
-   				<entry key="update">
-					<bean id="updateEntityEventListener"
-						  class="net.community.chest.spring.test.listener.EntitiesUpdateEventListener">
-						<property name="output" ref="sysout" />
-					</bean>
-   				</entry>
-   				<entry key="delete">
-					<bean id="deleteEntityEventListener"
-						  class="net.community.chest.spring.test.listener.EntitiesDeleteEventListener">
-						<property name="output" ref="sysout" />
-					</bean>
-   				</entry>
-  			</map>
- 		</property -->
- 	</bean>
+        <!-- create initial tables structure -->
+    <jdbc:initialize-database data-source="dataSource">
+        <jdbc:script location="${jdbc.initLocation}"/>
+    </jdbc:initialize-database>
 
-		<!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
-	<bean id="transactionManager"
-		  class="org.springframework.orm.hibernate3.HibernateTransactionManager"
-			p:sessionFactory-ref="sessionFactory"
-			p:nestedTransactionAllowed="true"/>
+        <!-- Automatically scan classes for @Entity (and other persistence related annotations  -->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+               p:dataSource-ref="dataSource"
+               p:packagesToScan="${entities.packages}">
+           <property name="hibernateProperties">
+               <props>
+                   <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <!-- # see org.hibernate.cfg.SettingsFactory line 32 (org.hibernate.cfg.Environment.HBM2DDL_AUTO) -->
+                   <prop key="hibernate.hbm2ddl.auto">false</prop>
+                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                 <prop key="hibernate.cache.provider_class">${hibernate.cache.provider_class}</prop>
+               </props>
+           </property>
+        <!-- see org.hibernate.cfg.Configuration#setListeners
+             and org.hibernate.event.EventListeners for available keys
+                and existing default implementation classes to derive from,
+                as well as http://j4fry.blogspot.com/2009/06/hibernate-event-listeners-with-spring.html
+           -->
+        <!-- property name="eventListeners">
+              <map>
+                   <entry key="save-update">
+                    <bean id="saveOrUpdateEntityEventListener"
+                          class="net.community.chest.spring.test.listener.EntitiesSaveOrUpdateEventListener">
+                        <property name="output" ref="sysout" />
+                    </bean>
+                   </entry>
+                   <entry key="save">
+                    <bean id="saveEntityEventListener"
+                          class="net.community.chest.spring.test.listener.EntitiesSaveEventListener">
+                        <property name="output" ref="sysout" />
+                    </bean>
+                   </entry>
+                   <entry key="update">
+                    <bean id="updateEntityEventListener"
+                          class="net.community.chest.spring.test.listener.EntitiesUpdateEventListener">
+                        <property name="output" ref="sysout" />
+                    </bean>
+                   </entry>
+                   <entry key="delete">
+                    <bean id="deleteEntityEventListener"
+                          class="net.community.chest.spring.test.listener.EntitiesDeleteEventListener">
+                        <property name="output" ref="sysout" />
+                    </bean>
+                   </entry>
+              </map>
+         </property -->
+     </bean>
 
-	<!-- enable the configuration of transactional behavior based on annotations -->
-  	<tx:annotation-driven transaction-manager="transactionManager"/>
+        <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+            p:sessionFactory-ref="sessionFactory"
+            p:nestedTransactionAllowed="true"/>
+
+    <!-- enable the configuration of transactional behavior based on annotations -->
+      <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>

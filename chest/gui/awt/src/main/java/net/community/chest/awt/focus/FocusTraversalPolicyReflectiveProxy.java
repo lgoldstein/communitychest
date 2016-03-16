@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.focus;
 
@@ -17,31 +17,31 @@ import org.w3c.dom.Element;
  * @since Apr 4, 2010 12:09:58 PM
  */
 public abstract class FocusTraversalPolicyReflectiveProxy<P extends FocusTraversalPolicy>
-		extends UIReflectiveAttributesProxy<P> {
-	protected FocusTraversalPolicyReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+        extends UIReflectiveAttributesProxy<P> {
+    protected FocusTraversalPolicyReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	protected FocusTraversalPolicyReflectiveProxy (Class<P> objClass)
-	{
-		this(objClass, true);
-	}
+    protected FocusTraversalPolicyReflectiveProxy (Class<P> objClass)
+    {
+        this(objClass, true);
+    }
 
-	public static final FocusTraversalPolicyReflectiveProxy<FocusTraversalPolicy>	BY_NAME_POLICY=
-			new FocusTraversalPolicyReflectiveProxy<FocusTraversalPolicy>(FocusTraversalPolicy.class, false) {
-				/*
-				 * @see net.community.chest.dom.proxy.AbstractXmlProxyConverter#createInstance(org.w3c.dom.Element)
-				 */
-				@Override
-				public FocusTraversalPolicy createInstance (Element elem)
-						throws Exception
-				{
-					if (null == elem)
-						return null;
-					return new ByNameFocusTraversalPolicy();
-				}
-		
-		};
+    public static final FocusTraversalPolicyReflectiveProxy<FocusTraversalPolicy>    BY_NAME_POLICY=
+            new FocusTraversalPolicyReflectiveProxy<FocusTraversalPolicy>(FocusTraversalPolicy.class, false) {
+                /*
+                 * @see net.community.chest.dom.proxy.AbstractXmlProxyConverter#createInstance(org.w3c.dom.Element)
+                 */
+                @Override
+                public FocusTraversalPolicy createInstance (Element elem)
+                        throws Exception
+                {
+                    if (null == elem)
+                        return null;
+                    return new ByNameFocusTraversalPolicy();
+                }
+
+        };
 }

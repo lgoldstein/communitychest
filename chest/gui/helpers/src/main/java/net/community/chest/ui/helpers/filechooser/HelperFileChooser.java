@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ui.helpers.filechooser;
 
@@ -19,52 +19,52 @@ import org.w3c.dom.Element;
  * @since Dec 31, 2008 10:25:02 AM
  */
 public class HelperFileChooser extends BaseFileChooser {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7428125060822570459L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7428125060822570459L;
 
-	// common to all constructors
-	{
-		setFileView(DefaultSystemFileView.DEFAULT);
-	}
+    // common to all constructors
+    {
+        setFileView(DefaultSystemFileView.DEFAULT);
+    }
 
-	public HelperFileChooser (File currentDirectory, FileSystemView fsv)
-	{
-		super(currentDirectory, fsv);
-	}
+    public HelperFileChooser (File currentDirectory, FileSystemView fsv)
+    {
+        super(currentDirectory, fsv);
+    }
 
-	public HelperFileChooser (File currentDirectory)
-	{
-		this(currentDirectory, FileSystemView.getFileSystemView());
-	}
+    public HelperFileChooser (File currentDirectory)
+    {
+        this(currentDirectory, FileSystemView.getFileSystemView());
+    }
 
-	public HelperFileChooser (FileSystemView fsv)
-	{
-		super(fsv);
-	}
+    public HelperFileChooser (FileSystemView fsv)
+    {
+        super(fsv);
+    }
 
-	public HelperFileChooser ()
-	{
-		this(FileSystemView.getFileSystemView());
-	}
+    public HelperFileChooser ()
+    {
+        this(FileSystemView.getFileSystemView());
+    }
 
-	public HelperFileChooser (String currentDirectoryPath, FileSystemView fsv)
-	{
-		super(currentDirectoryPath, fsv);
-	}
+    public HelperFileChooser (String currentDirectoryPath, FileSystemView fsv)
+    {
+        super(currentDirectoryPath, fsv);
+    }
 
-	public HelperFileChooser (String currentDirectoryPath)
-	{
-		this(currentDirectoryPath, FileSystemView.getFileSystemView());
-	}
+    public HelperFileChooser (String currentDirectoryPath)
+    {
+        this(currentDirectoryPath, FileSystemView.getFileSystemView());
+    }
 
-	public HelperFileChooser (Element elem) throws Exception
-	{
-		this(FileSystemView.getFileSystemView());
+    public HelperFileChooser (Element elem) throws Exception
+    {
+        this(FileSystemView.getFileSystemView());
 
-		final Object	inst=fromXml(elem);
-		if (inst != this)
-			throw new IllegalStateException("Mismatched re-constructed instances");
-	}
+        final Object    inst=fromXml(elem);
+        if (inst != this)
+            throw new IllegalStateException("Mismatched re-constructed instances");
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.axis;
 
@@ -15,17 +15,17 @@ import org.jfree.chart.axis.AxisSpace;
  * @since Feb 8, 2009 10:00:04 AM
  */
 public class AxisSpaceReflectiveProxy<A extends AxisSpace> extends ChartReflectiveAttributesProxy<A> {
-	protected AxisSpaceReflectiveProxy (Class<A> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected AxisSpaceReflectiveProxy (Class<A> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public AxisSpaceReflectiveProxy (Class<A> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public AxisSpaceReflectiveProxy (Class<A> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final AxisSpaceReflectiveProxy<AxisSpace>	AXISSPACE=
-			new AxisSpaceReflectiveProxy<AxisSpace>(AxisSpace.class, true);
+    public static final AxisSpaceReflectiveProxy<AxisSpace>    AXISSPACE=
+            new AxisSpaceReflectiveProxy<AxisSpace>(AxisSpace.class, true);
 }

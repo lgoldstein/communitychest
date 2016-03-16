@@ -15,42 +15,42 @@ import net.community.chest.lang.StringUtil;
  * @since Mar 20, 2008 11:14:46 AM
  */
 public class CursorValueInstantiator<C extends Cursor> extends AbstractXmlValueStringInstantiator<C> {
-	public CursorValueInstantiator (Class<C> objClass) throws IllegalArgumentException
-	{
-		super(objClass);
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
-	 */
-	@Override
-	public String convertInstance (final C inst) throws Exception
-	{
-		if (null == inst)
-			return null;
+    public CursorValueInstantiator (Class<C> objClass) throws IllegalArgumentException
+    {
+        super(objClass);
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
+     */
+    @Override
+    public String convertInstance (final C inst) throws Exception
+    {
+        if (null == inst)
+            return null;
 
-		final CursorType	t=CursorType.fromCursor(inst);
-		if (null == t)
-			throw new NoSuchElementException(getArgumentsExceptionLocation("convertInstance", inst) + " no matching " + CursorType.class.getSimpleName() + " value");
+        final CursorType    t=CursorType.fromCursor(inst);
+        if (null == t)
+            throw new NoSuchElementException(getArgumentsExceptionLocation("convertInstance", inst) + " no matching " + CursorType.class.getSimpleName() + " value");
 
-		return t.toString();
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
-	 */
-	@Override
-	public C newInstance (final String v) throws Exception
-	{
-		final String	s=StringUtil.getCleanStringValue(v);
-		if ((null == s) || (s.length() <= 0))
-			return null;
+        return t.toString();
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
+     */
+    @Override
+    public C newInstance (final String v) throws Exception
+    {
+        final String    s=StringUtil.getCleanStringValue(v);
+        if ((null == s) || (s.length() <= 0))
+            return null;
 
-		final CursorType	t=CursorType.fromString(s);
-		if (null == t)
-			throw new NoSuchElementException(getArgumentsExceptionLocation("newInstance", s) + " no matching " + CursorType.class.getSimpleName() + " value");
+        final CursorType    t=CursorType.fromString(s);
+        if (null == t)
+            throw new NoSuchElementException(getArgumentsExceptionLocation("newInstance", s) + " no matching " + CursorType.class.getSimpleName() + " value");
 
-		return getValuesClass().cast(t.getCursor());
-	}
+        return getValuesClass().cast(t.getCursor());
+    }
 
-	public static final CursorValueInstantiator<Cursor>	DEFAULT=
-					new CursorValueInstantiator<Cursor>(Cursor.class);
+    public static final CursorValueInstantiator<Cursor>    DEFAULT=
+                    new CursorValueInstantiator<Cursor>(Cursor.class);
 }

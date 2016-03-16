@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.spring.orm;
 
@@ -13,54 +13,54 @@ import java.util.List;
  * methods and many useful find()-ers. <B>Note:</B> all the methods may
  * throw {@link RuntimeException}-s if failed to executed the requested
  * operation - unless otherwise specified</P>
- * @param <T> Type of object being persisted 
- * @param <ID> Type of {@link Serializable} unique ID being used as primary key 
+ * @param <T> Type of object being persisted
+ * @param <ID> Type of {@link Serializable} unique ID being used as primary key
  * @author Lyor G.
  * @since Aug 30, 2010 10:49:59 AM
  */
 public interface GenericDao<T, ID extends Serializable> {
-	/**
-	 * @return The {@link Class} representing the entity managed by this DAO
-	 */
-	Class<T> getPersistentClass ();
-	/**
-	 * @return The {@link Class} representing the primary entity key type
-	 */
-	Class<ID> getIdClass ();
-	/**
-	 * <B>Note:</B> does not lock the table
-	 * @param id The unique/primary ID of the object
-	 * @return The relevant object - may be <code>null</code> if none found
-	 */
-	T findById (ID id);
-	/**
-	 * Flushes the last executed modification
-	 */
-	void flush ();
-	/**
-	 * @param entity The object to store
-	 * @param flushIt If <code>true</code> then flush the entity
-	 * change after a successful create.
-	 */
+    /**
+     * @return The {@link Class} representing the entity managed by this DAO
+     */
+    Class<T> getPersistentClass ();
+    /**
+     * @return The {@link Class} representing the primary entity key type
+     */
+    Class<ID> getIdClass ();
+    /**
+     * <B>Note:</B> does not lock the table
+     * @param id The unique/primary ID of the object
+     * @return The relevant object - may be <code>null</code> if none found
+     */
+    T findById (ID id);
+    /**
+     * Flushes the last executed modification
+     */
+    void flush ();
+    /**
+     * @param entity The object to store
+     * @param flushIt If <code>true</code> then flush the entity
+     * change after a successful create.
+     */
     void create (T entity, boolean flushIt);
-	/**
-	 * Store a new object - <B>Note:</B> automatically flushes the created object
-	 * @param entity The object to store
-	 */
+    /**
+     * Store a new object - <B>Note:</B> automatically flushes the created object
+     * @param entity The object to store
+     */
     void create (T entity);
-	/**
-	 * Update an existing object
-	 * @param entity The object to persist. The object version will
-	 * @param flushIt If <code>true</code> then flush the update
-	 * change after a successful update.
-	 */
+    /**
+     * Update an existing object
+     * @param entity The object to persist. The object version will
+     * @param flushIt If <code>true</code> then flush the update
+     * change after a successful update.
+     */
     void update (T entity, boolean flushIt);
-	/**
-	 * Update an existing object - <B>Note:</B> automatically flushes the update
-	 * @param entity The object to persist. The object version will
-	 * change after a successful update.
-	 * @see #update(Object, boolean)
-	 */
+    /**
+     * Update an existing object - <B>Note:</B> automatically flushes the update
+     * @param entity The object to persist. The object version will
+     * change after a successful update.
+     * @see #update(Object, boolean)
+     */
     void update (T entity);
     /**
      * Delete an existing object from persistent storage
@@ -91,12 +91,12 @@ public interface GenericDao<T, ID extends Serializable> {
      * @return A {@link List} of all entities in the persisted table
      */
     List<T> findAll();
-	/**
-	 * Update an existing object
-	 * @param entity The object to persist. The object version will
-	 * change after a successful update.
-	 * @return The merged entity
-	 */
+    /**
+     * Update an existing object
+     * @param entity The object to persist. The object version will
+     * change after a successful update.
+     * @return The merged entity
+     */
     T merge (T entity);
     /**
      * Refresh an existing object with any changes which took place at the data store.

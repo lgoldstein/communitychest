@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-		<!-- holds various GUI resources specifications
-		
-			NOTE: icon references are relative to the 'images' sub-folder
-		 -->
-	<resources>
-			<!-- defines the main frame -->
-		<section 	name="main-frame"
-					title="XML request/response HTTP handler"
-					defaultCloseOperation="EXIT"
-					relativePreferredSize="60,40"
-					relativeSize="60,40"
-					iconImage="XMLFile.gif"
-				>
-			<layout class="border"/>
-				<!-- defines the main-menu -->
-			<menu name="main-menu">
-					<!-- NOTE: assigned commands MUST match what the application expects -->
-				<menu text="File" mnemonic="VK_F" actionCommand="file">
-					<accessibleContext description="Loads/Saves the XML request/response"/>
-					<item text="New" mnemonic="VK_N" actionCommand="clear" accelerator="control N" icon="New.gif"/>
-					<separator/>
-					<item text="Load XML request" mnemonic="VK_L" actionCommand="load" accelerator="control O" icon="Open.gif"/>
-					<item text="Save XML response" mnemonic="VK_S" actionCommand="save" accelerator="control S" icon="Save.gif"/>
-					<separator/>
-					<item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
-				</menu>
-				<menu text="Headers" mnemonic="VK_R" actionCommand="headers">
-					<accessibleContext description="Shows the XML request/response headers"/>
-					<item text="Request" mnemonic="VK_Q" actionCommand="http-request-hdrs"/>
-					<item text="Response" mnemonic="VK_P" actionCommand="http-response-hdrs"/>
-				</menu>
-				<menu text="Help" actionCommand="help" icon="Help.gif">
-					<accessibleContext description="Shows various information about the application"/>
-					<item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
-				</menu>
-			</menu>
-		</section>
+        <!-- holds various GUI resources specifications
 
-			<!-- dialog used to load the XML request file -->
-		<section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select XML request file">
-			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
-					description="XML files"
-					exts="xml"
-				/>
-		</section>
+            NOTE: icon references are relative to the 'images' sub-folder
+         -->
+    <resources>
+            <!-- defines the main frame -->
+        <section     name="main-frame"
+                    title="XML request/response HTTP handler"
+                    defaultCloseOperation="EXIT"
+                    relativePreferredSize="60,40"
+                    relativeSize="60,40"
+                    iconImage="XMLFile.gif"
+                >
+            <layout class="border"/>
+                <!-- defines the main-menu -->
+            <menu name="main-menu">
+                    <!-- NOTE: assigned commands MUST match what the application expects -->
+                <menu text="File" mnemonic="VK_F" actionCommand="file">
+                    <accessibleContext description="Loads/Saves the XML request/response"/>
+                    <item text="New" mnemonic="VK_N" actionCommand="clear" accelerator="control N" icon="New.gif"/>
+                    <separator/>
+                    <item text="Load XML request" mnemonic="VK_L" actionCommand="load" accelerator="control O" icon="Open.gif"/>
+                    <item text="Save XML response" mnemonic="VK_S" actionCommand="save" accelerator="control S" icon="Save.gif"/>
+                    <separator/>
+                    <item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
+                </menu>
+                <menu text="Headers" mnemonic="VK_R" actionCommand="headers">
+                    <accessibleContext description="Shows the XML request/response headers"/>
+                    <item text="Request" mnemonic="VK_Q" actionCommand="http-request-hdrs"/>
+                    <item text="Response" mnemonic="VK_P" actionCommand="http-response-hdrs"/>
+                </menu>
+                <menu text="Help" actionCommand="help" icon="Help.gif">
+                    <accessibleContext description="Shows various information about the application"/>
+                    <item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
+                </menu>
+            </menu>
+        </section>
 
-			<!-- dialog used to save the XML response file -->
-		<section name="save-file-dialog" fileSelectionMode="files" dialogTitle="Select XML response file">
-			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
-					description="XML files"
-					exts="xml"
-				/>
-		</section>
+            <!-- dialog used to load the XML request file -->
+        <section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select XML request file">
+            <filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+                    description="XML files"
+                    exts="xml"
+                />
+        </section>
 
-		<section name="req-url-panel">
-			<button text="Send" tooltipText="Send loaded XML payload to URL"/>
-		</section>
+            <!-- dialog used to save the XML response file -->
+        <section name="save-file-dialog" fileSelectionMode="files" dialogTitle="Select XML response file">
+            <filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+                    description="XML files"
+                    exts="xml"
+                />
+        </section>
 
-			<!-- JCheckBox(es) -->		
-		<section name="req-method-choice" text="Use GET method" selected="true"/>
-		<section name="enc-query-choice" text="Auto-encode query data" selected="true" tooltipText="Encode special characters in the URL"/>
+        <section name="req-url-panel">
+            <button text="Send" tooltipText="Send loaded XML payload to URL"/>
+        </section>
 
-			<!-- dialog used to show the manifest -->
-		<section name="show-manifest-dialog" title="Manifest" modal="true">
-			<column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
-			<column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
-		</section>
+            <!-- JCheckBox(es) -->
+        <section name="req-method-choice" text="Use GET method" selected="true"/>
+        <section name="enc-query-choice" text="Auto-encode query data" selected="true" tooltipText="Encode special characters in the URL"/>
 
-		<section name="main-fonts">
-			<font id="default-font" name="Tahoma" style="plain" size="11"/>
-		</section>
-	</resources>
+            <!-- dialog used to show the manifest -->
+        <section name="show-manifest-dialog" title="Manifest" modal="true">
+            <column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
+            <column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
+        </section>
+
+        <section name="main-fonts">
+            <font id="default-font" name="Tahoma" style="plain" size="11"/>
+        </section>
+    </resources>

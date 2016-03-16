@@ -36,8 +36,8 @@ package jnlp.sample.servlet.download;
 import javax.servlet.http.HttpServletResponse;
 
 public class NotFoundResponse extends HttpDownloadResponseCode {
-	public NotFoundResponse ()
-	{ 
-		super(HttpServletResponse.SC_NOT_FOUND);
-	}
+    public NotFoundResponse ()
+    {
+        super(HttpServletResponse.SC_NOT_FOUND);
+    }
 }

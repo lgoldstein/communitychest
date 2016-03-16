@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.layout.gridbag;
 
@@ -16,12 +16,12 @@ import net.community.chest.dom.proxy.ReflectiveFieldsProxy;
  *
  */
 public class GridBagConstraintsReflectiveFieldsProxy<C extends GridBagConstraints> extends ReflectiveFieldsProxy<C> {
-	public GridBagConstraintsReflectiveFieldsProxy (Class<C> valsClass)
-			throws IllegalArgumentException
-	{
-		super(valsClass, GridBagConstraints.class);
-	}
+    public GridBagConstraintsReflectiveFieldsProxy (Class<C> valsClass)
+            throws IllegalArgumentException
+    {
+        super(valsClass, GridBagConstraints.class);
+    }
 
-	public static final GridBagConstraintsReflectiveFieldsProxy<GridBagConstraints>	GBC=
-		new GridBagConstraintsReflectiveFieldsProxy<GridBagConstraints>(GridBagConstraints.class);
+    public static final GridBagConstraintsReflectiveFieldsProxy<GridBagConstraints>    GBC=
+        new GridBagConstraintsReflectiveFieldsProxy<GridBagConstraints>(GridBagConstraints.class);
 }

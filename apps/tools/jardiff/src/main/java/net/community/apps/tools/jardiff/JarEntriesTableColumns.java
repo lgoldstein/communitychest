@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.jardiff;
 
@@ -15,14 +15,14 @@ import net.community.chest.util.collection.CollectionsUtils;
  * @since Mar 2, 2011 12:07:21 PM
  */
 public enum JarEntriesTableColumns {
-	ENTRY_PATH,
-	ENTRY_NAME,
-	ENTRY_SIZE,
-	ENTRY_TIME;
+    ENTRY_PATH,
+    ENTRY_NAME,
+    ENTRY_SIZE,
+    ENTRY_TIME;
 
-	public static final List<JarEntriesTableColumns>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static JarEntriesTableColumns fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<JarEntriesTableColumns>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static JarEntriesTableColumns fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 }

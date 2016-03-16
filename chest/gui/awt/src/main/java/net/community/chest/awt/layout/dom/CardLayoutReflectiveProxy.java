@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.layout.dom;
 
@@ -13,11 +13,11 @@ import java.awt.CardLayout;
  * @since Aug 20, 2008 1:42:10 PM
  */
 public class CardLayoutReflectiveProxy<L extends CardLayout> extends AbstractLayoutManager2ReflectiveProxy<L> {
-	public CardLayoutReflectiveProxy (Class<L> objClass) throws IllegalArgumentException
-	{
-		super(objClass);
-	}
+    public CardLayoutReflectiveProxy (Class<L> objClass) throws IllegalArgumentException
+    {
+        super(objClass);
+    }
 
-	public static final CardLayoutReflectiveProxy<CardLayout>	CARD=
-			new CardLayoutReflectiveProxy<CardLayout>(CardLayout.class);
+    public static final CardLayoutReflectiveProxy<CardLayout>    CARD=
+            new CardLayoutReflectiveProxy<CardLayout>(CardLayout.class);
 }

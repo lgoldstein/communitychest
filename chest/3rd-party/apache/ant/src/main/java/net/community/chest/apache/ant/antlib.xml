@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <antlib>
-		<!--
-			Searches each file and replaces the occurrences of the "${xxx}"
-			with the value of the "xxx" property taken from the current
-			project. Can be configured whether to ignore missing properties.
-		 -->
-	<taskdef name="replaceprops" classname="net.community.chest.apache.ant.ReplaceProps"/>
-	<taskdef name="mvnsync" classname="net.community.chest.apache.ant.mvnsync.MvnSync"/>
-		<!-- replaces the version property in a Windows resource file -->
-	<taskdef name="winverupdate" classname="net.community.chest.apache.ant.winver.WinverUpdate"/>
-		<!-- Checks if a list of files (no wildcards) exist in a given folder -->
-	<taskdef name="flistavail" classname="net.community.chest.apache.ant.AvailableFilesList"/>
-		<!-- Reads and defines all the properties found in a Maven POM XML file -->
-	<taskdef name="readpomprops" classname="net.community.chest.apache.ant.mvnsync.ReadPomProps"/>
-		<!-- Compares a version value with an expression - e.g. "1.3+" -->
-	<taskdef name="vercompcheck" classname="net.community.chest.apache.ant.VersionCompatibility"/>
+        <!--
+            Searches each file and replaces the occurrences of the "${xxx}"
+            with the value of the "xxx" property taken from the current
+            project. Can be configured whether to ignore missing properties.
+         -->
+    <taskdef name="replaceprops" classname="net.community.chest.apache.ant.ReplaceProps"/>
+    <taskdef name="mvnsync" classname="net.community.chest.apache.ant.mvnsync.MvnSync"/>
+        <!-- replaces the version property in a Windows resource file -->
+    <taskdef name="winverupdate" classname="net.community.chest.apache.ant.winver.WinverUpdate"/>
+        <!-- Checks if a list of files (no wildcards) exist in a given folder -->
+    <taskdef name="flistavail" classname="net.community.chest.apache.ant.AvailableFilesList"/>
+        <!-- Reads and defines all the properties found in a Maven POM XML file -->
+    <taskdef name="readpomprops" classname="net.community.chest.apache.ant.mvnsync.ReadPomProps"/>
+        <!-- Compares a version value with an expression - e.g. "1.3+" -->
+    <taskdef name="vercompcheck" classname="net.community.chest.apache.ant.VersionCompatibility"/>
 </antlib>

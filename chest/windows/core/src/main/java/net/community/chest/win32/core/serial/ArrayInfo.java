@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.serial;
 
@@ -20,100 +20,100 @@ import net.community.chest.win32.core.DataFormatConverter;
  *
  */
 public class ArrayInfo extends LogHelper
-		implements ElementEncoder<ArrayInfo>,
-				   PubliclyCloneable<ArrayInfo>,
-				   Serializable,
-				   ObjectIdCarrier {
-	private static final long serialVersionUID = -2958403024525744601L;
+        implements ElementEncoder<ArrayInfo>,
+                   PubliclyCloneable<ArrayInfo>,
+                   Serializable,
+                   ObjectIdCarrier {
+    private static final long serialVersionUID = -2958403024525744601L;
 
-	private long	_objectId=(-1L);
-	private int	_length=(-1);
-	
-	public ArrayInfo()
-	{
-		super();
-	}
-	
-	public ArrayInfo (InputStream in) throws IOException
-	{
-		Object	result=read(in);
-		if (result != this)
-			throw new StreamCorruptedException("Mismatched read data instance");
-	}
+    private long    _objectId=(-1L);
+    private int    _length=(-1);
 
-	@Override
-	public long getObjectId ()
-	{
-		return _objectId;
-	}
+    public ArrayInfo()
+    {
+        super();
+    }
 
-	@Override
-	public void setObjectId (long objectId)
-	{
-		_objectId = objectId;
-	}
+    public ArrayInfo (InputStream in) throws IOException
+    {
+        Object    result=read(in);
+        if (result != this)
+            throw new StreamCorruptedException("Mismatched read data instance");
+    }
 
-	public int getLength ()
-	{
-		return _length;
-	}
+    @Override
+    public long getObjectId ()
+    {
+        return _objectId;
+    }
 
-	public void setLength (int length)
-	{
-		_length = length;
-	}
+    @Override
+    public void setObjectId (long objectId)
+    {
+        _objectId = objectId;
+    }
 
-	@Override
-	public ArrayInfo clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}
+    public int getLength ()
+    {
+        return _length;
+    }
 
-	@Override
-	public ArrayInfo read (InputStream in) throws IOException
-	{
-		setObjectId(DataFormatConverter.readUnsignedInt32(in));
-		logInternal("objectID=" + getObjectId());
+    public void setLength (int length)
+    {
+        _length = length;
+    }
 
-		setLength(DataFormatConverter.readSignedInt32(in));
-		logInternal("length=" + getLength());
-		return this;
-	}
+    @Override
+    public ArrayInfo clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
 
-	@Override
-	public void write (OutputStream out) throws IOException
-	{
-		DataFormatConverter.writeUnsignedInt32(out, getObjectId());
-		DataFormatConverter.writeSignedInt32(out, getLength());
-	}
+    @Override
+    public ArrayInfo read (InputStream in) throws IOException
+    {
+        setObjectId(DataFormatConverter.readUnsignedInt32(in));
+        logInternal("objectID=" + getObjectId());
 
-	@Override
-	public int hashCode ()
-	{
-		return (int) getObjectId() + getLength();
-	}
-	
-	@Override
-	public boolean equals (Object obj)
-	{
-		if (obj == null)
-			return false;
-		if (this == obj)
-			return true;
-		if (getClass() != obj.getClass())
-			return false;
-		
-		ArrayInfo	other=(ArrayInfo) obj;
-		if ((getObjectId() == other.getObjectId())
-		 && (getLength() == other.getLength()))
-			return true;
-		else
-			return false;
-	}
+        setLength(DataFormatConverter.readSignedInt32(in));
+        logInternal("length=" + getLength());
+        return this;
+    }
 
-	@Override
-	public String toString ()
-	{
-		return "id=" + getObjectId() + ";length=" + getLength();
-	}
+    @Override
+    public void write (OutputStream out) throws IOException
+    {
+        DataFormatConverter.writeUnsignedInt32(out, getObjectId());
+        DataFormatConverter.writeSignedInt32(out, getLength());
+    }
+
+    @Override
+    public int hashCode ()
+    {
+        return (int) getObjectId() + getLength();
+    }
+
+    @Override
+    public boolean equals (Object obj)
+    {
+        if (obj == null)
+            return false;
+        if (this == obj)
+            return true;
+        if (getClass() != obj.getClass())
+            return false;
+
+        ArrayInfo    other=(ArrayInfo) obj;
+        if ((getObjectId() == other.getObjectId())
+         && (getLength() == other.getLength()))
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public String toString ()
+    {
+        return "id=" + getObjectId() + ";length=" + getLength();
+    }
 }

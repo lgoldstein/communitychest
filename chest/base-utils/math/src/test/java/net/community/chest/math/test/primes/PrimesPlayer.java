@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.math.test.primes;
 
@@ -67,17 +67,17 @@ public class PrimesPlayer extends TestBase {
         if ((cs == null) || (cs.length() <= 0)) {
             return 0;
         }
-        
+
         long    sum=0L;
         for (int index=0; index < cs.length(); index++) {
             char    digit=cs.charAt(index);
             if ((digit < '0') || (digit > '9')) {
                 throw new NumberFormatException("Bad digit (" + digit + ") at offset=" + index);
             }
-            
+
             sum += digit - '0';
         }
-        
+
         return reducedDigitsSum(sum);
     }
 
@@ -92,25 +92,25 @@ public class PrimesPlayer extends TestBase {
             if (line.length() <= 0) {
                 continue;
             }
-            
+
             if (title == null) {
                 title = line;
                 out.append('\t').println(title);
                 continue;
             }
-            
+
             String[]    values=line.split(" ");
             for (String v : values) {
                 v = v.trim();
                 if (v.length() <= 0) {
                     continue;
                 }
-                
+
                 writer.append(v).append(EOLStyle.LOCAL.getStyleString());
                 count++;
             }
         }
-        
+
         return count;
     }
 
@@ -133,7 +133,7 @@ public class PrimesPlayer extends TestBase {
         } finally {
             w.close();
         }
-        
+
         return count;
     }
 
@@ -141,11 +141,11 @@ public class PrimesPlayer extends TestBase {
         Integer startIndex=inputIntValue(out, in, "start index", 1, Short.MAX_VALUE, Integer.valueOf(1));
         if (startIndex == null)
             return Collections.emptySet();
-        
+
         Integer endIndex=inputIntValue(out, in, "end index", 1, Short.MAX_VALUE, Integer.valueOf(50));
         if (endIndex == null)
             return Collections.emptySet();
-        
+
         if ((!targetFolder.exists()) && (!targetFolder.mkdirs())) {
             throw new IllegalStateException("Cannot create target folder");
         }
@@ -157,13 +157,13 @@ public class PrimesPlayer extends TestBase {
                 int i1=indexOf(n1), i2=indexOf(n2);
                 return i1 - i2;
             }
-            
+
             private int indexOf(String s) {
                 int pos=s.lastIndexOf('.');
                 if (pos <= 0) {
                     return (-1);
                 }
-                
+
                 for (int startPos=pos - 1; startPos >= 0; startPos--) {
                     char    ch=s.charAt(startPos);
                     if ((ch < '0') || (ch > '9')) {
@@ -171,7 +171,7 @@ public class PrimesPlayer extends TestBase {
                         return Integer.parseInt(idx);
                     }
                 }
-                
+
                 return (-1);
             }
         });
@@ -215,7 +215,7 @@ public class PrimesPlayer extends TestBase {
                           .append(": ").println(e.getMessage());
             }
         }
-        
+
         return names;
     }
 
@@ -228,7 +228,7 @@ public class PrimesPlayer extends TestBase {
                 }
                 continue;
             }
-            
+
             int idx=nRead - '0';
             counts[idx]++;
             nCount++;
@@ -237,18 +237,18 @@ public class PrimesPlayer extends TestBase {
             if ((nLines % 1024) == 0) {
                 out.append('.');
             }
-            
+
             if ((nCount % 0xFFFF) == 0) {
                 out.println(nCount);
             }
         }
         out.println();
-        
+
         Map<Byte,Long>  result=new TreeMap<Byte,Long>();
         for (byte index=0; index < counts.length; index++) {
             result.put(Byte.valueOf(index), Long.valueOf(counts[index]));
         }
-        
+
         return result;
     }
 
@@ -264,7 +264,7 @@ public class PrimesPlayer extends TestBase {
                     for (Map.Entry<Byte,Long> re : result.entrySet()) {
                         out.append('\t').append(String.valueOf(re.getKey())).append('\t').println(re.getValue());
                     }
-                    
+
                     if (totals == null) {
                         totals = result;
                     }
@@ -275,7 +275,7 @@ public class PrimesPlayer extends TestBase {
         } finally {
             zs.close();
         }
-        
+
         return totals;
     }
 
@@ -287,7 +287,7 @@ public class PrimesPlayer extends TestBase {
         } finally {
             ps.close();
         }
-        
+
         Map<Byte,Long>  result=new TreeMap<Byte,Long>();
         long            total=0L;
         for (char digit='0'; digit <= '9'; digit++) {
@@ -298,7 +298,7 @@ public class PrimesPlayer extends TestBase {
             if (prev != null) {
                 throw new StreamCorruptedException("loadDigitsCounts(" + anchor.getSimpleName() + ")[" + name + "] multiple values for digit=" + digit);
             }
-            
+
             total += value.longValue();
         }
 
@@ -337,11 +337,11 @@ public class PrimesPlayer extends TestBase {
 
                 continue;
             }
-            
+
             if (!counting) {
                 counting = true;    // debug breakpoint
             }
-            
+
             sum += ((nRead & 0xFF) - '0');
         }
 
@@ -354,7 +354,7 @@ public class PrimesPlayer extends TestBase {
         for (byte index=0; index < counts.length; index++) {
             result.put(Byte.valueOf(index), Long.valueOf(counts[index]));
         }
-        
+
         return result;
     }
 
@@ -370,7 +370,7 @@ public class PrimesPlayer extends TestBase {
                     for (Map.Entry<Byte,Long> re : result.entrySet()) {
                         out.append('\t').append(String.valueOf(re.getKey())).append('\t').println(re.getValue());
                     }
-                    
+
                     if (totals == null) {
                         totals = result;
                     }
@@ -381,12 +381,12 @@ public class PrimesPlayer extends TestBase {
         } finally {
             zs.close();
         }
-        
+
         return totals;
     }
 
     //////////////////////////////////////////////////////////////////////////
-    
+
     public static void main(String[] args) throws Exception {
 //        File                targetFolder=new File(new File(System.getProperty("java.io.tmpdir")), "primes");
 //        Collection<String>  names=downloadPrimesList(getStdin(), System.out, targetFolder);

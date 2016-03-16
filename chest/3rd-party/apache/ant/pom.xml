@@ -1,52 +1,52 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-			     http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<groupId>net.community.chest.3rd-party.apache</groupId>
-		<artifactId>parent</artifactId>
-		<version>1.8.1.0</version>
-		<relativePath>../pom.xml</relativePath>
-	</parent>
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>net.community.chest.3rd-party.apache</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.8.1.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.community.chest.3rd-party.apache.ant</groupId>
-	<artifactId>chest-ant-helpers</artifactId>
-	<packaging>jar</packaging>
-	<name>ANT related classes and core tasks</name>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.community.chest.3rd-party.apache.ant</groupId>
+    <artifactId>chest-ant-helpers</artifactId>
+    <packaging>jar</packaging>
+    <name>ANT related classes and core tasks</name>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.ant</groupId>
-			<artifactId>ant</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.ant</groupId>
-			<artifactId>ant-nodeps</artifactId>
-			<scope>provided</scope>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-nodeps</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>net.community.chest.base-utils</groupId>
-			<artifactId>chest-jdk</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.community.chest.base-utils</groupId>
-			<artifactId>chest-io</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.community.chest.3rd-party.apache.maven</groupId>
-			<artifactId>chest-maven-helpers</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>net.community.chest.base-utils</groupId>
+            <artifactId>chest-jdk</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.community.chest.base-utils</groupId>
+            <artifactId>chest-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.community.chest.3rd-party.apache.maven</groupId>
+            <artifactId>chest-maven-helpers</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>net.community.chest.base-utils</groupId>
-			<artifactId>chest-jdk</artifactId>
-			<version>${project.version}</version>
-			<type>test-jar</type>
-			<scope>test</scope>
+        <dependency>
+            <groupId>net.community.chest.base-utils</groupId>
+            <artifactId>chest-jdk</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
        </dependency>
    </dependencies>
 </project>

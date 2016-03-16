@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.plot.pie;
 
@@ -13,17 +13,17 @@ import org.jfree.chart.plot.RingPlot;
  * @since Feb 1, 2009 3:41:20 PM
  */
 public class RingPlotReflectiveProxy<P extends RingPlot> extends PiePlotReflectiveProxy<P> {
-	protected RingPlotReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
-			throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected RingPlotReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
+            throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public RingPlotReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public RingPlotReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final RingPlotReflectiveProxy<RingPlot>	RINGPLOT=
-			new RingPlotReflectiveProxy<RingPlot>(RingPlot.class, true);
+    public static final RingPlotReflectiveProxy<RingPlot>    RINGPLOT=
+            new RingPlotReflectiveProxy<RingPlot>(RingPlot.class, true);
 }

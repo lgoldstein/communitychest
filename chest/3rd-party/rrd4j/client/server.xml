@@ -40,7 +40,7 @@
             ConsolFun - the consolidation function (case insensitive) - values are:
 
                 AVERAGE, MIN, MAX, LAST, FIRST, TOTAL
-            
+
             xff - If more than this factor PDP(s) are UNKNOWN then the CDP
                 value is also declared to be UNKNOWN
 

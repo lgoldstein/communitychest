@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.attributes;
 
@@ -10,9 +10,9 @@ package net.community.chest.awt.attributes;
  * @since Dec 30, 2008 8:34:29 AM
  */
 public interface Tooltiped {
-	public static final String		ATTR_NAME="toolTipText";
-	public static final Class<?>	ATTR_TYPE=String.class;
+    public static final String        ATTR_NAME="toolTipText";
+    public static final Class<?>    ATTR_TYPE=String.class;
 
-	String getToolTipText ();
-	void setToolTipText (String t);
+    String getToolTipText ();
+    void setToolTipText (String t);
 }

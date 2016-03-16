@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.layout.border;
 
@@ -15,11 +15,11 @@ import net.community.chest.awt.layout.dom.AbstractLayoutManager2ReflectiveProxy;
  * @since Aug 20, 2008 1:12:50 PM
  */
 public class BorderLayoutReflectiveProxy<L extends BorderLayout> extends AbstractLayoutManager2ReflectiveProxy<L> {
-	public BorderLayoutReflectiveProxy (Class<L> objClass) throws IllegalArgumentException
-	{
-		super(objClass);
-	}
+    public BorderLayoutReflectiveProxy (Class<L> objClass) throws IllegalArgumentException
+    {
+        super(objClass);
+    }
 
-	public static final BorderLayoutReflectiveProxy<BorderLayout>	BORDER=
-			new BorderLayoutReflectiveProxy<BorderLayout>(BorderLayout.class);
+    public static final BorderLayoutReflectiveProxy<BorderLayout>    BORDER=
+            new BorderLayoutReflectiveProxy<BorderLayout>(BorderLayout.class);
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.git.lib;
 
@@ -18,47 +18,47 @@ import org.eclipse.jgit.lib.FileMode;
  * @since Mar 15, 2011 10:39:56 AM
  */
 public enum FileModeType {
-	TREE(FileMode.TREE),
-	SYMLINK(FileMode.SYMLINK),
-	REGULAR(FileMode.REGULAR_FILE),
-	EXECUTABLE(FileMode.EXECUTABLE_FILE),
-	GITLINK(FileMode.GITLINK),
-	MISSING(FileMode.MISSING);
+    TREE(FileMode.TREE),
+    SYMLINK(FileMode.SYMLINK),
+    REGULAR(FileMode.REGULAR_FILE),
+    EXECUTABLE(FileMode.EXECUTABLE_FILE),
+    GITLINK(FileMode.GITLINK),
+    MISSING(FileMode.MISSING);
 
-	private final FileMode	_mode;
-	public final FileMode getMode ()
-	{
-		return _mode;
-	}
-	
-	FileModeType (FileMode mode)
-	{
-		_mode = mode;
-	}
+    private final FileMode    _mode;
+    public final FileMode getMode ()
+    {
+        return _mode;
+    }
 
-	public static final List<FileModeType>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final FileModeType fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    FileModeType (FileMode mode)
+    {
+        _mode = mode;
+    }
 
-	public static final FileModeType fromMode (final FileMode mode)
-	{
-		if (mode == null)
-			return null;
+    public static final List<FileModeType>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final FileModeType fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-		for (final FileModeType val : VALUES)
-		{
-			final FileMode	vMode=(val == null) ? null : val.getMode();
-			if ((vMode != null) && (mode.equals(vMode) || (vMode.getBits() == mode.getBits())))
-				return val;
-		}
+    public static final FileModeType fromMode (final FileMode mode)
+    {
+        if (mode == null)
+            return null;
 
-		return null;
-	}
+        for (final FileModeType val : VALUES)
+        {
+            final FileMode    vMode=(val == null) ? null : val.getMode();
+            if ((vMode != null) && (mode.equals(vMode) || (vMode.getBits() == mode.getBits())))
+                return val;
+        }
 
-	public static final FileModeType fromBits (final int bits)
-	{
-		return fromMode(FileMode.fromBits(bits));
-	}
+        return null;
+    }
+
+    public static final FileModeType fromBits (final int bits)
+    {
+        return fromMode(FileMode.fromBits(bits));
+    }
 }

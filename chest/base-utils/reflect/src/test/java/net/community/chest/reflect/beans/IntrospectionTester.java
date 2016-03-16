@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.reflect.beans;
 
@@ -20,68 +20,68 @@ import net.community.chest.test.TestBase;
  */
 public class IntrospectionTester extends TestBase {
 
-	//////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
 
-	public static void testBeansIntrospector (
-			final BufferedReader in, final PrintStream out, final Class<?> c)
-		throws IntrospectionException
-	{
-		out.println(c.getName());
-		for ( ; ; )
-		{
-			final BeanInfo				info=Introspector.getBeanInfo(c);
-			final PropertyDescriptor[]	props=info.getPropertyDescriptors();
-			if ((props != null) && (props.length > 0))
-			{
-				out.println("Properties:");
-				for (final PropertyDescriptor pd : props)
-				{
-					out.append('\t').append(pd.getName()).println();
-					out.append("\t\tDisplay name=").println(pd.getDisplayName());
-					out.append("\t\tShort description=").println(pd.getShortDescription());
-					out.append("\t\tRead method=").println(pd.getReadMethod());
-					out.append("\t\tWrite method=").println(pd.getWriteMethod());
-					out.append("\t\tProperty type=").println(pd.getPropertyType());
-				}
-			}
+    public static void testBeansIntrospector (
+            final BufferedReader in, final PrintStream out, final Class<?> c)
+        throws IntrospectionException
+    {
+        out.println(c.getName());
+        for ( ; ; )
+        {
+            final BeanInfo                info=Introspector.getBeanInfo(c);
+            final PropertyDescriptor[]    props=info.getPropertyDescriptors();
+            if ((props != null) && (props.length > 0))
+            {
+                out.println("Properties:");
+                for (final PropertyDescriptor pd : props)
+                {
+                    out.append('\t').append(pd.getName()).println();
+                    out.append("\t\tDisplay name=").println(pd.getDisplayName());
+                    out.append("\t\tShort description=").println(pd.getShortDescription());
+                    out.append("\t\tRead method=").println(pd.getReadMethod());
+                    out.append("\t\tWrite method=").println(pd.getWriteMethod());
+                    out.append("\t\tProperty type=").println(pd.getPropertyType());
+                }
+            }
 
-			final String	ans=getval(out, in, "again [y]/n");
-			if ((ans != null) && (ans.length() > 0) && (Character.toLowerCase(ans.charAt(0)) != 'y'))
-				break;
-		}
-	}
-	/*----------------------------------------------------------------------*/
+            final String    ans=getval(out, in, "again [y]/n");
+            if ((ans != null) && (ans.length() > 0) && (Character.toLowerCase(ans.charAt(0)) != 'y'))
+                break;
+        }
+    }
+    /*----------------------------------------------------------------------*/
 
-	// each argument is assumed to be the FQ name of a class
-	public static void testBeansIntrospector (
-			final BufferedReader in, final PrintStream out, final String ... args)
-	{
-		final int	numArgs=(args == null) ? 0 : args.length;
-		for (int	aIndex=0; ; aIndex++)
-		{
-			final String	cName=(aIndex < numArgs) ? args[aIndex] : getval(out, in, "class name (or Quit)");
-			if ((cName == null) || (cName.length() <= 0))
-				continue;
-			if (isQuit(cName))
-				break;
+    // each argument is assumed to be the FQ name of a class
+    public static void testBeansIntrospector (
+            final BufferedReader in, final PrintStream out, final String ... args)
+    {
+        final int    numArgs=(args == null) ? 0 : args.length;
+        for (int    aIndex=0; ; aIndex++)
+        {
+            final String    cName=(aIndex < numArgs) ? args[aIndex] : getval(out, in, "class name (or Quit)");
+            if ((cName == null) || (cName.length() <= 0))
+                continue;
+            if (isQuit(cName))
+                break;
 
-			try
-			{
-				testBeansIntrospector(in, out, ClassUtil.loadClassByName(cName));
-			}
-			catch(Throwable t)
-			{
-				System.err.println(t.getClass().getName() + " while processing class=" + cName + ": " + t.getMessage());
-			}
-		}
-	}
+            try
+            {
+                testBeansIntrospector(in, out, ClassUtil.loadClassByName(cName));
+            }
+            catch(Throwable t)
+            {
+                System.err.println(t.getClass().getName() + " while processing class=" + cName + ": " + t.getMessage());
+            }
+        }
+    }
 
-	//////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
 
-	public static void main (String[] args)
-	{
-		final BufferedReader	in=getStdin();
-		testBeansIntrospector(in, System.out, args);
-	}
+    public static void main (String[] args)
+    {
+        final BufferedReader    in=getStdin();
+        testBeansIntrospector(in, System.out, args);
+    }
 
 }

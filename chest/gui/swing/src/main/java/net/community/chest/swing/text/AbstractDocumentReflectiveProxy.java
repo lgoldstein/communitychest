@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing.text;
 
@@ -20,68 +20,68 @@ import org.w3c.dom.Element;
  * @since Nov 11, 2010 2:25:59 PM
  */
 public abstract class AbstractDocumentReflectiveProxy<D extends AbstractDocument> extends DocumentReflectiveProxy<D> {
-	protected AbstractDocumentReflectiveProxy (Class<D> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected AbstractDocumentReflectiveProxy (Class<D> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public static final String	FILTER_ELEM_NAME="filter";
-	public boolean isFilterElement (final Element elem, final String tagName)
-	{
-		return isMatchingElement(elem, tagName, FILTER_ELEM_NAME);
-	}
-	
-	protected DocumentFilter createDocumentFilter (Element elem) throws Exception
-	{
-		throw new UnsupportedOperationException("createDocumentFilter(" + DOMUtils.toString(elem) + ") N/A");	// TODO implement it
-	}
+    public static final String    FILTER_ELEM_NAME="filter";
+    public boolean isFilterElement (final Element elem, final String tagName)
+    {
+        return isMatchingElement(elem, tagName, FILTER_ELEM_NAME);
+    }
 
-	protected DocumentFilter setDocumentFilter (D src, Element elem) throws Exception
-	{
-		final DocumentFilter	f=createDocumentFilter(elem);
-		if (f != null)
-			src.setDocumentFilter(f);
-		return f;
-	}
+    protected DocumentFilter createDocumentFilter (Element elem) throws Exception
+    {
+        throw new UnsupportedOperationException("createDocumentFilter(" + DOMUtils.toString(elem) + ") N/A");    // TODO implement it
+    }
 
-	public static final String	PROPERTIES_ELEM_NAME=Properties.class.getSimpleName().toLowerCase();
-	public boolean isPropertiesElement (final Element elem, final String tagName)
-	{
-		return isMatchingElement(elem, tagName, PROPERTIES_ELEM_NAME);
-	}
+    protected DocumentFilter setDocumentFilter (D src, Element elem) throws Exception
+    {
+        final DocumentFilter    f=createDocumentFilter(elem);
+        if (f != null)
+            src.setDocumentFilter(f);
+        return f;
+    }
 
-	protected Dictionary<Object,Object> createDocumentProperties (Element elem) throws Exception
-	{
-		throw new UnsupportedOperationException("createDocumentProperties(" + DOMUtils.toString(elem) + ") N/A");	// TODO implement it
-	}
-	
-	protected Dictionary<Object,Object> setDocumentProperties (D src, Element elem) throws Exception
-	{
-		final Dictionary<Object,Object>	props=createDocumentProperties(elem);
-		if (props != null)
-			src.setDocumentProperties(props);
-		return props;
-	}
-	/*
-	 * @see net.community.chest.dom.proxy.AbstractXmlProxyConverter#fromXmlChild(java.lang.Object, org.w3c.dom.Element)
-	 */
-	@Override
-	public D fromXmlChild (D src, Element elem) throws Exception
-	{
-		final String	tagName=elem.getTagName();
-		if (isFilterElement(elem, tagName))
-		{
-			setDocumentFilter(src, elem);
-			return src;
-		}
-		else if (isPropertiesElement(elem, tagName))
-		{
-			setDocumentProperties(src, elem);
-			return src;
-		}
+    public static final String    PROPERTIES_ELEM_NAME=Properties.class.getSimpleName().toLowerCase();
+    public boolean isPropertiesElement (final Element elem, final String tagName)
+    {
+        return isMatchingElement(elem, tagName, PROPERTIES_ELEM_NAME);
+    }
 
-		return super.fromXmlChild(src, elem);
-	}
+    protected Dictionary<Object,Object> createDocumentProperties (Element elem) throws Exception
+    {
+        throw new UnsupportedOperationException("createDocumentProperties(" + DOMUtils.toString(elem) + ") N/A");    // TODO implement it
+    }
+
+    protected Dictionary<Object,Object> setDocumentProperties (D src, Element elem) throws Exception
+    {
+        final Dictionary<Object,Object>    props=createDocumentProperties(elem);
+        if (props != null)
+            src.setDocumentProperties(props);
+        return props;
+    }
+    /*
+     * @see net.community.chest.dom.proxy.AbstractXmlProxyConverter#fromXmlChild(java.lang.Object, org.w3c.dom.Element)
+     */
+    @Override
+    public D fromXmlChild (D src, Element elem) throws Exception
+    {
+        final String    tagName=elem.getTagName();
+        if (isFilterElement(elem, tagName))
+        {
+            setDocumentFilter(src, elem);
+            return src;
+        }
+        else if (isPropertiesElement(elem, tagName))
+        {
+            setDocumentProperties(src, elem);
+            return src;
+        }
+
+        return super.fromXmlChild(src, elem);
+    }
 
 }

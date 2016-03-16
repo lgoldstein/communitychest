@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-rrd4j-client" default="build-rrd4j-client" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds the RRD4J common utilities JAR $Rev: 561 $
-		</description>
+    <project name="build-rrd4j-client" default="build-rrd4j-client" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds the RRD4J common utilities JAR $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
+            <!-- Preamble definitions -->
         <property name="default.classpath.ref.name" value="rrd4j.client.path"/>
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="rrd4j.libs.root.dir" value="${parent.root.dir}"/>
-		<property name="module.base.target.name" value="rrd4j-client"/>
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="rrd4j.libs.root.dir" value="${parent.root.dir}"/>
+        <property name="module.base.target.name" value="rrd4j-client"/>
 
-		<import file="${rrd4j.libs.root.dir}${file.separator}build-base.xml"/>
+        <import file="${rrd4j.libs.root.dir}${file.separator}build-base.xml"/>
 
-		<mvn:dependencies 	pathId="rrd4j.client.dependencies.path" useScope="compile"
-							settingsFile="${maven.settings.file.path}"
-				>
-	        <localRepository path="${maven.local.repository.folder}" layout="default"/>
-	
-			<dependency groupId="commons-logging" 	artifactId="commons-logging" 	version="${commons.logging.jar.version}" scope="compile"/>
-			<dependency groupId="commons-codec" 	artifactId="commons-codec" 		version="${commons.codec.jar.version}" 	scope="compile"/>
-		</mvn:dependencies>
+        <mvn:dependencies     pathId="rrd4j.client.dependencies.path" useScope="compile"
+                            settingsFile="${maven.settings.file.path}"
+                >
+            <localRepository path="${maven.local.repository.folder}" layout="default"/>
 
-	    <path id="rrd4j.client.path">
-		    <path refid="rrd4j.helpers.path"/>
-			<path refid="rrd4j.client.dependencies.path"/>
-		</path>
-		
-		<target name="build-rrd4j-client" depends="jar-rrd4j-libs-module-files" description="Builds the RRD4J client utilities JAR"/>
-		<target name="clean-rrd4j-client" depends="clean-rrd4j-libs-module-build" description="Removes the RRD4J client object files and JAR"/>
-	</project>
+            <dependency groupId="commons-logging"     artifactId="commons-logging"     version="${commons.logging.jar.version}" scope="compile"/>
+            <dependency groupId="commons-codec"     artifactId="commons-codec"         version="${commons.codec.jar.version}"     scope="compile"/>
+        </mvn:dependencies>
+
+        <path id="rrd4j.client.path">
+            <path refid="rrd4j.helpers.path"/>
+            <path refid="rrd4j.client.dependencies.path"/>
+        </path>
+
+        <target name="build-rrd4j-client" depends="jar-rrd4j-libs-module-files" description="Builds the RRD4J client utilities JAR"/>
+        <target name="clean-rrd4j-client" depends="clean-rrd4j-libs-module-build" description="Removes the RRD4J client object files and JAR"/>
+    </project>

@@ -1,31 +1,31 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-			     http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<groupId>net.community.chest</groupId>
-		<artifactId>chest</artifactId>
-		<version>1.8.1.0</version>
-		<relativePath>..</relativePath>
-	</parent>
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>net.community.chest</groupId>
+        <artifactId>chest</artifactId>
+        <version>1.8.1.0</version>
+        <relativePath>..</relativePath>
+    </parent>
 
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.community.chest.net</groupId>
-	<artifactId>parent</artifactId>
-	<packaging>pom</packaging>
-	<name>Networking Common Utilities Parent</name>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.community.chest.net</groupId>
+    <artifactId>parent</artifactId>
+    <packaging>pom</packaging>
+    <name>Networking Common Utilities Parent</name>
 
-		<!-- Sub-modules (in preferred compilation order) -->
-	<modules>
-		<module>./common</module>
-		<module>./smtp</module>
-		<module>./pop3</module>
-		<module>./imap4</module>
-		<module>./jmx</module>
-		<module>./ldap</module>
-		<module>./snmp</module>
-		<module>./rmi</module>
-		<module>./svnkit</module>
-	</modules>
+        <!-- Sub-modules (in preferred compilation order) -->
+    <modules>
+        <module>./common</module>
+        <module>./smtp</module>
+        <module>./pop3</module>
+        <module>./imap4</module>
+        <module>./jmx</module>
+        <module>./ldap</module>
+        <module>./snmp</module>
+        <module>./rmi</module>
+        <module>./svnkit</module>
+    </modules>
 </project>

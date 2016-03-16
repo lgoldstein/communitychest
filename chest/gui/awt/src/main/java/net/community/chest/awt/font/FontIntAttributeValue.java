@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.font;
 
@@ -10,5 +10,5 @@ package net.community.chest.awt.font;
  * @since Jun 30, 2009 3:09:08 PM
  */
 public interface FontIntAttributeValue {
-	Integer getAttributeValue ();
+    Integer getAttributeValue ();
 }

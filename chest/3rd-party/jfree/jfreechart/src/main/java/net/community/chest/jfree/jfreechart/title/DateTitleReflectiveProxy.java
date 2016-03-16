@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.title;
 
@@ -18,38 +18,38 @@ import org.w3c.dom.Element;
  * @since Jan 27, 2009 4:02:24 PM
  */
 public class DateTitleReflectiveProxy<T extends DateTitle> extends TextTitleReflectiveProxy<T> {
-	protected DateTitleReflectiveProxy (Class<T> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected DateTitleReflectiveProxy (Class<T> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public DateTitleReflectiveProxy (Class<T> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public DateTitleReflectiveProxy (Class<T> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final DateTitleReflectiveProxy<BaseDateTitle>	DATETTL=
-		new DateTitleReflectiveProxy<BaseDateTitle>(BaseDateTitle.class, true) {
-			/*
-			 * @see net.community.chest.dom.transform.AbstractReflectiveProxy#getElementConstructor()
-			 */
-			@Override
-			protected Constructor<BaseDateTitle> getElementConstructor ()
-			{
-				Constructor<BaseDateTitle>	ctor=super.getElementConstructor();
-				if (null == ctor)
-				{
-					try
-					{
-						ctor = BaseDateTitle.class.getConstructor(Element.class);
-					}
-					catch(NoSuchMethodException e) // should not happen
-					{
-						throw ExceptionUtil.toRuntimeException(e);
-					}
-				}
-				return ctor;
-			}
-	};
+    public static final DateTitleReflectiveProxy<BaseDateTitle>    DATETTL=
+        new DateTitleReflectiveProxy<BaseDateTitle>(BaseDateTitle.class, true) {
+            /*
+             * @see net.community.chest.dom.transform.AbstractReflectiveProxy#getElementConstructor()
+             */
+            @Override
+            protected Constructor<BaseDateTitle> getElementConstructor ()
+            {
+                Constructor<BaseDateTitle>    ctor=super.getElementConstructor();
+                if (null == ctor)
+                {
+                    try
+                    {
+                        ctor = BaseDateTitle.class.getConstructor(Element.class);
+                    }
+                    catch(NoSuchMethodException e) // should not happen
+                    {
+                        throw ExceptionUtil.toRuntimeException(e);
+                    }
+                }
+                return ctor;
+            }
+    };
 }

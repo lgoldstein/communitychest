@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.reflect.beans;
 
@@ -16,45 +16,45 @@ import net.community.chest.reflect.AttributeAccessor;
  * @since Nov 14, 2010 10:00:04 AM
  */
 public final class IntrospectorUtils {
-	private IntrospectorUtils ()
-	{
-		// no instance
-	}
+    private IntrospectorUtils ()
+    {
+        // no instance
+    }
 
-	public static final Map<String,AttributeAccessor> toAccessorsMap (final BeanInfo bi)
-	{
-		final PropertyDescriptor[]	props=(bi == null) ? null : bi.getPropertyDescriptors();
-		if ((props == null) || (props.length <= 0))
-			return null;
+    public static final Map<String,AttributeAccessor> toAccessorsMap (final BeanInfo bi)
+    {
+        final PropertyDescriptor[]    props=(bi == null) ? null : bi.getPropertyDescriptors();
+        if ((props == null) || (props.length <= 0))
+            return null;
 
-		Map<String,AttributeAccessor>	accsMap=null;
-		for (final PropertyDescriptor p : props)
-		{
-			final AttributeAccessor	a=toAttributeAccessor(p);
-			if (a == null)
-				continue;
+        Map<String,AttributeAccessor>    accsMap=null;
+        for (final PropertyDescriptor p : props)
+        {
+            final AttributeAccessor    a=toAttributeAccessor(p);
+            if (a == null)
+                continue;
 
-			if (accsMap == null)
-				accsMap = new TreeMap<String,AttributeAccessor>(String.CASE_INSENSITIVE_ORDER);
+            if (accsMap == null)
+                accsMap = new TreeMap<String,AttributeAccessor>(String.CASE_INSENSITIVE_ORDER);
 
-			final AttributeAccessor	prev=accsMap.put(a.getName(), a);
-			if (prev != null)	// TODO consider throwing an exception
-				continue;
-		}
+            final AttributeAccessor    prev=accsMap.put(a.getName(), a);
+            if (prev != null)    // TODO consider throwing an exception
+                continue;
+        }
 
-		return accsMap;
-	}
-	
-	public static final AttributeAccessor toAttributeAccessor (final PropertyDescriptor p)
-	{
-		if (p == null)
-			return null;
+        return accsMap;
+    }
 
-		final AttributeAccessor	a=new AttributeAccessor();
-		a.setName(p.getName());
-		a.setGetter(p.getReadMethod());
-		a.setSetter(p.getWriteMethod());
-		a.setType(p.getPropertyType());
-		return a;
-	}
+    public static final AttributeAccessor toAttributeAccessor (final PropertyDescriptor p)
+    {
+        if (p == null)
+            return null;
+
+        final AttributeAccessor    a=new AttributeAccessor();
+        a.setName(p.getName());
+        a.setGetter(p.getReadMethod());
+        a.setSetter(p.getWriteMethod());
+        a.setType(p.getPropertyType());
+        return a;
+    }
 }

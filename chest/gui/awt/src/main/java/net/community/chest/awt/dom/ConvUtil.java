@@ -32,76 +32,76 @@ import net.community.chest.util.map.ClassNameMap;
 
 /**
  * Copyright 2007 as per GPLv2
- * 
+ *
  * Various static utilities
- * 
+ *
  * @author Lyor G.
  * @since Jul 15, 2007 12:03:54 PM
  */
 public final class ConvUtil {
-	private ConvUtil ()
-	{
-		// no instance
-	}
+    private ConvUtil ()
+    {
+        // no instance
+    }
 
-	public static final <M extends ClassNameMap<ValueStringInstantiator<?>>> M updateDefaultInstantiatorsMap (final M m)
-	{
-		if (null == m)
-			return m;
+    public static final <M extends ClassNameMap<ValueStringInstantiator<?>>> M updateDefaultInstantiatorsMap (final M m)
+    {
+        if (null == m)
+            return m;
 
-		m.put(Color.class, ColorValueInstantiator.DEFAULT);
-		m.put(Insets.class, InsetsValueInstantiator.DEFAULT);
-		m.put(Rectangle.class, RectangleValueInstantiator.DEFAULT);
-		m.put(Dimension.class, DimensionValueInstantiator.DEFAULT);
-		m.put(Point2D.class, PointValueInstantiator.DEFAULT);
-		m.put(Line2D.class, Line2DValueInstantiator.DEFAULT);
-		m.put(KeyEvent.class, KeyCodeValueInstantiator.DEFAULT);
-		m.put(KeyStroke.class, KeyStrokeValueInstantiator.DEFAULT);
-		m.put(Font.class, FontValueInstantiator.DEFAULT);
-		m.put(ComponentOrientation.class, OrientationValueInstantiator.DEFAULT);
-		m.put(Cursor.class, CursorValueInstantiator.DEFAULT);
+        m.put(Color.class, ColorValueInstantiator.DEFAULT);
+        m.put(Insets.class, InsetsValueInstantiator.DEFAULT);
+        m.put(Rectangle.class, RectangleValueInstantiator.DEFAULT);
+        m.put(Dimension.class, DimensionValueInstantiator.DEFAULT);
+        m.put(Point2D.class, PointValueInstantiator.DEFAULT);
+        m.put(Line2D.class, Line2DValueInstantiator.DEFAULT);
+        m.put(KeyEvent.class, KeyCodeValueInstantiator.DEFAULT);
+        m.put(KeyStroke.class, KeyStrokeValueInstantiator.DEFAULT);
+        m.put(Font.class, FontValueInstantiator.DEFAULT);
+        m.put(ComponentOrientation.class, OrientationValueInstantiator.DEFAULT);
+        m.put(Cursor.class, CursorValueInstantiator.DEFAULT);
 
-		// special generic instantiator(s)
-		m.put(Border.class, BorderValueInstantiator.DEFAULT);
-		return m;
-	}
+        // special generic instantiator(s)
+        m.put(Border.class, BorderValueInstantiator.DEFAULT);
+        return m;
+    }
 
-	public static final UIInstantiatorsMap createDefaultInstantiatorsMap ()
-	{
-		return updateDefaultInstantiatorsMap(new UIInstantiatorsMap());
-	}
+    public static final UIInstantiatorsMap createDefaultInstantiatorsMap ()
+    {
+        return updateDefaultInstantiatorsMap(new UIInstantiatorsMap());
+    }
 
-	private static Map<String,ValueStringInstantiator<?>>	_convsMap	/* =null */;
-	// CAVEAT EMPTOR
-	public static final synchronized Map<String,ValueStringInstantiator<?>> getConvertersMap ()
-	{
-		if (null == _convsMap)
-			_convsMap = createDefaultInstantiatorsMap();
-		return _convsMap;
-	}
-	// returns previous instance
-	public static final synchronized Map<String,ValueStringInstantiator<?>> setConvertersMap (Map<String,ValueStringInstantiator<?>> m)
-	{
-		final Map<String,ValueStringInstantiator<?>>	prev=_convsMap;
-		_convsMap = m;
-		return prev;
-	}
+    private static Map<String,ValueStringInstantiator<?>>    _convsMap    /* =null */;
+    // CAVEAT EMPTOR
+    public static final synchronized Map<String,ValueStringInstantiator<?>> getConvertersMap ()
+    {
+        if (null == _convsMap)
+            _convsMap = createDefaultInstantiatorsMap();
+        return _convsMap;
+    }
+    // returns previous instance
+    public static final synchronized Map<String,ValueStringInstantiator<?>> setConvertersMap (Map<String,ValueStringInstantiator<?>> m)
+    {
+        final Map<String,ValueStringInstantiator<?>>    prev=_convsMap;
+        _convsMap = m;
+        return prev;
+    }
 
-	@SuppressWarnings("unchecked")
-	public static final <V> ValueStringInstantiator<V> getConverter (final Class<V> c)
-	{
-		if (null == c)
-			return null;
+    @SuppressWarnings("unchecked")
+    public static final <V> ValueStringInstantiator<V> getConverter (final Class<V> c)
+    {
+        if (null == c)
+            return null;
 
-		final Map<String,? extends ValueStringInstantiator<?>>	cMap=getConvertersMap();
-		return (ValueStringInstantiator<V>) ClassNameMap.get(cMap, c);
-	}
-	/**
-	 * @param c {@link Class} that is candidate for XML conversion
-	 * @return TRUE if this attribute can be converted to/from XML
-	 */
-	public static final boolean isConvertibleAttribute (final Class<?> c)
-	{
-		return (getConverter(c) != null);
-	}
+        final Map<String,? extends ValueStringInstantiator<?>>    cMap=getConvertersMap();
+        return (ValueStringInstantiator<V>) ClassNameMap.get(cMap, c);
+    }
+    /**
+     * @param c {@link Class} that is candidate for XML conversion
+     * @return TRUE if this attribute can be converted to/from XML
+     */
+    public static final boolean isConvertibleAttribute (final Class<?> c)
+    {
+        return (getConverter(c) != null);
+    }
 }

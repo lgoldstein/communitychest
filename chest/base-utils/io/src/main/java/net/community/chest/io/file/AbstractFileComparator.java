@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.io.file;
 
@@ -14,13 +14,13 @@ import net.community.chest.util.compare.AbstractComparator;
  * @since Aug 6, 2009 12:24:11 PM
  */
 public abstract class AbstractFileComparator extends AbstractComparator<File> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8301131249606451369L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8301131249606451369L;
 
-	protected AbstractFileComparator (boolean reverseMatch)
-	{
-		super(File.class, reverseMatch);
-	}
+    protected AbstractFileComparator (boolean reverseMatch)
+    {
+        super(File.class, reverseMatch);
+    }
 }

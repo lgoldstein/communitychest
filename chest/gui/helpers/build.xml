@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-gui-helpers" default="build-gui-helpers">
-		<description>
-			Builds the GUI helpers JAR $Rev: 561 $
-		</description>
+    <project name="build-gui-helpers" default="build-gui-helpers">
+        <description>
+            Builds the GUI helpers JAR $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="module.base.target.name" value="gui-helpers"/>
-	    <dirname property="gui.root.dir" file="${module.root.folder}"/>
-		
-		<import file="${gui.root.dir}${file.separator}build-base.xml"/>
-		
-		<target name="build-gui-helpers" depends="jar-gui-module-files" description="Builds the GUI helpers JAR"/>
-		<target name="clean-gui-helpers" depends="clean-gui-module-build" description="Removes the GUI helpers object files and JAR"/>
-	</project>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="module.base.target.name" value="gui-helpers"/>
+        <dirname property="gui.root.dir" file="${module.root.folder}"/>
+
+        <import file="${gui.root.dir}${file.separator}build-base.xml"/>
+
+        <target name="build-gui-helpers" depends="jar-gui-module-files" description="Builds the GUI helpers JAR"/>
+        <target name="clean-gui-helpers" depends="clean-gui-module-build" description="Removes the GUI helpers object files and JAR"/>
+    </project>
 

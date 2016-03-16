@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.plot.pie;
 
@@ -19,38 +19,38 @@ import org.jfree.chart.plot.PieLabelLinkStyle;
  * @since Feb 1, 2009 2:57:43 PM
  */
 public enum PieLabelLinkStyleEnum {
-	STD(PieLabelLinkStyle.STANDARD),
-	QCURVE(PieLabelLinkStyle.QUAD_CURVE),
-	CCURVE(PieLabelLinkStyle.CUBIC_CURVE);
+    STD(PieLabelLinkStyle.STANDARD),
+    QCURVE(PieLabelLinkStyle.QUAD_CURVE),
+    CCURVE(PieLabelLinkStyle.CUBIC_CURVE);
 
-	private final PieLabelLinkStyle	_s;
-	public final PieLabelLinkStyle getStyle ()
-	{
-		return _s;
-	}
-	
-	PieLabelLinkStyleEnum (PieLabelLinkStyle s)
-	{
-		_s = s;
-	}
+    private final PieLabelLinkStyle    _s;
+    public final PieLabelLinkStyle getStyle ()
+    {
+        return _s;
+    }
 
-	public static final List<PieLabelLinkStyleEnum>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final PieLabelLinkStyleEnum fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    PieLabelLinkStyleEnum (PieLabelLinkStyle s)
+    {
+        _s = s;
+    }
 
-	public static final PieLabelLinkStyleEnum fromStyle (final PieLabelLinkStyle s)
-	{
-		if (null == s)
-			return null;
+    public static final List<PieLabelLinkStyleEnum>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final PieLabelLinkStyleEnum fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-		for (final PieLabelLinkStyleEnum v : VALUES)
-		{
-			if ((v != null) && s.equals(v.getStyle()))
-				return v;
-		}
+    public static final PieLabelLinkStyleEnum fromStyle (final PieLabelLinkStyle s)
+    {
+        if (null == s)
+            return null;
 
-		return null;
-	}
+        for (final PieLabelLinkStyleEnum v : VALUES)
+        {
+            if ((v != null) && s.equals(v.getStyle()))
+                return v;
+        }
+
+        return null;
+    }
 }

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-http-client-apps" default="build-http-client-apps" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds HTTP-client applications
-		</description>
+    <project name="build-http-client-apps" default="build-http-client-apps" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds HTTP-client applications
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <import file="${module.root.folder}${file.separator}build-base.xml"/>
 
-		<target name="build-http-xmlinjct" depends="http-client-apps-base" unless="skip.http.client.xmlinjct" description="Builds XML injection application">
-			<ant dir="${module.root.folder}${file.separator}xmlinjct" target="build-http-xmlinjct" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.http.client.xmlinjct" value="true"/>
-		</target>
+        <target name="build-http-xmlinjct" depends="http-client-apps-base" unless="skip.http.client.xmlinjct" description="Builds XML injection application">
+            <ant dir="${module.root.folder}${file.separator}xmlinjct" target="build-http-xmlinjct" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.http.client.xmlinjct" value="true"/>
+        </target>
 
-		<target name="build-http-client-apps" depends="build-http-xmlinjct" description="Builds HTTP client applications"/>
+        <target name="build-http-client-apps" depends="build-http-xmlinjct" description="Builds HTTP client applications"/>
 
-		<target name="clean-http-client-apps" depends="http-client-apps-base" description="Cleans HTTP client applications">
-			<ant dir="${module.root.folder}${file.separator}xmlinjct" target="clean-http-xmlinjct" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-		</target>
-	</project>
+        <target name="clean-http-client-apps" depends="http-client-apps-base" description="Cleans HTTP client applications">
+            <ant dir="${module.root.folder}${file.separator}xmlinjct" target="clean-http-xmlinjct" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+        </target>
+    </project>

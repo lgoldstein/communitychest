@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-		<!-- holds various GUI resources specifications $Rev: 590 $ -->
-	<resources>
-		<section 	name="main-frame"
-					title="PDF files concatenator"
-					defaultCloseOperation="EXIT"
-					relativePreferredSize="50,25"
-					relativeSize="50,25"
-					iconImage="Cascade.gif"
-				>
-			<layout class="border"/>
-				<!-- defines the main-menu -->
-			<menu name="main-menu">
-					<!-- NOTE: assigned commands MUST match what the application expects -->
-				<menu text="File" mnemonic="VK_F" actionCommand="file">
-					<accessibleContext description="Loads the input/output file(s)"/>
-					<item text="Load input file(s)" mnemonic="VK_L" actionCommand="load" accelerator="control O" icon="Import.gif"/>
-					<item text="Remove input file(s)" enabled="false" mnemonic="VK_R" actionCommand="remove" accelerator="DELETE"/>
-					<item text="Save output" mnemonic="VK_S" actionCommand="save" accelerator="control S" icon="Export.gif"/>
-					<separator/>
-					<item text="Run" enabled="false" actionCommand="run" accelerator="F5" icon="Run.gif"/>
-					<separator/>
-					<item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
-				</menu>
-				<menu text="Help" actionCommand="help" icon="Help.gif">
-					<accessibleContext description="Shows various information about the application"/>
-					<item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
-				</menu>
-			</menu>
-		</section>
+        <!-- holds various GUI resources specifications $Rev: 590 $ -->
+    <resources>
+        <section     name="main-frame"
+                    title="PDF files concatenator"
+                    defaultCloseOperation="EXIT"
+                    relativePreferredSize="50,25"
+                    relativeSize="50,25"
+                    iconImage="Cascade.gif"
+                >
+            <layout class="border"/>
+                <!-- defines the main-menu -->
+            <menu name="main-menu">
+                    <!-- NOTE: assigned commands MUST match what the application expects -->
+                <menu text="File" mnemonic="VK_F" actionCommand="file">
+                    <accessibleContext description="Loads the input/output file(s)"/>
+                    <item text="Load input file(s)" mnemonic="VK_L" actionCommand="load" accelerator="control O" icon="Import.gif"/>
+                    <item text="Remove input file(s)" enabled="false" mnemonic="VK_R" actionCommand="remove" accelerator="DELETE"/>
+                    <item text="Save output" mnemonic="VK_S" actionCommand="save" accelerator="control S" icon="Export.gif"/>
+                    <separator/>
+                    <item text="Run" enabled="false" actionCommand="run" accelerator="F5" icon="Run.gif"/>
+                    <separator/>
+                    <item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
+                </menu>
+                <menu text="Help" actionCommand="help" icon="Help.gif">
+                    <accessibleContext description="Shows various information about the application"/>
+                    <item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
+                </menu>
+            </menu>
+        </section>
 
-		<section name="load-file-dialog"
-				 multiSelectionEnabled="true"
-				 fileSelectionMode="files"
-				 dialogTitle="Select input file(s)">
-			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
-					description="PDF files"
-					exts="pdf"
-				/>
-		</section>
+        <section name="load-file-dialog"
+                 multiSelectionEnabled="true"
+                 fileSelectionMode="files"
+                 dialogTitle="Select input file(s)">
+            <filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+                    description="PDF files"
+                    exts="pdf"
+                />
+        </section>
 
-		<section name="save-file-dialog" fileSelectionMode="files" dialogTitle="Select output file">
-			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
-					description="PDF files"
-					exts="pdf"
-				/>
-		</section>
+        <section name="save-file-dialog" fileSelectionMode="files" dialogTitle="Select output file">
+            <filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+                    description="PDF files"
+                    exts="pdf"
+                />
+        </section>
 
-			<!-- dialog used to show the manifest -->
-		<section name="show-manifest-dialog" title="Manifest" modal="true">
-			<column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
-			<column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
-		</section>
+            <!-- dialog used to show the manifest -->
+        <section name="show-manifest-dialog" title="Manifest" modal="true">
+            <column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
+            <column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
+        </section>
 
-		<section name="main-fonts">
-			<font id="default-font" name="Tahoma" style="plain" size="11"/>
-			<font id="log-msgs-font" refid="default-font"/>
-			<font id="public-targets-font" refid="default-font"/>
-			<font id="private-targets-font" refid="public-targets-font" style="italic"/>
-			<font id="default-target-font" refid="public-targets-font" style="bold"/>
-		</section>
+        <section name="main-fonts">
+            <font id="default-font" name="Tahoma" style="plain" size="11"/>
+            <font id="log-msgs-font" refid="default-font"/>
+            <font id="public-targets-font" refid="default-font"/>
+            <font id="private-targets-font" refid="public-targets-font" style="italic"/>
+            <font id="default-target-font" refid="public-targets-font" style="bold"/>
+        </section>
 
-		<section name="main-toolbar" floatable="false">
-			<button text="Load" actionCommand="load" 								    				tooltipText="Load input file(s)"/>
-			<button text="Stop" actionCommand="stop"	visible="false"	enabled="false" icon="Stop.gif" tooltipText="Stop concatenation"/>
-			<button 			actionCommand="run"  	 				enabled="false"					tooltipText="Run concatenation"/>
-		</section>
-	</resources>
+        <section name="main-toolbar" floatable="false">
+            <button text="Load" actionCommand="load"                                                     tooltipText="Load input file(s)"/>
+            <button text="Stop" actionCommand="stop"    visible="false"    enabled="false" icon="Stop.gif" tooltipText="Stop concatenation"/>
+            <button             actionCommand="run"                       enabled="false"                    tooltipText="Run concatenation"/>
+        </section>
+    </resources>

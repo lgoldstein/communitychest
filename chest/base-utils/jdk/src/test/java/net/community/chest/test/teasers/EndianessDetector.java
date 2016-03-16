@@ -11,11 +11,11 @@ import net.community.chest.test.TestBase;
  * @since Jun 17, 2008 8:12:21 AM
  */
 public class EndianessDetector extends TestBase {
-	
-	//////////////////////////////////////////////////////////////////////////
 
-	public static void main (String[] args)
-	{
-		System.out.println(ByteOrder.nativeOrder());
-	}
+    //////////////////////////////////////////////////////////////////////////
+
+    public static void main (String[] args)
+    {
+        System.out.println(ByteOrder.nativeOrder());
+    }
 }

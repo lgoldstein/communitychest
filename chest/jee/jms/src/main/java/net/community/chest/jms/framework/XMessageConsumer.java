@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jms.framework;
 
@@ -13,5 +13,5 @@ import javax.jms.MessageConsumer;
  * @since Jun 8, 2010 1:48:11 PM
  */
 public interface XMessageConsumer extends MessageConsumer {
-	void setMessageSelector (String msgSelector) throws JMSException;
+    void setMessageSelector (String msgSelector) throws JMSException;
 }

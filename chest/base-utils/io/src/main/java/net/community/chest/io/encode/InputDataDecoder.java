@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.io.encode;
 
@@ -15,8 +15,8 @@ import java.nio.charset.CharsetDecoder;
  * @since Jul 13, 2009 8:19:41 AM
  */
 public interface InputDataDecoder extends DataInput {
-	// NOTE: "readUTF" is assumed to be equivalent to "readString("UTF-8")"
-	String readString (String charsetName) throws IOException;
-	String readString (Charset charset) throws IOException;
-	String readString (CharsetDecoder charsetDec) throws IOException;
+    // NOTE: "readUTF" is assumed to be equivalent to "readString("UTF-8")"
+    String readString (String charsetName) throws IOException;
+    String readString (Charset charset) throws IOException;
+    String readString (CharsetDecoder charsetDec) throws IOException;
 }

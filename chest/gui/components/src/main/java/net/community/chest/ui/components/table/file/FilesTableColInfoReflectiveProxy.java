@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ui.components.table.file;
 
@@ -13,18 +13,18 @@ import net.community.chest.ui.helpers.table.EnumTableColumnReflectiveProxy;
  * @since Aug 5, 2009 2:30:08 PM
  */
 public class FilesTableColInfoReflectiveProxy<C extends FilesTableColInfo>
-		extends EnumTableColumnReflectiveProxy<FilesTableColumns,C> {
-	protected FilesTableColInfoReflectiveProxy (Class<C> objClass, boolean registerAsDefault)
-			throws IllegalArgumentException, IllegalStateException
-	{
-		super(FilesTableColumns.class, objClass, registerAsDefault);
-	}
+        extends EnumTableColumnReflectiveProxy<FilesTableColumns,C> {
+    protected FilesTableColInfoReflectiveProxy (Class<C> objClass, boolean registerAsDefault)
+            throws IllegalArgumentException, IllegalStateException
+    {
+        super(FilesTableColumns.class, objClass, registerAsDefault);
+    }
 
-	public FilesTableColInfoReflectiveProxy (Class<C> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public FilesTableColInfoReflectiveProxy (Class<C> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final FilesTableColInfoReflectiveProxy<FilesTableColInfo>	FLTBLCOLS=
-		new FilesTableColInfoReflectiveProxy<FilesTableColInfo>(FilesTableColInfo.class);
+    public static final FilesTableColInfoReflectiveProxy<FilesTableColInfo>    FLTBLCOLS=
+        new FilesTableColInfoReflectiveProxy<FilesTableColInfo>(FilesTableColInfo.class);
 }

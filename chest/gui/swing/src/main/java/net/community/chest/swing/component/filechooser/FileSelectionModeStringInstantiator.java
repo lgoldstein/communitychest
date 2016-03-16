@@ -9,11 +9,11 @@ import net.community.chest.reflect.EnumStringInstantiator;
  * @since Jul 26, 2007 1:34:26 PM
  */
 public class FileSelectionModeStringInstantiator extends EnumStringInstantiator<FileSelectionMode> {
-	public FileSelectionModeStringInstantiator ()
-	{
-		super(FileSelectionMode.class, false);
-		setValues(FileSelectionMode.VALUES);
-	}
+    public FileSelectionModeStringInstantiator ()
+    {
+        super(FileSelectionMode.class, false);
+        setValues(FileSelectionMode.VALUES);
+    }
 
-	public static final FileSelectionModeStringInstantiator	DEFAULT=new FileSelectionModeStringInstantiator();
+    public static final FileSelectionModeStringInstantiator    DEFAULT=new FileSelectionModeStringInstantiator();
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.spring.test.beans;
 
@@ -18,35 +18,35 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TestEmbeddingServiceImpl implements TestEmbeddingService {
-	private final EmbeddingEntityDao	_dao;
-	protected final EmbeddingEntityDao getEmbeddingEntityDao ()
-	{
-		return _dao;
-	}
+    private final EmbeddingEntityDao    _dao;
+    protected final EmbeddingEntityDao getEmbeddingEntityDao ()
+    {
+        return _dao;
+    }
 
-	@Inject
-	public TestEmbeddingServiceImpl (EmbeddingEntityDao dao)
-	{
-		_dao = dao;
-	}
-	/*
-	 * @see net.community.chest.spring.test.beans.TestEmbeddingService#list()
-	 */
-	@Override
-	public List<EmbeddingEntity> list ()
-	{
-		final EmbeddingEntityDao	dao=getEmbeddingEntityDao();
-		return dao.findAll();
-	}
-	/*
-	 * @see net.community.chest.spring.test.beans.TestEmbeddingService#create(net.community.chest.spring.test.entities.EmbeddingEntity)
-	 */
-	@Override
-	public Long create (EmbeddingEntity entity)
-	{
-		final EmbeddingEntityDao	dao=getEmbeddingEntityDao();
-		dao.create(entity);
-		return entity.getId();
-	}
+    @Inject
+    public TestEmbeddingServiceImpl (EmbeddingEntityDao dao)
+    {
+        _dao = dao;
+    }
+    /*
+     * @see net.community.chest.spring.test.beans.TestEmbeddingService#list()
+     */
+    @Override
+    public List<EmbeddingEntity> list ()
+    {
+        final EmbeddingEntityDao    dao=getEmbeddingEntityDao();
+        return dao.findAll();
+    }
+    /*
+     * @see net.community.chest.spring.test.beans.TestEmbeddingService#create(net.community.chest.spring.test.entities.EmbeddingEntity)
+     */
+    @Override
+    public Long create (EmbeddingEntity entity)
+    {
+        final EmbeddingEntityDao    dao=getEmbeddingEntityDao();
+        dao.create(entity);
+        return entity.getId();
+    }
 
 }

@@ -1,124 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-net-utils" default="build-net-utils">
-		<description>
-			Builds various net libraries helpers JAR(s) $Rev: 645 $
-		</description>
+    <project name="build-net-utils" default="build-net-utils">
+        <description>
+            Builds various net libraries helpers JAR(s) $Rev: 645 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <import file="${module.root.folder}${file.separator}build-base.xml"/>
 
-		<target name="build-net-common-utils" depends="base-net" unless="skip.build.net.common.utils" description="Builds common net utilies classes">
-			<ant dir="${module.root.folder}${file.separator}common" target="build-net-common-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.net.common.utils" value="true"/>
-		</target>
+        <target name="build-net-common-utils" depends="base-net" unless="skip.build.net.common.utils" description="Builds common net utilies classes">
+            <ant dir="${module.root.folder}${file.separator}common" target="build-net-common-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.net.common.utils" value="true"/>
+        </target>
 
-		<target name="build-net-smtp-utils" depends="build-net-common-utils" unless="skip.build.net.smtp.utils" description="Builds SMTP net utilies classes">
-			<ant dir="${module.root.folder}${file.separator}smtp" target="build-net-smtp-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.net.smtp.utils" value="true"/>
-		</target>
+        <target name="build-net-smtp-utils" depends="build-net-common-utils" unless="skip.build.net.smtp.utils" description="Builds SMTP net utilies classes">
+            <ant dir="${module.root.folder}${file.separator}smtp" target="build-net-smtp-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.net.smtp.utils" value="true"/>
+        </target>
 
-		<target name="build-net-snmp-utils" depends="build-net-common-utils" unless="skip.build.net.snmp.utils" description="Builds SNMP net utilies classes">
-			<ant dir="${module.root.folder}${file.separator}snmp" target="build-net-snmp-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.net.snmp.utils" value="true"/>
-		</target>
+        <target name="build-net-snmp-utils" depends="build-net-common-utils" unless="skip.build.net.snmp.utils" description="Builds SNMP net utilies classes">
+            <ant dir="${module.root.folder}${file.separator}snmp" target="build-net-snmp-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.net.snmp.utils" value="true"/>
+        </target>
 
-		<target name="build-net-pop3-utils" depends="build-net-common-utils" unless="skip.build.net.pop3.utils" description="Builds POP3 net utilies classes">
-			<ant dir="${module.root.folder}${file.separator}pop3" target="build-net-pop3-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.net.pop3.utils" value="true"/>
-		</target>
+        <target name="build-net-pop3-utils" depends="build-net-common-utils" unless="skip.build.net.pop3.utils" description="Builds POP3 net utilies classes">
+            <ant dir="${module.root.folder}${file.separator}pop3" target="build-net-pop3-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.net.pop3.utils" value="true"/>
+        </target>
 
-		<target name="build-net-rmi-utils" depends="build-net-common-utils" unless="skip.build.net.rmi.utils" description="Builds RMI net utilies classes">
-			<ant dir="${module.root.folder}${file.separator}rmi" target="build-net-rmi-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.net.rmi.utils" value="true"/>
-		</target>
+        <target name="build-net-rmi-utils" depends="build-net-common-utils" unless="skip.build.net.rmi.utils" description="Builds RMI net utilies classes">
+            <ant dir="${module.root.folder}${file.separator}rmi" target="build-net-rmi-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.net.rmi.utils" value="true"/>
+        </target>
 
-		<target name="build-net-imap4-utils" depends="build-net-common-utils" unless="skip.build.net.imap4.utils" description="Builds IMAP4 net utilies classes">
-			<ant dir="${module.root.folder}${file.separator}imap4" target="build-net-imap4-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.net.imap4.utils" value="true"/>
-		</target>
+        <target name="build-net-imap4-utils" depends="build-net-common-utils" unless="skip.build.net.imap4.utils" description="Builds IMAP4 net utilies classes">
+            <ant dir="${module.root.folder}${file.separator}imap4" target="build-net-imap4-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.net.imap4.utils" value="true"/>
+        </target>
 
-		<target name="build-net-jmx-utils" depends="build-net-common-utils" unless="skip.build.net.jmx.utils" description="Builds JMX protocol utilies classes">
-			<ant dir="${module.root.folder}${file.separator}jmx" target="build-net-jmx-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.net.jmx.utils" value="true"/>
-		</target>
+        <target name="build-net-jmx-utils" depends="build-net-common-utils" unless="skip.build.net.jmx.utils" description="Builds JMX protocol utilies classes">
+            <ant dir="${module.root.folder}${file.separator}jmx" target="build-net-jmx-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.net.jmx.utils" value="true"/>
+        </target>
 
-		<target name="build-net-ldap-utils" depends="build-net-common-utils" unless="skip.build.net.ldap.utils" description="Builds LDAP protocol utilies classes">
-			<ant dir="${module.root.folder}${file.separator}ldap" target="build-net-ldap-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.net.ldap.utils" value="true"/>
-		</target>
+        <target name="build-net-ldap-utils" depends="build-net-common-utils" unless="skip.build.net.ldap.utils" description="Builds LDAP protocol utilies classes">
+            <ant dir="${module.root.folder}${file.separator}ldap" target="build-net-ldap-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.net.ldap.utils" value="true"/>
+        </target>
 
-		<target name="build-net-svnkit-utils" depends="build-net-common-utils" unless="skip.build.net.svnkit.utils" description="Builds SVNKit utilies classes">
-			<ant dir="${module.root.folder}${file.separator}svnkit" target="build-net-svnkit-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.net.svnkit.utils" value="true"/>
-		</target>
+        <target name="build-net-svnkit-utils" depends="build-net-common-utils" unless="skip.build.net.svnkit.utils" description="Builds SVNKit utilies classes">
+            <ant dir="${module.root.folder}${file.separator}svnkit" target="build-net-svnkit-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.net.svnkit.utils" value="true"/>
+        </target>
 
-		<target name="build-net-jgit-utils" depends="build-net-common-utils" unless="skip.build.net.jgit.utils" description="Builds jGit utilies classes">
-			<ant dir="${module.root.folder}${file.separator}jgit" target="build-net-jgit-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.net.jgit.utils" value="true"/>
-		</target>
+        <target name="build-net-jgit-utils" depends="build-net-common-utils" unless="skip.build.net.jgit.utils" description="Builds jGit utilies classes">
+            <ant dir="${module.root.folder}${file.separator}jgit" target="build-net-jgit-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.net.jgit.utils" value="true"/>
+        </target>
 
-		<target name="build-net-utils"
-				depends="build-net-smtp-utils,
-						 build-net-snmp-utils,
-						 build-net-pop3-utils,
-			 			 build-net-rmi-utils,
-						 build-net-imap4-utils,
-						 build-net-jmx-utils,
-						 build-net-ldap-utils,
-						 build-net-svnkit-utils"
-				description="Builds various net utilities libraries helpers"/>
+        <target name="build-net-utils"
+                depends="build-net-smtp-utils,
+                         build-net-snmp-utils,
+                         build-net-pop3-utils,
+                          build-net-rmi-utils,
+                         build-net-imap4-utils,
+                         build-net-jmx-utils,
+                         build-net-ldap-utils,
+                         build-net-svnkit-utils"
+                description="Builds various net utilities libraries helpers"/>
 
-		<target name="clean-net-utils" description="Cleans the net utilities JAR(s)">
-			<ant dir="${module.root.folder}${file.separator}common" target="clean-net-common-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}smtp" target="clean-net-smtp-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}snmp" target="clean-net-snmp-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}pop3" target="clean-net-pop3-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}rmi" target="clean-net-rmi-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}imap4" target="clean-net-imap4-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}jmx" target="clean-net-jmx-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}ldap" target="clean-net-ldap-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}svnkit" target="clean-net-svnkit-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}jgit" target="clean-net-jgit-utils" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-		</target>
-	</project>
+        <target name="clean-net-utils" description="Cleans the net utilities JAR(s)">
+            <ant dir="${module.root.folder}${file.separator}common" target="clean-net-common-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}smtp" target="clean-net-smtp-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}snmp" target="clean-net-snmp-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}pop3" target="clean-net-pop3-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}rmi" target="clean-net-rmi-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}imap4" target="clean-net-imap4-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}jmx" target="clean-net-jmx-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}ldap" target="clean-net-ldap-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}svnkit" target="clean-net-svnkit-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}jgit" target="clean-net-jgit-utils" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+        </target>
+    </project>

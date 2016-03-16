@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.data;
 
@@ -18,38 +18,38 @@ import org.jfree.data.RangeType;
  * @since Jan 27, 2009 2:31:55 PM
  */
 public enum RangeTypeEnum {
-	FULL(RangeType.FULL),
-	POSITIVE(RangeType.POSITIVE),
-	NEGATIVE(RangeType.NEGATIVE);
+    FULL(RangeType.FULL),
+    POSITIVE(RangeType.POSITIVE),
+    NEGATIVE(RangeType.NEGATIVE);
 
-	private final RangeType	_rangeType;
-	public final RangeType getRangeType ()
-	{
-		return _rangeType;
-	}
+    private final RangeType    _rangeType;
+    public final RangeType getRangeType ()
+    {
+        return _rangeType;
+    }
 
-	RangeTypeEnum (RangeType rt)
-	{
-		_rangeType = rt;
-	}
+    RangeTypeEnum (RangeType rt)
+    {
+        _rangeType = rt;
+    }
 
-	public static final List<RangeTypeEnum>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final RangeTypeEnum fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<RangeTypeEnum>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final RangeTypeEnum fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-	public static final RangeTypeEnum fromRangeType (final RangeType rt)
-	{
-		if (null == rt)
-			return null;
+    public static final RangeTypeEnum fromRangeType (final RangeType rt)
+    {
+        if (null == rt)
+            return null;
 
-		for (final RangeTypeEnum  v : VALUES)
-		{
-			if ((v != null) && rt.equals(v.getRangeType()))
-				return v;
-		}
+        for (final RangeTypeEnum  v : VALUES)
+        {
+            if ((v != null) && rt.equals(v.getRangeType()))
+                return v;
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

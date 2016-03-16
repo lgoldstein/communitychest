@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.serial;
 
@@ -21,92 +21,92 @@ import net.community.chest.win32.core.DataFormatConverter;
  *
  */
 public class ClassTypeInfo implements ElementEncoder<ClassTypeInfo>, PubliclyCloneable<ClassTypeInfo>, Serializable {
-	private static final long serialVersionUID = 744018906038342406L;
-	private long	_libraryId=(-1L);
-	private String _name;
-	
-	public ClassTypeInfo ()
-	{
-		super();
-	}
+    private static final long serialVersionUID = 744018906038342406L;
+    private long    _libraryId=(-1L);
+    private String _name;
 
-	public ClassTypeInfo (InputStream in) throws IOException
-	{
-		Object	result=read(in);
-		if (result != this)
-			throw new StreamCorruptedException("Mismatched read data instance");
-	}
+    public ClassTypeInfo ()
+    {
+        super();
+    }
 
-	public long getLibraryId ()
-	{
-		return _libraryId;
-	}
+    public ClassTypeInfo (InputStream in) throws IOException
+    {
+        Object    result=read(in);
+        if (result != this)
+            throw new StreamCorruptedException("Mismatched read data instance");
+    }
 
-	public void setLibraryId (long libraryId)
-	{
-		_libraryId = libraryId;
-	}
+    public long getLibraryId ()
+    {
+        return _libraryId;
+    }
 
-	public String getName ()
-	{
-		return _name;
-	}
+    public void setLibraryId (long libraryId)
+    {
+        _libraryId = libraryId;
+    }
 
-	public void setName (String name)
-	{
-		_name = name;
-	}
+    public String getName ()
+    {
+        return _name;
+    }
 
-	@Override
-	public ClassTypeInfo read (InputStream in) throws IOException
-	{
-		setName(SerializationFormatConverter.readLengthPrefixedString(in));
-		setLibraryId(DataFormatConverter.readUnsignedInt32(in));
-		return this;
-	}
+    public void setName (String name)
+    {
+        _name = name;
+    }
 
-	@Override
-	public void write (OutputStream out) throws IOException
-	{
-		SerializationFormatConverter.writeLengthPrefixedString(out, getName());
-		DataFormatConverter.writeUnsignedInt32(out, getLibraryId());
-	}
+    @Override
+    public ClassTypeInfo read (InputStream in) throws IOException
+    {
+        setName(SerializationFormatConverter.readLengthPrefixedString(in));
+        setLibraryId(DataFormatConverter.readUnsignedInt32(in));
+        return this;
+    }
 
-	@Override
-	public ClassTypeInfo clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}
+    @Override
+    public void write (OutputStream out) throws IOException
+    {
+        SerializationFormatConverter.writeLengthPrefixedString(out, getName());
+        DataFormatConverter.writeUnsignedInt32(out, getLibraryId());
+    }
 
-	@Override
-	public int hashCode ()
-	{
-		return StringUtil.getDataStringHashCode(getName(), true)
-			+ (int) getLibraryId()
-			;
-	}
-	
-	@Override
-	public boolean equals (Object obj)
-	{
-		if (obj == null)
-			return false;
-		if (this == obj)
-			return true;
-		if (getClass() != obj.getClass())
-			return false;
-		
-		ClassTypeInfo	other=(ClassTypeInfo) obj;
-		if ((StringUtil.compareDataStrings(getName(), other.getName(), true) == 0)
-		 && (getLibraryId() == other.getLibraryId()))
-			return true;
-		else
-			return false;
-	}
-	
-	@Override
-	public String toString ()
-	{
-		return getName() + "@" + getLibraryId();
-	}
+    @Override
+    public ClassTypeInfo clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
+
+    @Override
+    public int hashCode ()
+    {
+        return StringUtil.getDataStringHashCode(getName(), true)
+            + (int) getLibraryId()
+            ;
+    }
+
+    @Override
+    public boolean equals (Object obj)
+    {
+        if (obj == null)
+            return false;
+        if (this == obj)
+            return true;
+        if (getClass() != obj.getClass())
+            return false;
+
+        ClassTypeInfo    other=(ClassTypeInfo) obj;
+        if ((StringUtil.compareDataStrings(getName(), other.getName(), true) == 0)
+         && (getLibraryId() == other.getLibraryId()))
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public String toString ()
+    {
+        return getName() + "@" + getLibraryId();
+    }
 }

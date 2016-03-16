@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.util.datetime;
 
@@ -17,42 +17,42 @@ import net.community.chest.lang.StringUtil;
  * @since Jan 12, 2009 3:44:35 PM
  */
 public abstract class TimeZoneValueInstantiator<TZ extends TimeZone> extends AbstractXmlValueStringInstantiator<TZ> {
-	protected TimeZoneValueInstantiator (Class<TZ> objClass) throws IllegalArgumentException
-	{
-		super(objClass);
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
-	 */
-	@Override
-	public String convertInstance (TZ inst) throws Exception
-	{
-		return (null == inst) ? null : inst.getID();
-	}
+    protected TimeZoneValueInstantiator (Class<TZ> objClass) throws IllegalArgumentException
+    {
+        super(objClass);
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
+     */
+    @Override
+    public String convertInstance (TZ inst) throws Exception
+    {
+        return (null == inst) ? null : inst.getID();
+    }
 
-	public static final TimeZoneValueInstantiator<TimeZone>	DEFAULT=
-		new TimeZoneValueInstantiator<TimeZone>(TimeZone.class) {
-			/*
-			 * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
-			 */
-			@Override
-			public TimeZone newInstance (String v) throws Exception
-			{
-				final String	s=StringUtil.getCleanStringValue(v);
-				if ((null == s) || (s.length() <= 0))
-					return null;
+    public static final TimeZoneValueInstantiator<TimeZone>    DEFAULT=
+        new TimeZoneValueInstantiator<TimeZone>(TimeZone.class) {
+            /*
+             * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
+             */
+            @Override
+            public TimeZone newInstance (String v) throws Exception
+            {
+                final String    s=StringUtil.getCleanStringValue(v);
+                if ((null == s) || (s.length() <= 0))
+                    return null;
 
-				final String[]	ids=TimeZone.getAvailableIDs();
-				if ((null == ids) || (ids.length <= 0))
-					throw new IllegalStateException("newInstance(" +s + ") no TZ ID(s)");
+                final String[]    ids=TimeZone.getAvailableIDs();
+                if ((null == ids) || (ids.length <= 0))
+                    throw new IllegalStateException("newInstance(" +s + ") no TZ ID(s)");
 
-				for (final String tzid : ids)
-				{
-					if (0 == StringUtil.compareDataStrings(tzid, s, false))
-						return TimeZone.getTimeZone(tzid);
-				}
+                for (final String tzid : ids)
+                {
+                    if (0 == StringUtil.compareDataStrings(tzid, s, false))
+                        return TimeZone.getTimeZone(tzid);
+                }
 
-				throw new NoSuchElementException("newInstance(" + s + ") unknown value");
-			}
-		};
+                throw new NoSuchElementException("newInstance(" + s + ") unknown value");
+            }
+        };
 }

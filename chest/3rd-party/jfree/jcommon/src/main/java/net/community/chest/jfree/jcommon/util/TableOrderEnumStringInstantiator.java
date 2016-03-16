@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jcommon.util;
 
@@ -17,42 +17,42 @@ import net.community.chest.lang.StringUtil;
  * @since May 26, 2009 12:41:33 PM
  */
 public class TableOrderEnumStringInstantiator extends AbstractXmlValueStringInstantiator<TableOrder> {
-	public TableOrderEnumStringInstantiator ()
-	{
-		super(TableOrder.class);
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
-	 */
-	@Override
-	public String convertInstance (TableOrder inst) throws Exception
-	{
-		if (null == inst)
-			return null;
+    public TableOrderEnumStringInstantiator ()
+    {
+        super(TableOrder.class);
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
+     */
+    @Override
+    public String convertInstance (TableOrder inst) throws Exception
+    {
+        if (null == inst)
+            return null;
 
-		final TableOrderEnum	o=TableOrderEnum.fromTableOrder(inst);
-		if (null == o)
-			throw new NoSuchElementException("convertInstance(" + inst + ") uknown value");
+        final TableOrderEnum    o=TableOrderEnum.fromTableOrder(inst);
+        if (null == o)
+            throw new NoSuchElementException("convertInstance(" + inst + ") uknown value");
 
-		return o.toString();
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
-	 */
-	@Override
-	public TableOrder newInstance (String v) throws Exception
-	{
-		final String	s=StringUtil.getCleanStringValue(v);
-		if ((null == s) || (s.length() <= 0))
-			return null;
+        return o.toString();
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
+     */
+    @Override
+    public TableOrder newInstance (String v) throws Exception
+    {
+        final String    s=StringUtil.getCleanStringValue(v);
+        if ((null == s) || (s.length() <= 0))
+            return null;
 
-		final TableOrderEnum	o=TableOrderEnum.fromString(s);
-		if (null == o)
-			throw new NoSuchElementException("newInstance(" + s + ") uknown value");
+        final TableOrderEnum    o=TableOrderEnum.fromString(s);
+        if (null == o)
+            throw new NoSuchElementException("newInstance(" + s + ") uknown value");
 
-		return o.getTableOrder();
-	}
+        return o.getTableOrder();
+    }
 
-	public static final TableOrderEnumStringInstantiator	DEFAULT=new TableOrderEnumStringInstantiator();
+    public static final TableOrderEnumStringInstantiator    DEFAULT=new TableOrderEnumStringInstantiator();
 
 }

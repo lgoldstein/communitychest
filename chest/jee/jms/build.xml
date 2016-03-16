@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-jms-helpers" default="build-jms-helpers" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds the JMS helpers JAR(s) $Rev: 561 $
-		</description>
-		
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="jee.root.dir" value="${parent.root.dir}"/>
+    <project name="build-jms-helpers" default="build-jms-helpers" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds the JMS helpers JAR(s) $Rev: 561 $
+        </description>
+
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="jee.root.dir" value="${parent.root.dir}"/>
         <property name="default.classpath.ref.name" value="jms.helpers.path"/>
-		<property name="module.base.target.name" value="jms-helpers"/>
-		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
+        <property name="module.base.target.name" value="jms-helpers"/>
+        <import file="${parent.root.dir}${file.separator}build-base.xml"/>
 
-	    	<!-- define dependencies -->
-		<mvn:dependencies 	pathId="jms.dependencies.path" useScope="compile"
-							settingsFile="${maven.settings.file.path}"
-				>
-	        <localRepository path="${maven.local.repository.folder}" layout="default"/>
+            <!-- define dependencies -->
+        <mvn:dependencies     pathId="jms.dependencies.path" useScope="compile"
+                            settingsFile="${maven.settings.file.path}"
+                >
+            <localRepository path="${maven.local.repository.folder}" layout="default"/>
 
-			<dependency groupId="javax.jms" artifactId="jms" version="${jms.jar.version}" scope="compile"/>
-			<dependency groupId="javax.transaction" artifactId="jta" version="${jta.jar.version}" scope="compile"/>
-		</mvn:dependencies>
+            <dependency groupId="javax.jms" artifactId="jms" version="${jms.jar.version}" scope="compile"/>
+            <dependency groupId="javax.transaction" artifactId="jta" version="${jta.jar.version}" scope="compile"/>
+        </mvn:dependencies>
 
-	    <path id="jms.helpers.path">
-	    	<path refid="community.modules.jars"/>
-			<path refid="jms.dependencies.path"/>
-		</path>
+        <path id="jms.helpers.path">
+            <path refid="community.modules.jars"/>
+            <path refid="jms.dependencies.path"/>
+        </path>
 
-		<target name="build-jms-helpers" depends="jar-jee-module-files" description="Builds the JMS helpers JAR(s)"/>
-		<target name="clean-jms-helpers" depends="clean-jee-module-build" description="Cleans up the JMS helpers JAR(s)"/>
-	</project>
+        <target name="build-jms-helpers" depends="jar-jee-module-files" description="Builds the JMS helpers JAR(s)"/>
+        <target name="clean-jms-helpers" depends="clean-jee-module-build" description="Cleans up the JMS helpers JAR(s)"/>
+    </project>

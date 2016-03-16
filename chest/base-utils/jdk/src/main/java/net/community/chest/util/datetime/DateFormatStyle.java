@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.util.datetime;
 
@@ -24,31 +24,31 @@ public enum DateFormatStyle {
     SHORT(DateFormat.SHORT),
     DEFAULT(DateFormat.DEFAULT);
 
-	private final int	_style;
-	public final int getStyle ()
-	{
-		return _style;
-	}
+    private final int    _style;
+    public final int getStyle ()
+    {
+        return _style;
+    }
 
-	DateFormatStyle (int s)
-	{
-		_style = s;
-	}
+    DateFormatStyle (int s)
+    {
+        _style = s;
+    }
 
-	public static final List<DateFormatStyle>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final DateFormatStyle fromString (final String name)
-	{
-		return CollectionsUtils.fromString(VALUES, name, false);
-	}
+    public static final List<DateFormatStyle>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final DateFormatStyle fromString (final String name)
+    {
+        return CollectionsUtils.fromString(VALUES, name, false);
+    }
 
-	public static final DateFormatStyle fromStyle (final int s)
-	{
-		for (final DateFormatStyle v : VALUES)
-		{
-			if ((v != null) && (v.getStyle() == s))
-				return v;
-		}
+    public static final DateFormatStyle fromStyle (final int s)
+    {
+        for (final DateFormatStyle v : VALUES)
+        {
+            if ((v != null) && (v.getStyle() == s))
+                return v;
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

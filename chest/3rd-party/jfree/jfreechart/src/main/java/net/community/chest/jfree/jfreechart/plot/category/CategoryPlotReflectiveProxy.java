@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.plot.category;
 
@@ -15,17 +15,17 @@ import org.jfree.chart.plot.CategoryPlot;
  * @since Feb 5, 2009 3:05:31 PM
  */
 public class CategoryPlotReflectiveProxy<P extends CategoryPlot> extends PlotReflectiveProxy<P> {
-	protected CategoryPlotReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected CategoryPlotReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public CategoryPlotReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public CategoryPlotReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final CategoryPlotReflectiveProxy<CategoryPlot>	CATPLOT=
-		new CategoryPlotReflectiveProxy<CategoryPlot>(CategoryPlot.class, true);
+    public static final CategoryPlotReflectiveProxy<CategoryPlot>    CATPLOT=
+        new CategoryPlotReflectiveProxy<CategoryPlot>(CategoryPlot.class, true);
 }

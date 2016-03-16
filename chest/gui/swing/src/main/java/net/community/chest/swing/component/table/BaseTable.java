@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing.component.table;
 
@@ -28,97 +28,97 @@ import org.w3c.dom.Element;
  * @since Jan 20, 2009 9:21:59 AM
  */
 public class BaseTable extends JTable
-		implements XmlConvertible<BaseTable>, Tooltiped, Foregrounded, Backgrounded, Enabled {
+        implements XmlConvertible<BaseTable>, Tooltiped, Foregrounded, Backgrounded, Enabled {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2278737220208859380L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2278737220208859380L;
 
-	public BaseTable (TableModel dm, TableColumnModel cm, ListSelectionModel sm)
-	{
-		super(dm, cm, sm);
-	}
+    public BaseTable (TableModel dm, TableColumnModel cm, ListSelectionModel sm)
+    {
+        super(dm, cm, sm);
+    }
 
-	public BaseTable (TableModel dm, TableColumnModel cm)
-	{
-		this(dm, cm, null);
-	}
+    public BaseTable (TableModel dm, TableColumnModel cm)
+    {
+        this(dm, cm, null);
+    }
 
-	public BaseTable (TableModel dm)
-	{
-		this(dm, (TableColumnModel) null);
-	}
+    public BaseTable (TableModel dm)
+    {
+        this(dm, (TableColumnModel) null);
+    }
 
-	public BaseTable ()
-	{
-		this((TableModel) null);
-	}
+    public BaseTable ()
+    {
+        this((TableModel) null);
+    }
 
-	public BaseTable (int numRows, int numColumns)
-	{
-		super(numRows, numColumns);
-	}
+    public BaseTable (int numRows, int numColumns)
+    {
+        super(numRows, numColumns);
+    }
 
-	public BaseTable (Vector<?> rowData, Vector<?> columnNames)
-	{
-		super(rowData, columnNames);
-	}
+    public BaseTable (Vector<?> rowData, Vector<?> columnNames)
+    {
+        super(rowData, columnNames);
+    }
 
-	public BaseTable (Object[][] rowData, Object[] columnNames)
-	{
-		super(rowData, columnNames);
-	}
+    public BaseTable (Object[][] rowData, Object[] columnNames)
+    {
+        super(rowData, columnNames);
+    }
 
-	public XmlProxyConvertible<? extends JTable> getTableConverter (Element elem) throws Exception
-	{
-		return (null == elem) ? null : JTableReflectiveProxy.TBL;
-	}
-	/*
-	 * @see net.community.chest.dom.transform.XmlConvertible#fromXml(org.w3c.dom.Element)
-	 */
-	@Override
-	public BaseTable fromXml (Element elem) throws Exception
-	{
-		final XmlProxyConvertible<? extends JTable>	proxy=getTableConverter(elem);
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		final Object								o=((XmlProxyConvertible) proxy).fromXml(this, elem);
-		if (o != this)
-			throw new IllegalStateException("fromXml(" + elem + ") mismatched reconstructed instances");
+    public XmlProxyConvertible<? extends JTable> getTableConverter (Element elem) throws Exception
+    {
+        return (null == elem) ? null : JTableReflectiveProxy.TBL;
+    }
+    /*
+     * @see net.community.chest.dom.transform.XmlConvertible#fromXml(org.w3c.dom.Element)
+     */
+    @Override
+    public BaseTable fromXml (Element elem) throws Exception
+    {
+        final XmlProxyConvertible<? extends JTable>    proxy=getTableConverter(elem);
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        final Object                                o=((XmlProxyConvertible) proxy).fromXml(this, elem);
+        if (o != this)
+            throw new IllegalStateException("fromXml(" + elem + ") mismatched reconstructed instances");
 
-		return this;
-	}
-	/*
-	 * @see net.community.chest.dom.transform.XmlConvertible#toXml(org.w3c.dom.Document)
-	 */
-	@Override
-	public Element toXml (Document doc) throws Exception
-	{
-		// TODO implement "toXml"
-		throw new UnsupportedOperationException("toXml() N/A");
-	}
-	
-	public void addTableModelListener (TableModelListener l)
-	{
-		final TableModel	m=(null == l) ? null : getModel();
-		if (null == m)
-			return;
+        return this;
+    }
+    /*
+     * @see net.community.chest.dom.transform.XmlConvertible#toXml(org.w3c.dom.Document)
+     */
+    @Override
+    public Element toXml (Document doc) throws Exception
+    {
+        // TODO implement "toXml"
+        throw new UnsupportedOperationException("toXml() N/A");
+    }
 
-		m.addTableModelListener(l);
-	}
-	
-	public void removeTableModelListener (TableModelListener l)
-	{
-		final TableModel	m=(null == l) ? null : getModel();
-		if (null == m)
-			return;
+    public void addTableModelListener (TableModelListener l)
+    {
+        final TableModel    m=(null == l) ? null : getModel();
+        if (null == m)
+            return;
 
-		m.removeTableModelListener(l);
-	}
+        m.addTableModelListener(l);
+    }
 
-	public int getSelectionMode ()
-	{
-		final ListSelectionModel	m=getSelectionModel();
-		return (null == m) ? (-1) : m.getSelectionMode();
-	}
+    public void removeTableModelListener (TableModelListener l)
+    {
+        final TableModel    m=(null == l) ? null : getModel();
+        if (null == m)
+            return;
+
+        m.removeTableModelListener(l);
+    }
+
+    public int getSelectionMode ()
+    {
+        final ListSelectionModel    m=getSelectionModel();
+        return (null == m) ? (-1) : m.getSelectionMode();
+    }
 }

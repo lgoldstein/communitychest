@@ -9,11 +9,11 @@ import net.community.chest.ui.helpers.filechooser.SuffixesFileFilter;
  * @since Nov 25, 2007 12:37:18 PM
  */
 public class JarFilesFilter extends SuffixesFileFilter {
-	public JarFilesFilter ()
-	{
-		super("JAR files", false);
-		addSuffix("jar");
-	}
+    public JarFilesFilter ()
+    {
+        super("JAR files", false);
+        addSuffix("jar");
+    }
 
-	public static final JarFilesFilter	DEFAULT=new JarFilesFilter();
+    public static final JarFilesFilter    DEFAULT=new JarFilesFilter();
 }

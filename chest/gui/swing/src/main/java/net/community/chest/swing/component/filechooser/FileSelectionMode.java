@@ -12,40 +12,40 @@ import net.community.chest.util.collection.CollectionsUtils;
  * <P>Copyright 2007 as per GPLv2</P>
  *
  * <P>Used to convert between <code>int</code> values and {@link Enum}-s</P>
- * 
+ *
  * @author Lyor G.
  * @since Jul 26, 2007 1:29:38 PM
  */
 public enum FileSelectionMode {
-	FILES(JFileChooser.FILES_ONLY),
-	FOLDERS(JFileChooser.DIRECTORIES_ONLY),
-	ALL(JFileChooser.FILES_AND_DIRECTORIES);
+    FILES(JFileChooser.FILES_ONLY),
+    FOLDERS(JFileChooser.DIRECTORIES_ONLY),
+    ALL(JFileChooser.FILES_AND_DIRECTORIES);
 
-	private final int	_mode;
-	public int getModeValue ()
-	{
-		return _mode;
-	}
+    private final int    _mode;
+    public int getModeValue ()
+    {
+        return _mode;
+    }
 
-	FileSelectionMode (final int m)
-	{
-		_mode = m;
-	}
+    FileSelectionMode (final int m)
+    {
+        _mode = m;
+    }
 
-	public static final List<FileSelectionMode>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static FileSelectionMode fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<FileSelectionMode>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static FileSelectionMode fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-	public static FileSelectionMode fromModeValue (final int m)
-	{
-    	for (final FileSelectionMode v : VALUES)
-    	{
-    		if ((v != null) && (v.getModeValue() == m))
-    			return v;
-    	}
+    public static FileSelectionMode fromModeValue (final int m)
+    {
+        for (final FileSelectionMode v : VALUES)
+        {
+            if ((v != null) && (v.getModeValue() == m))
+                return v;
+        }
 
-    	return null;
-	}
+        return null;
+    }
 }

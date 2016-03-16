@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.commenter;
 
@@ -14,17 +14,17 @@ import java.io.Writer;
  * @since Jun 29, 2009 3:19:53 PM
  */
 public class SqlFileCommenter extends BaseCommenter {
-	public SqlFileCommenter ()
-	{
-		super();
-	}
+    public SqlFileCommenter ()
+    {
+        super();
+    }
 
-	@Override
-	public void addComment (BufferedReader r, Writer w, String cmnt, boolean isCommentFile) throws IOException
-	{
-		appendComment("-- ", w, cmnt, isCommentFile);
-		w.append("\r\n");
-		appendContent(r, w);
-	}
+    @Override
+    public void addComment (BufferedReader r, Writer w, String cmnt, boolean isCommentFile) throws IOException
+    {
+        appendComment("-- ", w, cmnt, isCommentFile);
+        w.append("\r\n");
+        appendContent(r, w);
+    }
 
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.serial;
 
@@ -9,6 +9,6 @@ package net.community.chest.win32.core.serial;
  * @since Feb 20, 2013 8:37:51 AM
  */
 public interface ObjectIdCarrier {
-	long getObjectId ();
-	void setObjectId (long objectId);
+    long getObjectId ();
+    void setObjectId (long objectId);
 }

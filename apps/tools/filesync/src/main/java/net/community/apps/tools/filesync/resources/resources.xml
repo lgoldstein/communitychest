@@ -1,89 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-		<!-- holds various GUI resources specifications $Rev: 590 $ -->
-	<resources>
-		<section 	name="main-frame"
-					title="File Synchronizer"
-					defaultCloseOperation="EXIT"
-					preferredSize="400,300"
-					size="400,300"
-					iconImage="FilesSync.gif"
-				>
-			<layout class="border"/>
-				<!-- defines the main-menu -->
-			<menu name="main-menu">
-					<!-- NOTE: assigned commands MUST match what the application expects -->
-				<menu text="File" mnemonic="VK_F" actionCommand="file">
-					<accessibleContext description="Loads the ANT build file"/>
-					<item text="Load pair" mnemonic="VK_L" actionCommand="load" accelerator="control L" icon="Open.gif"/>
-					<item text="Remove pair" mnemonic="VK_R" actionCommand="remove" accelerator="DELETE"/>
-					<separator/>
-					<item text="Import pair(s)" mnemonic="VK_I" actionCommand="import" accelerator="control O" icon="Import.gif"/>
-					<item text="Export pair(s)" mnemonic="VK_E" actionCommand="export" accelerator="control S" icon="Export.gif"/>
-					<separator/>
-					<item text="Options" actionCommand="options" accelerator="alt O" icon="Options.gif"/>
-					<item text="Run" actionCommand="run" accelerator="F5" icon="Run.gif"/>
-					<separator/>
-					<item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
-				</menu>
-				<menu text="Help" actionCommand="help" icon="Help.gif">
-					<accessibleContext description="Shows various information about the application"/>
-					<item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
-				</menu>
-			</menu>
-		</section>
+        <!-- holds various GUI resources specifications $Rev: 590 $ -->
+    <resources>
+        <section     name="main-frame"
+                    title="File Synchronizer"
+                    defaultCloseOperation="EXIT"
+                    preferredSize="400,300"
+                    size="400,300"
+                    iconImage="FilesSync.gif"
+                >
+            <layout class="border"/>
+                <!-- defines the main-menu -->
+            <menu name="main-menu">
+                    <!-- NOTE: assigned commands MUST match what the application expects -->
+                <menu text="File" mnemonic="VK_F" actionCommand="file">
+                    <accessibleContext description="Loads the ANT build file"/>
+                    <item text="Load pair" mnemonic="VK_L" actionCommand="load" accelerator="control L" icon="Open.gif"/>
+                    <item text="Remove pair" mnemonic="VK_R" actionCommand="remove" accelerator="DELETE"/>
+                    <separator/>
+                    <item text="Import pair(s)" mnemonic="VK_I" actionCommand="import" accelerator="control O" icon="Import.gif"/>
+                    <item text="Export pair(s)" mnemonic="VK_E" actionCommand="export" accelerator="control S" icon="Export.gif"/>
+                    <separator/>
+                    <item text="Options" actionCommand="options" accelerator="alt O" icon="Options.gif"/>
+                    <item text="Run" actionCommand="run" accelerator="F5" icon="Run.gif"/>
+                    <separator/>
+                    <item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
+                </menu>
+                <menu text="Help" actionCommand="help" icon="Help.gif">
+                    <accessibleContext description="Shows various information about the application"/>
+                    <item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
+                </menu>
+            </menu>
+        </section>
 
-		<section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select XML import file">
-			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
-					description="XML files"
-					exts="xml"
-				/>
-		</section>
-		<section name="save-file-dialog" fileSelectionMode="files" dialogTitle="Select XML export file">
-			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
-					description="XML files"
-					exts="xml"
-				/>
-		</section>
+        <section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select XML import file">
+            <filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+                    description="XML files"
+                    exts="xml"
+                />
+        </section>
+        <section name="save-file-dialog" fileSelectionMode="files" dialogTitle="Select XML export file">
+            <filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+                    description="XML files"
+                    exts="xml"
+                />
+        </section>
 
-			<!-- dialog used to show the manifest -->
-		<section name="show-manifest-dialog" title="Manifest" modal="true">
-			<column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
-			<column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
-		</section>
+            <!-- dialog used to show the manifest -->
+        <section name="show-manifest-dialog" title="Manifest" modal="true">
+            <column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
+            <column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
+        </section>
 
-		<section name="main-fonts">
-			<font id="default-font" name="Tahoma" style="plain" size="11"/>
-			<font id="log-msgs-font" refid="default-font"/>
-			<font id="public-targets-font" refid="default-font"/>
-			<font id="private-targets-font" refid="public-targets-font" style="italic"/>
-			<font id="default-target-font" refid="public-targets-font" style="bold"/>
-		</section>
+        <section name="main-fonts">
+            <font id="default-font" name="Tahoma" style="plain" size="11"/>
+            <font id="log-msgs-font" refid="default-font"/>
+            <font id="public-targets-font" refid="default-font"/>
+            <font id="private-targets-font" refid="public-targets-font" style="italic"/>
+            <font id="default-target-font" refid="public-targets-font" style="bold"/>
+        </section>
 
-		<section name="separator-icon" icon="RightArrow.gif"/>
+        <section name="separator-icon" icon="RightArrow.gif"/>
 
-		<section name="pair-load-dialog"
-				 title="Select folders"
-				 size="400,125"
-				 modal="true"
-			/>
-		<section name="cmp-options-dialog"
-					preferredSize="250,300"
-					title="File(s) comparison configuration options"
-					size="250,125"
-					modal="true"
-					iconImage="Options.gif"
-				>
-			<buttonsPanel name="doc-builder-options-buttons">
-				<button  name="ok-button" text="OK"	actionCommand="apply"  tooltipText="Apply options">
-					<?constraint position="east"?>
-				</button>
-			</buttonsPanel>
-		</section>
+        <section name="pair-load-dialog"
+                 title="Select folders"
+                 size="400,125"
+                 modal="true"
+            />
+        <section name="cmp-options-dialog"
+                    preferredSize="250,300"
+                    title="File(s) comparison configuration options"
+                    size="250,125"
+                    modal="true"
+                    iconImage="Options.gif"
+                >
+            <buttonsPanel name="doc-builder-options-buttons">
+                <button  name="ok-button" text="OK"    actionCommand="apply"  tooltipText="Apply options">
+                    <?constraint position="east"?>
+                </button>
+            </buttonsPanel>
+        </section>
 
-		<section name="main-toolbar" floatable="false">
-			<button text="Load" 	actionCommand="load" 								    icon="Open.gif"		tooltipText="Load sync. pair"/>
-			<button text="Stop" 	actionCommand="stop" 	visible="false"	enabled="false" icon="Stop.gif" 	tooltipText="Stop synchronization"/>
-			<button text="Run" 		actionCommand="run"  				 				icon="Run.gif" 		tooltipText="Run synchronization"/>
-			<button text="Options" 	actionCommand="options"  									icon="Options.gif" 	tooltipText="Configure non-default comparison options"/>
-		</section>
-	</resources>
+        <section name="main-toolbar" floatable="false">
+            <button text="Load"     actionCommand="load"                                     icon="Open.gif"        tooltipText="Load sync. pair"/>
+            <button text="Stop"     actionCommand="stop"     visible="false"    enabled="false" icon="Stop.gif"     tooltipText="Stop synchronization"/>
+            <button text="Run"         actionCommand="run"                                   icon="Run.gif"         tooltipText="Run synchronization"/>
+            <button text="Options"     actionCommand="options"                                      icon="Options.gif"     tooltipText="Configure non-default comparison options"/>
+        </section>
+    </resources>

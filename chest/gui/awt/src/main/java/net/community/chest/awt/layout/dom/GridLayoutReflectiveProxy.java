@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.layout.dom;
 
@@ -13,11 +13,11 @@ import java.awt.GridLayout;
  * @since Aug 20, 2008 1:25:53 PM
  */
 public class GridLayoutReflectiveProxy<L extends GridLayout> extends AbstractLayoutManagerReflectiveProxy<L> {
-	public GridLayoutReflectiveProxy (Class<L> objClass) throws IllegalArgumentException
-	{
-		super(objClass);
-	}
+    public GridLayoutReflectiveProxy (Class<L> objClass) throws IllegalArgumentException
+    {
+        super(objClass);
+    }
 
-	public static final GridLayoutReflectiveProxy<GridLayout>	GRID=
-				new GridLayoutReflectiveProxy<GridLayout>(GridLayout.class);
+    public static final GridLayoutReflectiveProxy<GridLayout>    GRID=
+                new GridLayoutReflectiveProxy<GridLayout>(GridLayout.class);
 }

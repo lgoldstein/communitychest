@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.dom;
 
@@ -28,139 +28,139 @@ import org.xml.sax.SAXException;
  * <P>Copyright 2009 as per GPLv2</P>
  *
  * <P>Provides some default implementations for some inherited methods</P>
- * 
+ *
  * @author Lyor G.
  * @since Aug 26, 2009 9:06:40 AM
  */
 public abstract class AbstractDocumentBuilder extends DocumentBuilder {
-	protected AbstractDocumentBuilder ()
-	{
-		super();
-	}
+    protected AbstractDocumentBuilder ()
+    {
+        super();
+    }
 
-	private DOMImplementation	_domImpl;
-	/*
-	 * @see javax.xml.parsers.DocumentBuilder#getDOMImplementation()
-	 */
-	@Override
-	public DOMImplementation getDOMImplementation ()
-	{
-		return _domImpl;
-	}
+    private DOMImplementation    _domImpl;
+    /*
+     * @see javax.xml.parsers.DocumentBuilder#getDOMImplementation()
+     */
+    @Override
+    public DOMImplementation getDOMImplementation ()
+    {
+        return _domImpl;
+    }
 
-	public void setDOMImplementation (DOMImplementation impl)
-	{
-		_domImpl = impl;
-	}
+    public void setDOMImplementation (DOMImplementation impl)
+    {
+        _domImpl = impl;
+    }
 
-	private boolean	_nsAware;
-	/*
-	 * @see javax.xml.parsers.DocumentBuilder#isNamespaceAware()
-	 */
-	@Override
-	public boolean isNamespaceAware ()
-	{
-		return _nsAware;
-	}
+    private boolean    _nsAware;
+    /*
+     * @see javax.xml.parsers.DocumentBuilder#isNamespaceAware()
+     */
+    @Override
+    public boolean isNamespaceAware ()
+    {
+        return _nsAware;
+    }
 
-	public void setNamespaceAware (boolean f)
-	{
-		_nsAware = f;
-	}
+    public void setNamespaceAware (boolean f)
+    {
+        _nsAware = f;
+    }
 
-	private boolean	_validating;
-	/*
-	 * @see javax.xml.parsers.DocumentBuilder#isValidating()
-	 */
-	@Override
-	public boolean isValidating ()
-	{
-		return _validating;
-	}
+    private boolean    _validating;
+    /*
+     * @see javax.xml.parsers.DocumentBuilder#isValidating()
+     */
+    @Override
+    public boolean isValidating ()
+    {
+        return _validating;
+    }
 
-	public void setValidating (boolean f)
-	{
-		_validating = f;
-	}
+    public void setValidating (boolean f)
+    {
+        _validating = f;
+    }
 
-	private EntityResolver	_er;
-	public EntityResolver getEntityResolver ()
-	{
-		return _er;
-	}
-	/*
-	 * @see javax.xml.parsers.DocumentBuilder#setEntityResolver(org.xml.sax.EntityResolver)
-	 */
-	@Override
-	public void setEntityResolver (EntityResolver er)
-	{
-		_er = er;
-	}
+    private EntityResolver    _er;
+    public EntityResolver getEntityResolver ()
+    {
+        return _er;
+    }
+    /*
+     * @see javax.xml.parsers.DocumentBuilder#setEntityResolver(org.xml.sax.EntityResolver)
+     */
+    @Override
+    public void setEntityResolver (EntityResolver er)
+    {
+        _er = er;
+    }
 
-	private ErrorHandler	_eh;
-	public ErrorHandler getErrorHandler ()
-	{
-		return _eh;
-	}
-	/*
-	 * @see javax.xml.parsers.DocumentBuilder#setErrorHandler(org.xml.sax.ErrorHandler)
-	 */
-	@Override
-	public void setErrorHandler (ErrorHandler eh)
-	{
-		_eh = eh;
-	}
-	/*
-	 * @see javax.xml.parsers.DocumentBuilder#parse(java.io.InputStream)
-	 */
-	@Override
-	public Document parse (InputStream is) throws SAXException, IOException
-	{
-		return parse(is, "");
-	}
-	/*
-	 * @see javax.xml.parsers.DocumentBuilder#parse(java.io.File)
-	 */
-	@Override
-	public Document parse (File f) throws SAXException, IOException
-	{
-		if (null == f)
-			throw new IOException("parse() no " + File.class.getSimpleName() + " specified");
+    private ErrorHandler    _eh;
+    public ErrorHandler getErrorHandler ()
+    {
+        return _eh;
+    }
+    /*
+     * @see javax.xml.parsers.DocumentBuilder#setErrorHandler(org.xml.sax.ErrorHandler)
+     */
+    @Override
+    public void setErrorHandler (ErrorHandler eh)
+    {
+        _eh = eh;
+    }
+    /*
+     * @see javax.xml.parsers.DocumentBuilder#parse(java.io.InputStream)
+     */
+    @Override
+    public Document parse (InputStream is) throws SAXException, IOException
+    {
+        return parse(is, "");
+    }
+    /*
+     * @see javax.xml.parsers.DocumentBuilder#parse(java.io.File)
+     */
+    @Override
+    public Document parse (File f) throws SAXException, IOException
+    {
+        if (null == f)
+            throw new IOException("parse() no " + File.class.getSimpleName() + " specified");
 
-		InputStream	in=null;
-		try
-		{
-			in = new BufferedInputStream(new FileInputStream(f), IOCopier.DEFAULT_COPY_SIZE);
-			return parse(in);
-		}
-		finally
-		{
-			FileUtil.closeAll(in);
-		}
-	}
-	/*
-	 * @see javax.xml.parsers.DocumentBuilder#parse(java.lang.String)
-	 */
-	@Override
-	public Document parse (String uri) throws SAXException, IOException
-	{
-		if ((null == uri) || (uri.length() <= 0))
-			throw new IOException("parse() no " + URI.class.getSimpleName() + " string provided");
+        InputStream    in=null;
+        try
+        {
+            in = new BufferedInputStream(new FileInputStream(f), IOCopier.DEFAULT_COPY_SIZE);
+            return parse(in);
+        }
+        finally
+        {
+            FileUtil.closeAll(in);
+        }
+    }
+    /*
+     * @see javax.xml.parsers.DocumentBuilder#parse(java.lang.String)
+     */
+    @Override
+    public Document parse (String uri) throws SAXException, IOException
+    {
+        if ((null == uri) || (uri.length() <= 0))
+            throw new IOException("parse() no " + URI.class.getSimpleName() + " string provided");
 
-		InputStream	in=null;
-		try
-		{
-			final URL	url=new URI(uri).toURL();
-			in = url.openStream();
-			return parse(in);
-		}
-		catch(URISyntaxException e)
-		{
-			throw new StreamCorruptedException("parse(" + uri + ") " + e.getClass().getName() + ": " + e.getMessage());
-		}
-		finally
-		{
-			FileUtil.closeAll(in);
-		}
-	}
+        InputStream    in=null;
+        try
+        {
+            final URL    url=new URI(uri).toURL();
+            in = url.openStream();
+            return parse(in);
+        }
+        catch(URISyntaxException e)
+        {
+            throw new StreamCorruptedException("parse(" + uri + ") " + e.getClass().getName() + ": " + e.getMessage());
+        }
+        finally
+        {
+            FileUtil.closeAll(in);
+        }
+    }
 }

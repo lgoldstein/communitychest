@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.chart.renderer.area;
 
@@ -13,18 +13,18 @@ import org.jfree.chart.renderer.category.StackedAreaRenderer;
  * @since Jun 8, 2009 1:49:43 PM
  */
 public class StackedAreaRendererReflectiveProxy<R extends StackedAreaRenderer>
-			extends AreaRendererReflectiveProxy<R> {
-	protected StackedAreaRendererReflectiveProxy (Class<R> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+            extends AreaRendererReflectiveProxy<R> {
+    protected StackedAreaRendererReflectiveProxy (Class<R> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public StackedAreaRendererReflectiveProxy (Class<R> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public StackedAreaRendererReflectiveProxy (Class<R> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final StackedAreaRendererReflectiveProxy<StackedAreaRenderer>	STACKED=
-		new StackedAreaRendererReflectiveProxy<StackedAreaRenderer>(StackedAreaRenderer.class, true);
+    public static final StackedAreaRendererReflectiveProxy<StackedAreaRenderer>    STACKED=
+        new StackedAreaRendererReflectiveProxy<StackedAreaRenderer>(StackedAreaRenderer.class, true);
 }

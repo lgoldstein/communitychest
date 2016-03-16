@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-jnlp-servlet" default="build-jnlp-servlet" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds the JNLP servlet sample JAR $Rev: 561 $
-		</description>
+    <project name="build-jnlp-servlet" default="build-jnlp-servlet" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds the JNLP servlet sample JAR $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
         <property name="web.utils.root.dir" value="${parent.root.dir}"/>
-		<property name="module.base.target.name" value="jnlp-servlet"/>
+        <property name="module.base.target.name" value="jnlp-servlet"/>
         <property name="default.classpath.ref.name" value="jnlp.servlet.helpers.path"/>
-		<property name="module.target.file.name.prefix" value="jnlp.sample.servlet"/>
+        <property name="module.target.file.name.prefix" value="jnlp.sample.servlet"/>
 
-		<import file="${web.utils.root.dir}${file.separator}build-base.xml"/>
+        <import file="${web.utils.root.dir}${file.separator}build-base.xml"/>
 
-	    	<!-- define dependencies -->
-		<mvn:dependencies 	pathId="servlet.helpers.dependencies.path" useScope="compile"
-							settingsFile="${maven.settings.file.path}"
-				>
-	        <localRepository path="${maven.local.repository.folder}" layout="default"/>
+            <!-- define dependencies -->
+        <mvn:dependencies     pathId="servlet.helpers.dependencies.path" useScope="compile"
+                            settingsFile="${maven.settings.file.path}"
+                >
+            <localRepository path="${maven.local.repository.folder}" layout="default"/>
 
-			<dependency groupId="javax.servlet" artifactId="servlet-api" version="${servlet.api.jar.version}" scope="compile"/>
-		</mvn:dependencies>
-	
-	    <path id="jnlp.servlet.helpers.path">
-	    	<path refid="community.modules.jars"/>
-			<path refid="servlet.helpers.dependencies.path"/>
-		</path>
+            <dependency groupId="javax.servlet" artifactId="servlet-api" version="${servlet.api.jar.version}" scope="compile"/>
+        </mvn:dependencies>
 
-		<target name="build-jnlp-servlet" depends="jar-web-utils-module-files" description="Builds the JNLP servlet sample JAR"/>
-		<target name="clean-jnlp-servlet" depends="clean-web-utils-module-build" description="Removes the JNLP servlet sample JAR"/>
-	</project>
+        <path id="jnlp.servlet.helpers.path">
+            <path refid="community.modules.jars"/>
+            <path refid="servlet.helpers.dependencies.path"/>
+        </path>
+
+        <target name="build-jnlp-servlet" depends="jar-web-utils-module-files" description="Builds the JNLP servlet sample JAR"/>
+        <target name="clean-jnlp-servlet" depends="clean-web-utils-module-build" description="Removes the JNLP servlet sample JAR"/>
+    </project>

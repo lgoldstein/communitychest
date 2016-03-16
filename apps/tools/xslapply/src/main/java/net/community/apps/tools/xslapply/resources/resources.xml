@@ -1,86 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-		<!-- holds various GUI resources specifications
-		
-			NOTE: icon references are relative to the 'images' sub-folder
-		 -->
-	<resources>
-			<!-- defines the main frame -->
-		<section 	name="main-frame"
-					title="Apply XSL to XML"
-					defaultCloseOperation="EXIT"
-					preferredSize="400,300"
-					size="400,300"
-					iconImage="XSLFile.gif"
-				>
-			<layout class="border"/>
-				<!-- defines the main-menu -->
-			<menu name="main-menu">
-					<!-- NOTE: assigned commands MUST match what the application expects -->
-				<menu text="File" mnemonic="VK_F" actionCommand="file">
-					<accessibleContext description="Loads/Saves the XML/XSL files"/>
-					<item text="New"   			 mnemonic="VK_N" actionCommand="new" 	 accelerator="control N"	icon="New.gif"/>
-					<separator/>
-					<item text="Load XML file"   mnemonic="VK_L" actionCommand="loadXML" accelerator="control O"	icon="Open.gif"/>
-					<item text="Load XSL file" 				     actionCommand="loadXSL" 							icon="XSLFile.gif"/>
-					<item text="Save XML result" mnemonic="VK_S" actionCommand="save" 	 accelerator="control S"	icon="Save.gif"/>
-					<item text="Apply" 			 mnemonic="VK_Y" actionCommand="apply"   accelerator="F5"			icon="Run.gif"/>
-					<separator/>
-					<item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
-				</menu>
-				<menu text="Help" actionCommand="help" icon="Help.gif">
-					<accessibleContext description="Shows various information about the application"/>
-					<item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
-				</menu>
-			</menu>
-		</section>
+        <!-- holds various GUI resources specifications
+
+            NOTE: icon references are relative to the 'images' sub-folder
+         -->
+    <resources>
+            <!-- defines the main frame -->
+        <section     name="main-frame"
+                    title="Apply XSL to XML"
+                    defaultCloseOperation="EXIT"
+                    preferredSize="400,300"
+                    size="400,300"
+                    iconImage="XSLFile.gif"
+                >
+            <layout class="border"/>
+                <!-- defines the main-menu -->
+            <menu name="main-menu">
+                    <!-- NOTE: assigned commands MUST match what the application expects -->
+                <menu text="File" mnemonic="VK_F" actionCommand="file">
+                    <accessibleContext description="Loads/Saves the XML/XSL files"/>
+                    <item text="New"                mnemonic="VK_N" actionCommand="new"      accelerator="control N"    icon="New.gif"/>
+                    <separator/>
+                    <item text="Load XML file"   mnemonic="VK_L" actionCommand="loadXML" accelerator="control O"    icon="Open.gif"/>
+                    <item text="Load XSL file"                      actionCommand="loadXSL"                             icon="XSLFile.gif"/>
+                    <item text="Save XML result" mnemonic="VK_S" actionCommand="save"      accelerator="control S"    icon="Save.gif"/>
+                    <item text="Apply"              mnemonic="VK_Y" actionCommand="apply"   accelerator="F5"            icon="Run.gif"/>
+                    <separator/>
+                    <item text="Exit" mnemonic="VK_X" actionCommand="exit" accelerator="alt F4"/>
+                </menu>
+                <menu text="Help" actionCommand="help" icon="Help.gif">
+                    <accessibleContext description="Shows various information about the application"/>
+                    <item text="About" mnemonic="VK_A" actionCommand="about" accelerator="F1"/>
+                </menu>
+            </menu>
+        </section>
 
 
-			<!-- dialog used to load the XML source file -->
-		<section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select XML source file">
-			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
-					description="XML files"
-					exts="xml"
-				/>
-		</section>
+            <!-- dialog used to load the XML source file -->
+        <section name="load-file-dialog" fileSelectionMode="files" dialogTitle="Select XML source file">
+            <filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+                    description="XML files"
+                    exts="xml"
+                />
+        </section>
 
-			<!-- dialog used to load the XSL file -->
-		<section name="load-xsl-dialog"
-				 fileSelectionMode="files"
-				 multiSelectionEnabled="true"
-				 dialogTitle="Select XSL transformer file">
-			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
-					description="XSL files"
-					exts="xsl"
-				/>
-		</section>
+            <!-- dialog used to load the XSL file -->
+        <section name="load-xsl-dialog"
+                 fileSelectionMode="files"
+                 multiSelectionEnabled="true"
+                 dialogTitle="Select XSL transformer file">
+            <filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+                    description="XSL files"
+                    exts="xsl"
+                />
+        </section>
 
-			<!-- dialog used to save the XML result file -->
-		<section name="save-file-dialog" fileSelectionMode="files" dialogTitle="Select result file">
-			<filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
-					description="XML/HTML files"
-					exts="xml,htm"
-				/>
-		</section>
+            <!-- dialog used to save the XML result file -->
+        <section name="save-file-dialog" fileSelectionMode="files" dialogTitle="Select result file">
+            <filter class="net.community.chest.swing.component.filechooser.FileNameExtensionFilterEmbedder"
+                    description="XML/HTML files"
+                    exts="xml,htm"
+                />
+        </section>
 
-			<!-- dialog used to show the manifest -->
-		<section name="show-manifest-dialog" title="Manifest" modal="true">
-			<column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
-			<column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
-		</section>
+            <!-- dialog used to show the manifest -->
+        <section name="show-manifest-dialog" title="Manifest" modal="true">
+            <column name="Attribute" identifier="ATTR_NAME" class="java.lang.String"/>
+            <column name="Value" identifier="ATTR_VALUE" class="java.lang.String"/>
+        </section>
 
-		<section name="main-fonts">
-			<font id="default-font" name="Tahoma" style="plain" size="11"/>
-		</section>
+        <section name="main-fonts">
+            <font id="default-font" name="Tahoma" style="plain" size="11"/>
+        </section>
 
-		<section name="main-toolbar" floatable="false">
-			<button text="XML" 		actionCommand="loadXML" icon="Open.gif" 	tooltipText="Load XML source file"/>
-			<button text="XSL" 		actionCommand="loadXSL" icon="XSLFile.gif" 	tooltipText="Load XSL transformer script"/>
-			<separator/>
-			<button text="New"   	actionCommand="new" 	icon="New.gif"		tooltipText="Clear document trees"/>
-			<button text="Save"		actionCommand="save" 	icon="Save.gif" 	tooltipText="Save transformation result"/>
-			<button text="Apply" 	actionCommand="apply" 	icon="Run.gif" 		tooltipText="Apply transformer"/>
-		</section>
+        <section name="main-toolbar" floatable="false">
+            <button text="XML"         actionCommand="loadXML" icon="Open.gif"     tooltipText="Load XML source file"/>
+            <button text="XSL"         actionCommand="loadXSL" icon="XSLFile.gif"     tooltipText="Load XSL transformer script"/>
+            <separator/>
+            <button text="New"       actionCommand="new"     icon="New.gif"        tooltipText="Clear document trees"/>
+            <button text="Save"        actionCommand="save"     icon="Save.gif"     tooltipText="Save transformation result"/>
+            <button text="Apply"     actionCommand="apply"     icon="Run.gif"         tooltipText="Apply transformer"/>
+        </section>
 
-		<section name="xsl-files-list" selectionMode="MULTIPLE">
-		</section>
-	</resources>
+        <section name="xsl-files-list" selectionMode="MULTIPLE">
+        </section>
+    </resources>

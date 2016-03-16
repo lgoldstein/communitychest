@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.format.pe;
 
@@ -58,7 +58,7 @@ public enum SectionTableCharacter {
     public final int getMaskValue() {
         return _maskValue;
     }
-    
+
     private final boolean   _reserved;
     public final boolean isReserved() {
         return _reserved;
@@ -68,7 +68,7 @@ public enum SectionTableCharacter {
         _maskValue = maskValue;
         _reserved = name().startsWith("RESERVED");
     }
-    
+
     public static final Set<SectionTableCharacter>  VALUES=
             Collections.unmodifiableSet(EnumSet.allOf(SectionTableCharacter.class));
     public static final Set<SectionTableCharacter> fromSectionCharacteristics(int mask) {
@@ -78,7 +78,7 @@ public enum SectionTableCharacter {
                 result.add(c);
             }
         }
-        
+
         return result;
     }
 }

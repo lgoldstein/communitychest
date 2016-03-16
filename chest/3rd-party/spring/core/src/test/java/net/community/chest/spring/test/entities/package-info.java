@@ -1,6 +1,6 @@
 
 @XmlJavaTypeAdapters({
-	@XmlJavaTypeAdapter(value=DateTimeValueAdapter.class, type=Date.class)
+    @XmlJavaTypeAdapter(value=DateTimeValueAdapter.class, type=Date.class)
 })
 package net.community.chest.spring.test.entities;
 

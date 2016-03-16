@@ -42,65 +42,65 @@ import java.io.InputStream;
 import java.io.StreamCorruptedException;
 
 public class DiskFileDownloadResponse extends FileDownloadResponse {
-	private File _file;
-	public File getFile ()
-	{ 
-		return _file;
-	}
+    private File _file;
+    public File getFile ()
+    {
+        return _file;
+    }
 
-	public void setFile (File f)
-	{
-		_file = f;
-	}
+    public void setFile (File f)
+    {
+        _file = f;
+    }
 
-	public DiskFileDownloadResponse (File file, String mimeType, String versionId, long lastModified)
-	{
-		super(mimeType, versionId, lastModified, (null == file) ? null : file.getName());
-		_file = file;
-	}
+    public DiskFileDownloadResponse (File file, String mimeType, String versionId, long lastModified)
+    {
+        super(mimeType, versionId, lastModified, (null == file) ? null : file.getName());
+        _file = file;
+    }
 
-	public DiskFileDownloadResponse ()
-	{
-		this(null, null, null, 0L);
-	}
-	/*
-	 * @see jnlp.sample.servlet.DownloadResponse.FileDownloadResponse#getContentLength()
-	 */
-	@Override
-	public int getContentLength () throws IOException
-	{ 
-		final File	f=getFile();
-		if ((null == f) || (!f.exists()) || (!f.isFile()))
-			throw new FileNotFoundException("getContentLength(" + f + ") bad/non-existent file");
+    public DiskFileDownloadResponse ()
+    {
+        this(null, null, null, 0L);
+    }
+    /*
+     * @see jnlp.sample.servlet.DownloadResponse.FileDownloadResponse#getContentLength()
+     */
+    @Override
+    public int getContentLength () throws IOException
+    {
+        final File    f=getFile();
+        if ((null == f) || (!f.exists()) || (!f.isFile()))
+            throw new FileNotFoundException("getContentLength(" + f + ") bad/non-existent file");
 
-		final long	l=f.length();
-		if (l > Integer.MAX_VALUE)
-			throw new StreamCorruptedException("getContentLength(" + f + ") file too long: " + l);
-		return (int) l;
-	}
-	/*
-	 * @see jnlp.sample.servlet.DownloadResponse.FileDownloadResponse#getContent()
-	 */
-	@Override
-	public InputStream getContent () throws IOException
-	{ 
-		final File	f=getFile();
-		if ((null == f) || (!f.exists()) || (!f.isFile()))
-			throw new FileNotFoundException("getContent(" + f + ") bad/non-existent file");
+        final long    l=f.length();
+        if (l > Integer.MAX_VALUE)
+            throw new StreamCorruptedException("getContentLength(" + f + ") file too long: " + l);
+        return (int) l;
+    }
+    /*
+     * @see jnlp.sample.servlet.DownloadResponse.FileDownloadResponse#getContent()
+     */
+    @Override
+    public InputStream getContent () throws IOException
+    {
+        final File    f=getFile();
+        if ((null == f) || (!f.exists()) || (!f.isFile()))
+            throw new FileNotFoundException("getContent(" + f + ") bad/non-existent file");
 
-		return new BufferedInputStream(new FileInputStream(f));	   
-	}
-	/*
-	 * @see jnlp.sample.servlet.DownloadResponse#toString()
-	 */
-	@Override
-	public String toString () { return super.toString() + "[ " + getArgString() + "]"; }
-	/*
-	 * @see jnlp.sample.servlet.download.FileDownloadResponse#clone()
-	 */
-	@Override
-	public DiskFileDownloadResponse /* co-variant return */ clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}
+        return new BufferedInputStream(new FileInputStream(f));
+    }
+    /*
+     * @see jnlp.sample.servlet.DownloadResponse#toString()
+     */
+    @Override
+    public String toString () { return super.toString() + "[ " + getArgString() + "]"; }
+    /*
+     * @see jnlp.sample.servlet.download.FileDownloadResponse#clone()
+     */
+    @Override
+    public DiskFileDownloadResponse /* co-variant return */ clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
 }

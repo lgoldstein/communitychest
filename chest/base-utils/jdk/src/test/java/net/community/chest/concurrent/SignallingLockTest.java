@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.concurrent;
 
@@ -14,10 +14,10 @@ import org.junit.Test;
  * @author Lyor G.
  */
 public class SignallingLockTest extends AbstractTestSupport {
-	public SignallingLockTest ()
-	{
-		super();
-	}
+    public SignallingLockTest ()
+    {
+        super();
+    }
 
     @Test
     public void testMultipleOffers () throws InterruptedException {
@@ -48,7 +48,7 @@ public class SignallingLockTest extends AbstractTestSupport {
 
         long    waitEnd=System.nanoTime(), waitDiff=TimeUnit.NANOSECONDS.toMillis(waitEnd - waitStart);
         assertTrue("Wait time too short: " + waitDiff, waitDiff >= WAIT_TIME);
-        
+
         assertTrue("Multiple offers", lock.offer());
         assertTrue("No signalling", lock.poll(WAIT_TIME));
         assertFalse("Bad post-poll signal value", lock.peek());

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.plot.pie;
 
@@ -15,17 +15,17 @@ import org.jfree.chart.plot.MultiplePiePlot;
  * @since May 26, 2009 12:35:37 PM
  */
 public class MultiplePiePlotReflectiveProxy<P extends MultiplePiePlot> extends PlotReflectiveProxy<P> {
-	protected MultiplePiePlotReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
-	
-	public MultiplePiePlotReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    protected MultiplePiePlotReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public static final MultiplePiePlotReflectiveProxy<MultiplePiePlot>	MULTIPIE=
-		new MultiplePiePlotReflectiveProxy<MultiplePiePlot>(MultiplePiePlot.class, true);
+    public MultiplePiePlotReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
+
+    public static final MultiplePiePlotReflectiveProxy<MultiplePiePlot>    MULTIPIE=
+        new MultiplePiePlotReflectiveProxy<MultiplePiePlot>(MultiplePiePlot.class, true);
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.axis.value;
 
@@ -15,9 +15,9 @@ import org.jfree.chart.axis.ValueAxis;
  * @since Feb 5, 2009 3:32:47 PM
  */
 public abstract class ValueAxisReflectiveProxy<A extends ValueAxis> extends AxisReflectiveProxy<A> {
-	protected ValueAxisReflectiveProxy (Class<A> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected ValueAxisReflectiveProxy (Class<A> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing;
 
@@ -15,41 +15,41 @@ import net.community.chest.lang.StringUtil;
  * @since Feb 8, 2009 9:17:17 AM
  */
 public class HAlignmentValueStringInstantiator extends AbstractXmlValueStringInstantiator<Integer> {
-	public HAlignmentValueStringInstantiator ()
-	{
-		super(Integer.class);
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
-	 */
-	@Override
-	public String convertInstance (Integer inst) throws Exception
-	{
-		if (null == inst)
-			return null;
+    public HAlignmentValueStringInstantiator ()
+    {
+        super(Integer.class);
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
+     */
+    @Override
+    public String convertInstance (Integer inst) throws Exception
+    {
+        if (null == inst)
+            return null;
 
-		final HAlignmentValue	st=HAlignmentValue.fromAlignmentValue(inst.intValue());
-		if (null == st)
-			throw new NoSuchElementException("convertInstance(" + inst + ") unknown value");
+        final HAlignmentValue    st=HAlignmentValue.fromAlignmentValue(inst.intValue());
+        if (null == st)
+            throw new NoSuchElementException("convertInstance(" + inst + ") unknown value");
 
-		return st.toString();
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
-	 */
-	@Override
-	public Integer newInstance (String v) throws Exception
-	{
-		final String	s=StringUtil.getCleanStringValue(v);
-		if ((null == s) || (s.length() <= 0))
-			return null;
+        return st.toString();
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
+     */
+    @Override
+    public Integer newInstance (String v) throws Exception
+    {
+        final String    s=StringUtil.getCleanStringValue(v);
+        if ((null == s) || (s.length() <= 0))
+            return null;
 
-		final HAlignmentValue	st=HAlignmentValue.fromString(s);
-		if (null == st)
-			throw new NoSuchElementException("newInstance(" + s + ") unknown value");
+        final HAlignmentValue    st=HAlignmentValue.fromString(s);
+        if (null == st)
+            throw new NoSuchElementException("newInstance(" + s + ") unknown value");
 
-		return Integer.valueOf(st.getAlignmentValue());
-	}
+        return Integer.valueOf(st.getAlignmentValue());
+    }
 
-	public static final HAlignmentValueStringInstantiator	DEFAULT=new HAlignmentValueStringInstantiator();
+    public static final HAlignmentValueStringInstantiator    DEFAULT=new HAlignmentValueStringInstantiator();
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.apache.maven.helpers;
 
@@ -11,12 +11,12 @@ package net.community.chest.apache.maven.helpers;
  * @since Aug 14, 2008 10:17:25 AM
  */
 public interface ParentTargetResolver {
-	/**
-	 * @param proj The {@link BuildProject} whose parent {@link BuildProject}
-	 * is required
-	 * @return The {@link BuildProject} of the parent - if null, then no parent
-	 * project is found/available
-	 * @throws Exception If failed to load parent {@link BuildProject}
-	 */
-	BuildProject resolveParentProject (BuildProject proj) throws Exception;
+    /**
+     * @param proj The {@link BuildProject} whose parent {@link BuildProject}
+     * is required
+     * @return The {@link BuildProject} of the parent - if null, then no parent
+     * project is found/available
+     * @throws Exception If failed to load parent {@link BuildProject}
+     */
+    BuildProject resolveParentProject (BuildProject proj) throws Exception;
 }

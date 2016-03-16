@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.common.test.chart;
 
@@ -19,35 +19,35 @@ import org.jfree.data.time.TimeSeries;
  * @since Jun 22, 2010 9:57:49 AM
  */
 public enum TimeSeriesTypeCase {
-	SIS,
-	DIA,
-	HR;
-	
-	public static final List<TimeSeriesTypeCase>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final TimeSeriesTypeCase fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    SIS,
+    DIA,
+    HR;
 
-	public static final TimeSeriesTypeCase fromTimeSeriesKey (final Object key)
-	{
-		final String	ks=(null == key) ? null : key.toString();
-		if ((null == ks) || (ks.length() <= 0))
-			return null;
+    public static final List<TimeSeriesTypeCase>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final TimeSeriesTypeCase fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-		for (final TimeSeriesTypeCase	v : VALUES)
-		{
-			final String	kv=(null == v) ? null : v.toString();
-			if ((kv != null) && (kv.length() > 0)
-			 && StringUtil.startsWith(ks, kv, false, false))
-				return v;
-		}
+    public static final TimeSeriesTypeCase fromTimeSeriesKey (final Object key)
+    {
+        final String    ks=(null == key) ? null : key.toString();
+        if ((null == ks) || (ks.length() <= 0))
+            return null;
 
-		return null;
-	}
-	
-	public static final TimeSeriesTypeCase fromTimeSeries (final TimeSeries ts)
-	{
-		return fromTimeSeriesKey((null == ts) ? null : ts.getKey());
-	}
+        for (final TimeSeriesTypeCase    v : VALUES)
+        {
+            final String    kv=(null == v) ? null : v.toString();
+            if ((kv != null) && (kv.length() > 0)
+             && StringUtil.startsWith(ks, kv, false, false))
+                return v;
+        }
+
+        return null;
+    }
+
+    public static final TimeSeriesTypeCase fromTimeSeries (final TimeSeries ts)
+    {
+        return fromTimeSeriesKey((null == ts) ? null : ts.getKey());
+    }
 }

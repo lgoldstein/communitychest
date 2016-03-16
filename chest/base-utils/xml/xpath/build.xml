@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-xpath-utils" default="build-xpath-utils">
-		<description>
-			Builds the common logging utilities JAR $Rev: 561 $
-		</description>
+    <project name="build-xpath-utils" default="build-xpath-utils">
+        <description>
+            Builds the common logging utilities JAR $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="module.base.target.name" value="xpath"/>
-	    <dirname property="xml.utils.root.dir" file="${module.root.folder}"/>
-		
-		<import file="${xml.utils.root.dir}${file.separator}build-base.xml"/>
-		
-		<target name="build-xpath-utils" depends="jar-xml-utils-module-files" description="Builds the XPATH utilities JAR"/>
-		<target name="clean-xpath-utils" depends="clean-xml-utils-module-build" description="Removes the XPATH utilities files and JAR"/>
-	</project>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="module.base.target.name" value="xpath"/>
+        <dirname property="xml.utils.root.dir" file="${module.root.folder}"/>
+
+        <import file="${xml.utils.root.dir}${file.separator}build-base.xml"/>
+
+        <target name="build-xpath-utils" depends="jar-xml-utils-module-files" description="Builds the XPATH utilities JAR"/>
+        <target name="clean-xpath-utils" depends="clean-xml-utils-module-build" description="Removes the XPATH utilities files and JAR"/>
+    </project>
 

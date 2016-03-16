@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.format.pe;
 
@@ -44,17 +44,17 @@ public enum COFFMachineType {
     COFFMachineType(short typeValue) {
         _typeValue = typeValue;
     }
-    
+
     public static final Set<COFFMachineType>    VALUES=
             Collections.unmodifiableSet(EnumSet.allOf(COFFMachineType.class));
-    
+
     public static final COFFMachineType fromTypeValue(short typeValue) {
         for (COFFMachineType type : VALUES) {
             if (typeValue == type.getTypeValue()) {
                 return type;
             }
         }
-        
+
         return null;
     }
 }

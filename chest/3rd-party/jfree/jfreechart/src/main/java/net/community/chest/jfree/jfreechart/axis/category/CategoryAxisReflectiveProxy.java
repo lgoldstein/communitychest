@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.axis.category;
 
@@ -20,46 +20,46 @@ import org.w3c.dom.Element;
  * @since Feb 5, 2009 3:27:35 PM
  */
 public class CategoryAxisReflectiveProxy<A extends CategoryAxis> extends AxisReflectiveProxy<A> {
-	protected CategoryAxisReflectiveProxy (Class<A> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
-	
-	public CategoryAxisReflectiveProxy (Class<A> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    protected CategoryAxisReflectiveProxy (Class<A> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public static final CategoryAxis createCategoryAxisFromElement (Element elem) throws Exception
-	{
-		final String	type=(null == elem) ? null : elem.getAttribute(CLASS_ATTR);
-		if ((null == type) || (type.length() <= 0))
-			return null;
+    public CategoryAxisReflectiveProxy (Class<A> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-		final CategoryAxisType	t=CategoryAxisType.fromString(type);
-		if (null == t)
-			throw new NoSuchElementException("createCategoryAxisFromElement(" + DOMUtils.toString(elem) + ") unknown axis type: " + type);
+    public static final CategoryAxis createCategoryAxisFromElement (Element elem) throws Exception
+    {
+        final String    type=(null == elem) ? null : elem.getAttribute(CLASS_ATTR);
+        if ((null == type) || (type.length() <= 0))
+            return null;
 
-		final Class<? extends CategoryAxis>			c=t.getAxisClass();
-		// all of them have a constructor with a String argument, but not all have a no-args one
-		final Constructor<? extends CategoryAxis>	x=c.getConstructor(String.class);
-		return x.newInstance(type);
-	}
+        final CategoryAxisType    t=CategoryAxisType.fromString(type);
+        if (null == t)
+            throw new NoSuchElementException("createCategoryAxisFromElement(" + DOMUtils.toString(elem) + ") unknown axis type: " + type);
 
-	public static final CategoryAxisReflectiveProxy<CategoryAxis>	CATEGORY=
-			new CategoryAxisReflectiveProxy<CategoryAxis>(CategoryAxis.class, true) {
-				/*
-				 * @see net.community.chest.dom.transform.AbstractReflectiveProxy#createInstance(org.w3c.dom.Element)
-				 */
-				@Override
-				public CategoryAxis createInstance (Element elem) throws Exception
-				{
-					final CategoryAxis	c=createCategoryAxisFromElement(elem);
-					if (null == c)
-						return super.createInstance(elem);
-					else
-						return c;
-				}
-		};
+        final Class<? extends CategoryAxis>            c=t.getAxisClass();
+        // all of them have a constructor with a String argument, but not all have a no-args one
+        final Constructor<? extends CategoryAxis>    x=c.getConstructor(String.class);
+        return x.newInstance(type);
+    }
+
+    public static final CategoryAxisReflectiveProxy<CategoryAxis>    CATEGORY=
+            new CategoryAxisReflectiveProxy<CategoryAxis>(CategoryAxis.class, true) {
+                /*
+                 * @see net.community.chest.dom.transform.AbstractReflectiveProxy#createInstance(org.w3c.dom.Element)
+                 */
+                @Override
+                public CategoryAxis createInstance (Element elem) throws Exception
+                {
+                    final CategoryAxis    c=createCategoryAxisFromElement(elem);
+                    if (null == c)
+                        return super.createInstance(elem);
+                    else
+                        return c;
+                }
+        };
 }

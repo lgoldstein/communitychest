@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.common.test.io;
 
@@ -26,81 +26,81 @@ import org.w3c.dom.Element;
  * @since Apr 26, 2009 9:42:43 AM
  */
 public class TestFileProperties extends TestMainFrame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4685738770763665326L;
-	private FilePropertiesPanel	_props;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4685738770763665326L;
+    private FilePropertiesPanel    _props;
     /*
      * @see net.community.apps.common.FileLoadComponent#loadFile(java.io.File, java.lang.String, org.w3c.dom.Element)
      */
     @Override
-	public void loadFile (File f, String cmd, Element dlgElement)
-	{
-		final String filePath=(null == f) ? null : f.getAbsolutePath();
-		if ((null == filePath) || (filePath.length() <= 0) || (null == _props))
-			return;
-		
-		_props.setAssignedValue(f);
-		setTitle(filePath);
-	}
+    public void loadFile (File f, String cmd, Element dlgElement)
+    {
+        final String filePath=(null == f) ? null : f.getAbsolutePath();
+        if ((null == filePath) || (filePath.length() <= 0) || (null == _props))
+            return;
 
-	private JTextField	_ft;
-	protected void loadFileFromText ()
-	{
-		final String	p=(null == _ft) ? null : _ft.getText();
-		if ((null == p) || (p.length() <= 0))
-			return;
+        _props.setAssignedValue(f);
+        setTitle(filePath);
+    }
 
-		loadFile(new File(p), LOAD_CMD, null);
-	}
-	/*
-	 * @see net.community.apps.common.BaseMainFrame#layoutComponent()
-	 */
-	@Override
-	public void layoutComponent () throws RuntimeException
-	{
-		super.layoutComponent();
+    private JTextField    _ft;
+    protected void loadFileFromText ()
+    {
+        final String    p=(null == _ft) ? null : _ft.getText();
+        if ((null == p) || (p.length() <= 0))
+            return;
 
-		final Container	ctPane=getContentPane();
-		{
-			final LRFieldWithButtonPanel	p=new LRFieldWithButtonPanel();
-			if ((_ft=p.getTextField()) != null)
-			{
-				final JButton	b=p.getButton();
-				if (b != null)
-				{
-					b.setText("Show");
-					b.addActionListener(new ActionListener() {
-						/*
-						 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-						 */
-						@Override
-						public void actionPerformed (ActionEvent e)
-						{
-							final Object	s=(null == e) ? null : e.getSource();
-							if (s != null)
-								loadFileFromText();
-						}
-					});
-				}
-			}
+        loadFile(new File(p), LOAD_CMD, null);
+    }
+    /*
+     * @see net.community.apps.common.BaseMainFrame#layoutComponent()
+     */
+    @Override
+    public void layoutComponent () throws RuntimeException
+    {
+        super.layoutComponent();
 
-			ctPane.add(p, BorderLayout.NORTH);
-		}
-		if (null == _props)
-		{
-			_props = new FilePropertiesPanel();
-			setDropTarget(new DropTarget(_props, this));
-			ctPane.add(new ScrolledComponent<FilePropertiesPanel>(_props), BorderLayout.CENTER);
-		}
-	}
+        final Container    ctPane=getContentPane();
+        {
+            final LRFieldWithButtonPanel    p=new LRFieldWithButtonPanel();
+            if ((_ft=p.getTextField()) != null)
+            {
+                final JButton    b=p.getButton();
+                if (b != null)
+                {
+                    b.setText("Show");
+                    b.addActionListener(new ActionListener() {
+                        /*
+                         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+                         */
+                        @Override
+                        public void actionPerformed (ActionEvent e)
+                        {
+                            final Object    s=(null == e) ? null : e.getSource();
+                            if (s != null)
+                                loadFileFromText();
+                        }
+                    });
+                }
+            }
 
-	public TestFileProperties (String... args) throws Exception
-	{
-		super(args);
+            ctPane.add(p, BorderLayout.NORTH);
+        }
+        if (null == _props)
+        {
+            _props = new FilePropertiesPanel();
+            setDropTarget(new DropTarget(_props, this));
+            ctPane.add(new ScrolledComponent<FilePropertiesPanel>(_props), BorderLayout.CENTER);
+        }
+    }
 
-		if ((args != null) && (args.length == 1))
-			loadFile(new File(args[0]), LOAD_CMD, null);
-	}
+    public TestFileProperties (String... args) throws Exception
+    {
+        super(args);
+
+        if ((args != null) && (args.length == 1))
+            loadFile(new File(args[0]), LOAD_CMD, null);
+    }
 }

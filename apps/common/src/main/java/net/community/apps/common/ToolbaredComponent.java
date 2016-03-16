@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.common;
 
@@ -15,7 +15,7 @@ import org.w3c.dom.Element;
  */
 public interface ToolbaredComponent {
 
-	public static final String	MAIN_TOOLBAR_SECTION_NAME="main-toolbar";
-	Element getMainToolBarElement ();
-	JToolBar getMainToolBar ();
+    public static final String    MAIN_TOOLBAR_SECTION_NAME="main-toolbar";
+    Element getMainToolBarElement ();
+    JToolBar getMainToolBar ();
 }

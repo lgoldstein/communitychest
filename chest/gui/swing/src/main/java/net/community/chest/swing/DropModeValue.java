@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing;
 
@@ -19,14 +19,14 @@ import net.community.chest.util.collection.CollectionsUtils;
  * @since Aug 20, 2008 9:36:24 AM
  */
 public final class DropModeValue {
-	private DropModeValue ()
-	{
-		// no instance
-	}
+    private DropModeValue ()
+    {
+        // no instance
+    }
 
-	public static final List<DropMode>	VALUES=Collections.unmodifiableList(Arrays.asList(DropMode.values()));
-	public static final DropMode fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<DropMode>    VALUES=Collections.unmodifiableList(Arrays.asList(DropMode.values()));
+    public static final DropMode fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 }

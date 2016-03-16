@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="eclipse-apps-base" default="eclipse-apps-base" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Serves as 'base' inclusion file with common definitions for the Eclipse
-			applications $Rev: 561 $
-		</description>
+    <project name="eclipse-apps-base" default="eclipse-apps-base" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Serves as 'base' inclusion file with common definitions for the Eclipse
+            applications $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
+            <!-- Preamble definitions -->
         <dirname property="eclipse.apps.root.dir" file="${ant.file}"/>
         <dirname property="tools.apps.root.dir" file="${eclipse.apps.root.dir}"/>
-		<dirname property="project.root.dir" file="${tools.apps.root.dir}"/>
-		<property name="parent.root.dir" value="${project.root.dir}"/>
-		<property name="module.root.folder" value="${eclipse.apps.root.dir}"/>
-		<property name="module.base.target.name" value="eclipse-apps"/>
+        <dirname property="project.root.dir" file="${tools.apps.root.dir}"/>
+        <property name="parent.root.dir" value="${project.root.dir}"/>
+        <property name="module.root.folder" value="${eclipse.apps.root.dir}"/>
+        <property name="module.base.target.name" value="eclipse-apps"/>
 
-		<import file="${tools.apps.root.dir}${file.separator}build-base.xml"/>
-		<property name="eclipse.apps.base.pkg.name" value="${apps.base.pkg.name}.eclipse"/>
+        <import file="${tools.apps.root.dir}${file.separator}build-base.xml"/>
+        <property name="eclipse.apps.base.pkg.name" value="${apps.base.pkg.name}.eclipse"/>
 
         <target name="eclipse-apps-base" depends="tools-apps-base" unless="skip.eclipse.apps.base.target">
             <property name="skip.eclipse.apps.base.target" value="true"/>
         </target>
 
-			<!-- Default target(s) from which modules should derive their own -->
-		<target name="jar-eclipse-app-module-files" depends="eclipse-apps-base,jar-tools-app-module-files"/>
-		<target name="clean-eclipse-app-module-build" depends="eclipse-apps-base,clean-tools-app-module-build"/>
+            <!-- Default target(s) from which modules should derive their own -->
+        <target name="jar-eclipse-app-module-files" depends="eclipse-apps-base,jar-tools-app-module-files"/>
+        <target name="clean-eclipse-app-module-build" depends="eclipse-apps-base,clean-tools-app-module-build"/>
 
-		<target name="jar-eclipse-app-application-files" depends="eclipse-apps-base,jar-tools-app-application-files"/>
-		<target name="clean-eclipse-app-application-build" depends="eclipse-apps-base,clean-tools-app-application-build"/>
-	</project>
+        <target name="jar-eclipse-app-application-files" depends="eclipse-apps-base,jar-tools-app-application-files"/>
+        <target name="clean-eclipse-app-application-build" depends="eclipse-apps-base,clean-tools-app-application-build"/>
+    </project>

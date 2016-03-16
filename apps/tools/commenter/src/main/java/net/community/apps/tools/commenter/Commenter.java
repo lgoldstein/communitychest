@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.commenter;
 
@@ -14,5 +14,5 @@ import java.io.Writer;
  * @since Jun 25, 2009 2:11:15 PM
  */
 public interface Commenter {
-	void addComment (BufferedReader r, Writer w, String cmnt, boolean isCommentFile) throws IOException;
+    void addComment (BufferedReader r, Writer w, String cmnt, boolean isCommentFile) throws IOException;
 }

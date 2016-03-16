@@ -38,58 +38,58 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 public class ByteArrayFileDownloadResponse extends FileDownloadResponse {
-	private byte[] _content;
-	public byte[] getContentData ()
-	{
-		return _content;
-	}
+    private byte[] _content;
+    public byte[] getContentData ()
+    {
+        return _content;
+    }
 
-	public void setContentData (byte[] d)
-	{
-		_content = d;
-	}
+    public void setContentData (byte[] d)
+    {
+        _content = d;
+    }
 
-	public ByteArrayFileDownloadResponse (byte[] content, String mimeType, String versionId, long lastModified)
-	{
-		super(mimeType, versionId, lastModified);
-		_content = content;
-	}
+    public ByteArrayFileDownloadResponse (byte[] content, String mimeType, String versionId, long lastModified)
+    {
+        super(mimeType, versionId, lastModified);
+        _content = content;
+    }
 
-	public ByteArrayFileDownloadResponse ()
-	{
-		this(null, null, null, 0L);
-	}
-	/*
-	 * @see jnlp.sample.servlet.DownloadResponse.FileDownloadResponse#getContentLength()
-	 */
-	@Override
-	public int getContentLength ()
-	{
-		final byte[]	d=getContentData();
-		return (null == d) ? 0 : d.length;
-	}
+    public ByteArrayFileDownloadResponse ()
+    {
+        this(null, null, null, 0L);
+    }
+    /*
+     * @see jnlp.sample.servlet.DownloadResponse.FileDownloadResponse#getContentLength()
+     */
+    @Override
+    public int getContentLength ()
+    {
+        final byte[]    d=getContentData();
+        return (null == d) ? 0 : d.length;
+    }
 
-	private static final byte[]	NO_DATA=new byte[0];
-	/*
-	 * @see jnlp.sample.servlet.DownloadResponse.FileDownloadResponse#getContent()
-	 */
-	@Override
-	public InputStream getContent ()
-	{
-		final byte[]	d=getContentData();
-		return new ByteArrayInputStream((null == d) ? NO_DATA : d);
-	}	
-	/*
-	 * @see jnlp.sample.servlet.DownloadResponse#toString()
-	 */
-	@Override
-	public String toString () { return super.toString() + "[ " + getArgString() + "]"; }
-	/*
-	 * @see jnlp.sample.servlet.download.FileDownloadResponse#clone()
-	 */
-	@Override
-	public ByteArrayFileDownloadResponse /* co-variant return */ clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}		
+    private static final byte[]    NO_DATA=new byte[0];
+    /*
+     * @see jnlp.sample.servlet.DownloadResponse.FileDownloadResponse#getContent()
+     */
+    @Override
+    public InputStream getContent ()
+    {
+        final byte[]    d=getContentData();
+        return new ByteArrayInputStream((null == d) ? NO_DATA : d);
+    }
+    /*
+     * @see jnlp.sample.servlet.DownloadResponse#toString()
+     */
+    @Override
+    public String toString () { return super.toString() + "[ " + getArgString() + "]"; }
+    /*
+     * @see jnlp.sample.servlet.download.FileDownloadResponse#clone()
+     */
+    @Override
+    public ByteArrayFileDownloadResponse /* co-variant return */ clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
 }

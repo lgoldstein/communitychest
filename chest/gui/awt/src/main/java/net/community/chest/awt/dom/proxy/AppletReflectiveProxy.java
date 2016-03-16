@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.dom.proxy;
 
@@ -13,15 +13,15 @@ import java.applet.Applet;
  * @since Feb 16, 2009 12:53:12 PM
  */
 public class AppletReflectiveProxy<A extends Applet> extends PanelReflectiveProxy<A> {
-	protected AppletReflectiveProxy (Class<A> objClass, boolean registerAsDefault)
-			throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected AppletReflectiveProxy (Class<A> objClass, boolean registerAsDefault)
+            throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public AppletReflectiveProxy (Class<A> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public AppletReflectiveProxy (Class<A> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
 }

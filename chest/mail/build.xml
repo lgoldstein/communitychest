@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-mail" default="build-mail">
-		<description>
-			Builds the JDK JAR $Rev: 561 $
-		</description>
+    <project name="build-mail" default="build-mail">
+        <description>
+            Builds the JDK JAR $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
         <property name="project.root.dir" value="${parent.root.dir}"/>
-		<property name="module.base.target.name" value="mail"/>
-		<property name="module.vcproj.name" value="chestmail"/>
-		<import file="${project.root.dir}${file.separator}build-base.xml"/>
-		
-		<target name="build-mail"
-				depends="jar-project-module-files,build-local-products"
-				description="Builds the mail JAR"/>
-		<target name="clean-mail"
+        <property name="module.base.target.name" value="mail"/>
+        <property name="module.vcproj.name" value="chestmail"/>
+        <import file="${project.root.dir}${file.separator}build-base.xml"/>
+
+        <target name="build-mail"
+                depends="jar-project-module-files,build-local-products"
+                description="Builds the mail JAR"/>
+        <target name="clean-mail"
                         depends="clean-project-module-build,clean-local-products"
                         description="Removes the mail object files and JAR"/>
-	</project>
+    </project>
 

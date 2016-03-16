@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.math.functions.eval;
 
@@ -16,44 +16,44 @@ import net.community.chest.resources.PropertyAccessor;
  * @since May 27, 2009 3:30:39 PM
  */
 public class PositionalArgumentPropertyAccessor
-		extends ArrayList<Number>
-		implements PropertyAccessor<String,Number> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8479003120539033189L;
-	public PositionalArgumentPropertyAccessor ()
-	{
-		super();
-	}
+        extends ArrayList<Number>
+        implements PropertyAccessor<String,Number> {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8479003120539033189L;
+    public PositionalArgumentPropertyAccessor ()
+    {
+        super();
+    }
 
-	public PositionalArgumentPropertyAccessor (Collection<? extends Number> c)
-	{
-		super(c);
-	}
+    public PositionalArgumentPropertyAccessor (Collection<? extends Number> c)
+    {
+        super(c);
+    }
 
-	public PositionalArgumentPropertyAccessor (int initialCapacity)
-	{
-		super(initialCapacity);
-	}
+    public PositionalArgumentPropertyAccessor (int initialCapacity)
+    {
+        super(initialCapacity);
+    }
 
-	public PositionalArgumentPropertyAccessor (Number ... nums)
-	{
-		this(((null == nums) || (nums.length <= 0)) ? 10 : nums.length);
+    public PositionalArgumentPropertyAccessor (Number ... nums)
+    {
+        this(((null == nums) || (nums.length <= 0)) ? 10 : nums.length);
 
-		if ((nums != null) && (nums.length > 0))
-			addAll(Arrays.asList(nums));
-	}
-	/*
-	 * @see net.community.chest.resources.PropertyAccessor#getProperty(java.lang.Object)
-	 */
-	@Override
-	public Number getProperty (String key)
-	{
-		if ((null == key) || (key.length() <= 0))
-			return null;
+        if ((nums != null) && (nums.length > 0))
+            addAll(Arrays.asList(nums));
+    }
+    /*
+     * @see net.community.chest.resources.PropertyAccessor#getProperty(java.lang.Object)
+     */
+    @Override
+    public Number getProperty (String key)
+    {
+        if ((null == key) || (key.length() <= 0))
+            return null;
 
-		final Integer	nIndex=Integer.decode(key);
-		return get(nIndex.intValue());
-	}
+        final Integer    nIndex=Integer.decode(key);
+        return get(nIndex.intValue());
+    }
 }

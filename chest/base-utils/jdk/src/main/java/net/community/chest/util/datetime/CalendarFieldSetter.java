@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.util.datetime;
 
@@ -12,9 +12,9 @@ import java.util.Calendar;
  *
  */
 public interface CalendarFieldSetter extends CalendarFieldIndicator {
-	/**
-	 * @param c The {@link Calendar} instance to process - ignored if <code>null</code>
-	 * @param value The value to set for the field represented by the indicator
-	 */
-	void setFieldValue (Calendar c, int value);
+    /**
+     * @param c The {@link Calendar} instance to process - ignored if <code>null</code>
+     * @param value The value to set for the field represented by the indicator
+     */
+    void setFieldValue (Calendar c, int value);
 }

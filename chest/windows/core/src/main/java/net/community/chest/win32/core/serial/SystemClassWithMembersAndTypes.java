@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.serial;
 
@@ -18,34 +18,34 @@ import net.community.chest.lang.PubliclyCloneable;
  *
  */
 public class SystemClassWithMembersAndTypes extends AbstractClassWithMembersAndTypes
-			implements PubliclyCloneable<SystemClassWithMembersAndTypes>,
-					   ElementEncoder<SystemClassWithMembersAndTypes> {
-	private static final long serialVersionUID = -8365190679037202106L;
+            implements PubliclyCloneable<SystemClassWithMembersAndTypes>,
+                       ElementEncoder<SystemClassWithMembersAndTypes> {
+    private static final long serialVersionUID = -8365190679037202106L;
 
-	public SystemClassWithMembersAndTypes ()
-	{
-		super(RecordTypeEnumeration.SystemClassWithMembersAndTypes);
-	}
+    public SystemClassWithMembersAndTypes ()
+    {
+        super(RecordTypeEnumeration.SystemClassWithMembersAndTypes);
+    }
 
-	public SystemClassWithMembersAndTypes (InputStream in) throws IOException
-	{
-		super(RecordTypeEnumeration.SystemClassWithMembersAndTypes);
+    public SystemClassWithMembersAndTypes (InputStream in) throws IOException
+    {
+        super(RecordTypeEnumeration.SystemClassWithMembersAndTypes);
 
-		Object	result=read(in);
-		if (result != this)
-			throw new StreamCorruptedException("Mismatched read data instance");
-	}
+        Object    result=read(in);
+        if (result != this)
+            throw new StreamCorruptedException("Mismatched read data instance");
+    }
 
-	@Override
-	@CoVariantReturn
-	public SystemClassWithMembersAndTypes read (InputStream in) throws IOException
-	{
-		return getClass().cast(super.read(in));
-	}
+    @Override
+    @CoVariantReturn
+    public SystemClassWithMembersAndTypes read (InputStream in) throws IOException
+    {
+        return getClass().cast(super.read(in));
+    }
 
-	@Override
-	public SystemClassWithMembersAndTypes clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}
+    @Override
+    public SystemClassWithMembersAndTypes clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
 }

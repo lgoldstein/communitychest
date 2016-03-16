@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing;
 
@@ -19,14 +19,14 @@ import net.community.chest.util.collection.CollectionsUtils;
  * @since Sep 25, 2008 9:48:15 AM
  */
 public final class SortOrderValue {
-	private SortOrderValue ()
-	{
-		// no instance
-	}
+    private SortOrderValue ()
+    {
+        // no instance
+    }
 
-	public static final List<SortOrder>	VALUES=Collections.unmodifiableList(Arrays.asList(SortOrder.values()));
-	public static final SortOrder fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<SortOrder>    VALUES=Collections.unmodifiableList(Arrays.asList(SortOrder.values()));
+    public static final SortOrder fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 }

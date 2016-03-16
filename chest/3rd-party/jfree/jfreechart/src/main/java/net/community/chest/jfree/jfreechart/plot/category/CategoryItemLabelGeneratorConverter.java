@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.plot.category;
 
@@ -23,76 +23,76 @@ import org.w3c.dom.Element;
  * @since Jun 8, 2009 12:54:20 PM
  */
 public class CategoryItemLabelGeneratorConverter extends BaseGeneratorConverter<CategoryItemLabelGenerator> {
-	public CategoryItemLabelGeneratorConverter ()
-	{
-		super(CategoryItemLabelGenerator.class);
-	}
+    public CategoryItemLabelGeneratorConverter ()
+    {
+        super(CategoryItemLabelGenerator.class);
+    }
 
-	public StandardCategoryItemLabelGenerator createStandardCategoryItemLabelGenerator (Element elem) throws Exception
-	{
-		final String		lbl=getLabelFormat(elem);
-		final NumberFormat	nf=getNumberFormat(elem),
-							pf=getPercentFormat(elem);
-		final DateFormat	df=getDateFormat(elem);
-		if ((null == lbl) || (lbl.length() <= 0))
-		{
-			if ((nf != null) || (pf != null) || (df != null))
-				throw new IllegalArgumentException("createStandardCategoryItemLabelGenerator(" + DOMUtils.toString(elem) + ") superfluous arguments to empty constructor");
+    public StandardCategoryItemLabelGenerator createStandardCategoryItemLabelGenerator (Element elem) throws Exception
+    {
+        final String        lbl=getLabelFormat(elem);
+        final NumberFormat    nf=getNumberFormat(elem),
+                            pf=getPercentFormat(elem);
+        final DateFormat    df=getDateFormat(elem);
+        if ((null == lbl) || (lbl.length() <= 0))
+        {
+            if ((nf != null) || (pf != null) || (df != null))
+                throw new IllegalArgumentException("createStandardCategoryItemLabelGenerator(" + DOMUtils.toString(elem) + ") superfluous arguments to empty constructor");
 
-			return new StandardCategoryItemLabelGenerator();
-		}
+            return new StandardCategoryItemLabelGenerator();
+        }
 
-		if (((nf != null) || (pf != null)) && (df != null))
-			throw new IllegalStateException("createStandardCategoryItemLabelGenerator(" + DOMUtils.toString(elem) + ") ambiguous formatting arguments");
-		if ((nf == null) && (df == null))
-			throw new IllegalStateException("createStandardCategoryItemLabelGenerator(" + DOMUtils.toString(elem) + ") no formatting arguments");
+        if (((nf != null) || (pf != null)) && (df != null))
+            throw new IllegalStateException("createStandardCategoryItemLabelGenerator(" + DOMUtils.toString(elem) + ") ambiguous formatting arguments");
+        if ((nf == null) && (df == null))
+            throw new IllegalStateException("createStandardCategoryItemLabelGenerator(" + DOMUtils.toString(elem) + ") no formatting arguments");
 
-		if (df != null)
-			return new StandardCategoryItemLabelGenerator(lbl, df);
+        if (df != null)
+            return new StandardCategoryItemLabelGenerator(lbl, df);
 
-		if (null == pf)
-			return new StandardCategoryItemLabelGenerator(lbl, nf);
+        if (null == pf)
+            return new StandardCategoryItemLabelGenerator(lbl, nf);
 
-		return new StandardCategoryItemLabelGenerator(lbl, nf, pf);
-	}
+        return new StandardCategoryItemLabelGenerator(lbl, nf, pf);
+    }
 
-	public IntervalCategoryItemLabelGenerator createIntervalCategoryItemLabelGenerator (Element elem) throws Exception
-	{
-		final String		lbl=getLabelFormat(elem);
-		final NumberFormat	nf=getNumberFormat(elem);
-		final DateFormat	df=getDateFormat(elem);
-		if ((null == lbl) || (lbl.length() <= 0))
-		{
-			if ((nf != null) || (df != null))
-				throw new IllegalArgumentException("createIntervalCategoryItemLabelGenerator(" + DOMUtils.toString(elem) + ") superfluous arguments to empty constructor");
+    public IntervalCategoryItemLabelGenerator createIntervalCategoryItemLabelGenerator (Element elem) throws Exception
+    {
+        final String        lbl=getLabelFormat(elem);
+        final NumberFormat    nf=getNumberFormat(elem);
+        final DateFormat    df=getDateFormat(elem);
+        if ((null == lbl) || (lbl.length() <= 0))
+        {
+            if ((nf != null) || (df != null))
+                throw new IllegalArgumentException("createIntervalCategoryItemLabelGenerator(" + DOMUtils.toString(elem) + ") superfluous arguments to empty constructor");
 
-			return new IntervalCategoryItemLabelGenerator();
-		}
+            return new IntervalCategoryItemLabelGenerator();
+        }
 
-		if ((nf != null) && (df != null))
-			throw new IllegalStateException("createIntervalCategoryItemLabelGenerator(" + DOMUtils.toString(elem) + ") ambiguous formatting arguments");
-		if ((nf == null) && (df == null))
-			throw new IllegalStateException("createIntervalCategoryItemLabelGenerator(" + DOMUtils.toString(elem) + ") no formatting arguments");
+        if ((nf != null) && (df != null))
+            throw new IllegalStateException("createIntervalCategoryItemLabelGenerator(" + DOMUtils.toString(elem) + ") ambiguous formatting arguments");
+        if ((nf == null) && (df == null))
+            throw new IllegalStateException("createIntervalCategoryItemLabelGenerator(" + DOMUtils.toString(elem) + ") no formatting arguments");
 
-		if (df != null)
-			return new IntervalCategoryItemLabelGenerator(lbl, df);
-		else
-			return new IntervalCategoryItemLabelGenerator(lbl, nf);
-	}
-	/*
-	 * @see net.community.chest.dom.transform.XmlValueInstantiator#fromXml(org.w3c.dom.Element)
-	 */
-	@Override
-	public CategoryItemLabelGenerator fromXml (Element elem) throws Exception
-	{
-		final String	cls=elem.getAttribute(ReflectiveAttributesProxy.CLASS_ATTR);
-		if ((null == cls) || (cls.length() <= 0) || "standard".equalsIgnoreCase(cls))
-			return createStandardCategoryItemLabelGenerator(elem);
-		else if ("interval".equalsIgnoreCase(cls))
-			return createIntervalCategoryItemLabelGenerator(elem);
-		else
-			throw new NoSuchElementException("fromXml(" + DOMUtils.toString(elem) + ") unknown class: " + cls);
-	}
+        if (df != null)
+            return new IntervalCategoryItemLabelGenerator(lbl, df);
+        else
+            return new IntervalCategoryItemLabelGenerator(lbl, nf);
+    }
+    /*
+     * @see net.community.chest.dom.transform.XmlValueInstantiator#fromXml(org.w3c.dom.Element)
+     */
+    @Override
+    public CategoryItemLabelGenerator fromXml (Element elem) throws Exception
+    {
+        final String    cls=elem.getAttribute(ReflectiveAttributesProxy.CLASS_ATTR);
+        if ((null == cls) || (cls.length() <= 0) || "standard".equalsIgnoreCase(cls))
+            return createStandardCategoryItemLabelGenerator(elem);
+        else if ("interval".equalsIgnoreCase(cls))
+            return createIntervalCategoryItemLabelGenerator(elem);
+        else
+            throw new NoSuchElementException("fromXml(" + DOMUtils.toString(elem) + ") unknown class: " + cls);
+    }
 
-	public static final CategoryItemLabelGeneratorConverter	DEAULT=new CategoryItemLabelGeneratorConverter();
+    public static final CategoryItemLabelGeneratorConverter    DEAULT=new CategoryItemLabelGeneratorConverter();
 }

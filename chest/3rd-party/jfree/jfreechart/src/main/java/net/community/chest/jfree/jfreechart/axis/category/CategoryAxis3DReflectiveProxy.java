@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.axis.category;
 
@@ -13,18 +13,18 @@ import org.jfree.chart.axis.CategoryAxis3D;
  * @since May 5, 2009 2:43:33 PM
  */
 public class CategoryAxis3DReflectiveProxy<A extends CategoryAxis3D> extends CategoryAxisReflectiveProxy<A> {
-	protected CategoryAxis3DReflectiveProxy (Class<A> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected CategoryAxis3DReflectiveProxy (Class<A> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public CategoryAxis3DReflectiveProxy (Class<A> objClass)
-			throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public CategoryAxis3DReflectiveProxy (Class<A> objClass)
+            throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final CategoryAxis3DReflectiveProxy<CategoryAxis3D>	CAT3D=
-		new CategoryAxis3DReflectiveProxy<CategoryAxis3D>(CategoryAxis3D.class, true);
+    public static final CategoryAxis3DReflectiveProxy<CategoryAxis3D>    CAT3D=
+        new CategoryAxis3DReflectiveProxy<CategoryAxis3D>(CategoryAxis3D.class, true);
 }

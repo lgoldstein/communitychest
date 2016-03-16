@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.common.test;
 
@@ -43,183 +43,183 @@ import org.w3c.dom.Element;
  *
  */
 public class TestBgImagePanel extends TestMainFrame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -803555459212999329L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -803555459212999329L;
 
-	private BgImagePanel	_pnl;
-	protected void updateImagePosition (BorderLayoutPosition p)
-	{
-		if ((null == p) || (null == _pnl))
-			return;
+    private BgImagePanel    _pnl;
+    protected void updateImagePosition (BorderLayoutPosition p)
+    {
+        if ((null == p) || (null == _pnl))
+            return;
 
-		_pnl.setBgImagePosition(p);
-		_pnl.repaint();
-	}
+        _pnl.setBgImagePosition(p);
+        _pnl.repaint();
+    }
 
-	private void setBgImage (Image img)
-	{
-		if ((null == img) || (null == _pnl))
-			return;
+    private void setBgImage (Image img)
+    {
+        if ((null == img) || (null == _pnl))
+            return;
 
-		_pnl.setBgImage(img);
-		_pnl.repaint();
-	}
+        _pnl.setBgImage(img);
+        _pnl.repaint();
+    }
 
-	protected static class BorderLayoutPositionChoice extends EnumComboBox<BorderLayoutPosition> {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1984769589089027082L;
+    protected static class BorderLayoutPositionChoice extends EnumComboBox<BorderLayoutPosition> {
+        /**
+         *
+         */
+        private static final long serialVersionUID = 1984769589089027082L;
 
-		public BorderLayoutPositionChoice ()
-		{
-			super(BorderLayoutPosition.class);
-			setEnumValues(BorderLayoutPosition.VALUES);
-			populate();
-		}
-	}
-	private BorderLayoutPositionChoice	_posChoice;
+        public BorderLayoutPositionChoice ()
+        {
+            super(BorderLayoutPosition.class);
+            setEnumValues(BorderLayoutPosition.VALUES);
+            populate();
+        }
+    }
+    private BorderLayoutPositionChoice    _posChoice;
 
-	private byte[]	_workBuf;
-	private byte[] getWorkBuf ()
-	{
-		if (null == _workBuf)
-			_workBuf = new byte[IOCopier.DEFAULT_COPY_SIZE];
-		return _workBuf;
-	}
+    private byte[]    _workBuf;
+    private byte[] getWorkBuf ()
+    {
+        if (null == _workBuf)
+            _workBuf = new byte[IOCopier.DEFAULT_COPY_SIZE];
+        return _workBuf;
+    }
 
-	private static final int	VALS_PER_LINE=16;
+    private static final int    VALS_PER_LINE=16;
 
-	private JTextArea	_area;
-	private void setFgText (final String filePath) throws IOException
-	{
-		if (null == _area)
-			return;
+    private JTextArea    _area;
+    private void setFgText (final String filePath) throws IOException
+    {
+        if (null == _area)
+            return;
 
-		_area.setText("");
+        _area.setText("");
 
-		final byte[]	data=getWorkBuf();
-		final int		rLen;
-		InputStream		in=null;
-		try
-		{
-			in = new FileInputStream(filePath);
+        final byte[]    data=getWorkBuf();
+        final int        rLen;
+        InputStream        in=null;
+        try
+        {
+            in = new FileInputStream(filePath);
 
-			if ((rLen=in.read(data)) <= 0)
-				throw new EOFException("No data read");
-		}
-		finally
-		{
-			FileUtil.closeAll(in);
-		}
+            if ((rLen=in.read(data)) <= 0)
+                throw new EOFException("No data read");
+        }
+        finally
+        {
+            FileUtil.closeAll(in);
+        }
 
-		final StringBuilder	sb=new StringBuilder(VALS_PER_LINE * (Hex.MAX_HEX_DIGITS_PER_BYTE + 1) + 4);
-		for (int	rIndex=0; rIndex < rLen; rIndex += VALS_PER_LINE)
-		{
-			if (sb.length() > 0)
-				sb.setLength(0);
+        final StringBuilder    sb=new StringBuilder(VALS_PER_LINE * (Hex.MAX_HEX_DIGITS_PER_BYTE + 1) + 4);
+        for (int    rIndex=0; rIndex < rLen; rIndex += VALS_PER_LINE)
+        {
+            if (sb.length() > 0)
+                sb.setLength(0);
 
-			for (int	dIndex=rIndex, maxIndex=Math.min(rLen, rIndex + VALS_PER_LINE); dIndex < maxIndex; dIndex++)
-			{
-				if (sb.length() > 0)
-					sb.append(' ');
-				Hex.appendHex(sb, data[dIndex], true);
-			}
+            for (int    dIndex=rIndex, maxIndex=Math.min(rLen, rIndex + VALS_PER_LINE); dIndex < maxIndex; dIndex++)
+            {
+                if (sb.length() > 0)
+                    sb.append(' ');
+                Hex.appendHex(sb, data[dIndex], true);
+            }
 
-			EOLStyle.LF.appendEOL(sb);
-			_area.append(sb.toString());
-			_area.setCaretPosition(_area.getDocument().getLength());
-		}
-	}
+            EOLStyle.LF.appendEOL(sb);
+            _area.append(sb.toString());
+            _area.setCaretPosition(_area.getDocument().getLength());
+        }
+    }
     /*
      * @see net.community.apps.common.FileLoadComponent#loadFile(java.io.File, java.lang.String, org.w3c.dom.Element)
      */
     @Override
-	public void loadFile (File f, String cmd, Element dlgElement)
-	{
-		final String filePath=(null == f) ? null : f.getAbsolutePath();
-		if ((null == filePath) || (filePath.length() <= 0))
-			return;
+    public void loadFile (File f, String cmd, Element dlgElement)
+    {
+        final String filePath=(null == f) ? null : f.getAbsolutePath();
+        if ((null == filePath) || (filePath.length() <= 0))
+            return;
 
-		try
-		{
-			final AbstractImageReader	r;
-			if (ICOReader.isIconFile(filePath))
-				r = ICOReader.DEFAULT;
-			else if (BMPReader.isBitmapFile(filePath))
-				r = new BMPReader();
-			else
-				r = DefaultImageReader.DEFAULT;
+        try
+        {
+            final AbstractImageReader    r;
+            if (ICOReader.isIconFile(filePath))
+                r = ICOReader.DEFAULT;
+            else if (BMPReader.isBitmapFile(filePath))
+                r = new BMPReader();
+            else
+                r = DefaultImageReader.DEFAULT;
 
-			final List<? extends Image>	il=r.readImages(filePath);
-			final int					numImages=(null == il) ? 0 : il.size();
-			final Image					img=(numImages <= 0) ? null : il.get(0);
-			if (null == img)
-				throw new IllegalStateException("No image extracted");
-			setTitle(filePath);
-			setBgImage(img);
-			setFgText(filePath);
-		}
-		catch(Exception e)
-		{
-			BaseOptionPane.showMessageDialog(this, e);
-		}
-	}
+            final List<? extends Image>    il=r.readImages(filePath);
+            final int                    numImages=(null == il) ? 0 : il.size();
+            final Image                    img=(numImages <= 0) ? null : il.get(0);
+            if (null == img)
+                throw new IllegalStateException("No image extracted");
+            setTitle(filePath);
+            setBgImage(img);
+            setFgText(filePath);
+        }
+        catch(Exception e)
+        {
+            BaseOptionPane.showMessageDialog(this, e);
+        }
+    }
     /*
      * @see net.community.apps.common.FilesLoadMainFrame#getFileChooser(org.w3c.dom.Element, java.lang.String, java.lang.Boolean)
      */
     @Override
-	protected JFileChooser getFileChooser (
-			final Element dlgElement, final String cmd, final Boolean isSaveDialog)
+    protected JFileChooser getFileChooser (
+            final Element dlgElement, final String cmd, final Boolean isSaveDialog)
     {
-    	final JFileChooser	fc=super.getFileChooser(dlgElement, cmd, isSaveDialog);
-    	if (fc != null)
-    		fc.setFileFilter(new FileNameExtensionFilter("Image files", AbstractImageReader.GIF_SUFFIX, AbstractImageReader.JPG_SUFFIX, AbstractImageReader.PNG_SUFFIX, BMPReader.BMP_SUFFIX));
-    	return fc;
+        final JFileChooser    fc=super.getFileChooser(dlgElement, cmd, isSaveDialog);
+        if (fc != null)
+            fc.setFileFilter(new FileNameExtensionFilter("Image files", AbstractImageReader.GIF_SUFFIX, AbstractImageReader.JPG_SUFFIX, AbstractImageReader.PNG_SUFFIX, BMPReader.BMP_SUFFIX));
+        return fc;
     }
-	/*
-	 * @see net.community.apps.common.BaseMainFrame#layoutComponent()
-	 */
-	@Override
-	public void layoutComponent () throws RuntimeException
-	{
-		super.layoutComponent();
+    /*
+     * @see net.community.apps.common.BaseMainFrame#layoutComponent()
+     */
+    @Override
+    public void layoutComponent () throws RuntimeException
+    {
+        super.layoutComponent();
 
-		final Container	ctPane=getContentPane();
-		if (_posChoice == null)
-			_posChoice = new BorderLayoutPositionChoice();
-		_posChoice.addActionListener(new ActionListener() {
-				/*
-				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-				 */
-				@Override
-				public void actionPerformed (ActionEvent e)
-				{
-					final Object	src=(null == e) ? null : e.getSource();
-					if (src instanceof BorderLayoutPositionChoice)
-						updateImagePosition(((BorderLayoutPositionChoice) src).getSelectedValue());
-				}
-				
-			});
-		ctPane.add(_posChoice, BorderLayout.NORTH);
+        final Container    ctPane=getContentPane();
+        if (_posChoice == null)
+            _posChoice = new BorderLayoutPositionChoice();
+        _posChoice.addActionListener(new ActionListener() {
+                /*
+                 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+                 */
+                @Override
+                public void actionPerformed (ActionEvent e)
+                {
+                    final Object    src=(null == e) ? null : e.getSource();
+                    if (src instanceof BorderLayoutPositionChoice)
+                        updateImagePosition(((BorderLayoutPositionChoice) src).getSelectedValue());
+                }
 
-		if (null == _pnl)
-			_pnl = new BgImagePanel(getIconImage(), new BorderLayout(0, 0));
+            });
+        ctPane.add(_posChoice, BorderLayout.NORTH);
 
-		if (null == _area)
-			_area = new JTextArea();
-		_pnl.add(new DefaultTextAreaScroll(_area), BorderLayout.CENTER);
+        if (null == _pnl)
+            _pnl = new BgImagePanel(getIconImage(), new BorderLayout(0, 0));
 
-		ctPane.add(_pnl, BorderLayout.CENTER);
-	}
+        if (null == _area)
+            _area = new JTextArea();
+        _pnl.add(new DefaultTextAreaScroll(_area), BorderLayout.CENTER);
 
-	public TestBgImagePanel (String... args) throws Exception
-	{
-		super(args);
+        ctPane.add(_pnl, BorderLayout.CENTER);
+    }
 
-		if ((args != null) && (args.length == 1) && (args[0] != null))
-			loadFile(new File(args[0]), LOAD_CMD, null);
-	}
+    public TestBgImagePanel (String... args) throws Exception
+    {
+        super(args);
+
+        if ((args != null) && (args.length == 1) && (args[0] != null))
+            loadFile(new File(args[0]), LOAD_CMD, null);
+    }
 }

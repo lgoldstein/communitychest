@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.math.test.euler;
 
@@ -19,28 +19,28 @@ import org.junit.Test;
  * @see <A HREF="http://projecteuler.net/index.php?section=problems&id=2">Problem #2</A>
  */
 public class Problem2Test extends Assert {
-	public Problem2Test ()
-	{
-		super();
-	}
+    public Problem2Test ()
+    {
+        super();
+    }
 
-	@Test
-	public void solve ()
-	{
-		long	sum=0L;
-		for (final Iterator<? extends Number>	iter=new FibonacciIterator(); ; )
-		{
-			assertTrue("Out of numbers before enumerating all the required ones", iter.hasNext());
+    @Test
+    public void solve ()
+    {
+        long    sum=0L;
+        for (final Iterator<? extends Number>    iter=new FibonacciIterator(); ; )
+        {
+            assertTrue("Out of numbers before enumerating all the required ones", iter.hasNext());
 
-			final Number	v=iter.next();
-			final long		vv=v.longValue();
-			if (vv > 4000000L)
-				break;
+            final Number    v=iter.next();
+            final long        vv=v.longValue();
+            if (vv > 4000000L)
+                break;
 
-			if ((vv & 0x01) == 0L)
-				sum += vv;
-		}
+            if ((vv & 0x01) == 0L)
+                sum += vv;
+        }
 
-		System.out.println("Result: " + sum);
-	}
+        System.out.println("Result: " + sum);
+    }
 }

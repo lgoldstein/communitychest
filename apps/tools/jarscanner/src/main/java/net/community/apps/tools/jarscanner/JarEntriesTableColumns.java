@@ -13,13 +13,13 @@ import net.community.chest.util.collection.CollectionsUtils;
  * @since Oct 22, 2007 10:52:06 AM
  */
 public enum JarEntriesTableColumns {
-	JAR_PATH,
-	ENTRY_PATH,
-	ENTRY_NAME;
+    JAR_PATH,
+    ENTRY_PATH,
+    ENTRY_NAME;
 
-	public static final List<JarEntriesTableColumns>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static JarEntriesTableColumns fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<JarEntriesTableColumns>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static JarEntriesTableColumns fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing.component.menu;
 
@@ -15,17 +15,17 @@ import net.community.chest.swing.component.JSeparatorReflectiveProxy;
  * @since Sep 24, 2008 11:32:08 AM
  */
 public class JPopupMenuSeparatorReflectiveProxy<S extends JPopupMenu.Separator> extends JSeparatorReflectiveProxy<S> {
-	public JPopupMenuSeparatorReflectiveProxy (Class<S> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public JPopupMenuSeparatorReflectiveProxy (Class<S> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	protected JPopupMenuSeparatorReflectiveProxy (Class<S> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected JPopupMenuSeparatorReflectiveProxy (Class<S> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public static final JPopupMenuSeparatorReflectiveProxy<JPopupMenu.Separator>	PMSEP=
-		new JPopupMenuSeparatorReflectiveProxy<JPopupMenu.Separator>(JPopupMenu.Separator.class, true);
+    public static final JPopupMenuSeparatorReflectiveProxy<JPopupMenu.Separator>    PMSEP=
+        new JPopupMenuSeparatorReflectiveProxy<JPopupMenu.Separator>(JPopupMenu.Separator.class, true);
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.apache.http.xmlinjct;
 
@@ -14,21 +14,21 @@ import org.w3c.dom.Document;
  * @since Aug 21, 2008 1:08:12 PM
  */
 public class ReqDocumentPanel extends DocumentPanel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4075837707516430145L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4075837707516430145L;
 
-	public ReqDocumentPanel ()
-	{
-		super();
-	}
+    public ReqDocumentPanel ()
+    {
+        super();
+    }
 
-	public Document setDocument (final String filePath) throws Exception
-	{
-		final Document	doc=DOMUtils.loadDocument(filePath);
-		setFilePath(filePath);
-		setDocument(doc);
-		return doc;
-	}
+    public Document setDocument (final String filePath) throws Exception
+    {
+        final Document    doc=DOMUtils.loadDocument(filePath);
+        setFilePath(filePath);
+        setDocument(doc);
+        return doc;
+    }
 }

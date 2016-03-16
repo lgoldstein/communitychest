@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.convert;
 
@@ -15,30 +15,30 @@ import net.community.chest.reflect.ClassUtil;
  */
 @SuppressWarnings({ "rawtypes" })
 public class ClassValueStringInstantiator extends AbstractXmlValueStringInstantiator<Class> {
-	public ClassValueStringInstantiator ()
-	{
-		super(Class.class);
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
-	 */
-	@Override
-	public String convertInstance (Class inst) throws Exception
-	{
-		return (null == inst) ? null : inst.getName();
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
-	 */
-	@Override
-	public Class<?> newInstance (String v) throws Exception
-	{
-		final String	s=StringUtil.getCleanStringValue(v);
-		if ((null == s) || (s.length() <= 0))
-			return null;
+    public ClassValueStringInstantiator ()
+    {
+        super(Class.class);
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
+     */
+    @Override
+    public String convertInstance (Class inst) throws Exception
+    {
+        return (null == inst) ? null : inst.getName();
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
+     */
+    @Override
+    public Class<?> newInstance (String v) throws Exception
+    {
+        final String    s=StringUtil.getCleanStringValue(v);
+        if ((null == s) || (s.length() <= 0))
+            return null;
 
-		return ClassUtil.loadClassByName(s);
-	}
+        return ClassUtil.loadClassByName(s);
+    }
 
-	public static final ClassValueStringInstantiator	DEFAULT=new ClassValueStringInstantiator();
+    public static final ClassValueStringInstantiator    DEFAULT=new ClassValueStringInstantiator();
 }

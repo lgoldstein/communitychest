@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.axis;
 
@@ -23,34 +23,34 @@ public enum AxisLocationValue {
     BOTLEFT(AxisLocation.BOTTOM_OR_LEFT),
     BOTRIGHT(AxisLocation.BOTTOM_OR_RIGHT);
 
-	private final AxisLocation	_l;
-	public final AxisLocation getLocation ()
-	{
-		return _l;
-	}
+    private final AxisLocation    _l;
+    public final AxisLocation getLocation ()
+    {
+        return _l;
+    }
 
-	AxisLocationValue (AxisLocation l)
-	{
-		_l = l;
-	}
+    AxisLocationValue (AxisLocation l)
+    {
+        _l = l;
+    }
 
-	public static final List<AxisLocationValue>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final AxisLocationValue fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<AxisLocationValue>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final AxisLocationValue fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-	public static final AxisLocationValue fromLocation (final AxisLocation l)
-	{
-		if (null == l)
-			return null;
+    public static final AxisLocationValue fromLocation (final AxisLocation l)
+    {
+        if (null == l)
+            return null;
 
-		for (final AxisLocationValue  v : VALUES)
-		{
-			if ((v != null) && l.equals(v.getLocation()))
-				return v;
-		}
+        for (final AxisLocationValue  v : VALUES)
+        {
+            if ((v != null) && l.equals(v.getLocation()))
+                return v;
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

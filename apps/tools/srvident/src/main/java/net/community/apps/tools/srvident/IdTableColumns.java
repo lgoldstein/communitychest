@@ -11,11 +11,11 @@ import java.util.List;
  * @since Oct 25, 2007 9:50:33 AM
  */
 public enum IdTableColumns {
-	NAME,
-	PROTO,
-	TYPE,
-	VERSION,
-	WELCOME;
+    NAME,
+    PROTO,
+    TYPE,
+    VERSION,
+    WELCOME;
 
-	public static final List<IdTableColumns>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final List<IdTableColumns>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
 }

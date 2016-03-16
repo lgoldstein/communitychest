@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-rrd4j-libs" default="build-rrd4j-libs" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds the RRD4J libraries helpers JAR(s) $Rev: 561 $
-		</description>
+    <project name="build-rrd4j-libs" default="build-rrd4j-libs" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds the RRD4J libraries helpers JAR(s) $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <import file="${module.root.folder}${file.separator}build-base.xml"/>
 
-		<target name="build-rrd4j-common" depends="rrd4j-libs-base" unless="skip.build.rrd4j.common" description="Builds RRD4J core helpers classes">
-			<ant dir="${module.root.folder}${file.separator}common" target="build-rrd4j-common" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.rrd4j.common" value="true"/>
-		</target>
+        <target name="build-rrd4j-common" depends="rrd4j-libs-base" unless="skip.build.rrd4j.common" description="Builds RRD4J core helpers classes">
+            <ant dir="${module.root.folder}${file.separator}common" target="build-rrd4j-common" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.rrd4j.common" value="true"/>
+        </target>
 
-		<target name="build-rrd4j-client" depends="build-rrd4j-common" unless="skip.build.rrd4j.client" description="Builds RRD4J client helpers classes">
-			<ant dir="${module.root.folder}${file.separator}client" target="build-rrd4j-client" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.rrd4j.client" value="true"/>
-		</target>
+        <target name="build-rrd4j-client" depends="build-rrd4j-common" unless="skip.build.rrd4j.client" description="Builds RRD4J client helpers classes">
+            <ant dir="${module.root.folder}${file.separator}client" target="build-rrd4j-client" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.rrd4j.client" value="true"/>
+        </target>
 
-		<target name="build-rrd4j-libs"
-				depends="build-rrd4j-client"
-				description="Builds the RRD4j helpers JAR(s)"/>
+        <target name="build-rrd4j-libs"
+                depends="build-rrd4j-client"
+                description="Builds the RRD4j helpers JAR(s)"/>
 
-		<target name="clean-rrd4j-libs" depends="rrd4j-libs-base" description="Deletes the compiled RRD4J helpers classes">
-			<ant dir="${module.root.folder}${file.separator}common" target="clean-rrd4j-common" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}client" target="clean-rrd4j-client" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-		</target>
-	</project>
+        <target name="clean-rrd4j-libs" depends="rrd4j-libs-base" description="Deletes the compiled RRD4J helpers classes">
+            <ant dir="${module.root.folder}${file.separator}common" target="clean-rrd4j-common" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}client" target="clean-rrd4j-client" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+        </target>
+    </project>

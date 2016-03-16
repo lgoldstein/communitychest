@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-jcommon-helpers" default="build-jcommon-helpers" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds some helper jCommon classes $Rev: 561 $
-		</description>
+    <project name="build-jcommon-helpers" default="build-jcommon-helpers" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds some helper jCommon classes $Rev: 561 $
+        </description>
 
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<property name="module.base.target.name" value="jcommon-helpers"/>
-		<dirname property="jfree.libs.root.dir" file="${module.root.folder}"/>
-		<property name="parent.root.dir" value="${jfree.libs.root.dir}"/>
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <property name="module.base.target.name" value="jcommon-helpers"/>
+        <dirname property="jfree.libs.root.dir" file="${module.root.folder}"/>
+        <property name="parent.root.dir" value="${jfree.libs.root.dir}"/>
         <property name="default.classpath.ref.name" value="jcommon.helpers.path"/>
 
-		<import file="${jfree.libs.root.dir}${file.separator}build-base.xml"/>
+        <import file="${jfree.libs.root.dir}${file.separator}build-base.xml"/>
 
-        	<!-- define dependencies -->
-		<mvn:dependencies 	pathId="jcommon.dependencies.path" useScope="compile"
-							settingsFile="${maven.settings.file.path}"
-				>
+            <!-- define dependencies -->
+        <mvn:dependencies     pathId="jcommon.dependencies.path" useScope="compile"
+                            settingsFile="${maven.settings.file.path}"
+                >
             <localRepository path="${maven.local.repository.folder}" layout="default"/>
 
-			<dependency groupId="jfree"
-						artifactId="jcommon"
-						version="${jcommon.jar.version}"
-						scope="compile"/>
-		</mvn:dependencies>
+            <dependency groupId="jfree"
+                        artifactId="jcommon"
+                        version="${jcommon.jar.version}"
+                        scope="compile"/>
+        </mvn:dependencies>
 
         <path id="jcommon.helpers.path">
-        	<path refid="community.modules.jars"/>
-    		<path refid="jcommon.dependencies.path"/>
-		</path>
+            <path refid="community.modules.jars"/>
+            <path refid="jcommon.dependencies.path"/>
+        </path>
 
-		<target name="build-jcommon-helpers" depends="jar-jfree-libs-module-files" description="Builds helper jCommon classes"/>
-		<target name="clean-jcommon-helpers" depends="clean-jfree-libs-module-build" description="Cleans up helper jCommon classes and JAR"/>
-	</project>
+        <target name="build-jcommon-helpers" depends="jar-jfree-libs-module-files" description="Builds helper jCommon classes"/>
+        <target name="clean-jcommon-helpers" depends="clean-jfree-libs-module-build" description="Cleans up helper jCommon classes and JAR"/>
+    </project>

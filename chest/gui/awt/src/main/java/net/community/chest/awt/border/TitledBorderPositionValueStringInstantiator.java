@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.border;
 
@@ -15,41 +15,41 @@ import net.community.chest.lang.StringUtil;
  * @since Feb 8, 2009 9:00:57 AM
  */
 public class TitledBorderPositionValueStringInstantiator extends AbstractXmlValueStringInstantiator<Integer> {
-	public TitledBorderPositionValueStringInstantiator ()
-	{
-		super(Integer.class);
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
-	 */
-	@Override
-	public String convertInstance (Integer inst) throws Exception
-	{
-		if (null == inst)
-			return null;
+    public TitledBorderPositionValueStringInstantiator ()
+    {
+        super(Integer.class);
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
+     */
+    @Override
+    public String convertInstance (Integer inst) throws Exception
+    {
+        if (null == inst)
+            return null;
 
-		final TitledBorderPosition	st=TitledBorderPosition.fromPosition(inst.intValue());
-		if (null == st)
-			throw new NoSuchElementException("convertInstance(" + inst + ") unknown value");
+        final TitledBorderPosition    st=TitledBorderPosition.fromPosition(inst.intValue());
+        if (null == st)
+            throw new NoSuchElementException("convertInstance(" + inst + ") unknown value");
 
-		return st.toString();
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
-	 */
-	@Override
-	public Integer newInstance (String v) throws Exception
-	{
-		final String	s=StringUtil.getCleanStringValue(v);
-		if ((null == s) || (s.length() <= 0))
-			return null;
+        return st.toString();
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
+     */
+    @Override
+    public Integer newInstance (String v) throws Exception
+    {
+        final String    s=StringUtil.getCleanStringValue(v);
+        if ((null == s) || (s.length() <= 0))
+            return null;
 
-		final TitledBorderPosition	st=TitledBorderPosition.fromString(s);
-		if (null == st)
-			throw new NoSuchElementException("newInstance(" + s + ") unknown value");
+        final TitledBorderPosition    st=TitledBorderPosition.fromString(s);
+        if (null == st)
+            throw new NoSuchElementException("newInstance(" + s + ") unknown value");
 
-		return Integer.valueOf(st.getPosition());
-	}
+        return Integer.valueOf(st.getPosition());
+    }
 
-	public static final TitledBorderPositionValueStringInstantiator	DEFAULT=new TitledBorderPositionValueStringInstantiator();
+    public static final TitledBorderPositionValueStringInstantiator    DEFAULT=new TitledBorderPositionValueStringInstantiator();
 }

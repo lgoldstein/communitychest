@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.commenter;
 
@@ -16,23 +16,23 @@ import net.community.chest.io.EOLStyle;
  * @since Jun 29, 2009 3:18:39 PM
  */
 public class DosBatchFileCommenter extends BaseCommenter {
-	public DosBatchFileCommenter ()
-	{
-		super();
-	}
+    public DosBatchFileCommenter ()
+    {
+        super();
+    }
 
-	@Override
-	protected EOLStyle getEOLStyle ()
-	{
-		return EOLStyle.CRLF;
-	}
+    @Override
+    protected EOLStyle getEOLStyle ()
+    {
+        return EOLStyle.CRLF;
+    }
 
-	@Override
-	public void addComment (BufferedReader r, Writer w, String cmnt, boolean isCommentFile) throws IOException
-	{
-		appendComment("REM ", w, cmnt, isCommentFile);
-		w.append("\r\n");
-		appendContent(r, w);
-	}
+    @Override
+    public void addComment (BufferedReader r, Writer w, String cmnt, boolean isCommentFile) throws IOException
+    {
+        appendComment("REM ", w, cmnt, isCommentFile);
+        w.append("\r\n");
+        appendContent(r, w);
+    }
 
 }

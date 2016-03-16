@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.format.pe;
 
@@ -35,17 +35,17 @@ public enum OptHeaderDllCharacter {
     public final short getMaskValue() {
         return _maskValue;
     }
-    
+
     private final boolean   _reserved;
     public final boolean isReserved() {
         return _reserved;
     }
-    
+
     OptHeaderDllCharacter(short maskValue) {
         _maskValue = maskValue;
         _reserved = name().startsWith("RESERVED");
     }
-    
+
     public static final Set<OptHeaderDllCharacter>  VALUES=
             Collections.unmodifiableSet(EnumSet.allOf(OptHeaderDllCharacter.class));
     public static final Set<OptHeaderDllCharacter> fromCharacteristics(short maskValue) {
@@ -55,7 +55,7 @@ public enum OptHeaderDllCharacter {
                 result.add(c);
             }
         }
-        
+
         return result;
     }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package jnlp.sample.util.log;
 
@@ -14,6 +14,6 @@ import javax.servlet.ServletConfig;
  * @since Feb 23, 2009 2:41:12 PM
  */
 public interface LoggerManager {
-	void initLogger (ServletConfig config, ResourceBundle resources);
-	Logger getLogger (String loggerName);
+    void initLogger (ServletConfig config, ResourceBundle resources);
+    Logger getLogger (String loggerName);
 }

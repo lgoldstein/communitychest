@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.layout.gridbag;
 
@@ -15,11 +15,11 @@ import net.community.chest.awt.layout.dom.AbstractLayoutManager2ReflectiveProxy;
  * @since Aug 20, 2008 1:28:58 PM
  */
 public class GridBagLayoutReflectiveProxy<L extends GridBagLayout> extends AbstractLayoutManager2ReflectiveProxy<L> {
-	public GridBagLayoutReflectiveProxy (Class<L> objClass) throws IllegalArgumentException
-	{
-		super(objClass);
-	}
+    public GridBagLayoutReflectiveProxy (Class<L> objClass) throws IllegalArgumentException
+    {
+        super(objClass);
+    }
 
-	public static final GridBagLayoutReflectiveProxy<GridBagLayout>	GRIDBAG=
-			new GridBagLayoutReflectiveProxy<GridBagLayout>(GridBagLayout.class);
+    public static final GridBagLayoutReflectiveProxy<GridBagLayout>    GRIDBAG=
+            new GridBagLayoutReflectiveProxy<GridBagLayout>(GridBagLayout.class);
 }

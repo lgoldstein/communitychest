@@ -1,8 +1,8 @@
 import java.lang.management.*
-import java.io.*
-import java.util.*
+
 import javax.management.*
 import javax.management.remote.*
+
 import com.sun.tools.attach.*
 import com.sun.tools.attach.spi.*
 

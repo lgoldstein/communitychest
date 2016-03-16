@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Super POM included by all other UI sub-POM(s) $Rev: 739 $ -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-			     http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<groupId>net.community.chest</groupId>
-		<artifactId>chest</artifactId>
-		<version>1.8.1.0</version>
-		<relativePath>../pom.xml</relativePath>
-	</parent>
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>net.community.chest</groupId>
+        <artifactId>chest</artifactId>
+        <version>1.8.1.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.community.chest.3rd-party</groupId>
-	<artifactId>parent</artifactId>
-	<packaging>pom</packaging>
-	<name>Community Chest 3rd Party Extensions Parent POM</name>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.community.chest.3rd-party</groupId>
+    <artifactId>parent</artifactId>
+    <packaging>pom</packaging>
+    <name>Community Chest 3rd Party Extensions Parent POM</name>
 
-		<!-- Sub-modules (in preferred compilation order) -->
-	<modules>
-		<module>./apache</module>
-		<module>./eclipse</module>
-		<module>./jfree</module>
-		<module>./hibernate</module>
-		<module>./spring</module>
-	</modules>
+        <!-- Sub-modules (in preferred compilation order) -->
+    <modules>
+        <module>./apache</module>
+        <module>./eclipse</module>
+        <module>./jfree</module>
+        <module>./hibernate</module>
+        <module>./spring</module>
+    </modules>
 </project>

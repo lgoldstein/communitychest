@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jms.framework.message;
 
@@ -15,8 +15,8 @@ import javax.jms.Message;
  * @since Jun 8, 2010 3:27:07 PM
  */
 public interface XMessage extends Message {
-	Properties getProperties () throws JMSException;
-	boolean isJMSRedelivered () throws JMSException;
-	boolean isAcknowledged ();
-	void setAcknowledged (boolean ack);
+    Properties getProperties () throws JMSException;
+    boolean isJMSRedelivered () throws JMSException;
+    boolean isAcknowledged ();
+    void setAcknowledged (boolean ack);
 }

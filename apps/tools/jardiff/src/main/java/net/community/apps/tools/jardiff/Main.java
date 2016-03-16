@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.jardiff;
 
@@ -21,66 +21,66 @@ import net.community.chest.swing.options.BaseOptionPane;
  *
  */
 public class Main extends BaseMain {
-	public Main (String... args)
-	{
-		super(args);
-	}
+    public Main (String... args)
+    {
+        super(args);
+    }
 
-	private static final MainFrame processMainArgs (MainFrame frame, String ...args)
-	{
-		final int					numArgs=(args == null) ? 0 : args.length;
-		final Map<String,String>	procArgs=new TreeMap<String,String>();
-		for (int	aIndex=0; aIndex < numArgs; aIndex++)
-		{
-			final String	opt=args[aIndex];
-			if ("-l".equalsIgnoreCase(opt))
-			{
-				aIndex = addExtraArgument(opt, procArgs, aIndex, args);
-				frame.setLeftJarPath(procArgs.get(opt));
-			}
-			else if ("-r".equalsIgnoreCase(opt))
-			{
-				aIndex = addExtraArgument(opt, procArgs, aIndex, args);
-				frame.setRightJarPath(procArgs.get(opt));
-			}
-			else if ("-c".equals(opt))
-			{
-				final String	prev=procArgs.put(opt, opt);
-				if (prev != null)
-					throw new IllegalArgumentException("Option " + opt + " re-specified");
+    private static final MainFrame processMainArgs (MainFrame frame, String ...args)
+    {
+        final int                    numArgs=(args == null) ? 0 : args.length;
+        final Map<String,String>    procArgs=new TreeMap<String,String>();
+        for (int    aIndex=0; aIndex < numArgs; aIndex++)
+        {
+            final String    opt=args[aIndex];
+            if ("-l".equalsIgnoreCase(opt))
+            {
+                aIndex = addExtraArgument(opt, procArgs, aIndex, args);
+                frame.setLeftJarPath(procArgs.get(opt));
+            }
+            else if ("-r".equalsIgnoreCase(opt))
+            {
+                aIndex = addExtraArgument(opt, procArgs, aIndex, args);
+                frame.setRightJarPath(procArgs.get(opt));
+            }
+            else if ("-c".equals(opt))
+            {
+                final String    prev=procArgs.put(opt, opt);
+                if (prev != null)
+                    throw new IllegalArgumentException("Option " + opt + " re-specified");
 
-				frame.setCheckContents(true);
-			}
-			else
-				throw new IllegalArgumentException("Unknown option: " + opt);
-		}
+                frame.setCheckContents(true);
+            }
+            else
+                throw new IllegalArgumentException("Unknown option: " + opt);
+        }
 
-		return frame;
-	}
+        return frame;
+    }
 
-	/*
-	 * @see net.community.apps.common.BaseMain#createMainFrameInstance()
-	 */
-	@Override
-	@CoVariantReturn
-	protected MainFrame createMainFrameInstance () throws Exception
-	{
-		try
-		{
-			return processMainArgs(new MainFrame(), getMainArguments());
-		}
-		catch(Exception e)
-		{
-			throw BaseOptionPane.showMessageDialog(null, e);
-		}
-	}
+    /*
+     * @see net.community.apps.common.BaseMain#createMainFrameInstance()
+     */
+    @Override
+    @CoVariantReturn
+    protected MainFrame createMainFrameInstance () throws Exception
+    {
+        try
+        {
+            return processMainArgs(new MainFrame(), getMainArguments());
+        }
+        catch(Exception e)
+        {
+            throw BaseOptionPane.showMessageDialog(null, e);
+        }
+    }
 
-	//////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
 
-	public static void main (final String[] args)
-	{
-		// 1st thing we do before any UI startup
-		AbstractXmlProxyConverter.setDefaultLoader(ResourcesAnchor.getInstance());
-		SwingUtilities.invokeLater(new Main(args));
-	}
+    public static void main (final String[] args)
+    {
+        // 1st thing we do before any UI startup
+        AbstractXmlProxyConverter.setDefaultLoader(ResourcesAnchor.getInstance());
+        SwingUtilities.invokeLater(new Main(args));
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.layout.border;
 
@@ -21,54 +21,54 @@ import org.w3c.dom.Node;
  * @since Jan 8, 2009 9:26:50 AM
  */
 public class BorderLayoutXmlConstraintValueInstantiator<L extends BorderLayout>
-		extends AbstractLayoutConstraintXmlValueInstantiator<L,String> {
-	public BorderLayoutXmlConstraintValueInstantiator (Class<L> lmClass) throws IllegalStateException
-	{
-		super(lmClass, String.class);
-	}
+        extends AbstractLayoutConstraintXmlValueInstantiator<L,String> {
+    public BorderLayoutXmlConstraintValueInstantiator (Class<L> lmClass) throws IllegalStateException
+    {
+        super(lmClass, String.class);
+    }
 
-	public String fromXmlAttribute (final Attr a) throws Exception
-	{
-		if (null == a)
-			return null;
+    public String fromXmlAttribute (final Attr a) throws Exception
+    {
+        if (null == a)
+            return null;
 
-		final String				aValue=a.getValue();
-		final BorderLayoutPosition	pos=BorderLayoutPosition.fromString(aValue);
-		if (null == pos)
-			throw new NoSuchElementException("fromXmlAttribute(" + DOMUtils.toString(a) + ") unknown value");
+        final String                aValue=a.getValue();
+        final BorderLayoutPosition    pos=BorderLayoutPosition.fromString(aValue);
+        if (null == pos)
+            throw new NoSuchElementException("fromXmlAttribute(" + DOMUtils.toString(a) + ") unknown value");
 
-		return pos.getPosition();
-	}
+        return pos.getPosition();
+    }
 
-	public final String	POSITION_ATTR="position";
-	public boolean isPositionAttribute (final Attr a)
-	{
-		final String	aName=(null == a) ? null : a.getName();
-		return POSITION_ATTR.equalsIgnoreCase(aName);
-	}
-	/*
-	 * @see net.community.chest.awt.layout.dom.AbstractLayoutConstraintXmlValueInstantiator#fromXmlAttributes(org.w3c.dom.NamedNodeMap)
-	 */
-	@Override
-	public String fromXmlAttributes (final NamedNodeMap attrs) throws Exception
-	{
-		final int	numAttrs=(null == attrs) ? 0 : attrs.getLength();
-		for (int	aIndex=0; aIndex < numAttrs; aIndex++)
-		{
-			final Node	n=attrs.item(aIndex);
-			if ((null == n) || (n.getNodeType() != Node.ATTRIBUTE_NODE))
-				continue;
+    public final String    POSITION_ATTR="position";
+    public boolean isPositionAttribute (final Attr a)
+    {
+        final String    aName=(null == a) ? null : a.getName();
+        return POSITION_ATTR.equalsIgnoreCase(aName);
+    }
+    /*
+     * @see net.community.chest.awt.layout.dom.AbstractLayoutConstraintXmlValueInstantiator#fromXmlAttributes(org.w3c.dom.NamedNodeMap)
+     */
+    @Override
+    public String fromXmlAttributes (final NamedNodeMap attrs) throws Exception
+    {
+        final int    numAttrs=(null == attrs) ? 0 : attrs.getLength();
+        for (int    aIndex=0; aIndex < numAttrs; aIndex++)
+        {
+            final Node    n=attrs.item(aIndex);
+            if ((null == n) || (n.getNodeType() != Node.ATTRIBUTE_NODE))
+                continue;
 
-			final Attr	a=(Attr) n;
-			if (!isPositionAttribute(a))
-				continue;	// ignore any other attributes
+            final Attr    a=(Attr) n;
+            if (!isPositionAttribute(a))
+                continue;    // ignore any other attributes
 
-			return fromXmlAttribute(a);
-		}
+            return fromXmlAttribute(a);
+        }
 
-		throw new IllegalArgumentException("No constraint attribute value found");
-	}
+        throw new IllegalArgumentException("No constraint attribute value found");
+    }
 
-	public static final BorderLayoutXmlConstraintValueInstantiator<BorderLayout>	BLCONST=
-		new BorderLayoutXmlConstraintValueInstantiator<BorderLayout>(BorderLayout.class);
+    public static final BorderLayoutXmlConstraintValueInstantiator<BorderLayout>    BLCONST=
+        new BorderLayoutXmlConstraintValueInstantiator<BorderLayout>(BorderLayout.class);
 }

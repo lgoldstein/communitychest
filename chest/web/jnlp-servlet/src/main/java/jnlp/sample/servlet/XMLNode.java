@@ -1,6 +1,6 @@
 /*
- * @(#)XMLNode.java	1.6 05/11/17
- * 
+ * @(#)XMLNode.java    1.6 05/11/17
+ *
  * Copyright (c) 2006 Sun Microsystems, Inc. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,20 +50,20 @@ public class XMLNode {
     private XMLNode _parent;  // Parent Node
     private XMLNode _nested;  // Nested XML tags
     private XMLNode _next;    // Following XML tag on the same level
-    
+
     /* Creates a PCTEXT node */
     public XMLNode (String name)
     {
         this(name, null, null, null);
         _isElement = false;
     }
-    
+
     /*  Creates a ELEMENT node */
     public XMLNode (String name, XMLAttribute attr)
     {
         this(name, attr, null, null);
     }
-    
+
     /*  Creates a ELEMENT node */
     public XMLNode (String name, XMLAttribute attr, XMLNode nested, XMLNode next)
     {
@@ -74,59 +74,59 @@ public class XMLNode {
         _next = next;
         _parent = null;
     }
-    
+
     public String getName()  { return _name; }
     public XMLAttribute getAttributes() { return _attr; }
     public XMLNode getNested() { return _nested; }
     public XMLNode getNext() { return _next; }
     public boolean isElement() { return _isElement; }
-    
+
     public void setParent(XMLNode parent) { _parent = parent; }
     public XMLNode getParent() { return _parent; }
-        
+
     public void setNext(XMLNode next)     { _next = next; }
     public void setNested(XMLNode nested) { _nested = nested; }
     /*
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-	public boolean equals (Object o)
+    public boolean equals (Object o)
     {
         if (!(o instanceof XMLNode))
-        	return false;
+            return false;
         if (this == o)
-        	return true;
+            return true;
 
         final XMLNode other=(XMLNode) o;
         return ObjectUtil.match(getName(), other.getName())
-        	&& ObjectUtil.match(getAttributes(), other.getAttributes())
-        	&& ObjectUtil.match(getNested(), other.getNested())
-        	&& ObjectUtil.match(getNext(), other.getNext())
-        	;
+            && ObjectUtil.match(getAttributes(), other.getAttributes())
+            && ObjectUtil.match(getNested(), other.getNested())
+            && ObjectUtil.match(getNext(), other.getNext())
+            ;
     }
     /*
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode ()
-	{
-		return ObjectUtil.objectHashCode(getName())
-			 + ObjectUtil.objectHashCode(getAttributes())
-			 + ObjectUtil.objectHashCode(getNested())
-			 + ObjectUtil.objectHashCode(getNext())
-			 ;
-	}
-
-	public String getAttribute (final String name)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode ()
     {
-    	if ((null == name) || (name.length() <= 0))
-    		return "";
+        return ObjectUtil.objectHashCode(getName())
+             + ObjectUtil.objectHashCode(getAttributes())
+             + ObjectUtil.objectHashCode(getNested())
+             + ObjectUtil.objectHashCode(getNext())
+             ;
+    }
 
-    	for (XMLAttribute cur=getAttributes(); cur != null; cur = cur.getNext())
+    public String getAttribute (final String name)
+    {
+        if ((null == name) || (name.length() <= 0))
+            return "";
+
+        for (XMLAttribute cur=getAttributes(); cur != null; cur = cur.getNext())
         {
-    		final String	cn=cur.getName();
+            final String    cn=cur.getName();
             if (name.equalsIgnoreCase(cn))
-            	return cur.getValue();
+                return cur.getValue();
         }
         return "";
     }
@@ -144,16 +144,16 @@ public class XMLNode {
         }
         else
         {
-        	final XMLAttribute	attr=getAttributes();
-            final String		attrString = (attr == null) ? "" : (" " + attr.toString());
-        	final XMLNode		nested=getNested();
+            final XMLAttribute    attr=getAttributes();
+            final String        attrString = (attr == null) ? "" : (" " + attr.toString());
+            final XMLNode        nested=getNested();
             if (nested == null)
             {
                 lineln(out, n, "<" + getName() + attrString + "/>");
             }
             else
             {
-            	final String	nm=getName();
+                final String    nm=getName();
                 lineln(out, n, "<" + nm + attrString + ">");
                 nested.printToStream(out, n + 1);
                 if (nested.isElement())
@@ -163,11 +163,11 @@ public class XMLNode {
             }
         }
 
-        final XMLNode	nxt=getNext();
+        final XMLNode    nxt=getNext();
         if (nxt != null)
-        	nxt.printToStream(out, n);
+            nxt.printToStream(out, n);
     }
-    
+
     private static void lineln (PrintWriter out, int indent, String s)
     {
         out.println("");
@@ -181,7 +181,7 @@ public class XMLNode {
      * @see java.lang.Object#toString()
      */
     @Override
-	public String toString ()
+    public String toString ()
     {
         final StringWriter sw = new StringWriter(1000);
         final PrintWriter pw = new PrintWriter(sw);

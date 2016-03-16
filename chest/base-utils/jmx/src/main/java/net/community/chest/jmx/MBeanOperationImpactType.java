@@ -11,54 +11,54 @@ import net.community.chest.util.collection.CollectionsUtils;
 
 /**
  * <P>Copyright 2007 as per GPLv2</P>
- * 
+ *
  * <P>Represent {@link MBeanOperationInfo} impact values as enum(s)</P>
- * 
+ *
  * @author Lyor G.
  * @since Aug 19, 2007 11:59:33 AM
  */
 public enum MBeanOperationImpactType {
-	ACTION(MBeanOperationInfo.ACTION),
-	ACTION_INFO(MBeanOperationInfo.ACTION_INFO),
-	INFO(MBeanOperationInfo.INFO),
-	UNKNOWN(MBeanOperationInfo.UNKNOWN);
-	
-	private final int	_value;
-	public int getImpactValue ()
-	{
-		return _value;
-	}
+    ACTION(MBeanOperationInfo.ACTION),
+    ACTION_INFO(MBeanOperationInfo.ACTION_INFO),
+    INFO(MBeanOperationInfo.INFO),
+    UNKNOWN(MBeanOperationInfo.UNKNOWN);
 
-	MBeanOperationImpactType (int value)
-	{
-		_value = value;
-	}
+    private final int    _value;
+    public int getImpactValue ()
+    {
+        return _value;
+    }
 
-	private static List<MBeanOperationImpactType>	_values;
-	public static synchronized List<MBeanOperationImpactType> getValues ()
-	{
-		if (_values == null)
-			_values = Collections.unmodifiableList(Arrays.asList(values()));
-		return _values;
-	}
+    MBeanOperationImpactType (int value)
+    {
+        _value = value;
+    }
 
-	public static MBeanOperationImpactType fromString (final String s)
-	{
-		return CollectionsUtils.fromString(getValues(), s, false);
-	}
+    private static List<MBeanOperationImpactType>    _values;
+    public static synchronized List<MBeanOperationImpactType> getValues ()
+    {
+        if (_values == null)
+            _values = Collections.unmodifiableList(Arrays.asList(values()));
+        return _values;
+    }
 
-	public static MBeanOperationImpactType fromImpact (final int n)
-	{
-		final Collection<MBeanOperationImpactType>	vals=getValues();
-		if ((null == vals) || (vals.size() <= 0))	// should not happen
-			return null;
+    public static MBeanOperationImpactType fromString (final String s)
+    {
+        return CollectionsUtils.fromString(getValues(), s, false);
+    }
 
-		for (final MBeanOperationImpactType v : vals)
-		{
-			if ((v != null) && (v.getImpactValue() == n))
-				return v;
-		}
+    public static MBeanOperationImpactType fromImpact (final int n)
+    {
+        final Collection<MBeanOperationImpactType>    vals=getValues();
+        if ((null == vals) || (vals.size() <= 0))    // should not happen
+            return null;
 
-		return null;	// no match found
-	}
+        for (final MBeanOperationImpactType v : vals)
+        {
+            if ((v != null) && (v.getImpactValue() == n))
+                return v;
+        }
+
+        return null;    // no match found
+    }
 }

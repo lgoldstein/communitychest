@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-xmlstruct" default="build-xmlstruct">
-		<description>
-			Builds the XML structure application $Rev: 561 $
-		</description>
-		
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="tools.apps.root.dir" value="${parent.root.dir}"/>
-		<property name="module.base.target.name" value="xmlstruct"/>
+    <project name="build-xmlstruct" default="build-xmlstruct">
+        <description>
+            Builds the XML structure application $Rev: 561 $
+        </description>
 
-		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
-		<property name="module.application.base.pkg.name" value="${tools.apps.base.pkg.name}.${module.application.sub.pkg.name}"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="tools.apps.root.dir" value="${parent.root.dir}"/>
+        <property name="module.base.target.name" value="xmlstruct"/>
 
-		<property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-mail.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-io.${jar.file.suffix},
-													  ${community.base.pkg.name}-apps-common.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-logging.${jar.file.suffix},
-													  ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
-													  ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
-			  										  ${community.base.pkg.name}-gui-components.${jar.file.suffix}"
-			/>
+        <import file="${parent.root.dir}${file.separator}build-base.xml"/>
+        <property name="module.application.base.pkg.name" value="${tools.apps.base.pkg.name}.${module.application.sub.pkg.name}"/>
 
-		<target name="copy-extra-xmlstruct-files" depends="tools-apps-base">
-				<!-- copy some extra files -->
-			<mkdir dir="${module.application.folder}"/>
-			<copy preservelastmodified="true" verbose="true" todir="${module.application.folder}">
-				<fileset dir="${module.root.folder}" includes="${module.base.target.name}.*"/>
-			</copy>
-		</target>
+        <property name="module.app.chest.libs" value="${community.base.pkg.name}-jdk.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-mail.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-io.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-apps-common.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-logging.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-gui-awt.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-gui-swing.${jar.file.suffix},
+                                                      ${community.base.pkg.name}-gui-helpers.${jar.file.suffix},
+                                                        ${community.base.pkg.name}-gui-components.${jar.file.suffix}"
+            />
 
-		<target name="build-xmlstruct"
-				depends="jar-tools-app-module-files,
-						 copy-extra-xmlstruct-files,
-						 jar-application-files"
-				description="Builds xmlstruct application"/>
+        <target name="copy-extra-xmlstruct-files" depends="tools-apps-base">
+                <!-- copy some extra files -->
+            <mkdir dir="${module.application.folder}"/>
+            <copy preservelastmodified="true" verbose="true" todir="${module.application.folder}">
+                <fileset dir="${module.root.folder}" includes="${module.base.target.name}.*"/>
+            </copy>
+        </target>
 
-		<target name="clean-xmlstruct"
-				depends="clean-tools-app-module-build"
-				description="Removes the xmlstruct object files and JAR"/>
-	</project>
+        <target name="build-xmlstruct"
+                depends="jar-tools-app-module-files,
+                         copy-extra-xmlstruct-files,
+                         jar-application-files"
+                description="Builds xmlstruct application"/>
+
+        <target name="clean-xmlstruct"
+                depends="clean-tools-app-module-build"
+                description="Removes the xmlstruct object files and JAR"/>
+    </project>

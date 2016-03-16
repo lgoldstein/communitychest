@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.spring.test.features;
 
@@ -17,22 +17,22 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class FullFeatureBean implements InitializingBean, DisposableBean {
-	public FullFeatureBean ()
-	{
-		super();
-	}
+    public FullFeatureBean ()
+    {
+        super();
+    }
 
-	@Override
-	@PostConstruct
-	public void afterPropertiesSet () throws Exception
-	{
-		System.out.append(getClass().getSimpleName()).println("#afterPropertiesSet()");
-	}
+    @Override
+    @PostConstruct
+    public void afterPropertiesSet () throws Exception
+    {
+        System.out.append(getClass().getSimpleName()).println("#afterPropertiesSet()");
+    }
 
-	@Override
-	@PreDestroy
-	public void destroy () throws Exception
-	{
-		System.out.append(getClass().getSimpleName()).println("#destroy()");
-	}
+    @Override
+    @PreDestroy
+    public void destroy () throws Exception
+    {
+        System.out.append(getClass().getSimpleName()).println("#destroy()");
+    }
 }

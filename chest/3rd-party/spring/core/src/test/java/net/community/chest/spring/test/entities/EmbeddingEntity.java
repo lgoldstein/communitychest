@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.spring.test.entities;
 
@@ -21,35 +21,35 @@ import net.community.chest.lang.StringUtil;
 @Entity
 @Table(name="embedding_entity")
 public class EmbeddingEntity extends AbstractBaseEntity {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8480389728851952133L;
-	public EmbeddingEntity ()
-	{
-		super();
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8480389728851952133L;
+    public EmbeddingEntity ()
+    {
+        super();
+    }
 
-	private List<EmbeddedEntity>	_embList;
-	@ElementCollection
-	@CollectionTable(name="embedded_instances", joinColumns=@JoinColumn(name="OWNER_ID"))
-	public List<EmbeddedEntity> getEmbeddedList ()
-	{
-		return _embList;
-	}
+    private List<EmbeddedEntity>    _embList;
+    @ElementCollection
+    @CollectionTable(name="embedded_instances", joinColumns=@JoinColumn(name="OWNER_ID"))
+    public List<EmbeddedEntity> getEmbeddedList ()
+    {
+        return _embList;
+    }
 
-	public void setEmbeddedList (List<EmbeddedEntity> embList)
-	{
-		_embList = embList;
-	}
-	/*
-	 * @see net.community.chest.spring.test.entities.AbstractBaseEntity#toString()
-	 */
-	@Override
-	public String toString ()
-	{
-		return super.toString()
-			 + "[" + StringUtil.asStringList(getEmbeddedList(), ',') + "]"
-			 ;
-	}
+    public void setEmbeddedList (List<EmbeddedEntity> embList)
+    {
+        _embList = embList;
+    }
+    /*
+     * @see net.community.chest.spring.test.entities.AbstractBaseEntity#toString()
+     */
+    @Override
+    public String toString ()
+    {
+        return super.toString()
+             + "[" + StringUtil.asStringList(getEmbeddedList(), ',') + "]"
+             ;
+    }
 }

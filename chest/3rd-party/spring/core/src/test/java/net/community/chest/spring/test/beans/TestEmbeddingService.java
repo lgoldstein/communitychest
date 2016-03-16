@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.spring.test.beans;
 
@@ -13,6 +13,6 @@ import net.community.chest.spring.test.entities.EmbeddingEntity;
  * @since Jan 20, 2011 10:31:15 AM
  */
 public interface TestEmbeddingService {
-	List<EmbeddingEntity> list ();
-	Long create (EmbeddingEntity entity);
+    List<EmbeddingEntity> list ();
+    Long create (EmbeddingEntity entity);
 }

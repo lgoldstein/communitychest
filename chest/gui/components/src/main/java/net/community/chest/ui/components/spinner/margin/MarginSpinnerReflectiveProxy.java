@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ui.components.spinner.margin;
 
@@ -14,18 +14,18 @@ import net.community.chest.swing.component.spinner.JSpinnerReflectiveProxy;
  *
  */
 public class MarginSpinnerReflectiveProxy<S extends MarginSpinner> extends JSpinnerReflectiveProxy<S> {
-	protected MarginSpinnerReflectiveProxy (Class<S> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected MarginSpinnerReflectiveProxy (Class<S> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public MarginSpinnerReflectiveProxy (Class<S> objClass)
-			throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public MarginSpinnerReflectiveProxy (Class<S> objClass)
+            throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final MarginSpinnerReflectiveProxy<MarginSpinner> MRGNSPIN=
-		new MarginSpinnerReflectiveProxy<MarginSpinner>(MarginSpinner.class, true);
+    public static final MarginSpinnerReflectiveProxy<MarginSpinner> MRGNSPIN=
+        new MarginSpinnerReflectiveProxy<MarginSpinner>(MarginSpinner.class, true);
 }

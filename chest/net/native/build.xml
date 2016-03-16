@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-net-native-utils" default="build-net-native-utils">
-		<description>
-			Builds the native net utilities JAR $Rev: 561 $
-		</description>
+    <project name="build-net-native-utils" default="build-net-native-utils">
+        <description>
+            Builds the native net utilities JAR $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="module.base.target.name" value="net-native"/>
-	    <dirname property="base.net.root.dir" file="${module.root.folder}"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="module.base.target.name" value="net-native"/>
+        <dirname property="base.net.root.dir" file="${module.root.folder}"/>
 
-		<import file="${base.net.root.dir}${file.separator}build-base.xml"/>
+        <import file="${base.net.root.dir}${file.separator}build-base.xml"/>
 
-		<target name="build-net-native-utils" depends="jar-base-net-module-files" description="Builds the native net utilitites JAR">
-			<mkdir dir="${module.native.folder}"/>
-			<javah destdir="${module.native.folder}">
-			    <classpath>
-					<path refid="${javac.classpath.ref.name}"/>
-			    </classpath>
-				<class name="net.community.chest.net.jni.NativeSocket"/>
-			</javah>
-		</target>
+        <target name="build-net-native-utils" depends="jar-base-net-module-files" description="Builds the native net utilitites JAR">
+            <mkdir dir="${module.native.folder}"/>
+            <javah destdir="${module.native.folder}">
+                <classpath>
+                    <path refid="${javac.classpath.ref.name}"/>
+                </classpath>
+                <class name="net.community.chest.net.jni.NativeSocket"/>
+            </javah>
+        </target>
 
-		<target name="clean-net-native-utils" depends="clean-base-net-module-build" description="Removes the native net utilities object files and JAR"/>
-	</project>
+        <target name="clean-net-native-utils" depends="clean-base-net-module-build" description="Removes the native net utilities object files and JAR"/>
+    </project>
 

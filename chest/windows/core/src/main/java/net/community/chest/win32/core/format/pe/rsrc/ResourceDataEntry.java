@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.format.pe.rsrc;
 
@@ -27,7 +27,7 @@ public class ResourceDataEntry
     public ResourceDataEntry() {
         super();
     }
-    
+
     private long    _dataRVA;
     public long getDataRVA ()
     {
@@ -49,7 +49,7 @@ public class ResourceDataEntry
     {
         _size = size;
     }
-    
+
     private int    _codePage;
     public int getCodePage ()
     {
@@ -60,7 +60,7 @@ public class ResourceDataEntry
     {
         _codePage = codePage;
     }
-    
+
     private int _reserved;
     public int getReserved ()
     {
@@ -110,7 +110,7 @@ public class ResourceDataEntry
             return true;
         if (getClass() != obj.getClass())
             return false;
-        
+
         ResourceDataEntry   other=(ResourceDataEntry) obj;
         return (getDataRVA() == other.getDataRVA())
             && (getSize() == other.getSize())

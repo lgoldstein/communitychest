@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest;
 
@@ -10,18 +10,18 @@ package net.community.chest;
  *
  */
 public final class Version {
-	private Version ()
-	{
-		// no instance
-	}
+    private Version ()
+    {
+        // no instance
+    }
 
-	public static final String getVersionString ()
-	{
-		return "[WORKING]";
-	}
+    public static final String getVersionString ()
+    {
+        return "[WORKING]";
+    }
 
-	public static final String getBuildTimestampString ()
-	{
-		return "19650307163000";
-	}
+    public static final String getBuildTimestampString ()
+    {
+        return "19650307163000";
+    }
 }

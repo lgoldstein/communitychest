@@ -11,10 +11,10 @@ import org.rrd4j.ConsolFun;
  * @since Jan 8, 2008 1:55:27 PM
  */
 public final class ConsolFunExt extends DOMEnumExt<ConsolFun> {
-	private ConsolFunExt ()
-	{
-		super(ConsolFun.class);
-	}
+    private ConsolFunExt ()
+    {
+        super(ConsolFun.class);
+    }
 
-	public static final ConsolFunExt	DEFAULT=new ConsolFunExt();
+    public static final ConsolFunExt    DEFAULT=new ConsolFunExt();
 }

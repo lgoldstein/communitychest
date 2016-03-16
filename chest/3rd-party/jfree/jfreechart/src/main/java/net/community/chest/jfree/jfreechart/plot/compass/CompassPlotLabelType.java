@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.plot.compass;
 
@@ -19,34 +19,34 @@ import org.jfree.chart.plot.CompassPlot;
  * @since Feb 16, 2009 1:57:38 PM
  */
 public enum CompassPlotLabelType {
-	NONE(CompassPlot.NO_LABELS),
-	VALUE(CompassPlot.VALUE_LABELS);
+    NONE(CompassPlot.NO_LABELS),
+    VALUE(CompassPlot.VALUE_LABELS);
 
-	private final int	_type;
-	public final int getType ()
-	{
-		return _type;
-	}
+    private final int    _type;
+    public final int getType ()
+    {
+        return _type;
+    }
 
-	CompassPlotLabelType (int t)
-	{
-		_type = t;
-	}
+    CompassPlotLabelType (int t)
+    {
+        _type = t;
+    }
 
-	public static final List<CompassPlotLabelType>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final CompassPlotLabelType fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<CompassPlotLabelType>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final CompassPlotLabelType fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-	public static final CompassPlotLabelType fromType (final int t)
-	{
-		for (final CompassPlotLabelType v : VALUES)
-		{
-			if ((v != null) && (v.getType() == t))
-				return v;
-		}
+    public static final CompassPlotLabelType fromType (final int t)
+    {
+        for (final CompassPlotLabelType v : VALUES)
+        {
+            if ((v != null) && (v.getType() == t))
+                return v;
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

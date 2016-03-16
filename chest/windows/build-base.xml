@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="base-win32" default="base-win32">
-		<description>
-			Serves as 'base' inclusion file with common definitions for the CHEST
-			WIN32 JAR(s) sub-project(s) $Rev: 561 $
-		</description>
+    <project name="base-win32" default="base-win32">
+        <description>
+            Serves as 'base' inclusion file with common definitions for the CHEST
+            WIN32 JAR(s) sub-project(s) $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
+            <!-- Preamble definitions -->
         <dirname property="base.win32.root.dir" file="${ant.file}"/>
-		<basename property="base.win32.base.name" file="${base.net.root.dir}"/>
+        <basename property="base.win32.base.name" file="${base.net.root.dir}"/>
         <dirname property="project.root.dir" file="${base.win32.root.dir}"/>
-		<property name="parent.root.dir" value="${project.root.dir}"/>
-		<property name="module.root.folder" value="${base.net.root.dir}"/>
-		<property name="module.base.target.name" value="${base.net.base.name}"/>
+        <property name="parent.root.dir" value="${project.root.dir}"/>
+        <property name="module.root.folder" value="${base.net.root.dir}"/>
+        <property name="module.base.target.name" value="${base.net.base.name}"/>
 
-		<import file="${project.root.dir}${file.separator}build-base.xml"/>
+        <import file="${project.root.dir}${file.separator}build-base.xml"/>
 
-		<target name="base-win32" depends="chest-base" unless="skip.base.win32.target">
-			<property name="skip.base.win32.target" value="true"/>
-		</target>
+        <target name="base-win32" depends="chest-base" unless="skip.base.win32.target">
+            <property name="skip.base.win32.target" value="true"/>
+        </target>
 
-			<!-- Default target(s) from which modules should derive their own -->
-		<target name="jar-base-win32-module-files" depends="base-win32,jar-project-module-files"/>
-		<target name="clean-base-win32-module-build" depends="base-win32,clean-project-module-build"/>
-	</project>
+            <!-- Default target(s) from which modules should derive their own -->
+        <target name="jar-base-win32-module-files" depends="base-win32,jar-project-module-files"/>
+        <target name="clean-base-win32-module-build" depends="base-win32,clean-project-module-build"/>
+    </project>

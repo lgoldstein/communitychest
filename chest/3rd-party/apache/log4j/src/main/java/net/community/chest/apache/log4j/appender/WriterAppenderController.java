@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.apache.log4j.appender;
 
@@ -12,11 +12,11 @@ import java.io.Writer;
  * @since Nov 21, 2010 1:49:38 PM
  */
 public interface WriterAppenderController extends AppenderSkeletonController {
-	boolean getImmediateFlush ();
-	void setImmediateFlush (boolean value);
-	
-	String getEncoding ();
-	void setEncoding (String value);
-	
-	void setWriter (Writer writer);
+    boolean getImmediateFlush ();
+    void setImmediateFlush (boolean value);
+
+    String getEncoding ();
+    void setEncoding (String value);
+
+    void setWriter (Writer writer);
 }

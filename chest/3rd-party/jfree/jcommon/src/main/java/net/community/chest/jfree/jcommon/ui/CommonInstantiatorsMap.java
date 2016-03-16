@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jcommon.ui;
 
@@ -12,13 +12,13 @@ import net.community.chest.reflect.StringInstantiatorsMap;
  * @since Jan 27, 2009 4:34:01 PM
  */
 public class CommonInstantiatorsMap extends StringInstantiatorsMap {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7520250149170480769L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7520250149170480769L;
 
-	public CommonInstantiatorsMap ()
-	{
-		super();
-	}
+    public CommonInstantiatorsMap ()
+    {
+        super();
+    }
 }

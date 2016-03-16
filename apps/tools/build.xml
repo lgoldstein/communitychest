@@ -1,99 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-tools-apps" default="build-tools-apps">
-		<description>
-			Builds tools related applications $Rev: 564 $
-		</description>
+    <project name="build-tools-apps" default="build-tools-apps">
+        <description>
+            Builds tools related applications $Rev: 564 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<import file="${module.root.folder}${file.separator}build-base.xml"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <import file="${module.root.folder}${file.separator}build-base.xml"/>
 
-		<target name="build-hdrxlate" depends="tools-apps-base" unless="skip.build.apps.tools.hdrxlate" description="Builds HDRXLATE application">
-			<ant dir="${module.root.folder}${file.separator}hdrxlate" target="build-hdrxlate" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.apps.tools.hdrxlate" value="true"/>
-		</target>
+        <target name="build-hdrxlate" depends="tools-apps-base" unless="skip.build.apps.tools.hdrxlate" description="Builds HDRXLATE application">
+            <ant dir="${module.root.folder}${file.separator}hdrxlate" target="build-hdrxlate" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.apps.tools.hdrxlate" value="true"/>
+        </target>
 
-		<target name="build-b64xlate" depends="tools-apps-base" unless="skip.build.apps.tools.b64xlate" description="Builds B64XLATE application">
-			<ant dir="${module.root.folder}${file.separator}b64xlate" target="build-b64xlate" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.apps.tools.b64xlate" value="true"/>
-		</target>
+        <target name="build-b64xlate" depends="tools-apps-base" unless="skip.build.apps.tools.b64xlate" description="Builds B64XLATE application">
+            <ant dir="${module.root.folder}${file.separator}b64xlate" target="build-b64xlate" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.apps.tools.b64xlate" value="true"/>
+        </target>
 
-		<target name="build-xslapply" depends="tools-apps-base" unless="skip.build.apps.tools.xslapply" description="Builds XSLAPPLY application">
-			<ant dir="${module.root.folder}${file.separator}xslapply" target="build-xslapply" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.apps.tools.xslapply" value="true"/>
-		</target>
+        <target name="build-xslapply" depends="tools-apps-base" unless="skip.build.apps.tools.xslapply" description="Builds XSLAPPLY application">
+            <ant dir="${module.root.folder}${file.separator}xslapply" target="build-xslapply" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.apps.tools.xslapply" value="true"/>
+        </target>
 
-		<target name="build-xmlstruct" depends="tools-apps-base" unless="skip.build.apps.tools.xmlstruct" description="Builds XSLAPPLY application">
-			<ant dir="${module.root.folder}${file.separator}xmlstruct" target="build-xmlstruct" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.apps.tools.xmlstruct" value="true"/>
-		</target>
+        <target name="build-xmlstruct" depends="tools-apps-base" unless="skip.build.apps.tools.xmlstruct" description="Builds XSLAPPLY application">
+            <ant dir="${module.root.folder}${file.separator}xmlstruct" target="build-xmlstruct" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.apps.tools.xmlstruct" value="true"/>
+        </target>
 
-		<target name="build-jars-scanner" depends="tools-apps-base" unless="skip.build.apps.tools.jarscanner" description="Builds B64XLATE application">
-			<ant dir="${module.root.folder}${file.separator}jarscanner" target="build-jars-scanner" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.apps.tools.jarscanner" value="true"/>
-		</target>
+        <target name="build-jars-scanner" depends="tools-apps-base" unless="skip.build.apps.tools.jarscanner" description="Builds B64XLATE application">
+            <ant dir="${module.root.folder}${file.separator}jarscanner" target="build-jars-scanner" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.apps.tools.jarscanner" value="true"/>
+        </target>
 
-		<target name="build-eclipse-tools" depends="tools-apps-base" unless="skip.build.eclipse.tools" description="Builds Eclipse tools">
-			<ant dir="${module.root.folder}${file.separator}eclipse" target="build-eclipse-tools" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.eclipse.tools" value="true"/>
-		</target>
+        <target name="build-eclipse-tools" depends="tools-apps-base" unless="skip.build.eclipse.tools" description="Builds Eclipse tools">
+            <ant dir="${module.root.folder}${file.separator}eclipse" target="build-eclipse-tools" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.eclipse.tools" value="true"/>
+        </target>
 
-		<target name="build-filesync" depends="tools-apps-base" unless="skip.build.apps.tools.filesync" description="Builds filesync application">
-			<ant dir="${module.root.folder}${file.separator}filesync" target="build-filesync" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.apps.tools.filesync" value="true"/>
-		</target>
-			<!-- TODO move this to svnkit own build -->
-		<target name="build-svnsync" depends="tools-apps-base" unless="skip.build.apps.svnkit.svnsync" description="Builds svnsync application">
-			<ant dir="${module.root.folder}${file.separator}svnkit${file.separator}svnsync" target="build-svnsync" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<property name="skip.build.apps.svnkit.svnsync" value="true"/>
-		</target>
+        <target name="build-filesync" depends="tools-apps-base" unless="skip.build.apps.tools.filesync" description="Builds filesync application">
+            <ant dir="${module.root.folder}${file.separator}filesync" target="build-filesync" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.apps.tools.filesync" value="true"/>
+        </target>
+            <!-- TODO move this to svnkit own build -->
+        <target name="build-svnsync" depends="tools-apps-base" unless="skip.build.apps.svnkit.svnsync" description="Builds svnsync application">
+            <ant dir="${module.root.folder}${file.separator}svnkit${file.separator}svnsync" target="build-svnsync" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <property name="skip.build.apps.svnkit.svnsync" value="true"/>
+        </target>
 
-		<target name="build-tools-apps"
-				depends="build-hdrxlate,
-						 build-b64xlate,
-			 			 build-filesync,
-						 build-xslapply,
-			 			 build-xmlstruct,
-						 build-jars-scanner,
-						 build-eclipse-tools,
-						build-svnsync"
-				description="Builds tools related applications"/>
+        <target name="build-tools-apps"
+                depends="build-hdrxlate,
+                         build-b64xlate,
+                          build-filesync,
+                         build-xslapply,
+                          build-xmlstruct,
+                         build-jars-scanner,
+                         build-eclipse-tools,
+                        build-svnsync"
+                description="Builds tools related applications"/>
 
-		<target name="clean-tools-apps" depends="tools-apps-base" description="Cleans up tools related applications">
-			<ant dir="${module.root.folder}${file.separator}hdrxlate" target="clean-hdrxlate" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}b64xlate" target="clean-b64xlate" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}filesync" target="clean-filesync" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}jarscanner" target="clean-jars-scanner" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-			<ant dir="${module.root.folder}${file.separator}eclipse" target="clean-eclipse-tools" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-				<!-- TODO move this to svnkit own build -->
-			<ant dir="${module.root.folder}${file.separator}svnkit${file.separator}svnsync" target="clean-svnsync" inheritall="false">
-				<propertyset refid="inherited-sub-ant-props"/>
-			</ant>
-		</target>
-	</project>
+        <target name="clean-tools-apps" depends="tools-apps-base" description="Cleans up tools related applications">
+            <ant dir="${module.root.folder}${file.separator}hdrxlate" target="clean-hdrxlate" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}b64xlate" target="clean-b64xlate" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}filesync" target="clean-filesync" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}jarscanner" target="clean-jars-scanner" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+            <ant dir="${module.root.folder}${file.separator}eclipse" target="clean-eclipse-tools" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+                <!-- TODO move this to svnkit own build -->
+            <ant dir="${module.root.folder}${file.separator}svnkit${file.separator}svnsync" target="clean-svnsync" inheritall="false">
+                <propertyset refid="inherited-sub-ant-props"/>
+            </ant>
+        </target>
+    </project>

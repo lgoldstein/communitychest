@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.util.set;
 
@@ -17,39 +17,39 @@ import net.community.chest.util.compare.InstancesComparator;
  * @since Apr 13, 2009 10:03:00 AM
  */
 public class UniqueInstanceSet<V> extends TreeSet<V> implements TypedValuesContainer<V> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1669420982472753776L;
-	private final Class<V>	_valsClass;
-	/*
-	 * @see net.community.chest.lang.TypedValuesContainer#getValuesClass()
-	 */
-	@Override
-	public final Class<V> getValuesClass ()
-	{
-		return _valsClass;
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1669420982472753776L;
+    private final Class<V>    _valsClass;
+    /*
+     * @see net.community.chest.lang.TypedValuesContainer#getValuesClass()
+     */
+    @Override
+    public final Class<V> getValuesClass ()
+    {
+        return _valsClass;
+    }
 
-	@SuppressWarnings("unchecked")
-	public UniqueInstanceSet (final InstancesComparator<? super V> c) throws IllegalArgumentException
-	{
-		super(c);
+    @SuppressWarnings("unchecked")
+    public UniqueInstanceSet (final InstancesComparator<? super V> c) throws IllegalArgumentException
+    {
+        super(c);
 
-		if (null == (_valsClass=(null == c) ? null : (Class<V>) c.getValuesClass()))
-			throw new IllegalArgumentException("No comparator/vaues class provided");
-	}
+        if (null == (_valsClass=(null == c) ? null : (Class<V>) c.getValuesClass()))
+            throw new IllegalArgumentException("No comparator/vaues class provided");
+    }
 
-	public UniqueInstanceSet (Class<V> vc, Collection<? extends V> c) throws IllegalArgumentException
-	{
-		this(new InstancesComparator<V>(vc));
+    public UniqueInstanceSet (Class<V> vc, Collection<? extends V> c) throws IllegalArgumentException
+    {
+        this(new InstancesComparator<V>(vc));
 
-		if ((c != null) && (c.size() > 0))
-			addAll(c);
-	}
+        if ((c != null) && (c.size() > 0))
+            addAll(c);
+    }
 
-	public UniqueInstanceSet (Class<V> vc) throws IllegalArgumentException
-	{
-		this(vc, null);
-	}
+    public UniqueInstanceSet (Class<V> vc) throws IllegalArgumentException
+    {
+        this(vc, null);
+    }
 }

@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-jta-helpers" default="build-jta-helpers" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds the JTA helpers JAR(s) $Rev: 561 $
-		</description>
-		
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="jee.root.dir" value="${parent.root.dir}"/>
+    <project name="build-jta-helpers" default="build-jta-helpers" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds the JTA helpers JAR(s) $Rev: 561 $
+        </description>
+
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="jee.root.dir" value="${parent.root.dir}"/>
         <property name="default.classpath.ref.name" value="jta.helpers.path"/>
-		<property name="module.base.target.name" value="jta-helpers"/>
-		<import file="${parent.root.dir}${file.separator}build-base.xml"/>
+        <property name="module.base.target.name" value="jta-helpers"/>
+        <import file="${parent.root.dir}${file.separator}build-base.xml"/>
 
-	    	<!-- define dependencies -->
-		<mvn:dependencies 	pathId="jta.dependencies.path" useScope="compile"
-							settingsFile="${maven.settings.file.path}"
-				>
-	        <localRepository path="${maven.local.repository.folder}" layout="default"/>
+            <!-- define dependencies -->
+        <mvn:dependencies     pathId="jta.dependencies.path" useScope="compile"
+                            settingsFile="${maven.settings.file.path}"
+                >
+            <localRepository path="${maven.local.repository.folder}" layout="default"/>
 
-			<dependency groupId="javax.transaction" artifactId="jta" version="${jta.jar.version}" scope="compile"/>
-		</mvn:dependencies>
+            <dependency groupId="javax.transaction" artifactId="jta" version="${jta.jar.version}" scope="compile"/>
+        </mvn:dependencies>
 
-	    <path id="jta.helpers.path">
-	    	<path refid="community.modules.jars"/>
-			<path refid="jta.dependencies.path"/>
-		</path>
+        <path id="jta.helpers.path">
+            <path refid="community.modules.jars"/>
+            <path refid="jta.dependencies.path"/>
+        </path>
 
-		<target name="build-jta-helpers" depends="jar-jee-module-files" description="Builds the JTA helpers JAR(s)"/>
-		<target name="clean-jta-helpers" depends="clean-jee-module-build" description="Cleans up the JTA helpers JAR(s)"/>
-	</project>
+        <target name="build-jta-helpers" depends="jar-jee-module-files" description="Builds the JTA helpers JAR(s)"/>
+        <target name="clean-jta-helpers" depends="clean-jee-module-build" description="Cleans up the JTA helpers JAR(s)"/>
+    </project>

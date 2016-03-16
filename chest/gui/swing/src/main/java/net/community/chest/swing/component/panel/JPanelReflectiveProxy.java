@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing.component.panel;
 
@@ -15,17 +15,17 @@ import net.community.chest.swing.component.JComponentReflectiveProxy;
  * @since Aug 14, 2008 2:34:55 PM
  */
 public class JPanelReflectiveProxy<P extends JPanel> extends JComponentReflectiveProxy<P> {
-	public JPanelReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public JPanelReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	protected JPanelReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected JPanelReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public static final JPanelReflectiveProxy<JPanel>	PANEL=
-				new JPanelReflectiveProxy<JPanel>(JPanel.class, true);
+    public static final JPanelReflectiveProxy<JPanel>    PANEL=
+                new JPanelReflectiveProxy<JPanel>(JPanel.class, true);
 }

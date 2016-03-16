@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-servlet-tools" default="build-servlet-tools" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds the JDK tools servlet helpers JAR $Rev: 561 $
-		</description>
+    <project name="build-servlet-tools" default="build-servlet-tools" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds the JDK tools servlet helpers JAR $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
         <property name="web.utils.root.dir" value="${parent.root.dir}"/>
-		<property name="module.base.target.name" value="web-servlet"/>
+        <property name="module.base.target.name" value="web-servlet"/>
         <property name="default.classpath.ref.name" value="servlet.helpers.path"/>
 
-		<import file="${web.utils.root.dir}${file.separator}build-base.xml"/>
+        <import file="${web.utils.root.dir}${file.separator}build-base.xml"/>
 
-	    	<!-- define dependencies -->
-		<mvn:dependencies	pathId="servlet.helpers.dependencies.path" useScope="compile"
-							settingsFile="${maven.settings.file.path}"
-				>
-	        <localRepository path="${maven.local.repository.folder}" layout="default"/>
+            <!-- define dependencies -->
+        <mvn:dependencies    pathId="servlet.helpers.dependencies.path" useScope="compile"
+                            settingsFile="${maven.settings.file.path}"
+                >
+            <localRepository path="${maven.local.repository.folder}" layout="default"/>
 
-			<dependency groupId="javax.servlet" artifactId="servlet-api" version="${servlet.api.jar.version}" scope="compile"/>
-		</mvn:dependencies>
-	
-	    <path id="servlet.helpers.path">
-	    	<path refid="community.modules.jars"/>
-			<path refid="servlet.helpers.dependencies.path"/>
-		</path>
+            <dependency groupId="javax.servlet" artifactId="servlet-api" version="${servlet.api.jar.version}" scope="compile"/>
+        </mvn:dependencies>
 
-		<target name="build-servlet-tools" depends="jar-web-utils-module-files" description="Builds the servlet helpers JAR"/>
-		<target name="clean-servlet-tools" depends="clean-web-utils-module-build" description="Removes the servlet helpers files and JAR"/>
-	</project>
+        <path id="servlet.helpers.path">
+            <path refid="community.modules.jars"/>
+            <path refid="servlet.helpers.dependencies.path"/>
+        </path>
+
+        <target name="build-servlet-tools" depends="jar-web-utils-module-files" description="Builds the servlet helpers JAR"/>
+        <target name="clean-servlet-tools" depends="clean-web-utils-module-build" description="Removes the servlet helpers files and JAR"/>
+    </project>

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.plot.dial;
 
@@ -18,39 +18,39 @@ import org.jfree.chart.plot.DialShape;
  * @since Feb 9, 2009 11:19:33 AM
  */
 public enum DialShapeValue {
-	CIRCLE(DialShape.CIRCLE),
-	CHORD(DialShape.CHORD),
-	PIE(DialShape.PIE);
+    CIRCLE(DialShape.CIRCLE),
+    CHORD(DialShape.CHORD),
+    PIE(DialShape.PIE);
 
-	private final DialShape	_s;
-	public final DialShape getShape ()
-	{
-		return _s;
-	}
+    private final DialShape    _s;
+    public final DialShape getShape ()
+    {
+        return _s;
+    }
 
-	DialShapeValue (DialShape s)
-	{
-		_s = s;
-	}
+    DialShapeValue (DialShape s)
+    {
+        _s = s;
+    }
 
-	public static final List<DialShapeValue>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final DialShapeValue fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<DialShapeValue>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final DialShapeValue fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-	public static final DialShapeValue fromShape (final DialShape s)
-	{
-		if (null == s)
-			return null;
+    public static final DialShapeValue fromShape (final DialShape s)
+    {
+        if (null == s)
+            return null;
 
-		for (final DialShapeValue  v : VALUES)
-		{
-			if ((v != null) && s.equals(v.getShape()))
-				return v;
-		}
+        for (final DialShapeValue  v : VALUES)
+        {
+            if ((v != null) && s.equals(v.getShape()))
+                return v;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
 }

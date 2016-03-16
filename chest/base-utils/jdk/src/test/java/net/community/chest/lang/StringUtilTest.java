@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.lang;
 
@@ -17,79 +17,79 @@ import org.junit.Test;
  * @since Dec 22, 2010 7:17:09 AM
  */
 public class StringUtilTest extends AbstractTestSupport {
-	public StringUtilTest ()
-	{
-		super();
-	}
+    public StringUtilTest ()
+    {
+        super();
+    }
 
-	@Test
-	public void testStringBuilderBackingArray ()
-	{
-		final String		testString=getClass().getName();
-		final StringBuilder	sb=new StringBuilder().append(testString);
-		final char[]		internalArray=StringUtil.getBackingArray(sb);
-		assertNotNull("Missing internal array", internalArray);
-		assertEquals("Initial test string value", testString, sb.toString());
-		assertEquals("Same internal value", testString, new String(internalArray, 0, sb.length()));
+    @Test
+    public void testStringBuilderBackingArray ()
+    {
+        final String        testString=getClass().getName();
+        final StringBuilder    sb=new StringBuilder().append(testString);
+        final char[]        internalArray=StringUtil.getBackingArray(sb);
+        assertNotNull("Missing internal array", internalArray);
+        assertEquals("Initial test string value", testString, sb.toString());
+        assertEquals("Same internal value", testString, new String(internalArray, 0, sb.length()));
 
-		final String	modString=String.valueOf(System.currentTimeMillis());
-		final char[]	modArray=modString.toCharArray();
-		final int		modLen=Math.min(modArray.length, internalArray.length);
-		System.arraycopy(modArray, 0, internalArray, 0, modLen);
+        final String    modString=String.valueOf(System.currentTimeMillis());
+        final char[]    modArray=modString.toCharArray();
+        final int        modLen=Math.min(modArray.length, internalArray.length);
+        System.arraycopy(modArray, 0, internalArray, 0, modLen);
 
-		final String	sbString=sb.toString(),
-						expectedModPart=(modLen < modString.length()) ? modString.substring(0, modLen) : modString,
-						actualModPart=sbString.substring(0, modLen),
-						actualUnmodPart=(modLen < sbString.length()) ?  sbString.substring(modLen) : "",
-						expectedUnmodPart=(modLen < testString.length()) ? testString.substring(modLen) : "";
-		assertEquals("Same modified part", expectedModPart, actualModPart);
-		assertEquals("Same un-modified part", expectedUnmodPart, actualUnmodPart);
-	}
-	
-	@Test
-	public void testStartsWith ()
-	{
-		final String	testPrefixString=getClass().getName(),
-						upcaseTestPrefixString=testPrefixString.toUpperCase(),
-						testString=testPrefixString + "#testStartsWith()",
-						lowcaseTestString=testString.toLowerCase();
-		assertTrue("Strict case insensitive partial starts-with success", StringUtil.startsWith(testString, upcaseTestPrefixString, true, false));
-		assertFalse("Strict case sensitive partial starts-with failure", StringUtil.startsWith(testString, upcaseTestPrefixString, true, true));
-		assertTrue("Strict case sensitive partial starts-with success", StringUtil.startsWith(testString, testPrefixString, true, true));
-		assertFalse("Strict case sensitive full starts-with failure", StringUtil.startsWith(testString, testString, true, true));
+        final String    sbString=sb.toString(),
+                        expectedModPart=(modLen < modString.length()) ? modString.substring(0, modLen) : modString,
+                        actualModPart=sbString.substring(0, modLen),
+                        actualUnmodPart=(modLen < sbString.length()) ?  sbString.substring(modLen) : "",
+                        expectedUnmodPart=(modLen < testString.length()) ? testString.substring(modLen) : "";
+        assertEquals("Same modified part", expectedModPart, actualModPart);
+        assertEquals("Same un-modified part", expectedUnmodPart, actualUnmodPart);
+    }
 
-		assertFalse("Lenient case sensitive full starts-with failure", StringUtil.startsWith(testString, lowcaseTestString, false, true));
-		assertTrue("Lenient case insensitive full starts-with success", StringUtil.startsWith(testString, lowcaseTestString, false, false));
-		assertTrue("Lenient case sensitive full starts-with success", StringUtil.startsWith(testString, testString, false, true));
-	}
+    @Test
+    public void testStartsWith ()
+    {
+        final String    testPrefixString=getClass().getName(),
+                        upcaseTestPrefixString=testPrefixString.toUpperCase(),
+                        testString=testPrefixString + "#testStartsWith()",
+                        lowcaseTestString=testString.toLowerCase();
+        assertTrue("Strict case insensitive partial starts-with success", StringUtil.startsWith(testString, upcaseTestPrefixString, true, false));
+        assertFalse("Strict case sensitive partial starts-with failure", StringUtil.startsWith(testString, upcaseTestPrefixString, true, true));
+        assertTrue("Strict case sensitive partial starts-with success", StringUtil.startsWith(testString, testPrefixString, true, true));
+        assertFalse("Strict case sensitive full starts-with failure", StringUtil.startsWith(testString, testString, true, true));
 
-	@Test
-	public void testEndsWith ()
-	{
-		final String	testSuffixString="testStartsWith()",
-						upcaseTestSuffixString=testSuffixString.toUpperCase(),
-						testString=getClass().getName() + "#" + testSuffixString,
-						lowcaseTestString=testString.toLowerCase();
-		assertTrue("Strict case insensitive partial ends-with success", StringUtil.endsWith(testString, upcaseTestSuffixString, true, false));
-		assertFalse("Strict case sensitive partial ends-with failure", StringUtil.endsWith(testString, upcaseTestSuffixString, true, true));
-		assertTrue("Strict case sensitive partial ends-with success", StringUtil.endsWith(testString, testSuffixString, true, true));
-		assertFalse("Strict case sensitive full ends-with failure", StringUtil.endsWith(testString, testString, true, true));
+        assertFalse("Lenient case sensitive full starts-with failure", StringUtil.startsWith(testString, lowcaseTestString, false, true));
+        assertTrue("Lenient case insensitive full starts-with success", StringUtil.startsWith(testString, lowcaseTestString, false, false));
+        assertTrue("Lenient case sensitive full starts-with success", StringUtil.startsWith(testString, testString, false, true));
+    }
 
-		assertFalse("Lenient case sensitive full ends-with failure", StringUtil.endsWith(testString, lowcaseTestString, false, true));
-		assertTrue("Lenient case insensitive full ends-with success", StringUtil.endsWith(testString, lowcaseTestString, false, false));
-		assertTrue("Lenient case sensitive full ends-with success", StringUtil.endsWith(testString, testString, false, true));
-	}
+    @Test
+    public void testEndsWith ()
+    {
+        final String    testSuffixString="testStartsWith()",
+                        upcaseTestSuffixString=testSuffixString.toUpperCase(),
+                        testString=getClass().getName() + "#" + testSuffixString,
+                        lowcaseTestString=testString.toLowerCase();
+        assertTrue("Strict case insensitive partial ends-with success", StringUtil.endsWith(testString, upcaseTestSuffixString, true, false));
+        assertFalse("Strict case sensitive partial ends-with failure", StringUtil.endsWith(testString, upcaseTestSuffixString, true, true));
+        assertTrue("Strict case sensitive partial ends-with success", StringUtil.endsWith(testString, testSuffixString, true, true));
+        assertFalse("Strict case sensitive full ends-with failure", StringUtil.endsWith(testString, testString, true, true));
 
-	@Test
+        assertFalse("Lenient case sensitive full ends-with failure", StringUtil.endsWith(testString, lowcaseTestString, false, true));
+        assertTrue("Lenient case insensitive full ends-with success", StringUtil.endsWith(testString, lowcaseTestString, false, false));
+        assertTrue("Lenient case sensitive full ends-with success", StringUtil.endsWith(testString, testString, false, true));
+    }
+
+    @Test
     public void testIsEmptyOnNonEmpty() {
-        String origStr = "foo bar baz bong";        
+        String origStr = "foo bar baz bong";
         assertFalse("Unexpected empty String", StringUtil.isEmpty(origStr));
 
         StringBuilder   sb=new StringBuilder(origStr);
         assertFalse("Unexpected empty StringBuilder", StringUtil.isEmpty(sb));
     }
-	
-	@Test
+
+    @Test
     public void testIsEmptyOnEmpty() {
         assertTrue("Null not empty", StringUtil.isEmpty(null));
         assertTrue("Empty string not empty", StringUtil.isEmpty(""));
@@ -120,7 +120,7 @@ public class StringUtilTest extends AbstractTestSupport {
             assertSame("Mismatched instance for len=" + maxLen, str_10, StringUtil.chopHead(str_10, maxLen));
         }
         assertEquals("short", StringUtil.chopHead(str_10, 5));
-        assertEquals("", StringUtil.chopHead(str_10, 0));                        
+        assertEquals("", StringUtil.chopHead(str_10, 0));
     }
 
     @Test
@@ -139,7 +139,7 @@ public class StringUtilTest extends AbstractTestSupport {
             assertEquals("Mismatched result for index=" + index, expected, actual);
         }
     }
-    
+
     @Test
     public void testChopTail() {
         String str_10 = "I am short";
@@ -148,7 +148,7 @@ public class StringUtilTest extends AbstractTestSupport {
             assertSame("Mismatched instance for len=" + maxLen, str_10, StringUtil.chopTail(str_10, maxLen));
         }
         assertEquals("I am ", StringUtil.chopTail(str_10, 5));
-        assertEquals("", StringUtil.chopTail(str_10, 0));                        
+        assertEquals("", StringUtil.chopTail(str_10, 0));
     }
 
     @Test

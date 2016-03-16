@@ -9,9 +9,9 @@ import net.community.chest.io.OptionallyCloseable;
  * @since Aug 22, 2007 9:17:52 AM
  */
 public interface OutputStreamDecoder extends OptionallyCloseable {
-	/**
-	 * @return last set decoding exception - may be null if no exceptions
-	 * or only "pure" IOExceptions were thrown
-	 */
-	DecodingException getDecodeException ();
+    /**
+     * @return last set decoding exception - may be null if no exceptions
+     * or only "pure" IOExceptions were thrown
+     */
+    DecodingException getDecodeException ();
 }

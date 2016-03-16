@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.common.resources;
 
@@ -42,85 +42,85 @@ import org.w3c.dom.Element;
  *
  * <P>Useful types of values that can be stored in an application's
  * configuration table(s)</P>
- * 
+ *
  * @author Lyor G.
  * @since Feb 18, 2009 12:30:15 PM
  */
 public enum ConfigValueType {
-	// these types are assumed to contain a reference to their actual data
-	DOCUMENT(Document.class, null),
-	BLOB(Blob.class, null),
-	PROPERTIES(Properties.class, null),
-	BYTEBUFFER(ByteBuffer.class, null),
-	CHARBUFFER(CharBuffer.class, null),
+    // these types are assumed to contain a reference to their actual data
+    DOCUMENT(Document.class, null),
+    BLOB(Blob.class, null),
+    PROPERTIES(Properties.class, null),
+    BYTEBUFFER(ByteBuffer.class, null),
+    CHARBUFFER(CharBuffer.class, null),
 
-	LOCALE(Locale.class, LocaleValueInstantiator.DEFAULT),
-	/**
-	 * Special type that points to another location
-	 */
-	REFERENCEABLE(Referenceable.class, null),
-	BOOLEAN(Boolean.class, ValueStringConstructor.BOOLEAN),
-	INTEGER(Integer.class, NumberValueStringConstructor.INTEGER),
-	LONG(Long.class, NumberValueStringConstructor.LONG),
-	FLOAT(Float.class, FloatValueStringConstructor.DEFAULT),
-	DOUBLE(Double.class, DoubleValueStringConstructor.DEFAULT),
-	STRING(String.class, ValueStringConstructor.STRING),
-	/**
-	 * Default assumed to be a "simple" {@link Element} - i.e., no children 
-	 */
-	ELEMENT(Element.class, ElementStringInstantiator.DEFAULT),
-	FILE(File.class, FileStringInstantiator.DEFAULT),
-	CLASS(Class.class, ClassValueStringInstantiator.DEFAULT),
-	TIMESTAMP(Timestamp.class, null),	// a formatted date/time
-	DATEFORMAT(DateFormat.class, SimpleDateFormatValueStringInstantiator.DEFAULT),
-	NUMBERFORMAT(NumberFormat.class, DecimalFormatValueStringInstantiator.DEFAULT),
-	DURATION(Duration.class, DurationValueStringInstantiator.DEFAULT);
+    LOCALE(Locale.class, LocaleValueInstantiator.DEFAULT),
+    /**
+     * Special type that points to another location
+     */
+    REFERENCEABLE(Referenceable.class, null),
+    BOOLEAN(Boolean.class, ValueStringConstructor.BOOLEAN),
+    INTEGER(Integer.class, NumberValueStringConstructor.INTEGER),
+    LONG(Long.class, NumberValueStringConstructor.LONG),
+    FLOAT(Float.class, FloatValueStringConstructor.DEFAULT),
+    DOUBLE(Double.class, DoubleValueStringConstructor.DEFAULT),
+    STRING(String.class, ValueStringConstructor.STRING),
+    /**
+     * Default assumed to be a "simple" {@link Element} - i.e., no children
+     */
+    ELEMENT(Element.class, ElementStringInstantiator.DEFAULT),
+    FILE(File.class, FileStringInstantiator.DEFAULT),
+    CLASS(Class.class, ClassValueStringInstantiator.DEFAULT),
+    TIMESTAMP(Timestamp.class, null),    // a formatted date/time
+    DATEFORMAT(DateFormat.class, SimpleDateFormatValueStringInstantiator.DEFAULT),
+    NUMBERFORMAT(NumberFormat.class, DecimalFormatValueStringInstantiator.DEFAULT),
+    DURATION(Duration.class, DurationValueStringInstantiator.DEFAULT);
 
-	private final Class<?>	_valuesClass;
-	/**
-	 * @return The {@link Class} of object the value will be cast to once read
-	 * from the configuration database
-	 */
-	public final Class<?> getValuesClass ()
-	{
-		return _valuesClass;
-	}
+    private final Class<?>    _valuesClass;
+    /**
+     * @return The {@link Class} of object the value will be cast to once read
+     * from the configuration database
+     */
+    public final Class<?> getValuesClass ()
+    {
+        return _valuesClass;
+    }
 
-	private final ValueStringInstantiator<?>	_vsi;
-	public final ValueStringInstantiator<?> getDefaultInstantiator ()
-	{
-		return _vsi;
-	}
+    private final ValueStringInstantiator<?>    _vsi;
+    public final ValueStringInstantiator<?> getDefaultInstantiator ()
+    {
+        return _vsi;
+    }
 
-	ConfigValueType (final Class<?> valuesClass, final ValueStringInstantiator<?> vsi)
-	{
-		_valuesClass = valuesClass;
-		_vsi = vsi;
-	}
+    ConfigValueType (final Class<?> valuesClass, final ValueStringInstantiator<?> vsi)
+    {
+        _valuesClass = valuesClass;
+        _vsi = vsi;
+    }
 
-	public static final List<ConfigValueType>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final ConfigValueType fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<ConfigValueType>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final ConfigValueType fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-	public static final ConfigValueType fromValueClass (final Class<?> c)
-	{
-		if (null == c)
-			return null;
+    public static final ConfigValueType fromValueClass (final Class<?> c)
+    {
+        if (null == c)
+            return null;
 
-		for (final ConfigValueType v : VALUES)
-		{
-			final Class<?>	vc=(null == v) ? null : v.getValuesClass();
-			if ((vc != null) && vc.isAssignableFrom(c))
-				return v;
-		}
+        for (final ConfigValueType v : VALUES)
+        {
+            final Class<?>    vc=(null == v) ? null : v.getValuesClass();
+            if ((vc != null) && vc.isAssignableFrom(c))
+                return v;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public static final ConfigValueType fromValueObject (final Object o)
-	{
-		return (null == o) ? null : fromValueClass(o.getClass());
-	}
+    public static final ConfigValueType fromValueObject (final Object o)
+    {
+        return (null == o) ? null : fromValueClass(o.getClass());
+    }
 }

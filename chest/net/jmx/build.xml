@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-net-jmx-utils" default="build-net-jmx-utils">
-		<description>
-			Builds the JMX net utilities JAR $Rev: 561 $
-		</description>
+    <project name="build-net-jmx-utils" default="build-net-jmx-utils">
+        <description>
+            Builds the JMX net utilities JAR $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
-		<property name="module.base.target.name" value="net-jmx"/>
-	    <dirname property="base.net.root.dir" file="${module.root.folder}"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
+        <property name="module.base.target.name" value="net-jmx"/>
+        <dirname property="base.net.root.dir" file="${module.root.folder}"/>
 
-		<import file="${base.net.root.dir}${file.separator}build-base.xml"/>
+        <import file="${base.net.root.dir}${file.separator}build-base.xml"/>
 
-		<target name="build-net-jmx-utils" depends="jar-base-net-module-files" description="Builds the JMX net utilitites JAR"/>
-		<target name="clean-net-jmx-utils" depends="clean-base-net-module-build" description="Removes the JMX net utilities object files and JAR"/>
-	</project>
+        <target name="build-net-jmx-utils" depends="jar-base-net-module-files" description="Builds the JMX net utilitites JAR"/>
+        <target name="clean-net-jmx-utils" depends="clean-base-net-module-build" description="Removes the JMX net utilities object files and JAR"/>
+    </project>
 

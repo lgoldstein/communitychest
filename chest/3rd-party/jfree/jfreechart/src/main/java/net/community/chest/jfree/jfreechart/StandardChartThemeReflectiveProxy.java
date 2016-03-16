@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart;
 
@@ -17,30 +17,30 @@ import org.w3c.dom.Element;
  */
 public class StandardChartThemeReflectiveProxy<T extends StandardChartTheme> extends ChartReflectiveAttributesProxy<T> {
 
-	protected StandardChartThemeReflectiveProxy (Class<T> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected StandardChartThemeReflectiveProxy (Class<T> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public StandardChartThemeReflectiveProxy (Class<T> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public StandardChartThemeReflectiveProxy (Class<T> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final StandardChartThemeReflectiveProxy<StandardChartTheme>	STDTHEME=
-		new StandardChartThemeReflectiveProxy<StandardChartTheme>(StandardChartTheme.class, true) {
-			/*
-			 * @see net.community.chest.dom.transform.AbstractReflectiveProxy#createInstance(org.w3c.dom.Element)
-			 */
-			@Override
-			public StandardChartTheme createInstance (Element elem) throws Exception
-			{
-				final ChartTheme	t=ChartFactory.getChartTheme();
-				if (t instanceof StandardChartTheme)
-					return (StandardChartTheme) t;
+    public static final StandardChartThemeReflectiveProxy<StandardChartTheme>    STDTHEME=
+        new StandardChartThemeReflectiveProxy<StandardChartTheme>(StandardChartTheme.class, true) {
+            /*
+             * @see net.community.chest.dom.transform.AbstractReflectiveProxy#createInstance(org.w3c.dom.Element)
+             */
+            @Override
+            public StandardChartTheme createInstance (Element elem) throws Exception
+            {
+                final ChartTheme    t=ChartFactory.getChartTheme();
+                if (t instanceof StandardChartTheme)
+                    return (StandardChartTheme) t;
 
-				return super.createInstance(elem);
-			}
-	};
+                return super.createInstance(elem);
+            }
+    };
 }

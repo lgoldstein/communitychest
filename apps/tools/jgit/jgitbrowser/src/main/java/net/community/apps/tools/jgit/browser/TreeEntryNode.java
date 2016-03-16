@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.jgit.browser;
 
@@ -24,48 +24,48 @@ import org.eclipse.jgit.lib.TreeEntry;
  * @since Mar 16, 2011 12:37:04 PM
  */
 public class TreeEntryNode extends TypedTreeNode<TreeEntry> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7349642082258001397L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7349642082258001397L;
 
-	public TreeEntryNode (TreeEntry entry)
-	{
-		super(TreeEntry.class, entry, entry.getName(), (entry instanceof Tree));
-	}
+    public TreeEntryNode (TreeEntry entry)
+    {
+        super(TreeEntry.class, entry, entry.getName(), (entry instanceof Tree));
+    }
 
-	public final TreeEntry getTreeEntry ()
-	{
-		return getUserObject();
-	}
+    public final TreeEntry getTreeEntry ()
+    {
+        return getUserObject();
+    }
 
-	public static final TreeCellRenderer RENDERER=new DefaultTreeCellRenderer() {
-			/**
-		 * 
-		 */
-		private static final long serialVersionUID = 7904414024376898150L;
+    public static final TreeCellRenderer RENDERER=new DefaultTreeCellRenderer() {
+            /**
+         *
+         */
+        private static final long serialVersionUID = 7904414024376898150L;
 
-			/*
-			 * @see javax.swing.tree.DefaultTreeCellRenderer#getTreeCellRendererComponent(javax.swing.JTree, java.lang.Object, boolean, boolean, boolean, int, boolean)
-			 */
-			@Override
-			public Component getTreeCellRendererComponent (JTree tree,
-					Object value, boolean sel, boolean expanded, boolean leaf,
-					int row, boolean isFocused)
-			{
-				final Component		c=super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, isFocused);
-				final TreeEntry		entry=(value instanceof TreeEntryNode) ? ((TreeEntryNode) value).getTreeEntry() : null;
-				final File			file=GitlibUtils.getTreeEntryLocation(entry);
-				if (file == null)
-					return c;
+            /*
+             * @see javax.swing.tree.DefaultTreeCellRenderer#getTreeCellRendererComponent(javax.swing.JTree, java.lang.Object, boolean, boolean, boolean, int, boolean)
+             */
+            @Override
+            public Component getTreeCellRendererComponent (JTree tree,
+                    Object value, boolean sel, boolean expanded, boolean leaf,
+                    int row, boolean isFocused)
+            {
+                final Component        c=super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, isFocused);
+                final TreeEntry        entry=(value instanceof TreeEntryNode) ? ((TreeEntryNode) value).getTreeEntry() : null;
+                final File            file=GitlibUtils.getTreeEntryLocation(entry);
+                if (file == null)
+                    return c;
 
-				setToolTipText(file.getAbsolutePath());
-	
-				final FileSystemView	view=FileSystemView.getFileSystemView();
-				final Icon				icon=(view == null) ? null : view.getSystemIcon(file);
-				if (icon != null)
-					setIcon(icon);
-				return c;
-			}
-		};
+                setToolTipText(file.getAbsolutePath());
+
+                final FileSystemView    view=FileSystemView.getFileSystemView();
+                final Icon                icon=(view == null) ? null : view.getSystemIcon(file);
+                if (icon != null)
+                    setIcon(icon);
+                return c;
+            }
+        };
 }

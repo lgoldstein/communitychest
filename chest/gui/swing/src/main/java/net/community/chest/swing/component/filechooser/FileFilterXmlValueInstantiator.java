@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing.component.filechooser;
 
@@ -23,49 +23,49 @@ import org.w3c.dom.Element;
  * @since Aug 27, 2008 12:20:29 PM
  */
 public class FileFilterXmlValueInstantiator<F extends FileFilter> extends BaseTypedValuesContainer<F> implements XmlValueInstantiator<F> {
-	public FileFilterXmlValueInstantiator (Class<F> objClass) throws IllegalArgumentException
-	{
-		super(objClass);
-	}
+    public FileFilterXmlValueInstantiator (Class<F> objClass) throws IllegalArgumentException
+    {
+        super(objClass);
+    }
 
-	protected Constructor<F> resolveConstructorInstance () throws Exception
-	{
-		return AbstractXmlProxyConverter.resolveConstructorInstance(getValuesClass());
-	}
+    protected Constructor<F> resolveConstructorInstance () throws Exception
+    {
+        return AbstractXmlProxyConverter.resolveConstructorInstance(getValuesClass());
+    }
 
-	private Constructor<F>	_ctor	/* =null */;
-	public synchronized Constructor<F> getConstructor () throws Exception
-	{
-		if (null == _ctor)
-			_ctor = resolveConstructorInstance();
-		return _ctor;
-	}
-	/*
-	 * @see net.community.chest.dom.transform.XmlValueInstantiator#fromXml(org.w3c.dom.Element)
-	 */
-	@Override
-	public F fromXml (final Element elem) throws Exception
-	{
-		final Constructor<F>	ctor=getConstructor();
-		final Class<?>[]		pars=ctor.getParameterTypes();
-		final F					ff;
-		if ((null == pars) || (pars.length <= 0))
-		{
-			ff = ctor.newInstance();
-			if (ff instanceof XmlConvertible<?>)
-			{
-				final Object	o=((XmlConvertible<?>) ff).fromXml(elem);
-				if (o != ff)
-					throw new IllegalStateException("fromXml(" + DOMUtils.toString(elem) + ") mismatched recovered instances");
-			}
-			else
-				throw new UnsupportedOperationException("fromXml(" + DOMUtils.toString(elem) + ") " + getValuesClass().getName() + " not " + XmlConvertible.class.getSimpleName());
-		}
-		else	// assumed to expect an Element
-		{
-			ff = ctor.newInstance(elem);
-		}
+    private Constructor<F>    _ctor    /* =null */;
+    public synchronized Constructor<F> getConstructor () throws Exception
+    {
+        if (null == _ctor)
+            _ctor = resolveConstructorInstance();
+        return _ctor;
+    }
+    /*
+     * @see net.community.chest.dom.transform.XmlValueInstantiator#fromXml(org.w3c.dom.Element)
+     */
+    @Override
+    public F fromXml (final Element elem) throws Exception
+    {
+        final Constructor<F>    ctor=getConstructor();
+        final Class<?>[]        pars=ctor.getParameterTypes();
+        final F                    ff;
+        if ((null == pars) || (pars.length <= 0))
+        {
+            ff = ctor.newInstance();
+            if (ff instanceof XmlConvertible<?>)
+            {
+                final Object    o=((XmlConvertible<?>) ff).fromXml(elem);
+                if (o != ff)
+                    throw new IllegalStateException("fromXml(" + DOMUtils.toString(elem) + ") mismatched recovered instances");
+            }
+            else
+                throw new UnsupportedOperationException("fromXml(" + DOMUtils.toString(elem) + ") " + getValuesClass().getName() + " not " + XmlConvertible.class.getSimpleName());
+        }
+        else    // assumed to expect an Element
+        {
+            ff = ctor.newInstance(elem);
+        }
 
-		return ff;
-	}
+        return ff;
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jfreechart.plot.category;
 
@@ -24,92 +24,92 @@ import org.w3c.dom.Element;
  * @since Jun 8, 2009 12:26:04 PM
  */
 public class CategoryToolTipGeneratorConverter extends BaseGeneratorConverter<CategoryToolTipGenerator> {
-	public CategoryToolTipGeneratorConverter ()
-	{
-		super(CategoryToolTipGenerator.class);
-	}
+    public CategoryToolTipGeneratorConverter ()
+    {
+        super(CategoryToolTipGenerator.class);
+    }
 
-	public StandardCategoryToolTipGenerator createStandardCategoryToolTipGenerator (Element elem) throws Exception
-	{
-		final String		lbl=getLabelFormat(elem);
-		final NumberFormat	nf=getNumberFormat(elem);
-		final DateFormat	df=getDateFormat(elem);
-		if ((null == lbl) || (lbl.length() <= 0))
-		{
-			if ((nf != null) || (df != null))
-				throw new IllegalArgumentException("createStandardCategoryToolTipGenerator(" + DOMUtils.toString(elem) + ") superfluous arguments to empty constructor");
+    public StandardCategoryToolTipGenerator createStandardCategoryToolTipGenerator (Element elem) throws Exception
+    {
+        final String        lbl=getLabelFormat(elem);
+        final NumberFormat    nf=getNumberFormat(elem);
+        final DateFormat    df=getDateFormat(elem);
+        if ((null == lbl) || (lbl.length() <= 0))
+        {
+            if ((nf != null) || (df != null))
+                throw new IllegalArgumentException("createStandardCategoryToolTipGenerator(" + DOMUtils.toString(elem) + ") superfluous arguments to empty constructor");
 
-			return new StandardCategoryToolTipGenerator();
-		}
+            return new StandardCategoryToolTipGenerator();
+        }
 
-		if ((nf != null) && (df != null))
-			throw new IllegalStateException("createStandardCategoryToolTipGenerator(" + DOMUtils.toString(elem) + ") ambiguous formatting arguments");
-		if ((nf == null) && (df == null))
-			throw new IllegalStateException("createStandardCategoryToolTipGenerator(" + DOMUtils.toString(elem) + ") no formatting arguments");
+        if ((nf != null) && (df != null))
+            throw new IllegalStateException("createStandardCategoryToolTipGenerator(" + DOMUtils.toString(elem) + ") ambiguous formatting arguments");
+        if ((nf == null) && (df == null))
+            throw new IllegalStateException("createStandardCategoryToolTipGenerator(" + DOMUtils.toString(elem) + ") no formatting arguments");
 
-		if (null == df)
-			return new StandardCategoryToolTipGenerator(lbl, nf);
-		else
-			return new StandardCategoryToolTipGenerator(lbl, df);
-	}
+        if (null == df)
+            return new StandardCategoryToolTipGenerator(lbl, nf);
+        else
+            return new StandardCategoryToolTipGenerator(lbl, df);
+    }
 
-	public BoxAndWhiskerToolTipGenerator createBoxAndWhiskerToolTipGenerator (Element elem) throws Exception
-	{
-		final String		lbl=getLabelFormat(elem);
-		final NumberFormat	nf=getNumberFormat(elem);
-		if ((null == lbl) || (lbl.length() <= 0))
-		{
-			if (nf != null)
-				throw new IllegalArgumentException("createBoxAndWhiskerToolTipGenerator(" + DOMUtils.toString(elem) + ") superfluous arguments to empty constructor");
+    public BoxAndWhiskerToolTipGenerator createBoxAndWhiskerToolTipGenerator (Element elem) throws Exception
+    {
+        final String        lbl=getLabelFormat(elem);
+        final NumberFormat    nf=getNumberFormat(elem);
+        if ((null == lbl) || (lbl.length() <= 0))
+        {
+            if (nf != null)
+                throw new IllegalArgumentException("createBoxAndWhiskerToolTipGenerator(" + DOMUtils.toString(elem) + ") superfluous arguments to empty constructor");
 
-			return new BoxAndWhiskerToolTipGenerator();
-		}
+            return new BoxAndWhiskerToolTipGenerator();
+        }
 
-		if (null == nf)
-			throw new IllegalStateException("createBoxAndWhiskerToolTipGenerator(" + DOMUtils.toString(elem) + ") no formatting arguments");
-		
-		return new BoxAndWhiskerToolTipGenerator(lbl, nf);
-	}
+        if (null == nf)
+            throw new IllegalStateException("createBoxAndWhiskerToolTipGenerator(" + DOMUtils.toString(elem) + ") no formatting arguments");
 
-	public IntervalCategoryToolTipGenerator createIntervalCategoryToolTipGenerator (Element elem) throws Exception
-	{
-		final String		lbl=getLabelFormat(elem);
-		final NumberFormat	nf=getNumberFormat(elem);
-		final DateFormat	df=getDateFormat(elem);
-		if ((null == lbl) || (lbl.length() <= 0))
-		{
-			if ((nf != null) || (df != null))
-				throw new IllegalArgumentException("createIntervalCategoryToolTipGenerator(" + DOMUtils.toString(elem) + ") superfluous arguments to empty constructor");
+        return new BoxAndWhiskerToolTipGenerator(lbl, nf);
+    }
 
-			return new IntervalCategoryToolTipGenerator();
-		}
+    public IntervalCategoryToolTipGenerator createIntervalCategoryToolTipGenerator (Element elem) throws Exception
+    {
+        final String        lbl=getLabelFormat(elem);
+        final NumberFormat    nf=getNumberFormat(elem);
+        final DateFormat    df=getDateFormat(elem);
+        if ((null == lbl) || (lbl.length() <= 0))
+        {
+            if ((nf != null) || (df != null))
+                throw new IllegalArgumentException("createIntervalCategoryToolTipGenerator(" + DOMUtils.toString(elem) + ") superfluous arguments to empty constructor");
 
-		if ((nf != null) && (df != null))
-			throw new IllegalStateException("createIntervalCategoryToolTipGenerator(" + DOMUtils.toString(elem) + ") ambiguous formatting arguments");
-		if ((nf == null) && (df == null))
-			throw new IllegalStateException("createIntervalCategoryToolTipGenerator(" + DOMUtils.toString(elem) + ") no formatting arguments");
+            return new IntervalCategoryToolTipGenerator();
+        }
 
-		if (null == df)
-			return new IntervalCategoryToolTipGenerator(lbl, nf);
-		else
-			return new IntervalCategoryToolTipGenerator(lbl, df);
-	}
-	/*
-	 * @see net.community.chest.dom.transform.XmlValueInstantiator#fromXml(org.w3c.dom.Element)
-	 */
-	@Override
-	public CategoryToolTipGenerator fromXml (Element elem) throws Exception
-	{
-		final String	cls=elem.getAttribute(ReflectiveAttributesProxy.CLASS_ATTR);
-		if ((null == cls) || (cls.length() <= 0) || "standard".equalsIgnoreCase(cls))
-			return createStandardCategoryToolTipGenerator(elem);
-		else if ("box".equalsIgnoreCase(cls))
-			return createBoxAndWhiskerToolTipGenerator(elem);
-		else if ("interval".equalsIgnoreCase(cls))
-			return createIntervalCategoryToolTipGenerator(elem);
-		else
-			throw new NoSuchElementException("fromXml(" + DOMUtils.toString(elem) + ") unknown class: " + cls);
-	}
+        if ((nf != null) && (df != null))
+            throw new IllegalStateException("createIntervalCategoryToolTipGenerator(" + DOMUtils.toString(elem) + ") ambiguous formatting arguments");
+        if ((nf == null) && (df == null))
+            throw new IllegalStateException("createIntervalCategoryToolTipGenerator(" + DOMUtils.toString(elem) + ") no formatting arguments");
 
-	public static final CategoryToolTipGeneratorConverter	DEFAULT=new CategoryToolTipGeneratorConverter();
+        if (null == df)
+            return new IntervalCategoryToolTipGenerator(lbl, nf);
+        else
+            return new IntervalCategoryToolTipGenerator(lbl, df);
+    }
+    /*
+     * @see net.community.chest.dom.transform.XmlValueInstantiator#fromXml(org.w3c.dom.Element)
+     */
+    @Override
+    public CategoryToolTipGenerator fromXml (Element elem) throws Exception
+    {
+        final String    cls=elem.getAttribute(ReflectiveAttributesProxy.CLASS_ATTR);
+        if ((null == cls) || (cls.length() <= 0) || "standard".equalsIgnoreCase(cls))
+            return createStandardCategoryToolTipGenerator(elem);
+        else if ("box".equalsIgnoreCase(cls))
+            return createBoxAndWhiskerToolTipGenerator(elem);
+        else if ("interval".equalsIgnoreCase(cls))
+            return createIntervalCategoryToolTipGenerator(elem);
+        else
+            throw new NoSuchElementException("fromXml(" + DOMUtils.toString(elem) + ") unknown class: " + cls);
+    }
+
+    public static final CategoryToolTipGeneratorConverter    DEFAULT=new CategoryToolTipGeneratorConverter();
 }

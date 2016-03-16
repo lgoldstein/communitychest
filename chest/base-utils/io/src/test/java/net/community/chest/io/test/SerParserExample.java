@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.io.test;
 
@@ -31,41 +31,41 @@ import net.community.chest.test.TestBase;
  * @author Jesse Glick
  */
 public class SerParserExample extends TestBase implements ObjectStreamConstants, Closeable {
-	private static final boolean DEBUG=false;
-	   
+    private static final boolean DEBUG=false;
+
     private final InputStream is;
     private int seq = 0;
     private final List<Object> refs = new ArrayList<Object>(100); // List
-    
+
     public SerParserExample(InputStream inStream) {
         this.is = inStream;
     }
-    
-    @Override
-	public void close () throws IOException
-	{
-		is.close();
-	}
 
-	private int makeRef(Object o) {
+    @Override
+    public void close () throws IOException
+    {
+        is.close();
+    }
+
+    private int makeRef(Object o) {
         refs.add(o);
         int i = seq;
         seq++;
         System.out.println("makeRef[" + i + "]=" + o); // NOI18N
         return i;
     }
-    
+
     private Object getRef(int i) throws IOException {
         int idx = i - baseWireHandle;
         if (idx < 0 || idx >= seq)
-        	throw new StreamCorruptedException("Invalid reference: " + i); // NOI18N
+            throw new StreamCorruptedException("Invalid reference: " + i); // NOI18N
         Object o = refs.get(idx);
         if (o == null)
-        	throw new StreamCorruptedException("Invalid reference: " + i); // NOI18N
+            throw new StreamCorruptedException("Invalid reference: " + i); // NOI18N
         System.out.println("getRef[" + i +  "/" + idx + "]=" + o); // NOI18N
         return o;
     }
-    
+
     public Stream parse() throws IOException {
         Stream s = new Stream();
         s.magic = readShort();
@@ -79,7 +79,7 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
         }
         return s;
     }
-    
+
     private int pushback = -1;
     private int rb() throws IOException {
         if (pushback != -1) {
@@ -99,7 +99,7 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
         pushback = is.read();
         return pushback;
     }
-    
+
     static String hexify(byte b) {
         int i = b;
         if (i < 0) i += 256;
@@ -144,7 +144,7 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
             return b.toString();
         }
     }
-    
+
     private long readLong() throws IOException {
         long x1 = rb();
         long x2 = rb();
@@ -157,7 +157,7 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
         long l = (x1 << 56) + (x2 << 48) + (x3 << 40) + (x4 << 32) + (x5 << 24) + (x6 << 16) + (x7 << 8) + x8;
         return l;
     }
-    
+
     private int readInt() throws IOException {
         int x1 = rb();
         int x2 = rb();
@@ -166,18 +166,18 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
         int i = (x1 << 24) + (x2 << 16) + (x3 << 8) + x4;
         return i;
     }
-    
+
     private short readShort() throws IOException {
         int x1 = rb();
         int x2 = rb();
         short s = (short)((x1 << 8) + x2);
         return s;
     }
-    
+
     private byte readByte() throws IOException {
         return (byte)rb();
     }
-    
+
     private String readUTF() throws IOException {
         short len = readShort();
         if (len < 0) throw new UnsupportedOperationException();//XXX
@@ -188,7 +188,7 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
         String s = new String(buf, "UTF-8"); // NOI18N
         return s;
     }
-    
+
     public String readLongUTF() throws IOException {
         long len = readLong();
         if (len < 0) throw new UnsupportedOperationException();//XXX
@@ -201,22 +201,22 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
         String s = new String(buf, "UTF-8"); // NOI18N
         return s;
     }
-    
+
     // See "Rules of the Grammar" in Java Object Serialization Specification
     // for explanation of all these objects.
-    
+
     public static final class Stream /*extends Thing*/ {
         public short magic;
         public short version;
         public List<Object> contents; // List
         @Override
-		public String toString() {
+        public String toString() {
             return "Stream[contents=" + contents + "]"; // NOI18N
         }
     }
-    
+
     public static final Object NULL = "null"; // NOI18N
-    
+
     private Object readContent() throws IOException {
         byte tc = readByte();
         switch (tc) {
@@ -256,16 +256,16 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
             throw new StreamCorruptedException("Unknown typecode: " + hexify(tc)); // NOI18N
         }
     }
-    
+
     public static final class ObjectWrapper {
         public ClassDesc classdesc;
         public List<Object> data; // List
         @Override
-		public String toString() {
+        public String toString() {
             return "Object[class=" + classdesc.name + ",data=" + data + "]"; // NOI18N
         }
     }
-    
+
     public static final class NameValue {
         public NameValue(FieldDesc fieldName, Object fieldValue) {
             this.name = fieldName;
@@ -274,11 +274,11 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
         public final FieldDesc name;
         public final Object value;
         @Override
-		public String toString() {
+        public String toString() {
             return name.toString() + "=" + value.toString(); // NOI18N
         }
     }
-    
+
     public static final class ClassDesc {
         public String name;
         public long svuid;
@@ -290,11 +290,11 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
         public List<Object> annotation; // List
         public ClassDesc superclass;
         @Override
-		public String toString() {
+        public String toString() {
             return "Class[name=" + name + "]"; // NOI18N
         }
     }
-    
+
     private ObjectWrapper readNewObject() throws IOException {
         ObjectWrapper ow = new ObjectWrapper();
         ow.classdesc = readClassDesc();
@@ -325,7 +325,7 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
         if (DEBUG) System.err.println("readNewObject: " + ow); // NOI18N
         return ow;
     }
-    
+
     private ClassDesc readClassDesc() throws IOException {
         Object o = readContent();
         if (o instanceof ClassDesc) {
@@ -336,13 +336,13 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
             throw new StreamCorruptedException("Expected class desc, got: " + o); // NOI18N
         }
     }
-    
+
     private ClassDesc readNewClass() throws IOException {
         ClassDesc cd = readClassDesc();
         makeRef(cd);
         return cd;
     }
-    
+
     private ClassDesc readNewClassDesc() throws IOException {
         ClassDesc cd = new ClassDesc();
         cd.name = readUTF();
@@ -370,23 +370,23 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
         if (DEBUG) System.err.println("readNewClassDesc: " + cd); // NOI18N
         return cd;
     }
-    
+
     public static class FieldDesc {
         public String name;
         public String type;
         @Override
-		public String toString() {
+        public String toString() {
             return "Field[name=" + name + ",type=" + type + "]"; // NOI18N
         }
     }
     public static final class ObjFieldDesc extends FieldDesc {
         public boolean array;
         @Override
-		public String toString() {
+        public String toString() {
             return "Field[name=" + name + ",type=" + type + (array ? "[]" : "") + "]"; // NOI18N
         }
     }
-    
+
     private FieldDesc readFieldDesc() throws IOException {
         char tc = (char)readByte();
         FieldDesc fd;
@@ -429,26 +429,26 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
         if (DEBUG) System.err.println("readFieldDesc: " + fd); // NOI18N
         return fd;
     }
-    
+
     private List<Object> readContents() throws IOException {
         List<Object> l = new ArrayList<Object>(10);
         while (peek() != TC_ENDBLOCKDATA) {
             l.add(readContent());
         }
         if (readByte() != TC_ENDBLOCKDATA)
-        	throw new IllegalStateException("Missing block end marker");
+            throw new IllegalStateException("Missing block end marker");
         return l;
     }
-    
+
     public static final class ArrayWrapper {
         public ClassDesc classdesc;
         public List<Object> values;
         @Override
-		public String toString() {
+        public String toString() {
             return classdesc.name + "{" + values + "}"; // NOI18N
         }
     }
-    
+
     private ArrayWrapper readNewArray() throws IOException {
         ArrayWrapper aw = new ArrayWrapper();
         aw.classdesc = readClassDesc();
@@ -478,24 +478,24 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
             }
         }
         if (DEBUG)
-        	System.err.println("readNewArray: " + aw); // NOI18N
+            System.err.println("readNewArray: " + aw); // NOI18N
         return aw;
     }
-    
+
     private String readNewString() throws IOException {
         String s = readUTF();
         makeRef(s);
         return s;
     }
-    
+
     private Object readReference() throws IOException {
         int i = readInt();
         Object r = getRef(i);
         if (DEBUG)
-        	System.err.println("readReference: " + r); // NOI18N
+            System.err.println("readReference: " + r); // NOI18N
         return r;
     }
-    
+
     private byte[] readBlockData() throws IOException {
         int size = readByte();
         if (size < 0) size += 256;
@@ -504,10 +504,10 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
             b[i] = readByte();
         }
         if (DEBUG)
-        	System.err.println("readBlockData: " + size + " bytes"); // NOI18N
+            System.err.println("readBlockData: " + size + " bytes"); // NOI18N
         return b;
     }
-    
+
     private byte[] readBlockDataLong() throws IOException {
         int size = readInt();
         if (size < 0) throw new UnsupportedOperationException();
@@ -516,10 +516,10 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
             b[i] = readByte();
         }
         if (DEBUG)
-        	System.err.println("readBlockDataLong: " + size + " bytes"); // NOI18N
+            System.err.println("readBlockDataLong: " + size + " bytes"); // NOI18N
         return b;
     }
-    
+
     private List<NameValue> readNoWrClass(ClassDesc cd) throws IOException {
         List<FieldDesc> fields = cd.fields;
         List<NameValue> values = new ArrayList<NameValue>(fields.size());
@@ -546,111 +546,111 @@ public class SerParserExample extends TestBase implements ObjectStreamConstants,
             }
         }
         if (DEBUG)
-        	System.err.println("readNoWrClass: " + values); // NOI18N
+            System.err.println("readNoWrClass: " + values); // NOI18N
         return values;
     }
 
-	public static final void testSerialDataParser (final PrintStream out, final BufferedReader in, final File file) {
-		for (StringBuilder	indent=new StringBuilder().append('\t'); ; indent.setLength(1)) {
-			out.append(file.getAbsolutePath()).println(':');
+    public static final void testSerialDataParser (final PrintStream out, final BufferedReader in, final File file) {
+        for (StringBuilder    indent=new StringBuilder().append('\t'); ; indent.setLength(1)) {
+            out.append(file.getAbsolutePath()).println(':');
 
-			try(SerParserExample	parser=new SerParserExample(new BufferedInputStream(new FileInputStream(file), IOCopier.DEFAULT_COPY_SIZE))) {
-				final Stream result=parser.parse();
-				display(System.out, indent, result.contents);
-			} catch(Exception e) {
-				System.err.println(e.getClass().getName() + " while parsing " + file.getAbsolutePath() + ": " + e.getMessage());
-			}
+            try(SerParserExample    parser=new SerParserExample(new BufferedInputStream(new FileInputStream(file), IOCopier.DEFAULT_COPY_SIZE))) {
+                final Stream result=parser.parse();
+                display(System.out, indent, result.contents);
+            } catch(Exception e) {
+                System.err.println(e.getClass().getName() + " while parsing " + file.getAbsolutePath() + ": " + e.getMessage());
+            }
 
-			final String	ans=getval(out, in, "again [y]/n");
-			if ((ans != null) && (ans.length() > 0) && (Character.toLowerCase(ans.charAt(0)) != 'y')) {
-				return;
-			}
-		}
-	}
+            final String    ans=getval(out, in, "again [y]/n");
+            if ((ans != null) && (ans.length() > 0) && (Character.toLowerCase(ans.charAt(0)) != 'y')) {
+                return;
+            }
+        }
+    }
 
-	// args[i] path of a serialized Java object file
-	public static final int testSerialDataParser (final PrintStream out, final BufferedReader in, final String ... args)
-	{
-		final int	numArgs=(null == args) ? 0 : args.length;
-		for (int	aIndex=0; ; aIndex++)
-		{
-			final String	filePath=
-				(aIndex < numArgs) ? args[aIndex] : getval(out, in, "file path (or Quit)");
-			if ((null == filePath) || (filePath.length() <= 0))
-				continue;
-			if (isQuit(filePath))
-				break;
+    // args[i] path of a serialized Java object file
+    public static final int testSerialDataParser (final PrintStream out, final BufferedReader in, final String ... args)
+    {
+        final int    numArgs=(null == args) ? 0 : args.length;
+        for (int    aIndex=0; ; aIndex++)
+        {
+            final String    filePath=
+                (aIndex < numArgs) ? args[aIndex] : getval(out, in, "file path (or Quit)");
+            if ((null == filePath) || (filePath.length() <= 0))
+                continue;
+            if (isQuit(filePath))
+                break;
 
-			try {
-				testSerialDataParser(out, in, new File(filePath));
-			} catch(Exception e) {
-				System.err.println(e.getClass().getName() + " while parsing " + filePath + ": " + e.getMessage());
-			}
-		}
+            try {
+                testSerialDataParser(out, in, new File(filePath));
+            } catch(Exception e) {
+                System.err.println(e.getClass().getName() + " while parsing " + filePath + ": " + e.getMessage());
+            }
+        }
 
-		return 0;
-	}
+        return 0;
+    }
 
-	private static void display (PrintStream out, StringBuilder indent, Object o) {
-		if (o instanceof Collection<?>) {
-			int	len=indent.length();
-			indent.append('\t');
-			for (Object r : (Collection<?>) o) {
-				display(out, indent, r);
-			}
-			indent.setLength(len);
-		} else if (o instanceof ObjectWrapper) {
-			ObjectWrapper	w=(ObjectWrapper) o;
-			display(out, indent, w.classdesc);
-			display(out, indent, w.data);
-		} else if (o instanceof NameValue) {
-			NameValue	nv=(NameValue) o;
-			display(out, indent, nv.name);
-			display(out, indent, nv.value);
-		} else if (o instanceof ClassDesc) {
-			ClassDesc	cd=(ClassDesc) o;
-			out.append(indent)
-			   .append("ClassDesc[").append(cd.name).append(']')
-			   .append('@').append(String.valueOf(cd.svuid))
-			   .println()
-			   ;
-			if ((cd.fields != null) && (cd.fields.size() > 0)) {
-				out.append(indent).println("Fields:");
-				int	len=indent.length();
-				indent.append('\t');
-				display(out, indent, cd.fields);
-				indent.setLength(len);
-			}
+    private static void display (PrintStream out, StringBuilder indent, Object o) {
+        if (o instanceof Collection<?>) {
+            int    len=indent.length();
+            indent.append('\t');
+            for (Object r : (Collection<?>) o) {
+                display(out, indent, r);
+            }
+            indent.setLength(len);
+        } else if (o instanceof ObjectWrapper) {
+            ObjectWrapper    w=(ObjectWrapper) o;
+            display(out, indent, w.classdesc);
+            display(out, indent, w.data);
+        } else if (o instanceof NameValue) {
+            NameValue    nv=(NameValue) o;
+            display(out, indent, nv.name);
+            display(out, indent, nv.value);
+        } else if (o instanceof ClassDesc) {
+            ClassDesc    cd=(ClassDesc) o;
+            out.append(indent)
+               .append("ClassDesc[").append(cd.name).append(']')
+               .append('@').append(String.valueOf(cd.svuid))
+               .println()
+               ;
+            if ((cd.fields != null) && (cd.fields.size() > 0)) {
+                out.append(indent).println("Fields:");
+                int    len=indent.length();
+                indent.append('\t');
+                display(out, indent, cd.fields);
+                indent.setLength(len);
+            }
 
-			if ((cd.annotation != null) && (cd.annotation.size() > 0)) {
-				out.append(indent).println("Annotations:");
-				int	len=indent.length();
-				indent.append('\t');
-				display(out, indent, cd.annotation);
-				indent.setLength(len);
-			}
+            if ((cd.annotation != null) && (cd.annotation.size() > 0)) {
+                out.append(indent).println("Annotations:");
+                int    len=indent.length();
+                indent.append('\t');
+                display(out, indent, cd.annotation);
+                indent.setLength(len);
+            }
 
-			if (cd.superclass != null) {
-				out.append(indent).println("Superclass:");
-				int	len=indent.length();
-				indent.append('\t');
-				display(out, indent, cd.superclass);
-				indent.setLength(len);
-			}
-		} else {
-			out.append(indent).println(o);
-		}
-	}
+            if (cd.superclass != null) {
+                out.append(indent).println("Superclass:");
+                int    len=indent.length();
+                indent.append('\t');
+                display(out, indent, cd.superclass);
+                indent.setLength(len);
+            }
+        } else {
+            out.append(indent).println(o);
+        }
+    }
 
-	//////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
 
-	public static void main (String[] args)
-	{
-		final BufferedReader	in=getStdin();
-		final int				nErr=testSerialDataParser(System.out, in, args);
-		if (nErr != 0)
-			System.err.println("test failed (err=" + nErr + ")");
-		else
-			System.out.println("OK");
-	}
+    public static void main (String[] args)
+    {
+        final BufferedReader    in=getStdin();
+        final int                nErr=testSerialDataParser(System.out, in, args);
+        if (nErr != 0)
+            System.err.println("test failed (err=" + nErr + ")");
+        else
+            System.out.println("OK");
+    }
 }

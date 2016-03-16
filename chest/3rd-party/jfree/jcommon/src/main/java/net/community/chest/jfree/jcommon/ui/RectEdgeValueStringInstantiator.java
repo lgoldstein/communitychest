@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jfree.jcommon.ui;
 
@@ -17,41 +17,41 @@ import net.community.chest.lang.StringUtil;
  * @since Jan 29, 2009 9:41:50 AM
  */
 public class RectEdgeValueStringInstantiator extends AbstractXmlValueStringInstantiator<RectangleEdge> {
-	public RectEdgeValueStringInstantiator ()
-	{
-		super(RectangleEdge.class);
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
-	 */
-	@Override
-	public String convertInstance (RectangleEdge inst) throws Exception
-	{
-		if (null == inst)
-			return null;
+    public RectEdgeValueStringInstantiator ()
+    {
+        super(RectangleEdge.class);
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#convertInstance(java.lang.Object)
+     */
+    @Override
+    public String convertInstance (RectangleEdge inst) throws Exception
+    {
+        if (null == inst)
+            return null;
 
-		final RectEdge	e=RectEdge.fromEdge(inst);
-		if (null == e)
-			throw new NoSuchElementException("convertInstance(" + inst + ") unknown value");
+        final RectEdge    e=RectEdge.fromEdge(inst);
+        if (null == e)
+            throw new NoSuchElementException("convertInstance(" + inst + ") unknown value");
 
-		return e.toString();
-	}
-	/*
-	 * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
-	 */
-	@Override
-	public RectangleEdge newInstance (String v) throws Exception
-	{
-		final String	s=StringUtil.getCleanStringValue(v);
-		if ((null == s) || (s.length() <= 0))
-			return null;
+        return e.toString();
+    }
+    /*
+     * @see net.community.chest.convert.ValueStringInstantiator#newInstance(java.lang.String)
+     */
+    @Override
+    public RectangleEdge newInstance (String v) throws Exception
+    {
+        final String    s=StringUtil.getCleanStringValue(v);
+        if ((null == s) || (s.length() <= 0))
+            return null;
 
-		final RectEdge	e=RectEdge.fromString(s);
-		if (null == e)
-			throw new NoSuchElementException("newInstance(" + s + ") unknown value");
+        final RectEdge    e=RectEdge.fromString(s);
+        if (null == e)
+            throw new NoSuchElementException("newInstance(" + s + ") unknown value");
 
-		return e.getEdge();
-	}
+        return e.getEdge();
+    }
 
-	public static final RectEdgeValueStringInstantiator	DEFAULT=new RectEdgeValueStringInstantiator();
+    public static final RectEdgeValueStringInstantiator    DEFAULT=new RectEdgeValueStringInstantiator();
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.swing.component.progress;
 
@@ -18,34 +18,34 @@ import net.community.chest.util.collection.CollectionsUtils;
  * @since Dec 3, 2008 4:07:46 PM
  */
 public enum BarOrientation {
-	HORIZONTAL(SwingConstants.HORIZONTAL),
-	VERTICAL(SwingConstants.VERTICAL);
+    HORIZONTAL(SwingConstants.HORIZONTAL),
+    VERTICAL(SwingConstants.VERTICAL);
 
-	private final int	_o;
-	public final int getOrientation ()
-	{
-		return _o;
-	}
+    private final int    _o;
+    public final int getOrientation ()
+    {
+        return _o;
+    }
 
-	BarOrientation (final int o)
-	{
-		_o = o;
-	}
+    BarOrientation (final int o)
+    {
+        _o = o;
+    }
 
-	public static final List<BarOrientation>	VALUES=Collections.unmodifiableList(Arrays.asList(values()));
-	public static final BarOrientation fromString (final String s)
-	{
-		return CollectionsUtils.fromString(VALUES, s, false);
-	}
+    public static final List<BarOrientation>    VALUES=Collections.unmodifiableList(Arrays.asList(values()));
+    public static final BarOrientation fromString (final String s)
+    {
+        return CollectionsUtils.fromString(VALUES, s, false);
+    }
 
-	public static final BarOrientation fromOrientation (final int o)
-	{
-		for (final BarOrientation v : VALUES)
-		{
-			if ((v != null) && (v.getOrientation() == o))
-				return v;
-		}
+    public static final BarOrientation fromOrientation (final int o)
+    {
+        for (final BarOrientation v : VALUES)
+        {
+            if ((v != null) && (v.getOrientation() == o))
+                return v;
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

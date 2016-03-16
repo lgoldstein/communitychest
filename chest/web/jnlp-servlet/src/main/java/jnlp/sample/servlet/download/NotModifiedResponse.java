@@ -36,8 +36,8 @@ package jnlp.sample.servlet.download;
 import javax.servlet.http.HttpServletResponse;
 
 public class NotModifiedResponse extends HttpDownloadResponseCode {
-	public NotModifiedResponse ()
-	{ 
-		super(HttpServletResponse.SC_NOT_MODIFIED);
-	}
+    public NotModifiedResponse ()
+    {
+        super(HttpServletResponse.SC_NOT_MODIFIED);
+    }
 }

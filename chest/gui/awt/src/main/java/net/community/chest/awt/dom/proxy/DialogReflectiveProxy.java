@@ -10,14 +10,14 @@ import java.awt.Dialog;
  * @since Mar 20, 2008 10:10:50 AM
  */
 public class DialogReflectiveProxy<D extends Dialog> extends WindowReflectiveProxy<D> {
-	public DialogReflectiveProxy (Class<D> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public DialogReflectiveProxy (Class<D> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	protected DialogReflectiveProxy (Class<D> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected DialogReflectiveProxy (Class<D> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 }

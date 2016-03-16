@@ -12,17 +12,17 @@ import net.community.chest.swing.component.button.AbstractButtonReflectiveProxy;
  * @since Mar 20, 2008 8:46:13 AM
  */
 public class JMenuItemReflectiveProxy<MI extends JMenuItem> extends AbstractButtonReflectiveProxy<MI> {
-	public JMenuItemReflectiveProxy (Class<MI> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public JMenuItemReflectiveProxy (Class<MI> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	protected JMenuItemReflectiveProxy (Class<MI> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected JMenuItemReflectiveProxy (Class<MI> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public static final JMenuItemReflectiveProxy<JMenuItem>	MENUITEM=
-					new JMenuItemReflectiveProxy<JMenuItem>(JMenuItem.class, true);
+    public static final JMenuItemReflectiveProxy<JMenuItem>    MENUITEM=
+                    new JMenuItemReflectiveProxy<JMenuItem>(JMenuItem.class, true);
 }

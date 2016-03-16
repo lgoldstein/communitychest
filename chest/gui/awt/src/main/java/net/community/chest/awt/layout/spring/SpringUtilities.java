@@ -27,7 +27,7 @@
  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */ 
+ */
 package net.community.chest.awt.layout.spring;
 
 import java.awt.Component;
@@ -44,11 +44,11 @@ import javax.swing.SpringLayout;
  * @since Apr 23, 2009 8:16:06 AM
  */
 public final class SpringUtilities {
-	private SpringUtilities ()
-	{
-		// no instance
-	}
-	/**
+    private SpringUtilities ()
+    {
+        // no instance
+    }
+    /**
      * Aligns the first <code>rows</code> * <code>cols</code> components of
      * <code>parent</code> in a grid. Each component is as big as the maximum
      * preferred width and height of the components. The parent is made just
@@ -64,47 +64,47 @@ public final class SpringUtilities {
      * {@link SpringLayout}, or non-positive rows/columns, or not enough
      * components in parent container to populate the grid
      */
-    public static void makeGrid (final Container 		parent,
-                                 final int rows, 		final int cols,
-                                 final int initialX,	final int initialY,
-                                 final int xPad, 		final int yPad)
-    	throws IllegalArgumentException
+    public static void makeGrid (final Container         parent,
+                                 final int rows,         final int cols,
+                                 final int initialX,    final int initialY,
+                                 final int xPad,         final int yPad)
+        throws IllegalArgumentException
     {
-    	if (null == parent)
-    		return;
+        if (null == parent)
+            return;
 
-    	if ((rows <= 0) || (cols <= 0))
-    		throw new IllegalArgumentException(
-    				"makeGrid(" + parent + ")[" + rows + "," + cols + "][" + initialX + "," + initialY + "]["
-    				+ xPad + "," + yPad + "] bad rows/columns values");
-   
-    	final LayoutManager	lm=parent.getLayout();
-    	if (!(lm instanceof SpringLayout))
-    		throw new IllegalArgumentException(
-    				"makeGrid(" + parent + ")[" + rows + "," + cols + "][" + initialX + "," + initialY + "]["
-    				+ xPad + "," + yPad + "] parent container is not " + SpringLayout.class.getSimpleName());
+        if ((rows <= 0) || (cols <= 0))
+            throw new IllegalArgumentException(
+                    "makeGrid(" + parent + ")[" + rows + "," + cols + "][" + initialX + "," + initialY + "]["
+                    + xPad + "," + yPad + "] bad rows/columns values");
 
-    	final SpringLayout	layout=(SpringLayout) lm;
-        final Spring		xPadSpring=Spring.constant(Math.max(xPad, 0)),
-        					yPadSpring=Spring.constant(Math.max(yPad, 0)),
-        					initialXSpring=Spring.constant(Math.max(initialX, 0)),
-        					initialYSpring=Spring.constant(Math.max(initialY, 0));
-        final int			max=rows * cols, numComps=parent.getComponentCount();
+        final LayoutManager    lm=parent.getLayout();
+        if (!(lm instanceof SpringLayout))
+            throw new IllegalArgumentException(
+                    "makeGrid(" + parent + ")[" + rows + "," + cols + "][" + initialX + "," + initialY + "]["
+                    + xPad + "," + yPad + "] parent container is not " + SpringLayout.class.getSimpleName());
+
+        final SpringLayout    layout=(SpringLayout) lm;
+        final Spring        xPadSpring=Spring.constant(Math.max(xPad, 0)),
+                            yPadSpring=Spring.constant(Math.max(yPad, 0)),
+                            initialXSpring=Spring.constant(Math.max(initialX, 0)),
+                            initialYSpring=Spring.constant(Math.max(initialY, 0));
+        final int            max=rows * cols, numComps=parent.getComponentCount();
         if (max < numComps)
-    		throw new IllegalArgumentException(
-    				"makeGrid(" + parent + ")[" + rows + "," + cols + "][" + initialX + "," + initialY + "]["
-    				+ xPad + "," + yPad + "] parent container contains only " + numComps
-    				+ " instead of the required " + max + " components");
-     
+            throw new IllegalArgumentException(
+                    "makeGrid(" + parent + ")[" + rows + "," + cols + "][" + initialX + "," + initialY + "]["
+                    + xPad + "," + yPad + "] parent container contains only " + numComps
+                    + " instead of the required " + max + " components");
+
         //Calculate Springs that are the max of the width/height so that all
         //cells have the same size.
-        final Component	c0=parent.getComponent(0);
-        Spring			maxWidthSpring=layout.getConstraints(c0).getWidth(),
-        				maxHeightSpring=layout.getConstraints(c0).getWidth();
+        final Component    c0=parent.getComponent(0);
+        Spring            maxWidthSpring=layout.getConstraints(c0).getWidth(),
+                        maxHeightSpring=layout.getConstraints(c0).getWidth();
         for (int i = 1; i < max; i++)
         {
-        	final Component					c=parent.getComponent(i);
-            final SpringLayout.Constraints	cons=layout.getConstraints(c);
+            final Component                    c=parent.getComponent(i);
+            final SpringLayout.Constraints    cons=layout.getConstraints(c);
             maxWidthSpring = Spring.max(maxWidthSpring, cons.getWidth());
             maxHeightSpring = Spring.max(maxHeightSpring, cons.getHeight());
         }
@@ -113,39 +113,39 @@ public final class SpringUtilities {
         //components to have the same size.
         for (int i = 0; i < max; i++)
         {
-        	final Component					c=parent.getComponent(i);
-            final SpringLayout.Constraints	cons=layout.getConstraints(c);
+            final Component                    c=parent.getComponent(i);
+            final SpringLayout.Constraints    cons=layout.getConstraints(c);
             cons.setWidth(maxWidthSpring);
             cons.setHeight(maxHeightSpring);
         }
 
         //Then adjust the x/y constraints of all the cells so that they
         //are aligned in a grid.
-        SpringLayout.Constraints	lastCons=null,lastRowCons=null;
+        SpringLayout.Constraints    lastCons=null,lastRowCons=null;
         for (int i = 0; i < max; i++)
         {
-        	final Component				c=parent.getComponent(i);
-            SpringLayout.Constraints	cons=layout.getConstraints(c);
+            final Component                c=parent.getComponent(i);
+            SpringLayout.Constraints    cons=layout.getConstraints(c);
             if ((i % cols) == 0)
             { //start of new row
                 lastRowCons = lastCons;
                 cons.setX(initialXSpring);
             }
-            else	//x position depends on previous component
-            { 
-            	final Spring	ec=lastCons.getConstraint(SpringLayout.EAST),
-            					xVal=Spring.sum(ec, xPadSpring);
+            else    //x position depends on previous component
+            {
+                final Spring    ec=lastCons.getConstraint(SpringLayout.EAST),
+                                xVal=Spring.sum(ec, xPadSpring);
                 cons.setX(xVal);
             }
 
             if ((i / cols) == 0) //first row
-            { 
+            {
                 cons.setY(initialYSpring);
             }
-            else	//y position depends on previous row
-            { 
-            	final Spring	sc=lastRowCons.getConstraint(SpringLayout.SOUTH),
-            					yVal=Spring.sum(sc, yPadSpring);
+            else    //y position depends on previous row
+            {
+                final Spring    sc=lastRowCons.getConstraint(SpringLayout.SOUTH),
+                                yVal=Spring.sum(sc, yPadSpring);
                 cons.setY(yVal);
             }
 
@@ -153,24 +153,24 @@ public final class SpringUtilities {
         }
 
         //Set the parent's size.
-        final SpringLayout.Constraints 	pCons=layout.getConstraints(parent);
-        final Spring					yc=Spring.constant(yPad),
-        								sc=lastCons.getConstraint(SpringLayout.SOUTH),
-        								ssc=Spring.sum(yc, sc),
-        								xc=Spring.constant(xPad),
-        								ec=lastCons.getConstraint(SpringLayout.EAST),
-        								eec=Spring.sum(xc, ec);
+        final SpringLayout.Constraints     pCons=layout.getConstraints(parent);
+        final Spring                    yc=Spring.constant(yPad),
+                                        sc=lastCons.getConstraint(SpringLayout.SOUTH),
+                                        ssc=Spring.sum(yc, sc),
+                                        xc=Spring.constant(xPad),
+                                        ec=lastCons.getConstraint(SpringLayout.EAST),
+                                        eec=Spring.sum(xc, ec);
         pCons.setConstraint(SpringLayout.SOUTH, ssc);
         pCons.setConstraint(SpringLayout.EAST, eec);
     }
     /* Used by makeCompactGrid. */
     private static SpringLayout.Constraints getConstraintsForCell (
                      final int row, final int col,
-                     final SpringLayout	layout,
-                     final Container 	parent,
-                     final int 			cols)
+                     final SpringLayout    layout,
+                     final Container     parent,
+                     final int             cols)
     {
-    	final Component	c=parent.getComponent(row * cols + col);
+        final Component    c=parent.getComponent(row * cols + col);
         return layout.getConstraints(c);
     }
     /**
@@ -190,27 +190,27 @@ public final class SpringUtilities {
      * {@link SpringLayout}, or non-positive rows/columns, or not enough
      * components in parent container to populate the grid
      */
-    public static void makeCompactGrid (final Container 	parent,
-            							final int rows, 	final int cols,
-            							final int initialX,	final int initialY,
-            							final int xPad, 	final int yPad)
-    	throws IllegalArgumentException
+    public static void makeCompactGrid (final Container     parent,
+                                        final int rows,     final int cols,
+                                        final int initialX,    final int initialY,
+                                        final int xPad,     final int yPad)
+        throws IllegalArgumentException
     {
-    	if (null == parent)
-    		return;
+        if (null == parent)
+            return;
 
-    	if ((rows <= 0) || (cols <= 0))
-    		throw new IllegalArgumentException(
-    				"makeCompactGrid(" + parent + ")[" + rows + "," + cols + "][" + initialX + "," + initialY + "]["
-    				+ xPad + "," + yPad + "] bad rows/columns values");
+        if ((rows <= 0) || (cols <= 0))
+            throw new IllegalArgumentException(
+                    "makeCompactGrid(" + parent + ")[" + rows + "," + cols + "][" + initialX + "," + initialY + "]["
+                    + xPad + "," + yPad + "] bad rows/columns values");
 
-    	final LayoutManager	lm=parent.getLayout();
-    	if (!(lm instanceof SpringLayout))
-    		throw new IllegalArgumentException(
-    				"makeCompactGrid(" + parent + ")[" + rows + "," + cols + "][" + initialX + "," + initialY + "]["
-    				+ xPad + "," + yPad + "] parent container is not " + SpringLayout.class.getSimpleName());
+        final LayoutManager    lm=parent.getLayout();
+        if (!(lm instanceof SpringLayout))
+            throw new IllegalArgumentException(
+                    "makeCompactGrid(" + parent + ")[" + rows + "," + cols + "][" + initialX + "," + initialY + "]["
+                    + xPad + "," + yPad + "] parent container is not " + SpringLayout.class.getSimpleName());
 
-    	final SpringLayout	layout=(SpringLayout) lm;
+        final SpringLayout    layout=(SpringLayout) lm;
         //Align all cells in each column and make them the same width.
         Spring x = Spring.constant(initialX);
         for (int c = 0; c < cols; c++)
@@ -218,8 +218,8 @@ public final class SpringUtilities {
             Spring width=Spring.constant(0);
             for (int r = 0; r < rows; r++)
             {
-            	final SpringLayout.Constraints	cc=getConstraintsForCell(r, c, layout, parent, cols);
-            	final Spring					w=cc.getWidth();
+                final SpringLayout.Constraints    cc=getConstraintsForCell(r, c, layout, parent, cols);
+                final Spring                    w=cc.getWidth();
                 width = Spring.max(width, w);
             }
 
@@ -231,8 +231,8 @@ public final class SpringUtilities {
                 constraints.setWidth(width);
             }
 
-            final Spring	xs=Spring.constant(xPad),
-            				xx=Spring.sum(width, xs);
+            final Spring    xs=Spring.constant(xPad),
+                            xx=Spring.sum(width, xs);
             x = Spring.sum(x, xx);
         }
 
@@ -243,8 +243,8 @@ public final class SpringUtilities {
             Spring height = Spring.constant(0);
             for (int c = 0; c < cols; c++)
             {
-            	final SpringLayout.Constraints	cc=getConstraintsForCell(r, c, layout, parent, cols);
-            	final Spring					h=cc.getHeight();
+                final SpringLayout.Constraints    cc=getConstraintsForCell(r, c, layout, parent, cols);
+                final Spring                    h=cc.getHeight();
                 height = Spring.max(height, h);
             }
 
@@ -256,8 +256,8 @@ public final class SpringUtilities {
                 constraints.setHeight(height);
             }
 
-            final Spring	ys=Spring.constant(yPad),
-            				yy=Spring.sum(height, ys);
+            final Spring    ys=Spring.constant(yPad),
+                            yy=Spring.sum(height, ys);
             y = Spring.sum(y, yy);
         }
 

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.common;
 
@@ -16,14 +16,14 @@ import net.community.chest.ui.helpers.XmlDocumentComponentInitializer;
  * @since Aug 5, 2009 11:12:02 AM
  */
 public interface BaseMainComponent
-			extends XmlDocumentComponentInitializer,
-					FileLoadComponent{
-	Component getMainFrame ();
+            extends XmlDocumentComponentInitializer,
+                    FileLoadComponent{
+    Component getMainFrame ();
 
-	public static final String	MANIFEST_SECTION_NAME="show-manifest-dialog";
-	Element getManifestDialogElement ();
-	void showManifest (Object anchor, Element dlgElem) throws Exception;
-	void showManifest () throws Exception;
+    public static final String    MANIFEST_SECTION_NAME="show-manifest-dialog";
+    Element getManifestDialogElement ();
+    void showManifest (Object anchor, Element dlgElem) throws Exception;
+    void showManifest () throws Exception;
 
-	void exitApplication ();
+    void exitApplication ();
 }

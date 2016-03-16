@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.ui.components.logging;
 
@@ -20,45 +20,45 @@ import net.community.chest.util.logging.LogLevelWrapper;
  * @since Aug 2, 2009 10:31:00 AM
  */
 public class LoggingTextPaneReflectiveProxy<P extends LoggingTextPane> extends JTextPaneReflectiveProxy<P> {
-	protected LoggingTextPaneReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
-		throws IllegalArgumentException, IllegalStateException
-	{
-		super(objClass, registerAsDefault);
-	}
+    protected LoggingTextPaneReflectiveProxy (Class<P> objClass, boolean registerAsDefault)
+        throws IllegalArgumentException, IllegalStateException
+    {
+        super(objClass, registerAsDefault);
+    }
 
-	public LoggingTextPaneReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
-	
-	public Map<LogLevelWrapper,AttributeSet> setLogLevelAttributesMap (
-			final P src, final Element root)
-		throws Exception
-	{
-		return (null == src) ? null : src.setLogLevelAttributesMap(root);
-	}
+    public LoggingTextPaneReflectiveProxy (Class<P> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final String	LOGLEVELS_MAP_ELEM_NAME="logLevelsMap";
-	public boolean isLogLevelsMapElement (final Element elem, final String tagName)
-	{
-		return isMatchingElement(elem, tagName, LOGLEVELS_MAP_ELEM_NAME);
-	}
-	/*
-	 * @see net.community.chest.swing.component.JComponentReflectiveProxy#fromXmlChild(javax.swing.JComponent, org.w3c.dom.Element)
-	 */
-	@Override
-	public P fromXmlChild (P src, Element elem) throws Exception
-	{
-		final String	tagName=elem.getTagName();
-		if (isLogLevelsMapElement(elem, tagName))
-		{
-			setLogLevelAttributesMap(src, elem);
-			return src;
-		}
+    public Map<LogLevelWrapper,AttributeSet> setLogLevelAttributesMap (
+            final P src, final Element root)
+        throws Exception
+    {
+        return (null == src) ? null : src.setLogLevelAttributesMap(root);
+    }
 
-		return super.fromXmlChild(src, elem);
-	}
+    public static final String    LOGLEVELS_MAP_ELEM_NAME="logLevelsMap";
+    public boolean isLogLevelsMapElement (final Element elem, final String tagName)
+    {
+        return isMatchingElement(elem, tagName, LOGLEVELS_MAP_ELEM_NAME);
+    }
+    /*
+     * @see net.community.chest.swing.component.JComponentReflectiveProxy#fromXmlChild(javax.swing.JComponent, org.w3c.dom.Element)
+     */
+    @Override
+    public P fromXmlChild (P src, Element elem) throws Exception
+    {
+        final String    tagName=elem.getTagName();
+        if (isLogLevelsMapElement(elem, tagName))
+        {
+            setLogLevelAttributesMap(src, elem);
+            return src;
+        }
 
-	public static final LoggingTextPaneReflectiveProxy<LoggingTextPane>	LOGPANE=
-		new LoggingTextPaneReflectiveProxy<LoggingTextPane>(LoggingTextPane.class, true);
+        return super.fromXmlChild(src, elem);
+    }
+
+    public static final LoggingTextPaneReflectiveProxy<LoggingTextPane>    LOGPANE=
+        new LoggingTextPaneReflectiveProxy<LoggingTextPane>(LoggingTextPane.class, true);
 }

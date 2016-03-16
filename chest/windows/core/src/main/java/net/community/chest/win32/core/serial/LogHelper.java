@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.serial;
 
@@ -10,13 +10,13 @@ package net.community.chest.win32.core.serial;
  *
  */
 public abstract class LogHelper {
-	protected LogHelper ()
-	{
-		super();
-	}
-	
-	protected final void logInternal(String msg) {
-		System.err.append('\t').append(getClass().getSimpleName()).append(": ++++++ ").println(msg);
-	}
+    protected LogHelper ()
+    {
+        super();
+    }
+
+    protected final void logInternal(String msg) {
+        System.err.append('\t').append(getClass().getSimpleName()).append(": ++++++ ").println(msg);
+    }
 
 }

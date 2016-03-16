@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-javadoc-tools" default="build-javadoc-tools">
-		<description>
-			Builds the JDK tools Javadoc helpers JAR $Rev: 602 $
-		</description>
+    <project name="build-javadoc-tools" default="build-javadoc-tools">
+        <description>
+            Builds the JDK tools Javadoc helpers JAR $Rev: 602 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="module.root.folder" file="${ant.file}"/>
-		<dirname property="parent.root.dir" file="${module.root.folder}"/>
+            <!-- Preamble definitions -->
+        <dirname property="module.root.folder" file="${ant.file}"/>
+        <dirname property="parent.root.dir" file="${module.root.folder}"/>
         <property name="jdk.tools.root.dir" value="${parent.root.dir}"/>
-		<property name="module.base.target.name" value="tools-javadoc"/>
+        <property name="module.base.target.name" value="tools-javadoc"/>
         <property name="default.classpath.ref.name" value="javatools.helpers.path"/>
 
-		<import file="${jdk.tools.root.dir}${file.separator}build-base.xml"/>
-		
+        <import file="${jdk.tools.root.dir}${file.separator}build-base.xml"/>
+
         <path id="javatools.helpers.path">
-        	<path refid="community.modules.jars"/>
-    		<pathelement location="${jdk.home.location}${file.separator}lib${file.separator}tools.jar" />
-		</path>
-		
-		<target name="build-javadoc-tools" depends="jar-jdk-tools-module-files" description="Builds the Javadoc helpers JAR"/>
-		<target name="clean-javadoc-tools" depends="clean-jdk-tools-module-build" description="Removes the Javadoc helpers files and JAR"/>
-	</project>
+            <path refid="community.modules.jars"/>
+            <pathelement location="${jdk.home.location}${file.separator}lib${file.separator}tools.jar" />
+        </path>
+
+        <target name="build-javadoc-tools" depends="jar-jdk-tools-module-files" description="Builds the Javadoc helpers JAR"/>
+        <target name="clean-javadoc-tools" depends="clean-jdk-tools-module-build" description="Removes the Javadoc helpers files and JAR"/>
+    </project>

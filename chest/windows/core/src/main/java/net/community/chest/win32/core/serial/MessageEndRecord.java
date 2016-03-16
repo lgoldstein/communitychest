@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.serial;
 
@@ -18,39 +18,39 @@ import net.community.chest.lang.PubliclyCloneable;
  *
  */
 public class MessageEndRecord extends SerializationRecord
-		implements PubliclyCloneable<MessageEndRecord>,
-				   ElementEncoder<MessageEndRecord> {
-	private static final long serialVersionUID = -4783033605387799757L;
+        implements PubliclyCloneable<MessageEndRecord>,
+                   ElementEncoder<MessageEndRecord> {
+    private static final long serialVersionUID = -4783033605387799757L;
 
-	public MessageEndRecord ()
-	{
-		super(RecordTypeEnumeration.MessageEnd);
-	}
+    public MessageEndRecord ()
+    {
+        super(RecordTypeEnumeration.MessageEnd);
+    }
 
-	@Override
-	@CoVariantReturn
-	public MessageEndRecord read (InputStream in) throws IOException
-	{
-		return getClass().cast(super.read(in));
-	}
+    @Override
+    @CoVariantReturn
+    public MessageEndRecord read (InputStream in) throws IOException
+    {
+        return getClass().cast(super.read(in));
+    }
 
-	@Override
-	public void readRecordData (InputStream in) throws IOException
-	{
-		if (in == null)
-			throw new IOException("No input stream");
-	}
+    @Override
+    public void readRecordData (InputStream in) throws IOException
+    {
+        if (in == null)
+            throw new IOException("No input stream");
+    }
 
-	@Override
-	public void writeRecordData (OutputStream out) throws IOException
-	{
-		if (out == null)
-			throw new IOException("No output stream");
-	}
+    @Override
+    public void writeRecordData (OutputStream out) throws IOException
+    {
+        if (out == null)
+            throw new IOException("No output stream");
+    }
 
-	@Override
-	public MessageEndRecord clone () throws CloneNotSupportedException
-	{
-		return getClass().cast(super.clone());
-	}
+    @Override
+    public MessageEndRecord clone () throws CloneNotSupportedException
+    {
+        return getClass().cast(super.clone());
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.apache.maven.conv2maven;
 
@@ -55,372 +55,372 @@ import org.w3c.dom.Element;
  *
  */
 final class MainFrame extends BaseMainFrame<ResourcesAnchor> implements Runnable {
-	private static final long serialVersionUID = -6329514955688913319L;
-	protected static final LoggerWrapper	_logger=WrapperFactoryManager.getLogger(MainFrame.class);
+    private static final long serialVersionUID = -6329514955688913319L;
+    protected static final LoggerWrapper    _logger=WrapperFactoryManager.getLogger(MainFrame.class);
 
-	MainFrame () throws Exception
-	{
-		super();
-	}
-	/*
-	 * @see net.community.apps.common.BaseMainFrame#getLogger()
-	 */
-	@Override
-	protected LoggerWrapper getLogger ()
-	{
-		return _logger;
-	}
+    MainFrame () throws Exception
+    {
+        super();
+    }
+    /*
+     * @see net.community.apps.common.BaseMainFrame#getLogger()
+     */
+    @Override
+    protected LoggerWrapper getLogger ()
+    {
+        return _logger;
+    }
 
-	private LogMessagesArea	_logsArea;
-	public void log (LogLevelWrapper l, String msg)
-	{
-		if ((_logsArea == null) || (l == null)
-		 || (msg == null) || (msg.length() <= 0))
-			return;
+    private LogMessagesArea    _logsArea;
+    public void log (LogLevelWrapper l, String msg)
+    {
+        if ((_logsArea == null) || (l == null)
+         || (msg == null) || (msg.length() <= 0))
+            return;
 
-		try
-		{
-			_logsArea.log(l, msg);
-		}
-		catch (BadLocationException e)
-		{
-			_logger.error("log(" + l + ")[" + msg + "] failed: " + e.getMessage());
-		}
-	}
+        try
+        {
+            _logsArea.log(l, msg);
+        }
+        catch (BadLocationException e)
+        {
+            _logger.error("log(" + l + ")[" + msg + "] failed: " + e.getMessage());
+        }
+    }
 
-	protected void clearLogMessagesArea ()
-	{
-		if (_logsArea != null)
-			_logsArea.setText("");
-	}
+    protected void clearLogMessagesArea ()
+    {
+        if (_logsArea != null)
+            _logsArea.setText("");
+    }
 
-	private HelperCheckBox	_scanRecursive;
-	public boolean isRecursiveScanning ()
-	{
-		return (_scanRecursive == null) || _scanRecursive.isSelected();
-	}
+    private HelperCheckBox    _scanRecursive;
+    public boolean isRecursiveScanning ()
+    {
+        return (_scanRecursive == null) || _scanRecursive.isSelected();
+    }
 
-	public void setRecursiveScanning (boolean enabled)
-	{
-		if ((_scanRecursive == null) || (_scanRecursive.isSelected() == enabled))
-			return;
+    public void setRecursiveScanning (boolean enabled)
+    {
+        if ((_scanRecursive == null) || (_scanRecursive.isSelected() == enabled))
+            return;
 
-		_scanRecursive.setSelected(enabled);
-	}
+        _scanRecursive.setSelected(enabled);
+    }
 
-	private final KeyListener _runOptionKeyListener=new KeyAdapter() {
-		/*
-		 * @see java.awt.event.KeyAdapter#keyReleased(java.awt.event.KeyEvent)
-		 */
-		@Override
-		public void keyReleased (KeyEvent e)
-		{
-			if (e == null)
-				return;
+    private final KeyListener _runOptionKeyListener=new KeyAdapter() {
+        /*
+         * @see java.awt.event.KeyAdapter#keyReleased(java.awt.event.KeyEvent)
+         */
+        @Override
+        public void keyReleased (KeyEvent e)
+        {
+            if (e == null)
+                return;
 
-			updateOkToRun();
-		}
-	};
+            updateOkToRun();
+        }
+    };
 
-	private LRFieldWithButtonPanel	_rootSelector;
-	private FolderAutoCompleter<JTextComponent> _rootCompleter;
-	/*
-	 * @see net.community.apps.common.BaseMainFrame#layoutSection(java.lang.String, org.w3c.dom.Element)
-	 */
-	@Override
-	public void layoutSection (String name, Element elem) throws RuntimeException
-	{
-		if (_logger.isDebugEnabled())
-			_logger.debug("layoutSection(" + name + ")[" + DOMUtils.toString(elem) + "]");
+    private LRFieldWithButtonPanel    _rootSelector;
+    private FolderAutoCompleter<JTextComponent> _rootCompleter;
+    /*
+     * @see net.community.apps.common.BaseMainFrame#layoutSection(java.lang.String, org.w3c.dom.Element)
+     */
+    @Override
+    public void layoutSection (String name, Element elem) throws RuntimeException
+    {
+        if (_logger.isDebugEnabled())
+            _logger.debug("layoutSection(" + name + ")[" + DOMUtils.toString(elem) + "]");
 
-		if ("root-selector".equalsIgnoreCase(name))
-		{
-			if (_rootSelector != null)
-				throw new IllegalStateException("layoutSection(" + name + ") already initialized for " + DOMUtils.toString(elem));
+        if ("root-selector".equalsIgnoreCase(name))
+        {
+            if (_rootSelector != null)
+                throw new IllegalStateException("layoutSection(" + name + ") already initialized for " + DOMUtils.toString(elem));
 
-			// delay initialization
-			_rootSelector = new LRFieldWithButtonPanel(elem, false);
-			_rootSelector.setTextField(new InputTextField());
-			_rootSelector.layoutComponent();
-			_rootSelector.addActionListener(getLoadFileListener());
-			_rootSelector.addTextFieldKeyListener(_runOptionKeyListener);
-			_rootCompleter = new FolderAutoCompleter<JTextComponent>(_rootSelector.getTextField());
-		}
-		else if ("log-msgs-area".equalsIgnoreCase(name))
-		{
-			if (_logsArea != null)
-				throw new IllegalStateException("layoutSection(" + name + ") already initialized for " + DOMUtils.toString(elem));
+            // delay initialization
+            _rootSelector = new LRFieldWithButtonPanel(elem, false);
+            _rootSelector.setTextField(new InputTextField());
+            _rootSelector.layoutComponent();
+            _rootSelector.addActionListener(getLoadFileListener());
+            _rootSelector.addTextFieldKeyListener(_runOptionKeyListener);
+            _rootCompleter = new FolderAutoCompleter<JTextComponent>(_rootSelector.getTextField());
+        }
+        else if ("log-msgs-area".equalsIgnoreCase(name))
+        {
+            if (_logsArea != null)
+                throw new IllegalStateException("layoutSection(" + name + ") already initialized for " + DOMUtils.toString(elem));
 
-			_logsArea = new LogMessagesArea(Font.getFont(Font.DIALOG), elem);
-		}
-		else if ("scan-recursive".equalsIgnoreCase(name))
-		{
-			if (_scanRecursive != null)
-				throw new IllegalStateException("layoutSection(" + name + ") already initialized for " + DOMUtils.toString(elem));
-			
-			_scanRecursive = new HelperCheckBox(elem);
-		}
-		else
-			super.layoutSection(name, elem);
-	}
+            _logsArea = new LogMessagesArea(Font.getFont(Font.DIALOG), elem);
+        }
+        else if ("scan-recursive".equalsIgnoreCase(name))
+        {
+            if (_scanRecursive != null)
+                throw new IllegalStateException("layoutSection(" + name + ") already initialized for " + DOMUtils.toString(elem));
 
-	public final String getRootFolder ()
-	{
-		return (_rootCompleter == null) ? null : _rootCompleter.getText();
-	}
+            _scanRecursive = new HelperCheckBox(elem);
+        }
+        else
+            super.layoutSection(name, elem);
+    }
 
-	private void setRootFolder (File rootFolder)
-	{
-		try
-		{
-			if (rootFolder == null)
-				return;
+    public final String getRootFolder ()
+    {
+        return (_rootCompleter == null) ? null : _rootCompleter.getText();
+    }
 
-			if (!rootFolder.isDirectory())
-			{
-				_logger.error("Referenced file is not a folder: " + rootFolder.getAbsolutePath());
-				return;
-			}
+    private void setRootFolder (File rootFolder)
+    {
+        try
+        {
+            if (rootFolder == null)
+                return;
 
-			if (_rootCompleter == null)
-				return;
-	
-			final String	rootPath=rootFolder.getAbsolutePath(),
-							prev=_rootCompleter.getText();
-			if (0 == StringUtil.compareDataStrings(prev, rootPath, true))
-				return;
-			_rootCompleter.setText(rootPath);
-		}
-		finally
-		{
-			updateOkToRun();
-		}
-	}
-	/*
-	 * @see net.community.apps.common.BaseMainFrame#loadFile(java.io.File, java.lang.String, org.w3c.dom.Element)
-	 */
-	@Override
-	public void loadFile (final File f, final String cmd, final Element dlgElement)
-	{
-		setRootFolder(f);
-	}
-	/*
-	 * @see net.community.apps.common.MainComponent#getResourcesAnchor()
-	 */
-	@Override
-	public ResourcesAnchor getResourcesAnchor ()
-	{
-		return ResourcesAnchor.getInstance();
-	}
+            if (!rootFolder.isDirectory())
+            {
+                _logger.error("Referenced file is not a folder: " + rootFolder.getAbsolutePath());
+                return;
+            }
 
-	protected AbstractButton	_runBtn, _stopBtn;
-	private boolean	_running	/* =false */;
-	protected boolean isOkToRun ()
-	{
-        final String	rootFolder=getRootFolder();
+            if (_rootCompleter == null)
+                return;
+
+            final String    rootPath=rootFolder.getAbsolutePath(),
+                            prev=_rootCompleter.getText();
+            if (0 == StringUtil.compareDataStrings(prev, rootPath, true))
+                return;
+            _rootCompleter.setText(rootPath);
+        }
+        finally
+        {
+            updateOkToRun();
+        }
+    }
+    /*
+     * @see net.community.apps.common.BaseMainFrame#loadFile(java.io.File, java.lang.String, org.w3c.dom.Element)
+     */
+    @Override
+    public void loadFile (final File f, final String cmd, final Element dlgElement)
+    {
+        setRootFolder(f);
+    }
+    /*
+     * @see net.community.apps.common.MainComponent#getResourcesAnchor()
+     */
+    @Override
+    public ResourcesAnchor getResourcesAnchor ()
+    {
+        return ResourcesAnchor.getInstance();
+    }
+
+    protected AbstractButton    _runBtn, _stopBtn;
+    private boolean    _running    /* =false */;
+    protected boolean isOkToRun ()
+    {
+        final String    rootFolder=getRootFolder();
         if ((rootFolder == null) || (rootFolder.length() <= 0))
-        	return false;
+            return false;
         if (_runner != null)
-        	return false;
+            return false;
 
         return !_running;
-	}
+    }
 
-	protected boolean updateOkToRun ()
-	{
-		if ((_runBtn == null) || (_runMenuItem == null))
-			return false;
+    protected boolean updateOkToRun ()
+    {
+        if ((_runBtn == null) || (_runMenuItem == null))
+            return false;
 
-		final boolean	okToRun=isOkToRun();
-		_runBtn.setEnabled(okToRun);
-		_runMenuItem.setEnabled(okToRun);
-		return okToRun;
-	}
+        final boolean    okToRun=isOkToRun();
+        _runBtn.setEnabled(okToRun);
+        _runMenuItem.setEnabled(okToRun);
+        return okToRun;
+    }
 
-	protected JMenuItem	_runMenuItem, _loadMenuItem, _stopMenuItem;
-	protected void setRunningMode (boolean running)
-	{
-		if (_running != running)
-		{
-			AttrUtils.setComponentEnabledState(!running,
-					_rootSelector, _runBtn, _scanRecursive,
-					_runMenuItem, _loadMenuItem);
+    protected JMenuItem    _runMenuItem, _loadMenuItem, _stopMenuItem;
+    protected void setRunningMode (boolean running)
+    {
+        if (_running != running)
+        {
+            AttrUtils.setComponentEnabledState(!running,
+                    _rootSelector, _runBtn, _scanRecursive,
+                    _runMenuItem, _loadMenuItem);
 
-			final Cursor	c=running
-					? Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR)
-					: Cursor.getDefaultCursor()
-					;
-			if ((c != null) && (_logsArea != null))
-				_logsArea.setCursor(c);
+            final Cursor    c=running
+                    ? Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR)
+                    : Cursor.getDefaultCursor()
+                    ;
+            if ((c != null) && (_logsArea != null))
+                _logsArea.setCursor(c);
 
-			AttrUtils.setComponentEnabledState(running, _stopMenuItem, _stopBtn);
+            AttrUtils.setComponentEnabledState(running, _stopMenuItem, _stopBtn);
 
-			_running = running;
-		}
-	}
+            _running = running;
+        }
+    }
 
-	private ProjectConverter	_runner;
-	/*
-	 * @see java.lang.Runnable#run()
-	 */
-	@Override
-	public void run ()
-	{
+    private ProjectConverter    _runner;
+    /*
+     * @see java.lang.Runnable#run()
+     */
+    @Override
+    public void run ()
+    {
         if (_runner != null)
         {
-        	JOptionPane.showMessageDialog(this, "Stop current conversion before starting another", "Conversion in progress", JOptionPane.ERROR_MESSAGE);
-        	return;
+            JOptionPane.showMessageDialog(this, "Stop current conversion before starting another", "Conversion in progress", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
-        final String	rootFolder=getRootFolder();
+        final String    rootFolder=getRootFolder();
         if ((rootFolder == null) || (rootFolder.length() <= 0))
         {
-        	JOptionPane.showMessageDialog(this, "Missing root folder", "Incomplete arguments", JOptionPane.ERROR_MESSAGE);
-        	return;
+            JOptionPane.showMessageDialog(this, "Missing root folder", "Incomplete arguments", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
-		clearLogMessagesArea();
+        clearLogMessagesArea();
 
-		_runner = new ProjectConverter(this);
-   		setRunningMode(true);
+        _runner = new ProjectConverter(this);
+           setRunningMode(true);
         _runner.execute();
-	}
+    }
 
-	void signalConversionDone (final ProjectConverter r)
-	{
-		if (r != null)
-		{
-			if (_runner != r)
-				_logger.warn("signalConversionDone() mismatched instances");
-			_runner = null;
-		}
+    void signalConversionDone (final ProjectConverter r)
+    {
+        if (r != null)
+        {
+            if (_runner != r)
+                _logger.warn("signalConversionDone() mismatched instances");
+            _runner = null;
+        }
 
-		setRunningMode(false);
-	}
+        setRunningMode(false);
+    }
 
-	protected void stop ()
-	{
-		if ((_runner == null) || _runner.isDone() || _runner.isCancelled())
-			return;
+    protected void stop ()
+    {
+        if ((_runner == null) || _runner.isDone() || _runner.isCancelled())
+            return;
 
-		_runner.cancel(false);
-		_logger.info("Canceled by user request");
-	}
+        _runner.cancel(false);
+        _logger.info("Canceled by user request");
+    }
 
-	private static final String	RUN_CMD="run", CLEAR_CMD="clear", STOP_CMD="stop";
-	/*
-	 * @see net.community.apps.common.FilesLoadMainFrame#setMainMenuItemsActionHandlers(net.community.chest.swing.component.menu.MenuItemExplorer)
-	 */
-	@Override
-	protected Map<String,JMenuItem> setMainMenuItemsActionHandlers (MenuItemExplorer ie)
-	{
-		final Map<String,JMenuItem>	im=super.setMainMenuItemsActionHandlers(ie);
-		_loadMenuItem = (null == im) ? null : im.get(LOAD_CMD);
-		_stopMenuItem = (null == im) ? null : im.get(STOP_CMD);
-		_runMenuItem = (null == im) ? null : im.get(RUN_CMD);
-		return im;
-	}
-	/*
-	 * @see net.community.apps.common.FilesLoadMainFrame#getActionListenersMap(boolean)
-	 */
-	@Override
-	protected Map<String,? extends ActionListener> getActionListenersMap (boolean createIfNotExist)
-	{
-		final Map<String,? extends ActionListener>	org=super.getActionListenersMap(createIfNotExist);
-		if (((org != null) && (org.size() > 0)) || (!createIfNotExist))
-			return org;
+    private static final String    RUN_CMD="run", CLEAR_CMD="clear", STOP_CMD="stop";
+    /*
+     * @see net.community.apps.common.FilesLoadMainFrame#setMainMenuItemsActionHandlers(net.community.chest.swing.component.menu.MenuItemExplorer)
+     */
+    @Override
+    protected Map<String,JMenuItem> setMainMenuItemsActionHandlers (MenuItemExplorer ie)
+    {
+        final Map<String,JMenuItem>    im=super.setMainMenuItemsActionHandlers(ie);
+        _loadMenuItem = (null == im) ? null : im.get(LOAD_CMD);
+        _stopMenuItem = (null == im) ? null : im.get(STOP_CMD);
+        _runMenuItem = (null == im) ? null : im.get(RUN_CMD);
+        return im;
+    }
+    /*
+     * @see net.community.apps.common.FilesLoadMainFrame#getActionListenersMap(boolean)
+     */
+    @Override
+    protected Map<String,? extends ActionListener> getActionListenersMap (boolean createIfNotExist)
+    {
+        final Map<String,? extends ActionListener>    org=super.getActionListenersMap(createIfNotExist);
+        if (((org != null) && (org.size() > 0)) || (!createIfNotExist))
+            return org;
 
-		final Map<String,ActionListener>	lm=new TreeMap<String,ActionListener>(String.CASE_INSENSITIVE_ORDER);
-		lm.put(LOAD_CMD, getLoadFileListener());
-		lm.put(SAVE_CMD, getSaveFileListener());
-		lm.put(EXIT_CMD, getExitActionListener());
-		lm.put(ABOUT_CMD, getShowManifestActionListener());
-		lm.put(RUN_CMD, new ActionListener() {
-			/*
-			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-			 */
-			@Override
-			public void actionPerformed (final ActionEvent event)
-			{
-				if (event != null)
-					run();
-			}
-		});
-		lm.put(CLEAR_CMD, new ActionListener() {
-			/*
-			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-			 */
-			@Override
-			public void actionPerformed (final ActionEvent event)
-			{
-				if (event != null)
-					clearLogMessagesArea();
-			}			
-		});
-		lm.put(STOP_CMD, new ActionListener() {
-			/*
-			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-			 */
-			@Override
-			public void actionPerformed (final ActionEvent event)
-			{
-				if (event != null)
-					stop();
-			}			
-		});
+        final Map<String,ActionListener>    lm=new TreeMap<String,ActionListener>(String.CASE_INSENSITIVE_ORDER);
+        lm.put(LOAD_CMD, getLoadFileListener());
+        lm.put(SAVE_CMD, getSaveFileListener());
+        lm.put(EXIT_CMD, getExitActionListener());
+        lm.put(ABOUT_CMD, getShowManifestActionListener());
+        lm.put(RUN_CMD, new ActionListener() {
+            /*
+             * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+             */
+            @Override
+            public void actionPerformed (final ActionEvent event)
+            {
+                if (event != null)
+                    run();
+            }
+        });
+        lm.put(CLEAR_CMD, new ActionListener() {
+            /*
+             * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+             */
+            @Override
+            public void actionPerformed (final ActionEvent event)
+            {
+                if (event != null)
+                    clearLogMessagesArea();
+            }
+        });
+        lm.put(STOP_CMD, new ActionListener() {
+            /*
+             * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+             */
+            @Override
+            public void actionPerformed (final ActionEvent event)
+            {
+                if (event != null)
+                    stop();
+            }
+        });
 
-		setActionListenersMap(lm);
-		return lm;
-	}
-	/*
-	 * @see net.community.apps.common.BaseMainFrame#layoutComponent()
-	 */
-	@Override
-	public void layoutComponent () throws RuntimeException
-	{
-		super.layoutComponent();
+        setActionListenersMap(lm);
+        return lm;
+    }
+    /*
+     * @see net.community.apps.common.BaseMainFrame#layoutComponent()
+     */
+    @Override
+    public void layoutComponent () throws RuntimeException
+    {
+        super.layoutComponent();
 
-		final JPanel	northPanel=new JPanel(new GridLayout(0, 1));
-		try
-		{
-			final JToolBar								b=getMainToolBar();
-			final Map<String,? extends AbstractButton>	hm=setToolBarHandlers(b);
-			if ((hm != null) && (hm.size() > 0))
-			{
-				_runBtn = hm.get(RUN_CMD);
-				_stopBtn = hm.get(STOP_CMD);
-			}
+        final JPanel    northPanel=new JPanel(new GridLayout(0, 1));
+        try
+        {
+            final JToolBar                                b=getMainToolBar();
+            final Map<String,? extends AbstractButton>    hm=setToolBarHandlers(b);
+            if ((hm != null) && (hm.size() > 0))
+            {
+                _runBtn = hm.get(RUN_CMD);
+                _stopBtn = hm.get(STOP_CMD);
+            }
 
-			northPanel.add(b);
-		}
-		catch(Exception e)
-		{
-			throw ExceptionUtil.toRuntimeException(e);
-		}
+            northPanel.add(b);
+        }
+        catch(Exception e)
+        {
+            throw ExceptionUtil.toRuntimeException(e);
+        }
 
-		if (_rootSelector != null)
-			northPanel.add(_rootSelector);
-		if (_scanRecursive != null)
-			northPanel.add(_scanRecursive);
+        if (_rootSelector != null)
+            northPanel.add(_rootSelector);
+        if (_scanRecursive != null)
+            northPanel.add(_scanRecursive);
 
-		final Container	ctPane=getContentPane();
-		ctPane.add(northPanel, BorderLayout.NORTH);
-		
-		if (_logsArea != null)
-			ctPane.add(new ScrolledComponent<JTextPane>(JTextPane.class, _logsArea), BorderLayout.CENTER);
+        final Container    ctPane=getContentPane();
+        ctPane.add(northPanel, BorderLayout.NORTH);
 
-		// intercept and handle the closure via click on the "x" button
-		addWindowListener(new WindowAdapter() {
-				/*
-				 * @see java.awt.event.WindowAdapter#windowClosing(java.awt.event.WindowEvent)
-				 */
-				@Override
-				public void windowClosing (WindowEvent e)
-				{
-					if (e != null)
-						exitApplication();
-				}
-			});
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	}
+        if (_logsArea != null)
+            ctPane.add(new ScrolledComponent<JTextPane>(JTextPane.class, _logsArea), BorderLayout.CENTER);
+
+        // intercept and handle the closure via click on the "x" button
+        addWindowListener(new WindowAdapter() {
+                /*
+                 * @see java.awt.event.WindowAdapter#windowClosing(java.awt.event.WindowEvent)
+                 */
+                @Override
+                public void windowClosing (WindowEvent e)
+                {
+                    if (e != null)
+                        exitApplication();
+                }
+            });
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.jms.framework.queue;
 
@@ -14,5 +14,5 @@ import javax.jms.QueueSender;
  * @since Jun 8, 2010 2:05:57 PM
  */
 public interface XQueueSender extends QueueSender {
-	void setQueue (Queue q) throws JMSException;
+    void setQueue (Queue q) throws JMSException;
 }

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.win32.core.serial;
 
@@ -18,24 +18,24 @@ import org.junit.Test;
  */
 public class SerializationFormatConverterTest extends AbstractTestSupport
 {
-	public SerializationFormatConverterTest ()
-	{
-		super();
-	}
+    public SerializationFormatConverterTest ()
+    {
+        super();
+    }
 
-	@Test
-	public void testReadLengthPrefixedStringLength() throws IOException
-	{
-		for (byte b=0; b < Byte.MAX_VALUE; b++)
-			assertEquals("Mismatched 7 bit value", b, readLengthPrefixedStringLength(b));
+    @Test
+    public void testReadLengthPrefixedStringLength() throws IOException
+    {
+        for (byte b=0; b < Byte.MAX_VALUE; b++)
+            assertEquals("Mismatched 7 bit value", b, readLengthPrefixedStringLength(b));
 
-		assertEquals("Mismatched 14-bit value", 232, readLengthPrefixedStringLength((byte) 0xE8, (byte) 0x01));
-	}
-	
-	private static final int readLengthPrefixedStringLength(byte...bytes) throws IOException
-	{
-		try(InputStream	in=new ByteArrayInputStream(bytes)) {
-			return SerializationFormatConverter.readLengthPrefixedStringLength(in);
-		}
-	}
+        assertEquals("Mismatched 14-bit value", 232, readLengthPrefixedStringLength((byte) 0xE8, (byte) 0x01));
+    }
+
+    private static final int readLengthPrefixedStringLength(byte...bytes) throws IOException
+    {
+        try(InputStream    in=new ByteArrayInputStream(bytes)) {
+            return SerializationFormatConverter.readLengthPrefixedStringLength(in);
+        }
+    }
 }

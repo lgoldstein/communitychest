@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.awt.event;
 
@@ -14,15 +14,15 @@ import net.community.chest.util.compare.InstancesComparator;
  * @since Jan 6, 2009 11:09:39 AM
  */
 public class KeyListenerInstanceComparator extends InstancesComparator<KeyListener> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 9120978789318406033L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 9120978789318406033L;
 
-	public KeyListenerInstanceComparator ()
-	{
-		super(KeyListener.class);
-	}
+    public KeyListenerInstanceComparator ()
+    {
+        super(KeyListener.class);
+    }
 
-	public static final KeyListenerInstanceComparator	DEFAULT=new KeyListenerInstanceComparator();
+    public static final KeyListenerInstanceComparator    DEFAULT=new KeyListenerInstanceComparator();
 }

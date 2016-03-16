@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.apache.httpclient.methods;
 
@@ -17,9 +17,9 @@ public class EntityEnclosingGetMethod extends EntityEnclosingMethod {
      * @see org.apache.commons.httpclient.HttpMethodBase#getName()
      */
     @Override
-	public String getName ()
+    public String getName ()
     {
-    	return "GET";
+        return "GET";
     }
 
     public EntityEnclosingGetMethod ()

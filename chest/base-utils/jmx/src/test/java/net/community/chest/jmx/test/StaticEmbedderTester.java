@@ -9,8 +9,8 @@ import net.community.chest.jmx.StaticMBeanClassEmbedder;
  * @since Aug 14, 2007 3:47:48 PM
  */
 public class StaticEmbedderTester extends StaticMBeanClassEmbedder<JMXTester> {
-	public StaticEmbedderTester ()
-	{
-		super(JMXTester.class);
-	}
+    public StaticEmbedderTester ()
+    {
+        super(JMXTester.class);
+    }
 }

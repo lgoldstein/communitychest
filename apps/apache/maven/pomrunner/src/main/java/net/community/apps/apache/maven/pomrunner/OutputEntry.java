@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.apache.maven.pomrunner;
 
@@ -12,33 +12,33 @@ import net.community.chest.util.map.MapEntryImpl;
  * @since Mar 21, 2011 3:14:02 PM
  */
 public class OutputEntry extends MapEntryImpl<LogLevelWrapper,String> {
-	public OutputEntry (LogLevelWrapper key, String value)
-	{
-		super(key, value);
-	}
+    public OutputEntry (LogLevelWrapper key, String value)
+    {
+        super(key, value);
+    }
 
-	public OutputEntry ()
-	{
-		this(null, null);
-	}
+    public OutputEntry ()
+    {
+        this(null, null);
+    }
 
-	public LogLevelWrapper getLevel ()
-	{
-		return getKey();
-	}
+    public LogLevelWrapper getLevel ()
+    {
+        return getKey();
+    }
 
-	public void setLevel (LogLevelWrapper level)
-	{
-		setKey(level);
-	}
+    public void setLevel (LogLevelWrapper level)
+    {
+        setKey(level);
+    }
 
-	public String getMessage ()
-	{
-		return getValue();
-	}
+    public String getMessage ()
+    {
+        return getValue();
+    }
 
-	public void setMessage (String msg)
-	{
-		setValue(msg);
-	}
+    public void setMessage (String msg)
+    {
+        setValue(msg);
+    }
 }

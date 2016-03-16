@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="rrd4j-libs-base" default="rrd4j-libs-base" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Serves as 'base' inclusion file with common definitions for the CHEST
-			rrd4j helper JAR(s) sub-project(s) $Rev: 561 $
-		</description>
+    <project name="rrd4j-libs-base" default="rrd4j-libs-base" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Serves as 'base' inclusion file with common definitions for the CHEST
+            rrd4j helper JAR(s) sub-project(s) $Rev: 561 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="rrd4j.libs.root.dir" file="${ant.file}"/>
+            <!-- Preamble definitions -->
+        <dirname property="rrd4j.libs.root.dir" file="${ant.file}"/>
         <dirname property="3rd.party.root.dir" file="${rrd4j.libs.root.dir}"/>
-		<property name="parent.root.dir" value="${3rd.party.root.dir}"/>
-		<property name="module.root.folder" value="${rrd4j.libs.root.dir}"/>
-		<basename property="module.base.target.name" file="${rrd4j.libs.root.dir}"/>
+        <property name="parent.root.dir" value="${3rd.party.root.dir}"/>
+        <property name="module.root.folder" value="${rrd4j.libs.root.dir}"/>
+        <basename property="module.base.target.name" file="${rrd4j.libs.root.dir}"/>
         <property name="default.classpath.ref.name" value="rrd4j.helpers.path"/>
 
-		<import file="${3rd.party.root.dir}${file.separator}build-base.xml"/>
+        <import file="${3rd.party.root.dir}${file.separator}build-base.xml"/>
 
-        	<!-- define dependencies -->
-		<mvn:dependencies 	pathId="rrd4j.dependencies.path" useScope="compile"
-							settingsFile="${maven.settings.file.path}"
-				>
+            <!-- define dependencies -->
+        <mvn:dependencies     pathId="rrd4j.dependencies.path" useScope="compile"
+                            settingsFile="${maven.settings.file.path}"
+                >
             <localRepository path="${maven.local.repository.folder}" layout="default"/>
 
-			<dependency groupId="net.java.dev" artifactId="rrd4j-all" version="${rrd4j-all.jar.version}" scope="compile"/>
-		</mvn:dependencies>
+            <dependency groupId="net.java.dev" artifactId="rrd4j-all" version="${rrd4j-all.jar.version}" scope="compile"/>
+        </mvn:dependencies>
 
         <path id="rrd4j.helpers.path">
-        	<path refid="community.modules.jars"/>
-    		<path refid="rrd4j.dependencies.path"/>
-		</path>
+            <path refid="community.modules.jars"/>
+            <path refid="rrd4j.dependencies.path"/>
+        </path>
 
-		<target name="rrd4j-libs-base" depends="3rd-party-base" unless="skip.rrd4j.libs.base.target">
-			<property name="skip.rrd4j.libs.base.target" value="true"/>
-		</target>
+        <target name="rrd4j-libs-base" depends="3rd-party-base" unless="skip.rrd4j.libs.base.target">
+            <property name="skip.rrd4j.libs.base.target" value="true"/>
+        </target>
 
-			<!-- Default target(s) from which modules should derive their own -->
-		<target name="jar-rrd4j-libs-module-files" depends="rrd4j-libs-base,jar-3rd-party-module-files"/>
-		<target name="clean-rrd4j-libs-module-build" depends="rrd4j-libs-base,clean-3rd-party-module-build"/>
-	</project>
+            <!-- Default target(s) from which modules should derive their own -->
+        <target name="jar-rrd4j-libs-module-files" depends="rrd4j-libs-base,jar-3rd-party-module-files"/>
+        <target name="clean-rrd4j-libs-module-build" depends="rrd4j-libs-base,clean-3rd-party-module-build"/>
+    </project>
