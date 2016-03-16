@@ -29,12 +29,12 @@ for (def vmid in this.args) {
         def javaHome = sysProps["java.home"]
         def agentPath = javaHome + File.separator + "lib" + File.separator + "management-agent.jar"
         vm.loadAgent(agentPath)
-      
+
         if ((connectorAddr=vm.agentProperties["com.sun.management.jmxremote.localConnectorAddress"]) == null) {
             throw new IllegalStateException("Failed to load agent at: " + agentPath)
         }
     }
-    
+
     // log(connectorAddr)
 
     def serviceURL = new JMXServiceURL(connectorAddr)
@@ -66,7 +66,7 @@ private static showAllAttributes(mbsc, name) {
                 names.add(attr.name)
             }
         }
-        
+
         showAttributes(mbsc, objName, names.toArray(new String[names.size()]))
     } catch(Exception e) {
         System.err.append(name).append("-> ").append(e.getClass().getSimpleName()).append(": ").println(e.message)
@@ -82,7 +82,7 @@ private static showAttributes(mbsc, ObjectName objName, String ... names) {
             System.out.append('\t').append(attr.name).append(": ").println(value)
         }
     }
-    
+
     attrsList
 }
 
