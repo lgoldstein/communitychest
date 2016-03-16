@@ -4,6 +4,8 @@ Servers/
 .metadata/
 .recommenders/
 .settings/
+.project
+.classpath
 RemoteSystemsTempFiles/
 _ajdump/
 .springBeans
