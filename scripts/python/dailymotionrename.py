@@ -4,8 +4,6 @@
 import sys
 import os
 import signal
-import random
-import string
 
 """
 Renames downloaded Dailymotion files to a shorter format
