@@ -16,7 +16,6 @@ import java.io.Reader;
 import java.io.StreamCorruptedException;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -26,7 +25,6 @@ import java.util.concurrent.TimeUnit;
 
 import net.community.chest.Triplet;
 import net.community.chest.io.IOCopier;
-import net.community.chest.net.proto.text.http.HttpUtils;
 import net.community.chest.test.TestBase;
 
 /**
@@ -253,7 +251,7 @@ public final class HentaiAnimeDownloader extends TestBase {
 	}
 
 	// zizki.com
-	protected static final void zizkiGaleriesDownload  (final PrintStream	out,
+/*	protected static final void zizkiGaleriesDownload  (final PrintStream	out,
 		   	 											final File	rootFolder, final long chainDelay,
 		   	 											final String startRef)
 		   throws IOException, InterruptedException, URISyntaxException
@@ -276,7 +274,7 @@ public final class HentaiAnimeDownloader extends TestBase {
 				throw new FileNotFoundException("No file downloaded");
 		}
 	}
-
+*/
 	// www.fakku.net
 	private static final void fakkuGaleriesDownload (final PrintStream	out,
 													 final File	rootFolder, final long chainDelay,
@@ -320,8 +318,8 @@ public final class HentaiAnimeDownloader extends TestBase {
 	{
 		if (startRef.contains("g.e-hentai.org"))
 			ghGaleriesDownload(out, rootFolder, chainDelay, startRef);
-		else if (startRef.contains("zizki.com"))
-			zizkiGaleriesDownload(out, rootFolder, chainDelay, startRef);
+//		else if (startRef.contains("zizki.com"))
+//			zizkiGaleriesDownload(out, rootFolder, chainDelay, startRef);
 		else if (startRef.contains("fakku.net"))
 			fakkuGaleriesDownload(out, rootFolder, chainDelay, startRef);
 		else

@@ -358,7 +358,7 @@ public abstract class AbstractReflectiveProxy<V,O extends AccessibleObject>
 	public abstract Object getAttributeValue (final V src, final String attrName, final Class<?> aType) throws Exception;
 
 	public String setAttributeString (final V src, final String attrName, final Class<?> aType,
-			@SuppressWarnings("unused") final Document doc, final Element elem, final Object aValue) throws Exception
+			final Document doc, final Element elem, final Object aValue) throws Exception
 	{
 		if ((null == src) || (null == aValue))
 			return null;
