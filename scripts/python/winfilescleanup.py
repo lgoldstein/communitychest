@@ -70,7 +70,8 @@ def doScan(target):
         return
 
     info("Processing %s" % target)
-    os.system(u"attrib -S -H %s\\*.jpg /S" % target)
+    os.system(u"attrib -S -H \"%s\\*.jpg\" /S" % target)
+    os.system(u"attrib -S -H \"%s\\*.png\" /S" % target)
     contents = os.listdir(target)
     for f in contents:
         path = os.path.join(target, f)
