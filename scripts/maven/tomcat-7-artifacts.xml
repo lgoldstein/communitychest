@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Super POM included by all other sub-POM(s)-->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.community.chest</groupId>
-	<artifactId>tomcat-artifacts</artifactId>
-	<packaging>pom</packaging>
-	<name>Tomcat artifacts</name>
-	<version>7.0.26</version>
-	
-	<properties>
-		<tomcat.version>${project.version}</tomcat.version>
-	</properties>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.community.chest</groupId>
+    <artifactId>tomcat-artifacts</artifactId>
+    <packaging>pom</packaging>
+    <name>Tomcat artifacts</name>
+    <version>7.0.26</version>
 
-	<dependencies>
+    <properties>
+        <tomcat.version>${project.version}</tomcat.version>
+    </properties>
+
+    <dependencies>
        <dependency>
            <groupId>org.apache.tomcat</groupId>
            <artifactId>tomcat-catalina</artifactId>
@@ -30,5 +30,5 @@
            <artifactId>tomcat-util</artifactId>
            <version>${tomcat.version}</version>
        </dependency>
-	</dependencies>
+    </dependencies>
 </project>
