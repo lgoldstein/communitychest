@@ -31,7 +31,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Booking implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -2600056365685716986L;
 
@@ -62,41 +62,41 @@ public class Booking implements Serializable {
     private Set<Amenity> amenities;
 
     public Booking() {
-	Calendar calendar = Calendar.getInstance();
-	calendar.add(Calendar.DAY_OF_MONTH, 1);
-	setCheckinDate(calendar.getTime());
-	calendar.add(Calendar.DAY_OF_MONTH, 1);
-	setCheckoutDate(calendar.getTime());
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DAY_OF_MONTH, 1);
+    setCheckinDate(calendar.getTime());
+    calendar.add(Calendar.DAY_OF_MONTH, 1);
+    setCheckoutDate(calendar.getTime());
     }
 
     public Booking(Hotel hotel, User user) {
-	this();
-	this.hotel = hotel;
-	this.user = user;
+    this();
+    this.hotel = hotel;
+    this.user = user;
     }
 
     @Transient
     public BigDecimal getTotal() {
-	return hotel.getPrice().multiply(new BigDecimal(getNights()));
+    return hotel.getPrice().multiply(new BigDecimal(getNights()));
     }
 
     @Transient
     public int getNights() {
-	if (checkinDate == null || checkoutDate == null) {
-	    return 0;
-	} else {
-	    return (int) ((checkoutDate.getTime() - checkinDate.getTime()) / 1000 / 60 / 60 / 24);
-	}
+    if (checkinDate == null || checkoutDate == null) {
+        return 0;
+    } else {
+        return (int) ((checkoutDate.getTime() - checkinDate.getTime()) / 1000 / 60 / 60 / 24);
+    }
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     public Long getId() {
-	return id;
+    return id;
     }
 
     public void setId(Long id) {
-	this.id = id;
+    this.id = id;
     }
 
     @Basic
@@ -104,29 +104,29 @@ public class Booking implements Serializable {
     @NotNull
     @Future
     public Date getCheckinDate() {
-	return checkinDate;
+    return checkinDate;
     }
 
     public void setCheckinDate(Date datetime) {
-	this.checkinDate = datetime;
+    this.checkinDate = datetime;
     }
 
     @ManyToOne
     public Hotel getHotel() {
-	return hotel;
+    return hotel;
     }
 
     public void setHotel(Hotel hotel) {
-	this.hotel = hotel;
+    this.hotel = hotel;
     }
 
     @ManyToOne
     public User getUser() {
-	return user;
+    return user;
     }
 
     public void setUser(User user) {
-	this.user = user;
+    this.user = user;
     }
 
     @Basic
@@ -134,88 +134,88 @@ public class Booking implements Serializable {
     @NotNull
     @Future
     public Date getCheckoutDate() {
-	return checkoutDate;
+    return checkoutDate;
     }
 
     public void setCheckoutDate(Date checkoutDate) {
-	this.checkoutDate = checkoutDate;
+    this.checkoutDate = checkoutDate;
     }
 
     @NotEmpty
     public String getCreditCard() {
-	return creditCard;
+    return creditCard;
     }
 
     public void setCreditCard(String creditCard) {
-	this.creditCard = creditCard;
+    this.creditCard = creditCard;
     }
 
     @Transient
     public String getDescription() {
-	DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
-	return hotel == null ? null : hotel.getName() + ", " + df.format(getCheckinDate()) + " to "
-		+ df.format(getCheckoutDate());
+    DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+    return hotel == null ? null : hotel.getName() + ", " + df.format(getCheckinDate()) + " to "
+        + df.format(getCheckoutDate());
     }
 
     public boolean isSmoking() {
-	return smoking;
+    return smoking;
     }
 
     public void setSmoking(boolean smoking) {
-	this.smoking = smoking;
+    this.smoking = smoking;
     }
 
     public int getBeds() {
-	return beds;
+    return beds;
     }
 
     public void setBeds(int beds) {
-	this.beds = beds;
+    this.beds = beds;
     }
 
     @NotEmpty
     public String getCreditCardName() {
-	return creditCardName;
+    return creditCardName;
     }
 
     public void setCreditCardName(String creditCardName) {
-	this.creditCardName = creditCardName;
+    this.creditCardName = creditCardName;
     }
 
     public int getCreditCardExpiryMonth() {
-	return creditCardExpiryMonth;
+    return creditCardExpiryMonth;
     }
 
     public void setCreditCardExpiryMonth(int creditCardExpiryMonth) {
-	this.creditCardExpiryMonth = creditCardExpiryMonth;
+    this.creditCardExpiryMonth = creditCardExpiryMonth;
     }
 
     public int getCreditCardExpiryYear() {
-	return creditCardExpiryYear;
+    return creditCardExpiryYear;
     }
 
     public void setCreditCardExpiryYear(int creditCardExpiryYear) {
-	this.creditCardExpiryYear = creditCardExpiryYear;
+    this.creditCardExpiryYear = creditCardExpiryYear;
     }
 
     @Transient
     public Set<Amenity> getAmenities() {
-	return amenities;
+    return amenities;
     }
 
     public void setAmenities(Set<Amenity> amenities) {
-	this.amenities = amenities;
+    this.amenities = amenities;
     }
 
     protected Date today() {
-	Calendar calendar = Calendar.getInstance();
-	calendar.add(Calendar.DAY_OF_MONTH, -1);
-	return calendar.getTime();
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DAY_OF_MONTH, -1);
+    return calendar.getTime();
     }
 
     @Override
     public String toString() {
-	return "Booking(" + user + "," + hotel + ")";
+    return "Booking(" + user + "," + hotel + ")";
     }
 
 }

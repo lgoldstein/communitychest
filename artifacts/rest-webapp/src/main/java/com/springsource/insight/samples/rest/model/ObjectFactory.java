@@ -22,15 +22,15 @@ import javax.xml.bind.annotation.XmlRegistry;
  */
 @XmlRegistry
 public final class ObjectFactory {
-	public ObjectFactory() {
-		super();
-	}
+    public ObjectFactory() {
+        super();
+    }
 
-	public final RestfulData createRestfulData () {
-		return new RestfulData();
-	}
-	
-	public final RestfulDataList createRestfulDataList () {
-		return new RestfulDataList();
-	}
+    public final RestfulData createRestfulData () {
+        return new RestfulData();
+    }
+
+    public final RestfulDataList createRestfulDataList () {
+        return new RestfulDataList();
+    }
 }

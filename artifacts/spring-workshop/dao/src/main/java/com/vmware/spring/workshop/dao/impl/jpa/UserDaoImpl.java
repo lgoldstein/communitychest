@@ -17,30 +17,30 @@ import com.vmware.spring.workshop.model.user.User;
 @Repository("userDao")
 @Transactional
 public class UserDaoImpl
-		extends AbstractIdentifiedJpaDaoImpl<User>
-		implements UserDao {
-	public UserDaoImpl () {
-		super(User.class);
-	}
+        extends AbstractIdentifiedJpaDaoImpl<User>
+        implements UserDao {
+    public UserDaoImpl () {
+        super(User.class);
+    }
 
-	@Override
-	@Transactional(readOnly=true)
-	public User findByLoginName (String username)
-	{
-		Assert.hasText(username, "No username provided");
-		final TypedQuery<User>	query=getNamedQuery("findByLoginName")
-										 .setParameter("loginName", username)
-										 ;
-		return getUniqueResult(query);
-	}
+    @Override
+    @Transactional(readOnly=true)
+    public User findByLoginName (String username)
+    {
+        Assert.hasText(username, "No username provided");
+        final TypedQuery<User>    query=getNamedQuery("findByLoginName")
+                                         .setParameter("loginName", username)
+                                         ;
+        return getUniqueResult(query);
+    }
 
-	@Override
-	@Transactional(readOnly=true)
-	public List<User> findUserByLocation(String location) {
-		Assert.hasText(location, "No location provided");
-		final TypedQuery<User>	query=getNamedQuery("findUserByLocation")
-										 .setParameter("location", "%" + location.toLowerCase() + "%")
-										 ;
-		return getQueryResults(query);
-	}
+    @Override
+    @Transactional(readOnly=true)
+    public List<User> findUserByLocation(String location) {
+        Assert.hasText(location, "No location provided");
+        final TypedQuery<User>    query=getNamedQuery("findUserByLocation")
+                                         .setParameter("location", "%" + location.toLowerCase() + "%")
+                                         ;
+        return getQueryResults(query);
+    }
 }

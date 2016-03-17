@@ -34,14 +34,14 @@
   </category>
 
   <category name="org.hibernate.SQL">
-  	<priority value="DEBUG" />
+      <priority value="DEBUG" />
   </category>
 
   <category name="org.apache">
     <priority value="WARN"/>
   </category>
 
-		<!-- Uncomment this definition to view test DEBUG messages -->
+        <!-- Uncomment this definition to view test DEBUG messages -->
   <!--  category name="junit.framework.Test"><priority value="DEBUG"/></category -->
 
   <!-- ======================= -->
@@ -52,5 +52,5 @@
     <priority value ="INFO" />
     <appender-ref ref="CONSOLE"/>
   </root>
-  
+
 </log4j:configuration>

@@ -16,34 +16,34 @@ import com.vmware.spring.workshop.model.user.InvestmentData;
 @Repository("accountDao")
 @Transactional
 public class AccountDaoImpl
-		extends AbstractIdentifiedJpaDaoImpl<Account>
-		implements AccountDao {
-	public AccountDaoImpl () {
-		super(Account.class);
-	}
+        extends AbstractIdentifiedJpaDaoImpl<Account>
+        implements AccountDao {
+    public AccountDaoImpl () {
+        super(Account.class);
+    }
 
-	@Override
-	@Transactional(readOnly=true)
-	public List<Account> findUserAccountsById(Long userId) {
-		return getNamedIdQueryResults("findUserAccountsById", userId);
-	}
+    @Override
+    @Transactional(readOnly=true)
+    public List<Account> findUserAccountsById(Long userId) {
+        return getNamedIdQueryResults("findUserAccountsById", userId);
+    }
 
-	@Override
-	@Transactional(readOnly=true)
-	public List<Account> findBranchAccountsById(Long branchId) {
-		return getNamedIdQueryResults("findBranchAccountsById", branchId);
-	}
+    @Override
+    @Transactional(readOnly=true)
+    public List<Account> findBranchAccountsById(Long branchId) {
+        return getNamedIdQueryResults("findBranchAccountsById", branchId);
+    }
 
-	@Override
-	@Transactional(readOnly=true)
-	public List<Account> findBankAccountsById(Long bankId) {
-		return getNamedIdQueryResults("findBankAccountsById", bankId);
-	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	@Transactional(readOnly=true)
-	public List<Map.Entry<Long, Integer>> findInvestedAmountsByBank(Long userId) {
-		return (List) getNamedIdQueryResults("findInvestedAmountsByBank", userId, InvestmentData.class);
-	}
+    @Override
+    @Transactional(readOnly=true)
+    public List<Account> findBankAccountsById(Long bankId) {
+        return getNamedIdQueryResults("findBankAccountsById", bankId);
+    }
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @Override
+    @Transactional(readOnly=true)
+    public List<Map.Entry<Long, Integer>> findInvestedAmountsByBank(Long userId) {
+        return (List) getNamedIdQueryResults("findInvestedAmountsByBank", userId, InvestmentData.class);
+    }
 }

@@ -6,9 +6,9 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
  * @author lgoldstein
  */
 public abstract class AbstractServicesTestSupport extends AbstractTransactionalJUnit4SpringContextTests {
-	public static final String	DEFAULT_TEST_CONTEXT="classpath:META-INF/svcContext.xml";
+    public static final String    DEFAULT_TEST_CONTEXT="classpath:META-INF/svcContext.xml";
 
-	protected AbstractServicesTestSupport() {
-		super();
-	}
+    protected AbstractServicesTestSupport() {
+        super();
+    }
 }

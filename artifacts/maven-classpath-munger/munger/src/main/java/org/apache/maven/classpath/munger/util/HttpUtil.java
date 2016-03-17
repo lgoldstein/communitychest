@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -55,10 +55,10 @@ public final class HttpUtil {
      * A {@link HostnameVerifier} that accepts all incoming hosts
      */
     public static final HostnameVerifier    ACCEPT_ALL_HOSTNAME_VERIFIER=
-            new HostnameVerifier()  {        
+            new HostnameVerifier()  {
                 @Override
                 public boolean verify(String hostname, SSLSession session)   {
-                    return true;  
+                    return true;
                 }
             };
 
@@ -87,7 +87,7 @@ public final class HttpUtil {
                 throw new IOException("downloadDataStream(" + url + ") failed to create hierarchy of " + target.getAbsolutePath());
             }
         }
-        
+
         OutputStream    output=new FileOutputStream(target);
         try {
             return downloadDataStream(url, reqHeaders, output);
@@ -99,7 +99,7 @@ public final class HttpUtil {
     public static final long downloadDataStream(String url, OutputStream output) throws IOException {
         return downloadDataStream(url, Collections.<String,String>emptyMap(), output);
     }
-    
+
     /**
      * @param url The URL to retrieve the data from using &quot;GET&quot;
      * @param Request headers {@link Map} - ignored if {@code null} or empty
@@ -113,7 +113,7 @@ public final class HttpUtil {
         if (input == null) {
             return 0L;
         }
-        
+
         try {
             return copyData(input, output);
         } finally {
@@ -157,7 +157,7 @@ public final class HttpUtil {
             String    rspMsg=conn.getResponseMessage();
             throw new IOException("getDataStream(" + url + ") failed (" + statusCode + "): " + rspMsg);
         }
-        
+
         InputStream dataStream=wrapStream(conn);
         if (dataStream == null) {
             return EmptyInputStream.INSTANCE;
@@ -189,9 +189,9 @@ public final class HttpUtil {
      *      <LI><P>
      *      If the HTTPS protocol is specified then <U>no certificate validation</U>
      *      is executed - i.e., the connection is set up to trust all hosts and
-     *      certificates presented to it 
+     *      certificates presented to it
      *      </LI></P></BR>
-     *      
+     *
      *      <LI><P>
      *      If a &quot;POST&quot; method is used then the caller must further set up
      *      the connection by specifying that it is going to output data + provide it:</BR>
@@ -199,7 +199,7 @@ public final class HttpUtil {
      *              <PRE>
      *              HttpURLConnection   conn=openConnection(...);
      *              conn.setDoOutput(true);
-     *              
+     *
      *              OutputStream    outData=conn.getOutputStream();
      *              try {
      *                  ...write data to be posted...
@@ -224,7 +224,7 @@ public final class HttpUtil {
         conn.setConnectTimeout(10 * 1000);  // TODO use some configurable value
         conn.setReadTimeout(30 * 1000);  // TODO use some configurable value
         conn.setRequestMethod(method);
-        
+
         if ((reqHeaders != null) && (reqHeaders.size() > 0)) {
             for (Map.Entry<String,?> re : reqHeaders.entrySet()) {
                 String  name=re.getKey();
@@ -245,12 +245,12 @@ public final class HttpUtil {
                 public void checkClientTrusted(final X509Certificate[] chain, final String authType ) {
                     // do nothing
                 }
-    
+
                 @Override
                 public void checkServerTrusted(final X509Certificate[] chain, final String authType ) {
                     // do nothing
                 }
-    
+
                 @Override
                 public X509Certificate[] getAcceptedIssuers() {
                     return null;

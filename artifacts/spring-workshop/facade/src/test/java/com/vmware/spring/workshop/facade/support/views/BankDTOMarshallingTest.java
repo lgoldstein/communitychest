@@ -11,7 +11,7 @@ import com.vmware.spring.workshop.facade.AbstractFacadeTestSupport;
  */
 @ContextConfiguration(locations={ AbstractFacadeTestSupport.DEFAULT_TEST_CONTEXT })
 public class BankDTOMarshallingTest extends AbstractDTOMarshallingTestSupport<BankDTO,BankDTOList> {
-	public BankDTOMarshallingTest () throws Exception {
-		super(BankDTO.class, BankDTOList.class);
-	}
+    public BankDTOMarshallingTest () throws Exception {
+        super(BankDTO.class, BankDTOList.class);
+    }
 }

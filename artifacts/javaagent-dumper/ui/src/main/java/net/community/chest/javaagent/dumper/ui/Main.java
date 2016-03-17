@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.javaagent.dumper.ui;
 
@@ -17,23 +17,23 @@ import net.community.chest.javaagent.dumper.ui.resources.ResourcesAnchor;
  *
  */
 public final class Main extends BaseMain {
-	public Main (String... args)
-	{
-		super(args);
-	}
-	/*
-	 * @see net.community.apps.common.BaseMain#createMainFrameInstance()
-	 */
-	@Override
-	protected JFrame createMainFrameInstance () throws Exception
-	{
-		return new JavaAgentDumperMainFrame(getMainArguments());
-	}
+    public Main (String... args)
+    {
+        super(args);
+    }
+    /*
+     * @see net.community.apps.common.BaseMain#createMainFrameInstance()
+     */
+    @Override
+    protected JFrame createMainFrameInstance () throws Exception
+    {
+        return new JavaAgentDumperMainFrame(getMainArguments());
+    }
 
-	public static void main (String[] args)
-	{
-		// 1st thing we do before any UI startup
-		AbstractXmlProxyConverter.setDefaultLoader(ResourcesAnchor.getInstance());
-		SwingUtilities.invokeLater(new Main(args));
-	}
+    public static void main (String[] args)
+    {
+        // 1st thing we do before any UI startup
+        AbstractXmlProxyConverter.setDefaultLoader(ResourcesAnchor.getInstance());
+        SwingUtilities.invokeLater(new Main(args));
+    }
 }

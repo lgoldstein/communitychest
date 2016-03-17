@@ -15,59 +15,59 @@ import com.vmware.spring.workshop.dto.AbstractIdentifiedDTO;
 @XmlType(name="account")
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class AccountDTO extends AbstractIdentifiedDTO implements Cloneable {
-	private static final long serialVersionUID = -8496018899421781852L;
+    private static final long serialVersionUID = -8496018899421781852L;
 
-	private String	_accountNumber;
-	private Long	_ownerId;
-	private Long	_branchId;
-	private int		_amount;
+    private String    _accountNumber;
+    private Long    _ownerId;
+    private Long    _branchId;
+    private int        _amount;
 
-	public AccountDTO() {
-		super();
-	}
+    public AccountDTO() {
+        super();
+    }
 
-	@XmlAttribute(name="ownerId",required=true)
-	public Long getOwnerId() {
-		return _ownerId;
-	}
+    @XmlAttribute(name="ownerId",required=true)
+    public Long getOwnerId() {
+        return _ownerId;
+    }
 
-	public void setOwnerId(Long ownerId) {
-		_ownerId = ownerId;
-	}
+    public void setOwnerId(Long ownerId) {
+        _ownerId = ownerId;
+    }
 
-	@XmlAttribute(name="branchId",required=true)
-	public Long getBranchId() {
-		return _branchId;
-	}
+    @XmlAttribute(name="branchId",required=true)
+    public Long getBranchId() {
+        return _branchId;
+    }
 
-	public void setBranchId(Long branchId) {
-		_branchId = branchId;
-	}
+    public void setBranchId(Long branchId) {
+        _branchId = branchId;
+    }
 
-	@XmlAttribute(name="accountNumber",required=true)
-	public String getAccountNumber() {
-		return _accountNumber;
-	}
+    @XmlAttribute(name="accountNumber",required=true)
+    public String getAccountNumber() {
+        return _accountNumber;
+    }
 
-	public void setAccountNumber(String accountNumber) {
-		_accountNumber = accountNumber;
-	}
+    public void setAccountNumber(String accountNumber) {
+        _accountNumber = accountNumber;
+    }
 
-	@XmlAttribute(name="amount",required=true)
-	public int getAmount() {
-		return _amount;
-	}
+    @XmlAttribute(name="amount",required=true)
+    public int getAmount() {
+        return _amount;
+    }
 
-	public void setAmount(int amount) {
-		_amount = amount;
-	}
+    public void setAmount(int amount) {
+        _amount = amount;
+    }
 
-	@Override
-	public AccountDTO clone() {
-		try {
-			return getClass().cast(super.clone());
-		} catch(CloneNotSupportedException e) {
-			throw new RuntimeException("Failed to clone " + this + ": " + e.getMessage(), e);
-		}
-	}
+    @Override
+    public AccountDTO clone() {
+        try {
+            return getClass().cast(super.clone());
+        } catch(CloneNotSupportedException e) {
+            throw new RuntimeException("Failed to clone " + this + ": " + e.getMessage(), e);
+        }
+    }
 }

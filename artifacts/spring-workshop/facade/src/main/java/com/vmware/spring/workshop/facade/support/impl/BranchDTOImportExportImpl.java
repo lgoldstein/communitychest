@@ -12,9 +12,9 @@ import com.vmware.spring.workshop.facade.support.BranchDTOImportExport;
  */
 @Component("branchDTOImportExport")
 public class BranchDTOImportExportImpl
-		extends AbstractCSVImportExportImpl<BranchDTO>
-		implements BranchDTOImportExport {
-	public BranchDTOImportExportImpl () throws IntrospectionException {
-		super(BranchDTO.class);
-	}
+        extends AbstractCSVImportExportImpl<BranchDTO>
+        implements BranchDTOImportExport {
+    public BranchDTOImportExportImpl () throws IntrospectionException {
+        super(BranchDTO.class);
+    }
 }

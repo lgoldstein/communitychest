@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -53,7 +53,7 @@ public class ClasspathMunger extends AbstractMunger implements ServletContextLis
     public ClasspathMunger() {
         super();
     }
-    
+
     // unit tests
     ClasspathMunger(Log log) {
         super(log);
@@ -120,7 +120,7 @@ public class ClasspathMunger extends AbstractMunger implements ServletContextLis
                     PropertiesUtil.format(processProps.getProperty("classpath.munger.signatures.location", "/WEB-INF/maven/repository"), processProps);
             processDependencies(dependenciesListLocation, resolveInputDataLocation(context, signaturesDataLocation), processProps);
         }
-        
+
         invokeExtraContextListeners(sce, processProps);
     }
 
@@ -128,7 +128,7 @@ public class ClasspathMunger extends AbstractMunger implements ServletContextLis
         if ((extraListeners == null) || extraListeners.isEmpty()) {
             return;
         }
-        
+
         Exception   exc=null;
         for (ServletContextListener l : extraListeners) {
             try {
@@ -138,7 +138,7 @@ public class ClasspathMunger extends AbstractMunger implements ServletContextLis
                 exc = e;
             }
         }
-        
+
         if (exc != null) {
             throw exc;
         }
@@ -154,7 +154,7 @@ public class ClasspathMunger extends AbstractMunger implements ServletContextLis
             logger.info("No extra listeners to invoke");
             return Collections.emptyList();
         }
-        
+
         Thread      thread=Thread.currentThread();
         ClassLoader cl=thread.getContextClassLoader();
         InputStream inputStream=listenersListLocation.openStream();
@@ -168,11 +168,11 @@ public class ClasspathMunger extends AbstractMunger implements ServletContextLis
                     if (PropertiesUtil.isEmpty(line)) {
                         continue;
                     }
-                    
+
                     if (!line.startsWith("<listener-class")) {
                         continue;
                     }
-                    
+
                     int                     startPos=line.indexOf('>'), endPos=line.indexOf('<', startPos + 1);
                     String                  className=line.substring(startPos + 1, endPos).trim();
                     Class<?>                listenerClass=Class.forName(className, false, cl);
@@ -211,10 +211,10 @@ public class ClasspathMunger extends AbstractMunger implements ServletContextLis
             logger.error(e.getMessage());
             throw e;
         }
-        
+
         addClasspathURLs((URLClassLoader) cl, urls);
     }
-    
+
     URLClassLoader addClasspathURLs(URLClassLoader cl, Collection<? extends URL> urls) throws ReflectiveOperationException {
         Method  m=URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
         if (!m.isAccessible()) {
@@ -223,12 +223,12 @@ public class ClasspathMunger extends AbstractMunger implements ServletContextLis
 
         for (URL url : urls) {
             m.invoke(cl, url);
-            
+
             if (logger.isDebugEnabled()) {
                 logger.debug("addClasspathURLs - added " + url.toExternalForm());
             }
         }
-        
+
         return cl;
     }
 
@@ -252,7 +252,7 @@ public class ClasspathMunger extends AbstractMunger implements ServletContextLis
         if ((context == null) || (thresholdLevel == null)) {
             throw new IllegalArgumentException("Incomplete wrapper specification");
         }
-        
+
         return new AbstractJULWrapper() {
             @Override
             public void log(Level level, Object message, Throwable t) {
@@ -264,17 +264,17 @@ public class ClasspathMunger extends AbstractMunger implements ServletContextLis
                     }
                 }
             }
-    
+
             @Override
             public boolean isEnabled(Level level) {
                 if (Level.OFF.equals(thresholdLevel)) {
                     return false;
                 }
-                
+
                 if (Level.ALL.equals(thresholdLevel)) {
                     return true;
                 }
-                
+
                 if (level.intValue() >= thresholdLevel.intValue()) {
                     return true;
                 } else {

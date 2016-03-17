@@ -3,7 +3,7 @@
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-		<!-- Appenders -->
+        <!-- Appenders -->
     <appender name="FILE" class="org.apache.log4j.RollingFileAppender">
         <param name="File" value="${catalina.base}/logs/workshop-facade.log" />
         <param name="Append" value="false" />
@@ -12,47 +12,47 @@
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d %-5p [%c{1}][%t] - %m%n" />
         </layout>
-	</appender>
-	<appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
-		<param name="Threshold" value="ALL"/>
-			<!-- queue size - depends on expected rate - can be quite big since the "price" is one reference for each place -->
-		<param name="BufferSize" value="500"/>
-			<!-- MUST be false since we don’t want the main code to block if out-of-space -->
-		<param name="Blocking" value="false"/>
-			<!-- set it to 'true' only if performance is not an issue -->
-		<param name="LocationInfo" value="false"/>
+    </appender>
+    <appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
+        <param name="Threshold" value="ALL"/>
+            <!-- queue size - depends on expected rate - can be quite big since the "price" is one reference for each place -->
+        <param name="BufferSize" value="500"/>
+            <!-- MUST be false since we don’t want the main code to block if out-of-space -->
+        <param name="Blocking" value="false"/>
+            <!-- set it to 'true' only if performance is not an issue -->
+        <param name="LocationInfo" value="false"/>
 
-		<appender-ref ref="FILE"/>
-	</appender>
+        <appender-ref ref="FILE"/>
+    </appender>
 
-	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
-		<param name="Target" value="System.out"/>
-		<param name="Threshold" value="ALL"/>
-		<layout class="org.apache.log4j.PatternLayout">
-			<!-- The default pattern: Date Priority [Category] Message\n -->
-		<param name="ConversionPattern" value="facade[%-16t] %d{ABSOLUTE} %-5p [%c{1}] - %m%n"/>
-		</layout>
-	</appender>
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out"/>
+        <param name="Threshold" value="ALL"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- The default pattern: Date Priority [Category] Message\n -->
+        <param name="ConversionPattern" value="facade[%-16t] %d{ABSOLUTE} %-5p [%c{1}] - %m%n"/>
+        </layout>
+    </appender>
 
-		<!-- 3rd-party Loggers -->
+        <!-- 3rd-party Loggers -->
     <logger name="org.springframework">
         <level value="INFO" />
     </logger>
 
-	<logger name="org.apache">
-		<level value="WARN"/>
-	</logger>
+    <logger name="org.apache">
+        <level value="WARN"/>
+    </logger>
 
-	<logger name="org.hibernate">
-    	<level value="WARN" />
-  	</logger>
+    <logger name="org.hibernate">
+        <level value="WARN" />
+      </logger>
 
-		<!-- Log executed statements - see org.hibernate.jdbc.util.SQLStatementLogger -->
-	<logger name="org.hibernate.SQL">
-    	<level value="DEBUG" />
-  	</logger>
+        <!-- Log executed statements - see org.hibernate.jdbc.util.SQLStatementLogger -->
+    <logger name="org.hibernate.SQL">
+        <level value="DEBUG" />
+      </logger>
 
-		<!-- Root Logger -->
+        <!-- Root Logger -->
     <root>
         <level value="INFO" />
         <appender-ref ref="CONSOLE" />

@@ -17,45 +17,45 @@ import org.springframework.util.Assert;
  * @author lgoldstein
  */
 public class JaxbPackagesMarshaller extends AbstractJAXBContextMarshaller {
-	private final Set<String>	_packages;
-	private final JAXBContext	_jaxbContext;
+    private final Set<String>    _packages;
+    private final JAXBContext    _jaxbContext;
 
-	public JaxbPackagesMarshaller(final String ... packages) throws JAXBException {
-		Assert.state(!ArrayUtils.isEmpty(packages), "No packages specified");
-		Assert.noNullElements(packages, "Null packages specified");
+    public JaxbPackagesMarshaller(final String ... packages) throws JAXBException {
+        Assert.state(!ArrayUtils.isEmpty(packages), "No packages specified");
+        Assert.noNullElements(packages, "Null packages specified");
 
-		final String	contextPath=StringUtils.join(packages, ':');
-		Assert.hasText(contextPath, "Empty context path");
-		Assert.state(!contextPath.contains("::"), "Empty context packages");
+        final String    contextPath=StringUtils.join(packages, ':');
+        Assert.hasText(contextPath, "Empty context path");
+        Assert.state(!contextPath.contains("::"), "Empty context packages");
 
-		_jaxbContext = JAXBContext.newInstance(contextPath);
-		_packages = Collections.unmodifiableSet(new TreeSet<String>(Arrays.asList(packages)));
-	}
+        _jaxbContext = JAXBContext.newInstance(contextPath);
+        _packages = Collections.unmodifiableSet(new TreeSet<String>(Arrays.asList(packages)));
+    }
 
-	public final Set<String> getContextPackages () {
-		return _packages;
-	}
+    public final Set<String> getContextPackages () {
+        return _packages;
+    }
 
-	@Override
-	public boolean supports(final Class<?> clazz) {
-		final Package		pkg=(clazz == null) ? null : clazz.getPackage();
-		final String		pkgName=(pkg == null) ? null : pkg.getName();
-		final Set<String>	ctxPackages=getContextPackages();
-		if (StringUtils.isBlank(pkgName)
-		 || CollectionUtils.isEmpty(ctxPackages)
-		 || (!ctxPackages.contains(pkgName)))
-			return false;	// debug breakpoint
-		else
-			return true;
-	}
+    @Override
+    public boolean supports(final Class<?> clazz) {
+        final Package        pkg=(clazz == null) ? null : clazz.getPackage();
+        final String        pkgName=(pkg == null) ? null : pkg.getName();
+        final Set<String>    ctxPackages=getContextPackages();
+        if (StringUtils.isBlank(pkgName)
+         || CollectionUtils.isEmpty(ctxPackages)
+         || (!ctxPackages.contains(pkgName)))
+            return false;    // debug breakpoint
+        else
+            return true;
+    }
 
-	@Override
-	public JAXBContext getJAXBContext() throws JAXBException {
-		return _jaxbContext;
-	}
+    @Override
+    public JAXBContext getJAXBContext() throws JAXBException {
+        return _jaxbContext;
+    }
 
-	@Override
-	public String toString() {
-		return String.valueOf(_packages);
-	}
+    @Override
+    public String toString() {
+        return String.valueOf(_packages);
+    }
 }

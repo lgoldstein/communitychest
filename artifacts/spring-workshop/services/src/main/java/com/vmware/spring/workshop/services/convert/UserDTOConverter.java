@@ -7,5 +7,5 @@ import com.vmware.spring.workshop.model.user.User;
  * @author lgoldstein
  */
 public interface UserDTOConverter extends DTOConverter<User, UserDTO> {
-	// nothing extra
+    // nothing extra
 }

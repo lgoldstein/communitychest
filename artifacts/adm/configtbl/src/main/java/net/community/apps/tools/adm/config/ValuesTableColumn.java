@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.adm.config;
 
@@ -12,20 +12,20 @@ import net.community.chest.lang.EnumUtil;
  * @since Oct 15, 2009 10:41:00 AM
  */
 public enum ValuesTableColumn {
-	NAME,
-	VALUE,
-	SOURCE;
-	
-	private static ValuesTableColumn[]	_values;
-	public static final synchronized ValuesTableColumn[] getValues ()
-	{
-		if (null == _values)
-			_values = values();
-		return _values;
-	}
+    NAME,
+    VALUE,
+    SOURCE;
 
-	public static final ValuesTableColumn fromString (final String s)
-	{
-		return EnumUtil.fromString(getValues(), s, false);
-	}
+    private static ValuesTableColumn[]    _values;
+    public static final synchronized ValuesTableColumn[] getValues ()
+    {
+        if (null == _values)
+            _values = values();
+        return _values;
+    }
+
+    public static final ValuesTableColumn fromString (final String s)
+    {
+        return EnumUtil.fromString(getValues(), s, false);
+    }
 }

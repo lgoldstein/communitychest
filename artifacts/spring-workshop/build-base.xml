@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="application-base" default="application-base">
 
-	<dirname property="module.root.folder" file="${ant.file}" />
-	<property name="application.root.folder" value="${module.root.folder}" />
-	<property name="application.parent.folder" value="${application.root.folder}${file.separator}parent" />
-	<import file="${application.parent.folder}${file.separator}build-compile.xml" />
-	
-	<target name="application-base" depends="compile-base" />
+    <dirname property="module.root.folder" file="${ant.file}" />
+    <property name="application.root.folder" value="${module.root.folder}" />
+    <property name="application.parent.folder" value="${application.root.folder}${file.separator}parent" />
+    <import file="${application.parent.folder}${file.separator}build-compile.xml" />
+
+    <target name="application-base" depends="compile-base" />
 </project>

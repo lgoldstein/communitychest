@@ -13,8 +13,8 @@ import com.vmware.spring.workshop.model.banking.Account;
  * @author lgoldstein
  */
 public interface AccountDao extends IdentifiedCommonOperationsDao<Account> {
-	List<Account> findUserAccountsById (@Param(Identified.ID_COL_NAME) Long userId);
-	List<Account> findBranchAccountsById (@Param(Identified.ID_COL_NAME) Long branchId);
-	List<Account> findBankAccountsById (@Param(Identified.ID_COL_NAME) Long bankId);
-	List<Map.Entry<Long,Integer>> findInvestedAmountsByBank (@Param(Identified.ID_COL_NAME) Long userId);
+    List<Account> findUserAccountsById (@Param(Identified.ID_COL_NAME) Long userId);
+    List<Account> findBranchAccountsById (@Param(Identified.ID_COL_NAME) Long branchId);
+    List<Account> findBankAccountsById (@Param(Identified.ID_COL_NAME) Long bankId);
+    List<Map.Entry<Long,Integer>> findInvestedAmountsByBank (@Param(Identified.ID_COL_NAME) Long userId);
 }

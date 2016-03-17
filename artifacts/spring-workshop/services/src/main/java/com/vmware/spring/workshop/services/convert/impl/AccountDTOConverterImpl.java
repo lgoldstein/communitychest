@@ -22,46 +22,46 @@ import com.vmware.spring.workshop.services.convert.AccountDTOConverter;
 @Component("accountDTOConverter")
 @Transactional
 public class AccountDTOConverterImpl
-		extends AbstractDTOConverter<Account,AccountDTO>
-		implements AccountDTOConverter {
-	private final BranchDao _daoBranch;
-	private final UserDao	_daoUser;
+        extends AbstractDTOConverter<Account,AccountDTO>
+        implements AccountDTOConverter {
+    private final BranchDao _daoBranch;
+    private final UserDao    _daoUser;
 
-	@Inject
-	public AccountDTOConverterImpl (final BranchDao daoBranch,
-									final UserDao	daoUser) {
-		super(Account.class, AccountDTO.class);
-		Assert.state((_daoBranch=daoBranch) != null, "No branch DAO provided"); 
-		Assert.state((_daoUser=daoUser) != null, "No user DAO provided"); 
-	}
+    @Inject
+    public AccountDTOConverterImpl (final BranchDao daoBranch,
+                                    final UserDao    daoUser) {
+        super(Account.class, AccountDTO.class);
+        Assert.state((_daoBranch=daoBranch) != null, "No branch DAO provided");
+        Assert.state((_daoUser=daoUser) != null, "No user DAO provided");
+    }
 
-	@Override
-	protected ValueConverter<?, ?> resolveUnknownPropertyValueConverter(
-					Class<?> srcClass, Method srcGetter, Method srcSetter,
-					Class<?> dstClass, Method dstGetter, Method dstSetter) {
-		final Class<?>	dstType=dstGetter.getReturnType();
-		if (Branch.class.isAssignableFrom(dstType))
-			return new ValueConverter<Long,Branch>() {
-					@Override
-					public Branch convertValue(Long srcValue) {
-						if (srcValue == null)
-							return null;
-						else
-							return _daoBranch.findOne(srcValue);
-					}
-				};
-		else if (User.class.isAssignableFrom(dstType)) 
-			return new ValueConverter<Long,User>() {
-					@Override
-					public User convertValue(Long srcValue) {
-						if (srcValue == null)
-							return null;
-						else
-							return _daoUser.findOne(srcValue);
-					}
-				};
+    @Override
+    protected ValueConverter<?, ?> resolveUnknownPropertyValueConverter(
+                    Class<?> srcClass, Method srcGetter, Method srcSetter,
+                    Class<?> dstClass, Method dstGetter, Method dstSetter) {
+        final Class<?>    dstType=dstGetter.getReturnType();
+        if (Branch.class.isAssignableFrom(dstType))
+            return new ValueConverter<Long,Branch>() {
+                    @Override
+                    public Branch convertValue(Long srcValue) {
+                        if (srcValue == null)
+                            return null;
+                        else
+                            return _daoBranch.findOne(srcValue);
+                    }
+                };
+        else if (User.class.isAssignableFrom(dstType))
+            return new ValueConverter<Long,User>() {
+                    @Override
+                    public User convertValue(Long srcValue) {
+                        if (srcValue == null)
+                            return null;
+                        else
+                            return _daoUser.findOne(srcValue);
+                    }
+                };
 
-		return super.resolveUnknownPropertyValueConverter(srcClass, srcGetter, srcSetter,
-				  dstClass, dstGetter, dstSetter);
-	}
+        return super.resolveUnknownPropertyValueConverter(srcClass, srcGetter, srcSetter,
+                  dstClass, dstGetter, dstSetter);
+    }
 }

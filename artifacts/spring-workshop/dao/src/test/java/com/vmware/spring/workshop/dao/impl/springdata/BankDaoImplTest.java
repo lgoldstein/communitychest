@@ -12,7 +12,7 @@ import com.vmware.spring.workshop.dao.impl.AbstractBankDaoTestSupport;
 @ContextConfiguration(locations={ AbstractDaoTestSupport.DEFAULT_TEST_CONTEXT })
 @ActiveProfiles("springdata")
 public class BankDaoImplTest extends AbstractBankDaoTestSupport {
-	public BankDaoImplTest() {
-		super();
-	}
+    public BankDaoImplTest() {
+        super();
+    }
 }

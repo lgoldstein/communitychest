@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,7 +46,7 @@ public abstract class AbstractMunger extends AbstractLoggingBean {
     protected AbstractMunger() {
         this(null);
     }
-    
+
     protected AbstractMunger(Log log) {
         super(log);
     }
@@ -57,7 +57,7 @@ public abstract class AbstractMunger extends AbstractLoggingBean {
         NamedPropertySource processProps=propsSource;
         DependeciesLoader   loader=resolveDependenciesLoader(dependenciesDefinitionsLocation, processProps);
         loader.load(dependenciesDefinitionsLocation);
-        
+
         Collection<String>  extraNames=loader.getDefinedPropertiesNames();
         if ((extraNames != null) && (extraNames.size() > 0)) {
             processProps = new AggregateNamedPropertySource(loader.getProperties(), processProps);
@@ -110,7 +110,7 @@ public abstract class AbstractMunger extends AbstractLoggingBean {
                 }
             }
         }
-        
+
         if (se != null) {
             throw se;
         }
@@ -150,7 +150,7 @@ public abstract class AbstractMunger extends AbstractLoggingBean {
                         + ",new=" + fe.getValue());
             }
         }
-            
+
         // if have any formatted properties put them first so we won't have to re-format them
         return new AggregateNamedPropertySource(PropertiesUtil.asPropertySource(fmtValues), processProps);
     }
@@ -159,20 +159,20 @@ public abstract class AbstractMunger extends AbstractLoggingBean {
         if ((deps == null) || deps.isEmpty()) {
             return Collections.emptyList();
         }
-        
+
         for (Dependency d : deps) {
             String  orgVersion=d.getVersion(), fmtVersion=PropertiesUtil.format(orgVersion, processProps);
             if (orgVersion == fmtVersion) {
                 continue;
             }
-            
+
             if (logger.isDebugEnabled()) {
                 logger.debug("resolveDependencies(" + d.getGroupId() + ":" + d.getArtifactId() + ")"
                            + " " + orgVersion + " => " + fmtVersion);
             }
             d.setVersion(fmtVersion);
         }
-        
+
         return deps;
     }
 
@@ -180,19 +180,19 @@ public abstract class AbstractMunger extends AbstractLoggingBean {
         if ((repos == null) || repos.isEmpty()) {
             return Collections.emptyList();
         }
-        
+
         for (Repository r : repos) {
             String  orgUrl=r.getUrl(), fmtUrl=PropertiesUtil.format(orgUrl, processProps);
             if (orgUrl == fmtUrl) {
                 continue;
             }
-            
+
             if (logger.isDebugEnabled()) {
                 logger.debug("resolveRepositories(" + r.getId() + ") " + orgUrl + " => " + fmtUrl);
             }
             r.setUrl(fmtUrl);
         }
-        
+
         return repos;
     }
 

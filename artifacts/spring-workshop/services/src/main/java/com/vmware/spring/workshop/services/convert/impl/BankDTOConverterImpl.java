@@ -11,7 +11,7 @@ import com.vmware.spring.workshop.services.convert.BankDTOConverter;
  */
 @Component("bankDTOConverter")
 public class BankDTOConverterImpl extends AbstractDTOConverter<Bank,BankDTO> implements BankDTOConverter {
-	public BankDTOConverterImpl () {
-		super(Bank.class, BankDTO.class);
-	}
+    public BankDTOConverterImpl () {
+        super(Bank.class, BankDTO.class);
+    }
 }

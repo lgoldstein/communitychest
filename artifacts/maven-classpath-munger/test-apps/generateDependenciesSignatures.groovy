@@ -2,13 +2,13 @@
 
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,12 +33,12 @@ for (int index=0; index < args.length; index++) {
         usage()
         System.exit(1)
     }
-    
+
     if (argVal.charAt(0) != '-') {  // assume end of options
         if (index != (args.length - 3)) {
             dieWithUsage("Incomplete invocation arguments")
         }
-        
+
         depsFile = arg2file(argVal)
         // TODO make sure none of the other arguments contain '-'
         localRepo = arg2file(args[index + 1])
@@ -93,7 +93,7 @@ def createSignatureFile(d, File localRepo, File targetRoot) {
 // TODO find a way to use same code as in the munger
 Properties createJarSignature(File file) {
     debug("createJarSignature($file)")
-    
+
     /*
      * NOTE: we use a ZipFile since the JarFile executes some special
      * logic for the manifest, which interferes with our signature
@@ -118,7 +118,7 @@ Properties createJarSignature(File file) {
              *  manipulation
              */
 
-            
+
             String  digestValue
             if (entry.directory) {
                 digestValue = createDigest(digest, name)
@@ -140,7 +140,7 @@ Properties createJarSignature(File file) {
     } finally {
         jarFile.close()
     }
-    
+
     return signature
 }
 
@@ -170,7 +170,7 @@ def String getDigestValue(MessageDigest digest) {
 
 def writeSignature(Properties signature, File signatureFile) {
     debug("writeSignature($signatureFile)")
-    
+
     File    parentDir=signatureFile.parentFile
     if (!parentDir.exists()) {
         if (!parentDir.mkdirs()) {
@@ -202,14 +202,14 @@ def arg2file(String arg) {
 def readDependencies(File listFile) {
     def deps=[]
 
-    listFile.eachLine { 
+    listFile.eachLine {
         def d=parseDependency(it)
         if (d != null) {
             debug("$d")
             deps << d
         }
     }
-    
+
     return deps
 }
 
@@ -218,18 +218,18 @@ def parseDependency(String line) {
     if (line.empty) {
         return null
     }
-    
+
     trace("$line")
 
     if (!line.startsWith("[INFO]")) {
         return null
     }
-    
+
     int startPos=line.indexOf(' ')
     if (startPos <= 0) {
         return null
     }
-            
+
     line = line.substring(startPos + 1).trim()
     if (line.empty) {
         return null
@@ -245,7 +245,7 @@ def parseDependency(String line) {
             scope: comps[4].trim()
         ]
     }
-    
+
     return null
 }
 

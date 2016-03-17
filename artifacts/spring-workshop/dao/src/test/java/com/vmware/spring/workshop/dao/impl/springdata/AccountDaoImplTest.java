@@ -12,7 +12,7 @@ import com.vmware.spring.workshop.dao.impl.AbstractAccountDaoTestSupport;
 @ContextConfiguration(locations={ AbstractDaoTestSupport.DEFAULT_TEST_CONTEXT })
 @ActiveProfiles("springdata")
 public class AccountDaoImplTest extends AbstractAccountDaoTestSupport {
-	public AccountDaoImplTest() {
-		super();
-	}
+    public AccountDaoImplTest() {
+        super();
+    }
 }

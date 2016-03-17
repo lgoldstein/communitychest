@@ -15,110 +15,110 @@ import javax.naming.directory.DirContext;
  * @author lgoldstein
  */
 public final class WebappClassLoaderInstrumentor {
-	public static final String	WEBAPP_CLASS_LOADER_CLASS_PATH="org.apache.catalina.loader.WebappClassLoader";
-	private static final Map<ClassLoader,TransformationContext>	contextsMap=
-			Collections.synchronizedMap(new HashMap<ClassLoader,TransformationContext>());
+    public static final String    WEBAPP_CLASS_LOADER_CLASS_PATH="org.apache.catalina.loader.WebappClassLoader";
+    private static final Map<ClassLoader,TransformationContext>    contextsMap=
+            Collections.synchronizedMap(new HashMap<ClassLoader,TransformationContext>());
 
-	private WebappClassLoaderInstrumentor () {
-		throw new UnsupportedOperationException("Construction N/A");
-	}
+    private WebappClassLoaderInstrumentor () {
+        throw new UnsupportedOperationException("Construction N/A");
+    }
 
-	private static final Class<?>	loaderClass;
-	private static final Field	jarsField;
-	private static final Method	getResourcesMethod, setResourcesMethod, getContextNameMethod;
-	static {
-		try {
-			loaderClass = Class.forName(WEBAPP_CLASS_LOADER_CLASS_PATH);
-			jarsField = loaderClass.getDeclaredField("jarFiles");
-			if (!jarsField.isAccessible()) {
-				jarsField.setAccessible(true);
-			}
-			
-			getResourcesMethod = loaderClass.getDeclaredMethod("getResources");
-			setResourcesMethod = loaderClass.getDeclaredMethod("setResources", DirContext.class);
-			getContextNameMethod  = loaderClass.getDeclaredMethod("getContextName");
-		} catch(Exception e) {
-			if (e instanceof RuntimeException) {
-				throw (RuntimeException) e;
-			} else {
-				throw new RuntimeException(e);
-			}
-		}
-	}
+    private static final Class<?>    loaderClass;
+    private static final Field    jarsField;
+    private static final Method    getResourcesMethod, setResourcesMethod, getContextNameMethod;
+    static {
+        try {
+            loaderClass = Class.forName(WEBAPP_CLASS_LOADER_CLASS_PATH);
+            jarsField = loaderClass.getDeclaredField("jarFiles");
+            if (!jarsField.isAccessible()) {
+                jarsField.setAccessible(true);
+            }
 
-	/**
-	 * @param loader The root {@link ClassLoader}
-	 * @return The associated {@link TransformationContext} for the loader or
-	 * any of its parents
-	 */
-	public static TransformationContext getTransformationContext (ClassLoader loader) {
-		for (ClassLoader curLoader=loader; curLoader != null; curLoader = curLoader.getParent()) {
-			TransformationContext	context=contextsMap.get(loader);
-			if (context != null) {
-				return context;
-			}
-		}
+            getResourcesMethod = loaderClass.getDeclaredMethod("getResources");
+            setResourcesMethod = loaderClass.getDeclaredMethod("setResources", DirContext.class);
+            getContextNameMethod  = loaderClass.getDeclaredMethod("getContextName");
+        } catch(Exception e) {
+            if (e instanceof RuntimeException) {
+                throw (RuntimeException) e;
+            } else {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
-		return null;
-	}
+    /**
+     * @param loader The root {@link ClassLoader}
+     * @return The associated {@link TransformationContext} for the loader or
+     * any of its parents
+     */
+    public static TransformationContext getTransformationContext (ClassLoader loader) {
+        for (ClassLoader curLoader=loader; curLoader != null; curLoader = curLoader.getParent()) {
+            TransformationContext    context=contextsMap.get(loader);
+            if (context != null) {
+                return context;
+            }
+        }
 
-	public static TransformationContext adjustWebappClassLoader(ClassLoader loader) {
-		try {
-			if (!isWebappClassLoader(loader)) {
-				throw new UnsupportedOperationException("Class loader (" + loader + ") incompatible with " + loaderClass.getName());
-			}
+        return null;
+    }
 
-			if (contextsMap.containsKey(loader)) {
-				throw new IllegalStateException("Class loader already instrumented: " + loader);
-			}
+    public static TransformationContext adjustWebappClassLoader(ClassLoader loader) {
+        try {
+            if (!isWebappClassLoader(loader)) {
+                throw new UnsupportedOperationException("Class loader (" + loader + ") incompatible with " + loaderClass.getName());
+            }
 
-			TransformationContext	xform=new TransformationContext(loader);
-			DirContext				dirContext=(DirContext) getResourcesMethod.invoke(loader);
-			TransformingDirContext	proxyHandler=new TransformingDirContext(dirContext, xform);
-			Class<?>[]				intfcs={ DirContext.class };
-			setResourcesMethod.invoke(loader, Proxy.newProxyInstance(loader, intfcs, proxyHandler));
+            if (contextsMap.containsKey(loader)) {
+                throw new IllegalStateException("Class loader already instrumented: " + loader);
+            }
 
-			JarFile[]	orgFiles=(JarFile[]) jarsField.get(loader),
-						xfrFiles=TransformingJarFile.createReplacementFiles(xform, orgFiles);
-			jarsField.set(loader, xfrFiles);
+            TransformationContext    xform=new TransformationContext(loader);
+            DirContext                dirContext=(DirContext) getResourcesMethod.invoke(loader);
+            TransformingDirContext    proxyHandler=new TransformingDirContext(dirContext, xform);
+            Class<?>[]                intfcs={ DirContext.class };
+            setResourcesMethod.invoke(loader, Proxy.newProxyInstance(loader, intfcs, proxyHandler));
 
-			// close the replaced files
-			for (JarFile jarFile : orgFiles) {
-				jarFile.close();
-			}
+            JarFile[]    orgFiles=(JarFile[]) jarsField.get(loader),
+                        xfrFiles=TransformingJarFile.createReplacementFiles(xform, orgFiles);
+            jarsField.set(loader, xfrFiles);
 
-			if (contextsMap.put(loader, xform) != null) {
-				throw new ConcurrentModificationException("Multiple instrumentations for " + loader);
-			}
+            // close the replaced files
+            for (JarFile jarFile : orgFiles) {
+                jarFile.close();
+            }
 
-			return xform;
-		} catch(Exception e) {
-			if (e instanceof RuntimeException) {
-				throw (RuntimeException) e;
-			} else {
-				throw new RuntimeException(e);
-			}
-		}
-	}
+            if (contextsMap.put(loader, xform) != null) {
+                throw new ConcurrentModificationException("Multiple instrumentations for " + loader);
+            }
 
-	public static final String getContextName (ClassLoader loader) {
-		try {
-			if (!isWebappClassLoader(loader)) {
-				return String.valueOf(loader);
-			}
-			
-			return (String) getContextNameMethod.invoke(loader);
-		} catch(Exception e) {
-			return loader.getClass().getName();
-		}
-	}
+            return xform;
+        } catch(Exception e) {
+            if (e instanceof RuntimeException) {
+                throw (RuntimeException) e;
+            } else {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
-	public static boolean isWebappClassLoader (ClassLoader loader) {
-		if (loader == null) {
-			return false;
-		}
+    public static final String getContextName (ClassLoader loader) {
+        try {
+            if (!isWebappClassLoader(loader)) {
+                return String.valueOf(loader);
+            }
 
-		Class<?>	loaderType=loader.getClass();
-		return loaderClass.isAssignableFrom(loaderType);
-	}
+            return (String) getContextNameMethod.invoke(loader);
+        } catch(Exception e) {
+            return loader.getClass().getName();
+        }
+    }
+
+    public static boolean isWebappClassLoader (ClassLoader loader) {
+        if (loader == null) {
+            return false;
+        }
+
+        Class<?>    loaderType=loader.getClass();
+        return loaderClass.isAssignableFrom(loaderType);
+    }
 }

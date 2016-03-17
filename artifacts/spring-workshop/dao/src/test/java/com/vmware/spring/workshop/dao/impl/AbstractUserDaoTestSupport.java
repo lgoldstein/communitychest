@@ -16,37 +16,37 @@ import com.vmware.spring.workshop.model.user.User;
  * @author lgoldstein
  */
 public abstract class AbstractUserDaoTestSupport extends AbstractDaoTestSupport {
-	@Inject protected UserDao	_daoUser;
+    @Inject protected UserDao    _daoUser;
 
-	protected AbstractUserDaoTestSupport() {
-		super();
-	}
+    protected AbstractUserDaoTestSupport() {
+        super();
+    }
 
-	@Test
-	public void testFindById () {
-		runIdentifiedByIdFinder(_daoUser);
-	}
+    @Test
+    public void testFindById () {
+        runIdentifiedByIdFinder(_daoUser);
+    }
 
-	@Test
-	public void testFindByLoginName () {
-		runIdentifiedInstanceFinderTest(_daoUser,
-				new IdentifiedInstanceFinder<User,UserDao>() {
-					@Override
-					public User findInstance(UserDao dao, User sourceInstance) {
-						return dao.findByLoginName(sourceInstance.getLoginName());
-					}
-			
-			});
-	}
-	@Test
-	public void testFindByUserLocation () {
-		runLocatedInstanceFinderTest(_daoUser,
-				new IdentifiedValuesListFinder<User,UserDao,String>() {
-					@Override
-					public List<User> findMatches(UserDao dao, String arg) {
-						return dao.findUserByLocation(arg);
-					}
-				});
-	}
+    @Test
+    public void testFindByLoginName () {
+        runIdentifiedInstanceFinderTest(_daoUser,
+                new IdentifiedInstanceFinder<User,UserDao>() {
+                    @Override
+                    public User findInstance(UserDao dao, User sourceInstance) {
+                        return dao.findByLoginName(sourceInstance.getLoginName());
+                    }
+
+            });
+    }
+    @Test
+    public void testFindByUserLocation () {
+        runLocatedInstanceFinderTest(_daoUser,
+                new IdentifiedValuesListFinder<User,UserDao,String>() {
+                    @Override
+                    public List<User> findMatches(UserDao dao, String arg) {
+                        return dao.findUserByLocation(arg);
+                    }
+                });
+    }
 
 }

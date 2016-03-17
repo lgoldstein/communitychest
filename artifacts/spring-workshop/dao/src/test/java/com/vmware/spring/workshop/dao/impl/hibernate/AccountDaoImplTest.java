@@ -13,7 +13,7 @@ import com.vmware.spring.workshop.dao.impl.AbstractAccountDaoTestSupport;
 @ActiveProfiles("hibernate")
 public class AccountDaoImplTest extends AbstractAccountDaoTestSupport {
 
-	public AccountDaoImplTest() {
-		super();
-	}
+    public AccountDaoImplTest() {
+        super();
+    }
 }

@@ -14,15 +14,15 @@ import com.vmware.spring.workshop.facade.support.UserDTOImportExport;
  */
 @ContextConfiguration(locations={ AbstractFacadeTestSupport.DEFAULT_TEST_CONTEXT })
 public class UserDTOImportExportImplTest
-		extends AbstractCSVImportExportImplTestSupport<UserDTO,UserDTOImportExport> {
-	@Inject	private UserDTOImportExport	_importer;
+        extends AbstractCSVImportExportImplTestSupport<UserDTO,UserDTOImportExport> {
+    @Inject    private UserDTOImportExport    _importer;
 
-	public UserDTOImportExportImplTest() {
-		super();
-	}
+    public UserDTOImportExportImplTest() {
+        super();
+    }
 
-	@Test
-	public void testImportExport () throws Exception {
-		runDTOImportExportTest(_importer);
-	}
+    @Test
+    public void testImportExport () throws Exception {
+        runDTOImportExportTest(_importer);
+    }
 }

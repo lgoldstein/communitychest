@@ -17,14 +17,14 @@ import com.vmware.spring.workshop.services.facade.BranchesFacade;
 @Controller("branchesRestfulService")
 @RequestMapping(AbstractMVCRestfulService.MVC_ACCESS_ROOT + "/branches")
 public class BranchesRestfulService
-		extends AbstractMVCRestfulService<BranchDTO, BranchesFacade> {
-	@Inject
-	public BranchesRestfulService (final BranchesFacade facade) {
-		super(BranchDTO.class, facade);
-	}
+        extends AbstractMVCRestfulService<BranchDTO, BranchesFacade> {
+    @Inject
+    public BranchesRestfulService (final BranchesFacade facade) {
+        super(BranchDTO.class, facade);
+    }
 
-	@Override
-	protected BranchDTOList wrapAsDTOList(Collection<? extends BranchDTO> dtoList) {
-		return new BranchDTOList(dtoList);
-	}
+    @Override
+    protected BranchDTOList wrapAsDTOList(Collection<? extends BranchDTO> dtoList) {
+        return new BranchDTOList(dtoList);
+    }
 }

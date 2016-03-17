@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="application" default="install">
     <property name="module.artifact.id" value="${ant.project.name}" />
-		<!-- override default (JAR) -->
-	<property name="maven.packaging.type" value="pom" />
+        <!-- override default (JAR) -->
+    <property name="maven.packaging.type" value="pom" />
 
-	<dirname property="module.root.folder" file="${ant.file}" />
-	<property name="application.root.folder" value="${module.root.folder}" />
-	<property name="collector.root.folder" value="${application.root.folder}${file.separator}collector" />
-	<property name="probe.root.folder" value="${application.root.folder}${file.separator}probe" />
-	<import file="${application.root.folder}${file.separator}build-base.xml" />
+    <dirname property="module.root.folder" file="${ant.file}" />
+    <property name="application.root.folder" value="${module.root.folder}" />
+    <property name="collector.root.folder" value="${application.root.folder}${file.separator}collector" />
+    <property name="probe.root.folder" value="${application.root.folder}${file.separator}probe" />
+    <import file="${application.root.folder}${file.separator}build-base.xml" />
 
-	<target name="install" depends="application-base,compile" description="Install" />
-	<target name="clean" depends="application-base,uncompile" description="Clean" />
-	<target name="reinstall" depends="clean,install" description="Re-install" />
-	<target name="push" depends="install" description="Push WAR to Tomcat">
-		<ant dir="${probe.root.folder}${file.separator}executor" target="deploy" inheritall="false" />
-		<ant dir="${collector.root.folder}${file.separator}facade" target="deploy" inheritall="false" />
-	</target>
+    <target name="install" depends="application-base,compile" description="Install" />
+    <target name="clean" depends="application-base,uncompile" description="Clean" />
+    <target name="reinstall" depends="clean,install" description="Re-install" />
+    <target name="push" depends="install" description="Push WAR to Tomcat">
+        <ant dir="${probe.root.folder}${file.separator}executor" target="deploy" inheritall="false" />
+        <ant dir="${collector.root.folder}${file.separator}facade" target="deploy" inheritall="false" />
+    </target>
 </project>

@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -87,21 +87,21 @@ public class LogDependenciesLoader extends AbstractDependeciesLoader {
             if (PropertiesUtil.isEmpty(line)) {
                 continue;
             }
-            
+
             if (!line.startsWith("[INFO]")) {
                 continue;
             }
-            
+
             int startPos=line.indexOf(' ');
             if (startPos <= 0) {
                 continue;
             }
-            
+
             line = line.substring(startPos + 1).trim();
             if (PropertiesUtil.isEmpty(line)) {
                 continue;
             }
-            
+
             if (line.startsWith("id: ")) {
                 Repository  r=updateRepository(line.substring(3).trim(), reader);
                 if (r == null) {
@@ -117,7 +117,7 @@ public class LogDependenciesLoader extends AbstractDependeciesLoader {
                 if (d == null) {
                     continue;
                 }
-                
+
                 if (logger.isDebugEnabled()) {
                     logger.debug("load(" + Dependency.class.getSimpleName() + ") - " + d);
                 }
@@ -125,7 +125,7 @@ public class LogDependenciesLoader extends AbstractDependeciesLoader {
             }
         }
     }
-    
+
     Dependency updateDependency(String line) {
         String[]    comps=line.split(":");
         // TODO add support for classifier, type, etc.
@@ -142,10 +142,10 @@ public class LogDependenciesLoader extends AbstractDependeciesLoader {
             if (!line.startsWith("url:")) {
                 continue;
             }
-            
+
             return new Repository(id, line.substring(4).trim());
         }
-        
+
         IOException e=new EOFException("updateRepository(" + id + ") Premature EOF while scan for URL");
         logger.error(e.getMessage());
         throw e;

@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -52,7 +52,7 @@ import org.junit.rules.TestName;
 public abstract class AbstractTestSupport extends Assert {
     @Rule public final TestName TEST_NAME_HOLDER=new TestName();
     public static final String TEMP_SUBFOLDER_NAME="temp";
-    
+
     protected final Log logger;
     private File    targetFolder;
     private File    testTempFolder;
@@ -64,7 +64,7 @@ public abstract class AbstractTestSupport extends Assert {
     public final String getCurrentTestName() {
         return TEST_NAME_HOLDER.getMethodName();
     }
-    
+
     protected Log getCurrentTestLogger() {
         return getLogger(getClass().getSimpleName() + "[" + getCurrentTestName() + "]");
     }
@@ -92,7 +92,7 @@ public abstract class AbstractTestSupport extends Assert {
                             }
                         }
                     }
-                    
+
                     @Override
                     public boolean isEnabled(Level level) {
                         return true;
@@ -103,7 +103,7 @@ public abstract class AbstractTestSupport extends Assert {
     public static final Log getLogger(Class<?> c) {
         return getLogger(c.getName());
     }
-    
+
     public static final Log getLogger(String name) {
         return TEST_LOGGER.createLogger(name);
     }
@@ -165,7 +165,7 @@ public abstract class AbstractTestSupport extends Assert {
     public static final File detectTargetFolder (Class<?> anchor) {
         return detectTargetFolder(getClassContainerLocationFile(anchor));
     }
-    
+
     public static final List<String>    TARGET_FOLDER_NAMES=    // NOTE: order is important
             Collections.unmodifiableList(Arrays.asList("target" /* Maven */, "build" /* Gradle */));
 
@@ -180,7 +180,7 @@ public abstract class AbstractTestSupport extends Assert {
             if (!file.isDirectory()) {
                 continue;
             }
-            
+
             String name=file.getName();
             if (TARGET_FOLDER_NAMES.contains(name)) {
                 return file;
@@ -204,7 +204,7 @@ public abstract class AbstractTestSupport extends Assert {
      * @throws IllegalArgumentException If location is not a valid
      * {@link File} location
      * @see #getClassContainerLocationURI(Class)
-     * @see ExtendedFileUtils#asFile(URI) 
+     * @see ExtendedFileUtils#asFile(URI)
      */
     public static final File getClassContainerLocationFile (Class<?> clazz)
             throws IllegalArgumentException {
@@ -243,7 +243,7 @@ public abstract class AbstractTestSupport extends Assert {
             if ((url=getClassBytesURL(clazz)) == null) {
                 return null;
             }
-            
+
             String  srcForm=UrlUtil.getURLSource(url);
             if (PropertiesUtil.isEmpty(srcForm)) {
                 return null;
@@ -260,7 +260,7 @@ public abstract class AbstractTestSupport extends Assert {
 
         return url;
     }
-    
+
     /**
      * @param clazz The request {@link Class}
      * @return A {@link URL} to the location of the <code>.class</code> file
@@ -282,7 +282,7 @@ public abstract class AbstractTestSupport extends Assert {
     }
 
     /**
-     * Deletes a directory recursively. 
+     * Deletes a directory recursively.
      *
      * @param directory  directory to delete
      * @throws IOException in case deletion is unsuccessful
@@ -357,7 +357,7 @@ public abstract class AbstractTestSupport extends Assert {
             deleteDirectory(file);
             return;
         }
-        
+
         if (!file.delete()) {
             throw new IOException("Unable to delete file: " + file);
         }

@@ -8,13 +8,13 @@ import java.util.List;
  * @author lgoldstein
  */
 public interface DTOConverter<MDL, DTO> {
-	Class<MDL> getModelClass ();
-	Class<DTO> getDtoClass ();
+    Class<MDL> getModelClass ();
+    Class<DTO> getDtoClass ();
 
-	DTO toDTO (MDL data);
-	List<DTO> toDTO (Iterable<? extends MDL> dataList);
+    DTO toDTO (MDL data);
+    List<DTO> toDTO (Iterable<? extends MDL> dataList);
 
-	MDL fromDTO (DTO dto);
-	MDL updateFromDTO (DTO dto, MDL data);
-	List<MDL> fromDTO (Iterable<? extends DTO> dtoList);
+    MDL fromDTO (DTO dto);
+    MDL updateFromDTO (DTO dto, MDL data);
+    List<MDL> fromDTO (Iterable<? extends DTO> dtoList);
 }

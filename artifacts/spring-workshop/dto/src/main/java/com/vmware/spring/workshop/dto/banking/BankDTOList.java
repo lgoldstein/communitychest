@@ -16,18 +16,18 @@ import com.vmware.spring.workshop.dto.DTOList;
 @XmlType(name="banksList")
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class BankDTOList extends DTOList<BankDTO> {
-	private static final long serialVersionUID = -2962602828095909394L;
+    private static final long serialVersionUID = -2962602828095909394L;
 
-	public BankDTOList() {
-		super();
-	}
+    public BankDTOList() {
+        super();
+    }
 
-	public BankDTOList(int initialCapacity) {
-		super(initialCapacity);
-	}
+    public BankDTOList(int initialCapacity) {
+        super(initialCapacity);
+    }
 
-	public BankDTOList(Collection<? extends BankDTO> c) {
-		super(c);
-	}
+    public BankDTOList(Collection<? extends BankDTO> c) {
+        super(c);
+    }
 
 }

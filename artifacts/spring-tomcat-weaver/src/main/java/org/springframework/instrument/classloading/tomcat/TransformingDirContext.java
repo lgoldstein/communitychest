@@ -30,151 +30,151 @@ import org.springframework.util.StringUtils;
  * @author lgoldstein
  */
 public class TransformingDirContext implements InvocationHandler {
-	protected final Logger logger=Logger.getLogger(getClass().getName());
-	protected final DirContext	delegate;
-	protected final TransformationContext	xformers;
-	protected final Set<String>	identityResources=
-			Collections.synchronizedSet(new TreeSet<String>());
-	protected final Map<String,Integer>	resMap=
-		Collections.synchronizedMap(new TreeMap<String,Integer>());
+    protected final Logger logger=Logger.getLogger(getClass().getName());
+    protected final DirContext    delegate;
+    protected final TransformationContext    xformers;
+    protected final Set<String>    identityResources=
+            Collections.synchronizedSet(new TreeSet<String>());
+    protected final Map<String,Integer>    resMap=
+        Collections.synchronizedMap(new TreeMap<String,Integer>());
 
-	public TransformingDirContext(DirContext dirContext, TransformationContext xformContext) {
-		this.delegate = dirContext;
-		this.xformers = xformContext;
-	}
+    public TransformingDirContext(DirContext dirContext, TransformationContext xformContext) {
+        this.delegate = dirContext;
+        this.xformers = xformContext;
+    }
 
-	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		String	name=method.getName();
-		if ("lookup".equals(name)) {
-			return handleLookup(args);
-		}
-		else if ("getAttributes".equals(name)) {
-			return handleGetAttributes(args);
-		}
-		else {
-			return method.invoke(delegate, args);
-		}
-	}
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        String    name=method.getName();
+        if ("lookup".equals(name)) {
+            return handleLookup(args);
+        }
+        else if ("getAttributes".equals(name)) {
+            return handleGetAttributes(args);
+        }
+        else {
+            return method.invoke(delegate, args);
+        }
+    }
 
-	protected Object handleGetAttributes(Object ... args)
-			throws NamingException {
-		Assert.notNull(args, "No arguments to get attributes");
-		Assert.isTrue(args.length == 1, "Too many attributes arguments");
+    protected Object handleGetAttributes(Object ... args)
+            throws NamingException {
+        Assert.notNull(args, "No arguments to get attributes");
+        Assert.isTrue(args.length == 1, "Too many attributes arguments");
 
-		Object	nameArg=args[0];
-		Assert.notNull(nameArg, "No name to lookup");
-		if (nameArg instanceof Name) {
-			return delegate.getAttributes((Name) nameArg);
-		}
+        Object    nameArg=args[0];
+        Assert.notNull(nameArg, "No name to lookup");
+        if (nameArg instanceof Name) {
+            return delegate.getAttributes((Name) nameArg);
+        }
 
-		Assert.isInstanceOf(String.class, nameArg, "Attributes name is not a string");
-		String	name=(String) nameArg;
-		Object	result=delegate.getAttributes(name);
-		if (!(result instanceof ResourceAttributes)) {
-			return result;
-		}
+        Assert.isInstanceOf(String.class, nameArg, "Attributes name is not a string");
+        String    name=(String) nameArg;
+        Object    result=delegate.getAttributes(name);
+        if (!(result instanceof ResourceAttributes)) {
+            return result;
+        }
 
-		Number	dataLength=resMap.get(name);	// check if any previous transformation occurred
-		if (dataLength == null) {
-			return result;
-		}
+        Number    dataLength=resMap.get(name);    // check if any previous transformation occurred
+        if (dataLength == null) {
+            return result;
+        }
 
-		// if transformed, then adjust the reported data length
-		ResourceAttributes	attrs=(ResourceAttributes) result;
-		attrs.setContentLength(dataLength.longValue());
-		return attrs;
-	}
+        // if transformed, then adjust the reported data length
+        ResourceAttributes    attrs=(ResourceAttributes) result;
+        attrs.setContentLength(dataLength.longValue());
+        return attrs;
+    }
 
-	protected Object handleLookup(Object ... args)
-			throws NamingException, IOException, IllegalClassFormatException {
-		Assert.notNull(args, "No arguments to lookup");
-		Assert.isTrue(args.length == 1, "Too many lookup arguments");
+    protected Object handleLookup(Object ... args)
+            throws NamingException, IOException, IllegalClassFormatException {
+        Assert.notNull(args, "No arguments to lookup");
+        Assert.isTrue(args.length == 1, "Too many lookup arguments");
 
-		Object	nameArg=args[0];
-		Assert.notNull(nameArg, "No name to lookup");
-		if (nameArg instanceof Name) {
-			return delegate.lookup((Name) nameArg);
-		}
-		
-		Assert.isInstanceOf(String.class, nameArg, "Lookup name is not a string");
-		String	name=(String) nameArg;
-		Object	result=delegate.lookup(name);
-		if (xformers.isEmpty() || (!name.endsWith(".class")) || (!(result instanceof Resource))) {
-			return result;
-		}
+        Object    nameArg=args[0];
+        Assert.notNull(nameArg, "No name to lookup");
+        if (nameArg instanceof Name) {
+            return delegate.lookup((Name) nameArg);
+        }
 
-		// check if already handled this request in the past and did nothing
-		if (identityResources.contains(name)) {
-			return result;
-		}
+        Assert.isInstanceOf(String.class, nameArg, "Lookup name is not a string");
+        String    name=(String) nameArg;
+        Object    result=delegate.lookup(name);
+        if (xformers.isEmpty() || (!name.endsWith(".class")) || (!(result instanceof Resource))) {
+            return result;
+        }
 
-		// check if any transformation occurred
-		Resource	resource=createReplacementResources(createClassName(name), (Resource) result);
-		if (resource == result) {
-			if (logger.isLoggable(Level.FINE)) {
-				logger.fine("handleLookup(" + name + ") no transformation");
-			}
-		
-			identityResources.add(name);
-			return result;
-		}
+        // check if already handled this request in the past and did nothing
+        if (identityResources.contains(name)) {
+            return result;
+        }
 
-		byte[]	data=resource.getContent();
-		resMap.put(name, Integer.valueOf(data.length));
-		if (logger.isLoggable(Level.FINE)) {
-			logger.fine("handleLookup(" + name + ") cache transformed data size: " + data.length);
-		}
+        // check if any transformation occurred
+        Resource    resource=createReplacementResources(createClassName(name), (Resource) result);
+        if (resource == result) {
+            if (logger.isLoggable(Level.FINE)) {
+                logger.fine("handleLookup(" + name + ") no transformation");
+            }
 
-		return resource;
-	}
+            identityResources.add(name);
+            return result;
+        }
 
-	protected Resource createReplacementResources (String className, Resource resource)
-			throws IOException, IllegalClassFormatException {
-		InputStream	in=resource.streamContent();
-		byte[]		data;
-		try {
-			data = FileCopyUtils.copyToByteArray(in);
-		} finally {
-			in.close();
-		}
+        byte[]    data=resource.getContent();
+        resMap.put(name, Integer.valueOf(data.length));
+        if (logger.isLoggable(Level.FINE)) {
+            logger.fine("handleLookup(" + name + ") cache transformed data size: " + data.length);
+        }
 
-		byte[]	xformData=xformers.applyTransformers(className, data);
-		if (xformData == data) {
-			return resource;	// nothing changed
-		}
+        return resource;
+    }
 
-		return new TransformedResource(xformData);
-	}
+    protected Resource createReplacementResources (String className, Resource resource)
+            throws IOException, IllegalClassFormatException {
+        InputStream    in=resource.streamContent();
+        byte[]        data;
+        try {
+            data = FileCopyUtils.copyToByteArray(in);
+        } finally {
+            in.close();
+        }
 
-	protected String createClassName (String path) {
-		Assert.hasText(path, "No path specified");
-		String	classPath=cleanUpPath(path).replace('/', '.');
-		return StringUtils.stripFilenameExtension(classPath);	// strip the ".class"
-	}
-	
-	private static final Collection<String>	PREFIXES=Arrays.asList("/WEB-INF", "/classes");
-	protected String cleanUpPath (String path) {
-		String	lastPath=path;
-		// strip known prefixes
-		for (String	stripPath=stripPathPrefix(lastPath); stripPath != lastPath; stripPath=stripPathPrefix(lastPath)) {
-			lastPath = stripPath;
-		}
+        byte[]    xformData=xformers.applyTransformers(className, data);
+        if (xformData == data) {
+            return resource;    // nothing changed
+        }
 
-		// strip leading separator
-		if (lastPath.charAt(0) == '/') {
-			return lastPath.substring(1);
-		}
+        return new TransformedResource(xformData);
+    }
 
-		return lastPath;
-	}
+    protected String createClassName (String path) {
+        Assert.hasText(path, "No path specified");
+        String    classPath=cleanUpPath(path).replace('/', '.');
+        return StringUtils.stripFilenameExtension(classPath);    // strip the ".class"
+    }
 
-	protected String stripPathPrefix (String path) {
-		for (String prefix : PREFIXES) {
-			if (path.startsWith(prefix)) {
-				return path.substring(prefix.length());
-			}
-		}
-		
-		return path;
-	}
+    private static final Collection<String>    PREFIXES=Arrays.asList("/WEB-INF", "/classes");
+    protected String cleanUpPath (String path) {
+        String    lastPath=path;
+        // strip known prefixes
+        for (String    stripPath=stripPathPrefix(lastPath); stripPath != lastPath; stripPath=stripPathPrefix(lastPath)) {
+            lastPath = stripPath;
+        }
+
+        // strip leading separator
+        if (lastPath.charAt(0) == '/') {
+            return lastPath.substring(1);
+        }
+
+        return lastPath;
+    }
+
+    protected String stripPathPrefix (String path) {
+        for (String prefix : PREFIXES) {
+            if (path.startsWith(prefix)) {
+                return path.substring(prefix.length());
+            }
+        }
+
+        return path;
+    }
 }

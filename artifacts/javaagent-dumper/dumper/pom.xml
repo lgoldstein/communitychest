@@ -1,92 +1,92 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-			     http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<groupId>net.community.chest.artifacts</groupId>
-		<artifactId>javaagent</artifactId>
-		<version>1.8.1.0</version>
-		<relativePath>../pom.xml</relativePath>
-	</parent>
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>net.community.chest.artifacts</groupId>
+        <artifactId>javaagent</artifactId>
+        <version>1.8.1.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.community.chest.artifacts.javaagent.dumper</groupId>
-	<artifactId>chest-javaagent-dumper</artifactId>
-	<packaging>jar</packaging>
-	<name>Dumps the data about all the classes that are loaded</name>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.community.chest.artifacts.javaagent.dumper</groupId>
+    <artifactId>chest-javaagent-dumper</artifactId>
+    <packaging>jar</packaging>
+    <name>Dumps the data about all the classes that are loaded</name>
 
-	<dependencies>
-		<dependency>
-			<groupId>net.community.chest.base-utils</groupId>
-			<artifactId>chest-jdk</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.community.chest.base-utils</groupId>
-			<artifactId>chest-io</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.community.chest.base-utils</groupId>
-			<artifactId>chest-reflect</artifactId>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>net.community.chest.base-utils</groupId>
+            <artifactId>chest-jdk</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.community.chest.base-utils</groupId>
+            <artifactId>chest-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.community.chest.base-utils</groupId>
+            <artifactId>chest-reflect</artifactId>
+        </dependency>
 
         <dependency>
-			<groupId>org.apache.bcel</groupId>
-			<artifactId>bcel</artifactId>
-			<version>5.2</version>
- 		</dependency>
-	</dependencies>
-	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<!-- Generate index file for quicker access -->
-						<index>true</index>
-						<!-- Extra attributes added to the MANIFEST.MF file -->
-						<manifestEntries>
-							<!-- see Package constructor using Manifest -->
-							<Module-Version>${project.version}</Module-Version>
-							<Java-Version>${java.version}</Java-Version>
-							<Java-VM-Version>${java.vm.version}</Java-VM-Version>
-							<User-Name>${user.name}</User-Name>
-							<Implementation-Version>${project.version}</Implementation-Version>
-							<Implementation-Vendor>Community Chest</Implementation-Vendor>
-							<Release-Timestamp>${buildtimestamp}</Release-Timestamp>
-							<Premain-Class>net.community.chest.javaagent.dumper.Main</Premain-Class>
-							<Can-Redefine-Classes>true</Can-Redefine-Classes>
-						</manifestEntries>
-					</archive>
-				</configuration>
+            <groupId>org.apache.bcel</groupId>
+            <artifactId>bcel</artifactId>
+            <version>5.2</version>
+         </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <!-- Generate index file for quicker access -->
+                        <index>true</index>
+                        <!-- Extra attributes added to the MANIFEST.MF file -->
+                        <manifestEntries>
+                            <!-- see Package constructor using Manifest -->
+                            <Module-Version>${project.version}</Module-Version>
+                            <Java-Version>${java.version}</Java-Version>
+                            <Java-VM-Version>${java.vm.version}</Java-VM-Version>
+                            <User-Name>${user.name}</User-Name>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                            <Implementation-Vendor>Community Chest</Implementation-Vendor>
+                            <Release-Timestamp>${buildtimestamp}</Release-Timestamp>
+                            <Premain-Class>net.community.chest.javaagent.dumper.Main</Premain-Class>
+                            <Can-Redefine-Classes>true</Can-Redefine-Classes>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
             </plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-		        <artifactId>maven-shade-plugin</artifactId>
-		        <executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<relocations>
-								<relocation>
-									<pattern>org.apache.bcel</pattern>
-									<shadedPattern>net.community.chest.bcel</shadedPattern>
-								</relocation>
-								<relocation>
-									<pattern>org.apache.regexp</pattern>
-									<shadedPattern>net.community.chest.regexp</shadedPattern>
-								</relocation>
-							</relocations>
-						</configuration>
-					</execution>
-		        </executions>
-		      </plugin>
-      		</plugins>
-	</build>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.apache.bcel</pattern>
+                                    <shadedPattern>net.community.chest.bcel</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.regexp</pattern>
+                                    <shadedPattern>net.community.chest.regexp</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+              </plugin>
+              </plugins>
+    </build>
 </project>

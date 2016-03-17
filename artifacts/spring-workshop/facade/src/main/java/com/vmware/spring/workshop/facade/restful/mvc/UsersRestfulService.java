@@ -17,13 +17,13 @@ import com.vmware.spring.workshop.services.facade.UsersFacade;
 @Controller("usersRestfulService")
 @RequestMapping(AbstractMVCRestfulService.MVC_ACCESS_ROOT + "/users")
 public class UsersRestfulService extends AbstractMVCRestfulService<UserDTO, UsersFacade> {
-	@Inject
-	public UsersRestfulService (final UsersFacade facade) {
-		super(UserDTO.class, facade);
-	}
+    @Inject
+    public UsersRestfulService (final UsersFacade facade) {
+        super(UserDTO.class, facade);
+    }
 
-	@Override
-	protected UserDTOList wrapAsDTOList(Collection<? extends UserDTO> dtoList) {
-		return new UserDTOList(dtoList);
-	}
+    @Override
+    protected UserDTOList wrapAsDTOList(Collection<? extends UserDTO> dtoList) {
+        return new UserDTOList(dtoList);
+    }
 }

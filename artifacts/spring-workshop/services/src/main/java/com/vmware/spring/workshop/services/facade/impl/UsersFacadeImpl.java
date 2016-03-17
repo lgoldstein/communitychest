@@ -31,54 +31,54 @@ import com.vmware.spring.workshop.services.facade.UsersFacade;
 @Facade("usersFacade")
 @Transactional
 public class UsersFacadeImpl
-		extends AbstractCommonFacadeActions<User,UserDTO,UserDao,UserDTOConverter>
-		implements UsersFacade {
-	private final Collection<? extends CleartextAuthenticationProvider>	_authProviders;
+        extends AbstractCommonFacadeActions<User,UserDTO,UserDao,UserDTOConverter>
+        implements UsersFacade {
+    private final Collection<? extends CleartextAuthenticationProvider>    _authProviders;
 
-	@Inject
-	public UsersFacadeImpl(final UserDao 												daoUser,
-						   final UserDTOConverter										usrConverter,
-						   final Collection<? extends CleartextAuthenticationProvider>	authProviders) {
-		super(UserDTO.class, User.class, daoUser, usrConverter);
-		
-		Assert.state(!CollectionUtils.isEmpty(authProviders), "No authentication providers");
-		_authProviders = Collections.unmodifiableCollection(authProviders);
-	}
+    @Inject
+    public UsersFacadeImpl(final UserDao                                                 daoUser,
+                           final UserDTOConverter                                        usrConverter,
+                           final Collection<? extends CleartextAuthenticationProvider>    authProviders) {
+        super(UserDTO.class, User.class, daoUser, usrConverter);
 
-	@Override
-	@Transactional(readOnly=true)
-	public UserDTO findByLoginName(String loginName) {
-		return _converter.toDTO(_dao.findByLoginName(loginName));
-	}
+        Assert.state(!CollectionUtils.isEmpty(authProviders), "No authentication providers");
+        _authProviders = Collections.unmodifiableCollection(authProviders);
+    }
 
-	@Override
-	public UsernamePasswordAuthenticationToken authenticate(Authentication authentication)
-			throws AuthenticationException {
-		final String	username=authentication.getName();
-		final Object	password=authentication.getCredentials();
-		if (StringUtils.isBlank(username) || (!(password instanceof String)))
-			throw new BadCredentialsException("Bad credentials");
-		for (final CleartextAuthenticationProvider provider : _authProviders) {
-			final User		user=provider.authenticate(username, (String) password);
-			final UserDTO	dto=_converter.toDTO(user);
-			if (dto == null)
-				continue;
+    @Override
+    @Transactional(readOnly=true)
+    public UserDTO findByLoginName(String loginName) {
+        return _converter.toDTO(_dao.findByLoginName(loginName));
+    }
 
-			final UserRoleTypeDTO	role=dto.getRole();
-			Assert.state(role != null, "No authenticated user role");
+    @Override
+    public UsernamePasswordAuthenticationToken authenticate(Authentication authentication)
+            throws AuthenticationException {
+        final String    username=authentication.getName();
+        final Object    password=authentication.getCredentials();
+        if (StringUtils.isBlank(username) || (!(password instanceof String)))
+            throw new BadCredentialsException("Bad credentials");
+        for (final CleartextAuthenticationProvider provider : _authProviders) {
+            final User        user=provider.authenticate(username, (String) password);
+            final UserDTO    dto=_converter.toDTO(user);
+            if (dto == null)
+                continue;
 
-			final GrantedAuthority				ga=new SimpleGrantedAuthority(role.name());
-			final Collection<GrantedAuthority>	gaList=Collections.singletonList(ga);
-			return new UsernamePasswordAuthenticationToken(dto, password, gaList);
-		}
+            final UserRoleTypeDTO    role=dto.getRole();
+            Assert.state(role != null, "No authenticated user role");
 
-		// this point is reached if no success
-		throw new BadCredentialsException("Bad credentials");
-	}
+            final GrantedAuthority                ga=new SimpleGrantedAuthority(role.name());
+            final Collection<GrantedAuthority>    gaList=Collections.singletonList(ga);
+            return new UsernamePasswordAuthenticationToken(dto, password, gaList);
+        }
 
-	@Override
-	public boolean supports(Class<?> authentication) {
-		return (authentication != null) && Authentication.class.isAssignableFrom(authentication);
-	}
+        // this point is reached if no success
+        throw new BadCredentialsException("Bad credentials");
+    }
+
+    @Override
+    public boolean supports(Class<?> authentication) {
+        return (authentication != null) && Authentication.class.isAssignableFrom(authentication);
+    }
 
 }

@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>root</artifactId>
-	<packaging>pom</packaging>
-	<name>org.apache.maven.classpath.munger:root</name>
-	
-	<parent>
-		<groupId>org.apache.maven.classpath.munger</groupId>
-		<artifactId>parent</artifactId>
-		<version>1.0.0-CI-SNAPSHOT</version>
-		<relativePath>./parent/pom.xml</relativePath>
-	</parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>root</artifactId>
+    <packaging>pom</packaging>
+    <name>org.apache.maven.classpath.munger:root</name>
 
-	<!-- Sub-modules (in preferred compilation order) -->
-	<modules>
-		<module>parent</module>
-		<module>munger</module>
-		<module>test-apps</module>
-	</modules>
+    <parent>
+        <groupId>org.apache.maven.classpath.munger</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0.0-CI-SNAPSHOT</version>
+        <relativePath>./parent/pom.xml</relativePath>
+    </parent>
+
+    <!-- Sub-modules (in preferred compilation order) -->
+    <modules>
+        <module>parent</module>
+        <module>munger</module>
+        <module>test-apps</module>
+    </modules>
 </project>

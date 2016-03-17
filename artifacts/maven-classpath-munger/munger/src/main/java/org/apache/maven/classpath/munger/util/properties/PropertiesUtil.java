@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -71,7 +71,7 @@ public final class PropertiesUtil {
     public static final int safeCompare (String s1, String s2) {
         return safeCompare(s1, s2, true);
     }
-    
+
     /**
      * Compares 2 {@link String}-s allowing for <code>null</code>'s
      * @param s1 1st string
@@ -147,7 +147,7 @@ public final class PropertiesUtil {
                 sb.setCharAt(index, rep);
             }
         }
-        
+
         return sb;
     }
 
@@ -216,7 +216,7 @@ public final class PropertiesUtil {
             }
         };
     }
-    
+
     public static final NamedPropertySource asPropertySource(final URL props) throws IOException {
         try(InputStream input=props.openStream()) {
             return asPropertySource(input);
@@ -240,7 +240,7 @@ public final class PropertiesUtil {
             public String getProperty(String name, String defaultValue) {
                 return props.getProperty(name, defaultValue);
             }
-            
+
             @Override
             public String getProperty(String name) {
                 return props.getProperty(name);
@@ -250,24 +250,24 @@ public final class PropertiesUtil {
             public Collection<String> getAvailableNames() {
                 return new TreeSet<String>(props.stringPropertyNames());
             }
-            
+
             @Override
             public String toString() {
                 return Objects.toString(props);
             }
         };
     }
-    
+
     public static final String toString(NamedPropertySource props) {
         if (props == null) {
             return null;
         }
-        
+
         Collection<String>  names=props.getAvailableNames();
         if ((names == null) || names.isEmpty()) {
             return "{}";
         }
-        
+
         StringBuilder   sb=new StringBuilder(names.size() * Byte.MAX_VALUE).append('{');
         for (String k : names) {
             String  v=props.getProperty(k);
@@ -287,27 +287,27 @@ public final class PropertiesUtil {
      *  - ignored if {@link null}/empty
      * @return A {@link Map} of all the properties whose values have <U>changed</U>
      * due to invocation of the {@link #format(String, PropertySource)} on their
-     * original value: key=property name, value=formatting result 
+     * original value: key=property name, value=formatting result
      */
     public static final Map<String,String> resolvePropertiesValues(PropertySource source, Collection<String> names) {
         if ((names == null) || (names.size() <= 0) || (source == null)) {
             return Collections.emptyMap();
         }
-        
+
         Map<String,String>  modsMap=null;
         for (String name : names) {
             String  orgValue=source.getProperty(name), fmtValue=format(orgValue, source);
             if (orgValue == fmtValue) {
                 continue;   // nothing to replace
             }
-            
+
             if (modsMap == null) {
                 modsMap = new TreeMap<String,String>();
             }
-            
+
             modsMap.put(name, fmtValue);
         }
-        
+
         if (modsMap == null) {
             return Collections.emptyMap();
         } else {

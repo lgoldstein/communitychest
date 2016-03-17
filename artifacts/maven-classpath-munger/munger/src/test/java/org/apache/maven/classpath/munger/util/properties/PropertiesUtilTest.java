@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -62,7 +62,7 @@ public class PropertiesUtilTest extends AbstractPropertySourceTestSupport {
     public void testFormat() {
         Map<String,String>  valuesMap=new TreeMap<String,String>() {
                 private static final long serialVersionUID = 1L;
-                
+
                 {
                     put("testName", getCurrentTestName());
                     put("timestamp", new Date().toString());
@@ -91,7 +91,7 @@ public class PropertiesUtilTest extends AbstractPropertySourceTestSupport {
     private Map<String,String> addValueAnswer(OngoingStubbing<String> stub) {
         final Map<String,String>  valuesMap=new TreeMap<String,String>() {
                 private static final long serialVersionUID = 1L;
-                
+
                 {
                     put("testName", getCurrentTestName());
                     put("timestamp", new Date().toString());
@@ -103,7 +103,7 @@ public class PropertiesUtilTest extends AbstractPropertySourceTestSupport {
                     Object[]    args=invocation.getArguments();
                     assertNotNull("No invocation args", args);
                     assertEquals("Mismatched invocation arguments size", 1, args.length);
-    
+
                     Object  name=args[0];
                     assertTrue("Non string argument", name instanceof String);
                     return valuesMap.get(name.toString());

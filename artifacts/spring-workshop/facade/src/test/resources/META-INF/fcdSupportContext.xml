@@ -5,34 +5,34 @@
        xmlns:oxm="http://www.springframework.org/schema/oxm"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context.xsd
            http://www.springframework.org/schema/oxm
-    	   http://www.springframework.org/schema/oxm/spring-oxm.xsd
-           http://www.springframework.org/schema/tx 
-     	   http://www.springframework.org/schema/tx/spring-tx.xsd
+           http://www.springframework.org/schema/oxm/spring-oxm.xsd
+           http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
            http://www.springframework.org/schema/jdbc
            http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
            http://www.springframework.org/schema/util
            http://www.springframework.org/schema/util/spring-util.xsd">
 
-		<!-- Enabled annotation-based beans definitions -->               
-	<context:annotation-config />
+        <!-- Enabled annotation-based beans definitions -->
+    <context:annotation-config />
 
-		<!-- Import properties from a file -->
- 	<context:property-placeholder location="classpath:META-INF/fcdContext.properties"
- 								  system-properties-mode="OVERRIDE"
- 								  ignore-unresolvable="true" />
+        <!-- Import properties from a file -->
+     <context:property-placeholder location="classpath:META-INF/fcdContext.properties"
+                                   system-properties-mode="OVERRIDE"
+                                   ignore-unresolvable="true" />
 
-		<!-- Automatically scan classes for @Component, @Service, etc. -->
-	<context:component-scan base-package="com.vmware.spring.workshop.facade.support"/>
+        <!-- Automatically scan classes for @Component, @Service, etc. -->
+    <context:component-scan base-package="com.vmware.spring.workshop.facade.support"/>
 
-	<bean id="conversionService"
-    	  class="org.springframework.context.support.ConversionServiceFactoryBean"/>
+    <bean id="conversionService"
+          class="org.springframework.context.support.ConversionServiceFactoryBean"/>
 
-		<!-- define a Spring JAXB marshaller -->
+        <!-- define a Spring JAXB marshaller -->
     <oxm:jaxb2-marshaller id="oxmMarshaller"
-    		contextPath="com.vmware.spring.workshop.dto:com.vmware.spring.workshop.dto.user:com.vmware.spring.workshop.dto.banking" />
+            contextPath="com.vmware.spring.workshop.dto:com.vmware.spring.workshop.dto.user:com.vmware.spring.workshop.dto.banking" />
 </beans>

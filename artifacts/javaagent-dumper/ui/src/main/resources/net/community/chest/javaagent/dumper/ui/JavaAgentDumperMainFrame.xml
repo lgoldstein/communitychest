@@ -1,117 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<frame	name="javagent-dumper-main-frame"
-		title="JavaAgent Dumper Aspects Generator"
-		defaultCloseOperation="EXIT"
-		relativePreferredSize="50,60"
-		relativeSize="50,60">
+<frame    name="javagent-dumper-main-frame"
+        title="JavaAgent Dumper Aspects Generator"
+        defaultCloseOperation="EXIT"
+        relativePreferredSize="50,60"
+        relativeSize="50,60">
 
-	<layout class="border"/>
+    <layout class="border"/>
 
-		<!-- defines the main-menu -->
-	<menu name="main-menu">
-		<!-- NOTE: assigned commands MUST match what the application expects -->
-		<menu text="File" mnemonic="VK_F" actionCommand="file">
-			<accessibleContext description="Manages the synchronization locations" />
-			<item 	text="Load source folder"
-					mnemonic="VK_S"
-					actionCommand="load"
-					accelerator="control O"
-					icon="Open.gif"
-				/>
-			<item 	text="Load destination folder"
-					mnemonic="VK_D"
-					actionCommand="save"
-					accelerator="control S"
-					icon="Save.gif"
-				/>
-			<separator/>
-			<item	text="Start aspects generation"
-					mnemonic="VK_R"
-					actionCommand="run"
-					accelerator="F5"
-					enabled="false"
-					icon="Run.gif"
-				/>
-			<item	text="Stop aspects generation"
-					mnemonic="VK_R"
-					actionCommand="stop"
-					accelerator="control C"
-					enabled="false"
-					icon="Stop.gif"
-				/>
-			<separator/>
-			<item	text="Exit"
-					mnemonic="VK_X"
-					actionCommand="exit"
-					accelerator="alt F4"
-				/>
-		</menu>
-		<menu text="Edit" actionCommand="edit">
-			<item	text="Select All"
-					mnemonic="VK_A"
-					actionCommand="select-all"
-					accelerator="control A"
-				/>
-			<item	text="Mark selected"
-					mnemonic="VK_K"
-					actionCommand="mark-selected"
-					icon="Checkmark.jpg"
-				/>
-			<item	text="Unmark selected"
-					mnemonic="VK_K"
-					actionCommand="unmark-selected"
-				/>
-		</menu>
-		<menu text="Help" actionCommand="help" icon="Help.gif">
-			<accessibleContext description="Shows various information about the application" />
-			<item	text="About"
-					mnemonic="VK_A"
-					actionCommand="about"
-					accelerator="F1"
-				/>
-		</menu>
-	</menu>
-	
-			<!-- ########### some internal UI components ########### -->
-		<!-- Synchronization folders chooser -->
-	<section name="load-file-dialog"
-			 fileSelectionMode="folders"
-			 dialogTitle="Select Source Folder" />
-	<section name="save-file-dialog"
-			 fileSelectionMode="folders"
-			 dialogTitle="Select Destination Folder" />
+        <!-- defines the main-menu -->
+    <menu name="main-menu">
+        <!-- NOTE: assigned commands MUST match what the application expects -->
+        <menu text="File" mnemonic="VK_F" actionCommand="file">
+            <accessibleContext description="Manages the synchronization locations" />
+            <item     text="Load source folder"
+                    mnemonic="VK_S"
+                    actionCommand="load"
+                    accelerator="control O"
+                    icon="Open.gif"
+                />
+            <item     text="Load destination folder"
+                    mnemonic="VK_D"
+                    actionCommand="save"
+                    accelerator="control S"
+                    icon="Save.gif"
+                />
+            <separator/>
+            <item    text="Start aspects generation"
+                    mnemonic="VK_R"
+                    actionCommand="run"
+                    accelerator="F5"
+                    enabled="false"
+                    icon="Run.gif"
+                />
+            <item    text="Stop aspects generation"
+                    mnemonic="VK_R"
+                    actionCommand="stop"
+                    accelerator="control C"
+                    enabled="false"
+                    icon="Stop.gif"
+                />
+            <separator/>
+            <item    text="Exit"
+                    mnemonic="VK_X"
+                    actionCommand="exit"
+                    accelerator="alt F4"
+                />
+        </menu>
+        <menu text="Edit" actionCommand="edit">
+            <item    text="Select All"
+                    mnemonic="VK_A"
+                    actionCommand="select-all"
+                    accelerator="control A"
+                />
+            <item    text="Mark selected"
+                    mnemonic="VK_K"
+                    actionCommand="mark-selected"
+                    icon="Checkmark.jpg"
+                />
+            <item    text="Unmark selected"
+                    mnemonic="VK_K"
+                    actionCommand="unmark-selected"
+                />
+        </menu>
+        <menu text="Help" actionCommand="help" icon="Help.gif">
+            <accessibleContext description="Shows various information about the application" />
+            <item    text="About"
+                    mnemonic="VK_A"
+                    actionCommand="about"
+                    accelerator="F1"
+                />
+        </menu>
+    </menu>
 
-		<!-- Synchronization source path -->
-	<section name="dump-source" title="Source path" buttonLeftPos="true"/>
-		<!-- Target working copy path -->
-	<section name="aspect-target" title="Target path" buttonLeftPos="true"/>
+            <!-- ########### some internal UI components ########### -->
+        <!-- Synchronization folders chooser -->
+    <section name="load-file-dialog"
+             fileSelectionMode="folders"
+             dialogTitle="Select Source Folder" />
+    <section name="save-file-dialog"
+             fileSelectionMode="folders"
+             dialogTitle="Select Destination Folder" />
 
-	<section name="log-msgs-area" eolStyle="LF" maxTextSize="65534">
-		<border class="titled"
-				title="Messages"
-				position="ABOVE_TOP"
-				justification="LEFT"
-			>
-			<border class="line" value="black, 2" />
-		</border>
+        <!-- Synchronization source path -->
+    <section name="dump-source" title="Source path" buttonLeftPos="true"/>
+        <!-- Target working copy path -->
+    <section name="aspect-target" title="Target path" buttonLeftPos="true"/>
 
-		<logLevelsMap>
-			<level class="ERROR" 	foreground="red"	bold="true"/>
-			<level class="WARNING" 	foreground="orange"	bold="true"/>
-			<level class="INFO" 	foreground="blue"	bold="true"/>
-			<level class="DEBUG" 	foreground="black"	bold="false"/>
-				<!-- Used for DELETE operations -->
-			<level class="VERBOSE"	foreground="blue"	bold="true" strikeThrough="true" />
-		</logLevelsMap>
-	</section>
+    <section name="log-msgs-area" eolStyle="LF" maxTextSize="65534">
+        <border class="titled"
+                title="Messages"
+                position="ABOVE_TOP"
+                justification="LEFT"
+            >
+            <border class="line" value="black, 2" />
+        </border>
 
-	<section name="main-toolbar" floatable="false">
-		<button actionCommand="load" text="Load"	enabled="true"  tooltipText="Load source folder" />
-		<button actionCommand="save" text="Save" 	enabled="true"  tooltipText="Load destination folder"/>
-		<button actionCommand="stop" text="Stop"	enabled="false" tooltipText="Stop aspects generation"/>
-		<button actionCommand="run"  text="Run"		enabled="false" tooltipText="Start aspects generation"/>
-	</section>
+        <logLevelsMap>
+            <level class="ERROR"     foreground="red"    bold="true"/>
+            <level class="WARNING"     foreground="orange"    bold="true"/>
+            <level class="INFO"     foreground="blue"    bold="true"/>
+            <level class="DEBUG"     foreground="black"    bold="false"/>
+                <!-- Used for DELETE operations -->
+            <level class="VERBOSE"    foreground="blue"    bold="true" strikeThrough="true" />
+        </logLevelsMap>
+    </section>
 
-	<section	name="packages-tree"
-				selectionMode="DISCONTIGUOUS" />
+    <section name="main-toolbar" floatable="false">
+        <button actionCommand="load" text="Load"    enabled="true"  tooltipText="Load source folder" />
+        <button actionCommand="save" text="Save"     enabled="true"  tooltipText="Load destination folder"/>
+        <button actionCommand="stop" text="Stop"    enabled="false" tooltipText="Stop aspects generation"/>
+        <button actionCommand="run"  text="Run"        enabled="false" tooltipText="Start aspects generation"/>
+    </section>
+
+    <section    name="packages-tree"
+                selectionMode="DISCONTIGUOUS" />
 </frame>

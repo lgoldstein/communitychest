@@ -11,7 +11,7 @@ import com.vmware.spring.workshop.services.convert.UserDTOConverter;
  */
 @Component("userDTOConverter")
 public class UserDTOConverterImpl extends AbstractDTOConverter<User,UserDTO> implements UserDTOConverter {
-	public UserDTOConverterImpl () {
-		super(User.class, UserDTO.class);
-	}
+    public UserDTOConverterImpl () {
+        super(User.class, UserDTO.class);
+    }
 }

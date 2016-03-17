@@ -57,7 +57,7 @@ public class VisitsViewTests {
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
     }
-    
+
     @Test
     public void getVisitsXml() throws Exception {
         ResultActions actions = this.mockMvc.perform(get("/vets.xml").accept(MediaType.APPLICATION_XML));

@@ -11,11 +11,11 @@ import javax.xml.bind.annotation.XmlEnum;
  */
 @XmlEnum
 public enum UserRoleTypeDTO {
-	ADMIN,
-	CUSTOMER,
-	GUEST;
-	
-	public static final Set<UserRoleTypeDTO>	VALUES=
-			Collections.unmodifiableSet(EnumSet.allOf(UserRoleTypeDTO.class));
+    ADMIN,
+    CUSTOMER,
+    GUEST;
+
+    public static final Set<UserRoleTypeDTO>    VALUES=
+            Collections.unmodifiableSet(EnumSet.allOf(UserRoleTypeDTO.class));
 
 }

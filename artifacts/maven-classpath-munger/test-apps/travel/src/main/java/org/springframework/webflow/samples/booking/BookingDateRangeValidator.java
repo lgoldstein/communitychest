@@ -12,11 +12,11 @@ public class BookingDateRangeValidator implements ConstraintValidator<BookingDat
 
     @Override
     public boolean isValid(Booking booking, ConstraintValidatorContext context) {
-	if ((booking.getCheckinDate() != null) && (booking.getCheckoutDate() != null)
-		&& booking.getCheckoutDate().before(booking.getCheckinDate())) {
-	    return false;
-	}
-	return true;
+    if ((booking.getCheckinDate() != null) && (booking.getCheckoutDate() != null)
+        && booking.getCheckoutDate().before(booking.getCheckinDate())) {
+        return false;
+    }
+    return true;
     }
 
 }

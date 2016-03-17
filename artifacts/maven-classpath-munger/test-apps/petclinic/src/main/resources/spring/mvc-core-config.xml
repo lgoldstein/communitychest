@@ -52,7 +52,7 @@
           p:basename="messages/messages"/>
 
     <!--
-        - This bean resolves specific types of exceptions to corresponding logical 
+        - This bean resolves specific types of exceptions to corresponding logical
         - view names for error views.
     -->
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">

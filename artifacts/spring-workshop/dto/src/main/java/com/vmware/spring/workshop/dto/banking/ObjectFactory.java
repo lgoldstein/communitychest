@@ -7,27 +7,27 @@ import javax.xml.bind.annotation.XmlRegistry;
  */
 @XmlRegistry
 public final class ObjectFactory {
-	public ObjectFactory() {
-		super();
-	}
+    public ObjectFactory() {
+        super();
+    }
 
-	public BankDTO createBankDTO () {
-		return new BankDTO();
-	}
+    public BankDTO createBankDTO () {
+        return new BankDTO();
+    }
 
-	public BankDTOList createBankDTOList () {
-		return new BankDTOList();
-	}
+    public BankDTOList createBankDTOList () {
+        return new BankDTOList();
+    }
 
-	public BranchDTO createBranchDTO () {
-		return new BranchDTO();
-	}
+    public BranchDTO createBranchDTO () {
+        return new BranchDTO();
+    }
 
-	public BranchDTOList createBranchDTOList () {
-		return new BranchDTOList();
-	}
+    public BranchDTOList createBranchDTOList () {
+        return new BranchDTOList();
+    }
 
-	public AccountDTO createAccountDTO () {
-		return new AccountDTO();
-	}
+    public AccountDTO createAccountDTO () {
+        return new AccountDTO();
+    }
 }

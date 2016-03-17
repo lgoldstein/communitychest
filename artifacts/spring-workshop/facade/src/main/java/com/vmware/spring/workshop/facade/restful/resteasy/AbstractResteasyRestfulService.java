@@ -18,42 +18,42 @@ import com.vmware.spring.workshop.services.facade.CommonFacadeActions;
  * @author lgoldstein
  */
 public abstract class AbstractResteasyRestfulService<DTO extends IdentifiedDTO, FCD extends CommonFacadeActions<DTO>>
-		extends AbstractRestfulService<DTO, FCD> {
-	public static final String	RESTEASY_ACCESS_ROOT=RESTFUL_ACCESS_ROOT + "/resteasy";
+        extends AbstractRestfulService<DTO, FCD> {
+    public static final String    RESTEASY_ACCESS_ROOT=RESTFUL_ACCESS_ROOT + "/resteasy";
 
-	protected AbstractResteasyRestfulService(Class<DTO> dtoClass, FCD facade) {
-		super(dtoClass, facade);
-	}
-	
-	@GET
-	public Collection<? extends DTO> list () {
-		return wrapAsDTOList(_facade.findAll());
-	}
-	
-	@GET
-	@Path(BY_ID_TEMPLATE)
-	public DTO findById (@PathParam(ID_PARAM_NAME) final Long id) {
-		return _facade.findById(id);
-	}
+    protected AbstractResteasyRestfulService(Class<DTO> dtoClass, FCD facade) {
+        super(dtoClass, facade);
+    }
 
-	@POST
-	public Collection<? extends DTO> createInstance (final DTO dto) {
-		Assert.notNull(dto, "No DTO object");
+    @GET
+    public Collection<? extends DTO> list () {
+        return wrapAsDTOList(_facade.findAll());
+    }
 
-		final Long	id=dto.getId();
-		if (id != null) {
-			dto.setId(null);
-			_logger.warn("createInstance(" + dto + ") ignore preset ID=" + id);
-		}
+    @GET
+    @Path(BY_ID_TEMPLATE)
+    public DTO findById (@PathParam(ID_PARAM_NAME) final Long id) {
+        return _facade.findById(id);
+    }
 
-		_facade.create(dto);
-		return list();
+    @POST
+    public Collection<? extends DTO> createInstance (final DTO dto) {
+        Assert.notNull(dto, "No DTO object");
 
-	}
+        final Long    id=dto.getId();
+        if (id != null) {
+            dto.setId(null);
+            _logger.warn("createInstance(" + dto + ") ignore preset ID=" + id);
+        }
 
-	@DELETE
-	@Path(BY_ID_TEMPLATE)
-	public DTO deleteById (@PathParam(ID_PARAM_NAME) final Long id) {
-		return _facade.deleteById(id);
-	}
+        _facade.create(dto);
+        return list();
+
+    }
+
+    @DELETE
+    @Path(BY_ID_TEMPLATE)
+    public DTO deleteById (@PathParam(ID_PARAM_NAME) final Long id) {
+        return _facade.deleteById(id);
+    }
 }

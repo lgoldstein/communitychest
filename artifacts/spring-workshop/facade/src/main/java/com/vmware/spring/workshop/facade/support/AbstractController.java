@@ -18,30 +18,30 @@ import org.springframework.web.servlet.handler.AbstractHandlerMapping;
  * @author lgoldstein
  */
 public abstract class AbstractController implements ApplicationListener<ContextRefreshedEvent> {
-	public static final String	ID_PARAM_NAME="id", BY_ID_TEMPLATE="{" + ID_PARAM_NAME + "}";
-	private static final Set<ApplicationContext>	INITIALIZED_SETS=
-			Collections.synchronizedSet(new HashSet<ApplicationContext>());
-	protected final Logger	_logger=LoggerFactory.getLogger(getClass());
+    public static final String    ID_PARAM_NAME="id", BY_ID_TEMPLATE="{" + ID_PARAM_NAME + "}";
+    private static final Set<ApplicationContext>    INITIALIZED_SETS=
+            Collections.synchronizedSet(new HashSet<ApplicationContext>());
+    protected final Logger    _logger=LoggerFactory.getLogger(getClass());
 
-	protected AbstractController() {
-		super();
-	}
-	
-	@Override // (very) dirty hack to achieve this setting
-	public void onApplicationEvent (final ContextRefreshedEvent event) {
-		final ApplicationContext	context=event.getApplicationContext();
-		if (!INITIALIZED_SETS.add(context)) {
-			_logger.info("Context already initialized: " + context.getDisplayName());
-			return;
-		}
+    protected AbstractController() {
+        super();
+    }
 
-		final Map<String,? extends AbstractHandlerMapping>	mappings=context.getBeansOfType(AbstractHandlerMapping.class);
-		Assert.state(!MapUtils.isEmpty(mappings), "No mappings handlers");
+    @Override // (very) dirty hack to achieve this setting
+    public void onApplicationEvent (final ContextRefreshedEvent event) {
+        final ApplicationContext    context=event.getApplicationContext();
+        if (!INITIALIZED_SETS.add(context)) {
+            _logger.info("Context already initialized: " + context.getDisplayName());
+            return;
+        }
 
-		for (final AbstractHandlerMapping handler : mappings.values()) {
-			handler.setAlwaysUseFullPath(true);
-		}
-		
-		_logger.info("Context mappings initialized: " + context.getDisplayName());
-	}
+        final Map<String,? extends AbstractHandlerMapping>    mappings=context.getBeansOfType(AbstractHandlerMapping.class);
+        Assert.state(!MapUtils.isEmpty(mappings), "No mappings handlers");
+
+        for (final AbstractHandlerMapping handler : mappings.values()) {
+            handler.setAlwaysUseFullPath(true);
+        }
+
+        _logger.info("Context mappings initialized: " + context.getDisplayName());
+    }
 }

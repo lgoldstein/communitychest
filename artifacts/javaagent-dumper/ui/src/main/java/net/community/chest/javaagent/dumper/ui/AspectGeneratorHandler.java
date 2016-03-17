@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.javaagent.dumper.ui;
 
@@ -11,6 +11,6 @@ import net.community.chest.javaagent.dumper.ui.tree.AbstractInfoNode;
  * @since Aug 21, 2011 12:35:26 PM
  */
 interface AspectGeneratorHandler {
-	void handleProcessedNode (AbstractInfoNode<?> node);
-	void doneGenerating (AspectGeneratorThread instance);
+    void handleProcessedNode (AbstractInfoNode<?> node);
+    void doneGenerating (AspectGeneratorThread instance);
 }

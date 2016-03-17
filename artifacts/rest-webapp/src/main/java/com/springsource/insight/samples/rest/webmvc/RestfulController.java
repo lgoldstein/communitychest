@@ -33,18 +33,18 @@ import com.springsource.insight.samples.rest.model.RestfulService;
 @Controller
 @RequestMapping("/webmvc")
 public class RestfulController extends AbstractRequestHandler {
-	private final RestfulService	_service;
+    private final RestfulService    _service;
 
-	@Inject
-	public RestfulController(final RestfulService service) {
-		_service = service;
-	}
+    @Inject
+    public RestfulController(final RestfulService service) {
+        _service = service;
+    }
 
-	@RequestMapping(method=RequestMethod.GET)
-	public String listAll (Model model, @RequestParam(value="delay", defaultValue=DEFAULT_DELAY) int maxDelay) {
-		final RestfulDataList	list=_service.findAll();
-		model.addAttribute("dataList", list);
-		delay(maxDelay);
-		return "webmvc/list";
-	}
+    @RequestMapping(method=RequestMethod.GET)
+    public String listAll (Model model, @RequestParam(value="delay", defaultValue=DEFAULT_DELAY) int maxDelay) {
+        final RestfulDataList    list=_service.findAll();
+        model.addAttribute("dataList", list);
+        delay(maxDelay);
+        return "webmvc/list";
+    }
 }

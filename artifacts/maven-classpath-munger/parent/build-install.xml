@@ -8,45 +8,45 @@
     <property name="munger.parent.folder" value="${module.root.folder}" />
     <import file="${munger.parent.folder}${file.separator}build-munger.xml" />
 
-	   <!-- ####################### some useful macros ####################### -->
-	<macrodef name="download-and-unzip-container">
-		<attribute name="url" />
-		<attribute name="download-dir" default="${workspace.servers.target.dir}" description="ZIP destination target" />
-		<attribute name="zip-name" description="Name of ZIP file downloaded" />
-		<attribute name="target-dir" description="Location where ZIP file is to be un-zipped" /> 
-		<sequential>
-	        <mkdir dir="@{download-dir}" />
-	        <get src="@{url}" dest="@{download-dir}" verbose="true" skipexisting="true" />
-	        <mkdir dir="@{target-dir}" />
-	        <unzip src="@{download-dir}${file.separator}@{zip-name}" dest="@{target-dir}" />
-	    </sequential>
-	</macrodef>
+       <!-- ####################### some useful macros ####################### -->
+    <macrodef name="download-and-unzip-container">
+        <attribute name="url" />
+        <attribute name="download-dir" default="${workspace.servers.target.dir}" description="ZIP destination target" />
+        <attribute name="zip-name" description="Name of ZIP file downloaded" />
+        <attribute name="target-dir" description="Location where ZIP file is to be un-zipped" />
+        <sequential>
+            <mkdir dir="@{download-dir}" />
+            <get src="@{url}" dest="@{download-dir}" verbose="true" skipexisting="true" />
+            <mkdir dir="@{target-dir}" />
+            <unzip src="@{download-dir}${file.separator}@{zip-name}" dest="@{target-dir}" />
+        </sequential>
+    </macrodef>
 
     <!-- ########################### Tomcat specific tasks ############################## -->
 
-	<macrodef name="download-and-install-tomcat">
-		<attribute name="major-version" />
-		<attribute name="minor-version" />
-		<attribute name="release-number" />
-		<attribute name="base-url" default="http://archive.apache.org/dist/tomcat" />
-		<attribute name="tomcat-home" />
+    <macrodef name="download-and-install-tomcat">
+        <attribute name="major-version" />
+        <attribute name="minor-version" />
+        <attribute name="release-number" />
+        <attribute name="base-url" default="http://archive.apache.org/dist/tomcat" />
+        <attribute name="tomcat-home" />
         <sequential>
             <dirname file="@{tomcat-home}" property="tomcat.install.parent.dir" />
-        	<download-and-unzip-container
-        		  url="@{base-url}/tomcat-@{major-version}/v@{major-version}.@{minor-version}.@{release-number}/bin/apache-tomcat-@{major-version}.@{minor-version}.@{release-number}.zip"
-        	      zip-name="apache-tomcat-@{major-version}.@{minor-version}.@{release-number}.zip"
-        	      target-dir="${tomcat.install.parent.dir}"
-        		/>
+            <download-and-unzip-container
+                  url="@{base-url}/tomcat-@{major-version}/v@{major-version}.@{minor-version}.@{release-number}/bin/apache-tomcat-@{major-version}.@{minor-version}.@{release-number}.zip"
+                  zip-name="apache-tomcat-@{major-version}.@{minor-version}.@{release-number}.zip"
+                  target-dir="${tomcat.install.parent.dir}"
+                />
             </sequential>
-	</macrodef>
+    </macrodef>
 
     <target name="install-vanilla-tomcat" unless="tomcat.available"
             description="Downloads and installs a Tomcat distribution if not already exists">
-    	<download-and-install-tomcat major-version="${tomcat.major.version}"
-    		                         minor-version="${tomcat.minor.version}"
-    		                         release-number="${tomcat.release.number}"
-    		                         tomcat-home="${tomcat.home}"
-    		   />
+        <download-and-install-tomcat major-version="${tomcat.major.version}"
+                                     minor-version="${tomcat.minor.version}"
+                                     release-number="${tomcat.release.number}"
+                                     tomcat-home="${tomcat.home}"
+               />
     </target>
 
     <target name="uninstall-tomcat" if="tomcat.home"

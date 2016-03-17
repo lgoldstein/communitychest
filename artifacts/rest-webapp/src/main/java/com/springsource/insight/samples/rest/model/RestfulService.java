@@ -21,9 +21,9 @@ package com.springsource.insight.samples.rest.model;
  *
  */
 public interface RestfulService {
-	RestfulDataList findAll ();
-	RestfulData getData (long id);	// returns null if no such ID found
-	RestfulData create (int balance);
-	RestfulData setBalance (long id, int balance); // returns non-null if found and updated
-	RestfulData removeData (long id);	// return non-null if successful 
+    RestfulDataList findAll ();
+    RestfulData getData (long id);    // returns null if no such ID found
+    RestfulData create (int balance);
+    RestfulData setBalance (long id, int balance); // returns non-null if found and updated
+    RestfulData removeData (long id);    // return non-null if successful
 }

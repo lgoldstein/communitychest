@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -86,7 +86,7 @@ public class MavenDependencyResolver extends AbstractDependencyResolver {
 
         return urls;
     }
-    
+
     protected File resolveDependency(String localRepoRoot, Dependency d, Collection<? extends Repository> repos)
             throws IOException {
         File    targetPath=new File(localRepoRoot + File.separator + d.buildArtifactPath(File.separatorChar));
@@ -96,7 +96,7 @@ public class MavenDependencyResolver extends AbstractDependencyResolver {
             }
             return targetPath;
         }
-        
+
         String  downloadPath=d.buildArtifactPath('/');
         for (Repository r : repos) {
             cleanResidualFile(d, targetPath);
@@ -107,7 +107,7 @@ public class MavenDependencyResolver extends AbstractDependencyResolver {
                 if (dataSize <= 0L) {
                     throw new StreamCorruptedException("No data downloaded");
                 }
-                
+
                 logger.info("resolveDependency(" + d + ")[" + r + "]"
                           + " downloaded " + dataSize + " bytes"
                           + " in " + (endTime - startTime) + " msec.: " + targetPath);
@@ -119,7 +119,7 @@ public class MavenDependencyResolver extends AbstractDependencyResolver {
                 cleanResidualFile(d, targetPath);
             }
         }
-        
+
         IOException e=new FileNotFoundException("resolveDependency(" + d + ") no instance found");
         logger.error(e.getMessage());
         throw e;
@@ -134,7 +134,7 @@ public class MavenDependencyResolver extends AbstractDependencyResolver {
             if (logger.isDebugEnabled()) {
                 logger.debug("cleanResidualFile(" + d + ") clean up residual file: " + targetPath.getAbsolutePath());
             }
-            
+
             return true;
         } else {
             IOException e=

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.adm.charts;
 
@@ -15,24 +15,24 @@ import net.community.chest.CoVariantReturn;
  * @since Jun 23, 2010 2:08:24 PM
  */
 public final class Main extends BaseMain {
-	private Main (String... args)
-	{
-		super(args);
-	}
-	/*
-	 * @see net.community.apps.common.BaseMain#createMainFrameInstance()
-	 */
-	@Override
-	@CoVariantReturn
-	protected MainFrame createMainFrameInstance () throws Exception
-	{
-		return new MainFrame(getMainArguments());
-	}
+    private Main (String... args)
+    {
+        super(args);
+    }
+    /*
+     * @see net.community.apps.common.BaseMain#createMainFrameInstance()
+     */
+    @Override
+    @CoVariantReturn
+    protected MainFrame createMainFrameInstance () throws Exception
+    {
+        return new MainFrame(getMainArguments());
+    }
 
-	//////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
 
-	public static void main (final String[] args)
-	{
-		SwingUtilities.invokeLater(new Main(args));
-	}
+    public static void main (final String[] args)
+    {
+        SwingUtilities.invokeLater(new Main(args));
+    }
 }

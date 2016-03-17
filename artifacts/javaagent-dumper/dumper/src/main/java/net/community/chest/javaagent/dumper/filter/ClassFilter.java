@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.javaagent.dumper.filter;
 
@@ -9,5 +9,5 @@ package net.community.chest.javaagent.dumper.filter;
  * @since Aug 11, 2011 2:20:37 PM
  */
 public interface ClassFilter {
-	boolean accept (String className);
+    boolean accept (String className);
 }

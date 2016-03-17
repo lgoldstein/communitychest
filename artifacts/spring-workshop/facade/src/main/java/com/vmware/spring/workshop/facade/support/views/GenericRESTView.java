@@ -11,10 +11,10 @@ import org.springframework.web.servlet.view.xml.MarshallingView;
  */
 @View("genericRESTView")
 public class GenericRESTView extends MarshallingView {
-	public static final String	MODEL_VALUE_KEY="modelValueKey";
-	@Inject
-	public GenericRESTView (@Named("oxmMarshaller") final Marshaller marshaller) {
-		super(marshaller);
-		setModelKey(MODEL_VALUE_KEY);
-	}
+    public static final String    MODEL_VALUE_KEY="modelValueKey";
+    @Inject
+    public GenericRESTView (@Named("oxmMarshaller") final Marshaller marshaller) {
+        super(marshaller);
+        setModelKey(MODEL_VALUE_KEY);
+    }
 }

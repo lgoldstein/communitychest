@@ -32,109 +32,109 @@ import org.springframework.util.CollectionUtils;
  */
 @Repository
 public class RestfulRepositoryImpl extends HibernateDaoSupport implements RestfulRepository {
-	public RestfulRepositoryImpl() {
-		super();
-	}
+    public RestfulRepositoryImpl() {
+        super();
+    }
 
-	// Ugly hack since 'setSessionFactory' is 'final'
-	@Inject
-	public void setDaoSessionFactory (SessionFactory sessionFactory) {
-		setSessionFactory(sessionFactory);
-	}
-	/*
-	 * @see com.springsource.insight.samples.rest.RestfulRepository#findAll()
-	 */
-	@Override
-	public List<RestfulData> findAll() {
-		final HibernateTemplate	tmpl=getHibernateTemplate();
-		return tmpl.loadAll(RestfulData.class);
-	}
-	/*
-	 * @see com.springsource.insight.samples.rest.RestfulRepository#getData(long)
-	 */
-	@Override
-	public RestfulData getData(long id) {
-		final HibernateTemplate	tmpl=getHibernateTemplate();
-		return tmpl.get(RestfulData.class, Long.valueOf(id));
-	}
-	/*
-	 * @see com.springsource.insight.samples.rest.RestfulRepository#create(int)
-	 */
-	@Override
-	public RestfulData create(int balance) {
-		final RestfulData	data=new RestfulData();
-		data.setLastModified(new Date(System.currentTimeMillis()));
-		data.setBalance(balance);
+    // Ugly hack since 'setSessionFactory' is 'final'
+    @Inject
+    public void setDaoSessionFactory (SessionFactory sessionFactory) {
+        setSessionFactory(sessionFactory);
+    }
+    /*
+     * @see com.springsource.insight.samples.rest.RestfulRepository#findAll()
+     */
+    @Override
+    public List<RestfulData> findAll() {
+        final HibernateTemplate    tmpl=getHibernateTemplate();
+        return tmpl.loadAll(RestfulData.class);
+    }
+    /*
+     * @see com.springsource.insight.samples.rest.RestfulRepository#getData(long)
+     */
+    @Override
+    public RestfulData getData(long id) {
+        final HibernateTemplate    tmpl=getHibernateTemplate();
+        return tmpl.get(RestfulData.class, Long.valueOf(id));
+    }
+    /*
+     * @see com.springsource.insight.samples.rest.RestfulRepository#create(int)
+     */
+    @Override
+    public RestfulData create(int balance) {
+        final RestfulData    data=new RestfulData();
+        data.setLastModified(new Date(System.currentTimeMillis()));
+        data.setBalance(balance);
 
-		final HibernateTemplate	tmpl=getHibernateTemplate();
-		final Serializable		saveId=tmpl.save(data);
-		if (null == saveId)
-			throw new IllegalStateException("No ID generated for entity=" + data);
-		tmpl.flush();
+        final HibernateTemplate    tmpl=getHibernateTemplate();
+        final Serializable        saveId=tmpl.save(data);
+        if (null == saveId)
+            throw new IllegalStateException("No ID generated for entity=" + data);
+        tmpl.flush();
 
-		logger.info("create(" + data + ")[ID=" + saveId + "]");
-		return data;
-	}
-	/*
-	 * @see com.springsource.insight.samples.rest.RestfulRepository#setBalance(long, int)
-	 */
-	@Override
-	public RestfulData setBalance (final long id, final int balance) {
-		final RestfulData	value=getData(id);
-		if (value == null) {
-			return null;
-		}
+        logger.info("create(" + data + ")[ID=" + saveId + "]");
+        return data;
+    }
+    /*
+     * @see com.springsource.insight.samples.rest.RestfulRepository#setBalance(long, int)
+     */
+    @Override
+    public RestfulData setBalance (final long id, final int balance) {
+        final RestfulData    value=getData(id);
+        if (value == null) {
+            return null;
+        }
 
-		final int	curBalance=value.getBalance();
-		if (curBalance != balance) {
-			value.setBalance(balance);
-			value.setLastModified(new Date(System.currentTimeMillis()));
-			
-			final HibernateTemplate	tmpl=getHibernateTemplate();
-			tmpl.update(value);
-			tmpl.flush();
+        final int    curBalance=value.getBalance();
+        if (curBalance != balance) {
+            value.setBalance(balance);
+            value.setLastModified(new Date(System.currentTimeMillis()));
 
-			logger.info("setBalance(" + value + ")[ID=" + id + "] - old=" + curBalance);
-		}
+            final HibernateTemplate    tmpl=getHibernateTemplate();
+            tmpl.update(value);
+            tmpl.flush();
 
-		return value;
-	}
-	/*
-	 * @see com.springsource.insight.samples.rest.RestfulRepository#removeData(long)
-	 */
-	@Override
-	public RestfulData removeData(long id) {
-		final RestfulData	value=getData(id);
-		if (value == null) {
-			return null;
-		}
+            logger.info("setBalance(" + value + ")[ID=" + id + "] - old=" + curBalance);
+        }
 
-		final HibernateTemplate	tmpl=getHibernateTemplate();
-		tmpl.delete(value);
+        return value;
+    }
+    /*
+     * @see com.springsource.insight.samples.rest.RestfulRepository#removeData(long)
+     */
+    @Override
+    public RestfulData removeData(long id) {
+        final RestfulData    value=getData(id);
+        if (value == null) {
+            return null;
+        }
 
-		logger.info("removeData(" + value + ")[ID=" + id + "]");
-		return value;
-	}
-	/*
-	 * @see com.springsource.insight.samples.rest.RestfulRepository#removeAll()
-	 */
-	@Override
-	public List<RestfulData> removeAll() {
-		final List<RestfulData>	items=findAll();
-		if (CollectionUtils.isEmpty(items)) {
-			return items;
-		}
+        final HibernateTemplate    tmpl=getHibernateTemplate();
+        tmpl.delete(value);
 
-		final HibernateTemplate	tmpl=getHibernateTemplate();
-		tmpl.deleteAll(items);
+        logger.info("removeData(" + value + ")[ID=" + id + "]");
+        return value;
+    }
+    /*
+     * @see com.springsource.insight.samples.rest.RestfulRepository#removeAll()
+     */
+    @Override
+    public List<RestfulData> removeAll() {
+        final List<RestfulData>    items=findAll();
+        if (CollectionUtils.isEmpty(items)) {
+            return items;
+        }
 
-		logger.info("removeAll() - clean up " + items.size() + " entities");
-		if (logger.isDebugEnabled()) {
-			for (final RestfulData value : items) {
-				logger.debug("removeAll(" + value + ")[ID=" + value.getId() + "] deleted");
-			}
-		}
+        final HibernateTemplate    tmpl=getHibernateTemplate();
+        tmpl.deleteAll(items);
 
-		return items;
-	}
+        logger.info("removeAll() - clean up " + items.size() + " entities");
+        if (logger.isDebugEnabled()) {
+            for (final RestfulData value : items) {
+                logger.debug("removeAll(" + value + ")[ID=" + value.getId() + "] deleted");
+            }
+        }
+
+        return items;
+    }
 }

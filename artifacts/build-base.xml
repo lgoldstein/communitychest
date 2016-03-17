@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="artifacts-base" default="artifacts-base">
-		<description>
-			Serves as 'base' inclusion file with common definitions for the CHEST
-			artifacts $Rev$
-		</description>
+    <project name="artifacts-base" default="artifacts-base">
+        <description>
+            Serves as 'base' inclusion file with common definitions for the CHEST
+            artifacts $Rev$
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="artifacts.root.dir" file="${ant.file}"/>
-		<property name="project.root.dir" value="${artifacts.root.dir}"/>
-		<dirname property="community.root.dir" file="${artifacts.root.dir}"/>
-		<property name="parent.folder.dir" value="${community.root.dir}${file.separator}parent" />
-		<property name="parent.root.dir" value="${community.root.dir}"/>
-		<property name="module.root.folder" value="${artifacts.root.dir}"/>
-		<property name="module.base.target.name" value="artifacts"/>
+            <!-- Preamble definitions -->
+        <dirname property="artifacts.root.dir" file="${ant.file}"/>
+        <property name="project.root.dir" value="${artifacts.root.dir}"/>
+        <dirname property="community.root.dir" file="${artifacts.root.dir}"/>
+        <property name="parent.folder.dir" value="${community.root.dir}${file.separator}parent" />
+        <property name="parent.root.dir" value="${community.root.dir}"/>
+        <property name="module.root.folder" value="${artifacts.root.dir}"/>
+        <property name="module.base.target.name" value="artifacts"/>
 
-		<import file="${parent.folder.dir}${file.separator}build-maven.xml"/>
+        <import file="${parent.folder.dir}${file.separator}build-maven.xml"/>
 
-		<target name="artifacts-base" depends="community-base" unless="skip.artifacts.base.target" />
-	</project>
+        <target name="artifacts-base" depends="community-base" unless="skip.artifacts.base.target" />
+    </project>

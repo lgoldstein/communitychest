@@ -7,6 +7,6 @@ import com.vmware.spring.workshop.model.Identified;
  * @author lgoldstein
  */
 public interface IdentifiedValuesListFinder<T extends Identified,DAO extends IdentifiedCommonOperationsDao<T>,ARG>
-		extends ValuesListFinder<Long,T,DAO,ARG> {
-	// nothing extra
+        extends ValuesListFinder<Long,T,DAO,ARG> {
+    // nothing extra
 }

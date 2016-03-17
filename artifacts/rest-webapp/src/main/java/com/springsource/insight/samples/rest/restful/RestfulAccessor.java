@@ -55,179 +55,179 @@ import com.springsource.insight.samples.rest.model.RestfulService;
 @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_ATOM_XML })
 @Component
 public class RestfulAccessor extends AbstractRequestHandler {
-	private final RestfulService	_service;
+    private final RestfulService    _service;
 
-	@Inject
-	public RestfulAccessor (final RestfulService service) {
-		_service = service;
-	}
+    @Inject
+    public RestfulAccessor (final RestfulService service) {
+        _service = service;
+    }
 
-	@GET	// no need for @Path since the root GET is interpreted as calling this method 
-	public Object listAll (@Context 											final  UriInfo uriInfo,
-						   @QueryParam("feed")  @DefaultValue("false") 			final boolean asFeed,
-						   @QueryParam("delay") @DefaultValue(DEFAULT_DELAY) 	final int maxDelay) {
-		final RestfulDataList	list=_service.findAll();
-		delay(maxDelay);
-		if (asFeed) {
-			return wrapInFeed("Instances", list, uriInfo, BY_ID_TEMPLATE);
-		}
+    @GET    // no need for @Path since the root GET is interpreted as calling this method
+    public Object listAll (@Context                                             final  UriInfo uriInfo,
+                           @QueryParam("feed")  @DefaultValue("false")             final boolean asFeed,
+                           @QueryParam("delay") @DefaultValue(DEFAULT_DELAY)     final int maxDelay) {
+        final RestfulDataList    list=_service.findAll();
+        delay(maxDelay);
+        if (asFeed) {
+            return wrapInFeed("Instances", list, uriInfo, BY_ID_TEMPLATE);
+        }
 
-		return Response.ok(list, MediaType.APPLICATION_XML_TYPE).build();
-	}
+        return Response.ok(list, MediaType.APPLICATION_XML_TYPE).build();
+    }
 
-	public static final String	ID_PARAM_NAME="id", BY_ID_TEMPLATE="{" + ID_PARAM_NAME + "}";
-	@GET
-	@Path(BY_ID_TEMPLATE)
-	public Response getData (@PathParam(ID_PARAM_NAME) final long id)	{
-		final RestfulData	value=_service.getData(id);
-		if (value== null) {
-			return Response.status(Response.Status.GONE).build();
-		}
+    public static final String    ID_PARAM_NAME="id", BY_ID_TEMPLATE="{" + ID_PARAM_NAME + "}";
+    @GET
+    @Path(BY_ID_TEMPLATE)
+    public Response getData (@PathParam(ID_PARAM_NAME) final long id)    {
+        final RestfulData    value=_service.getData(id);
+        if (value== null) {
+            return Response.status(Response.Status.GONE).build();
+        }
 
-		return Response.ok(value, MediaType.APPLICATION_XML_TYPE).build();
-	}
+        return Response.ok(value, MediaType.APPLICATION_XML_TYPE).build();
+    }
 
-	public static final String BALANCE_PARAM_NAME="balance", BALANCE_TEMPLATE="{" + BALANCE_PARAM_NAME + "}";
-	@POST
-	@Path(BALANCE_TEMPLATE)
-	public Response create (@PathParam(BALANCE_PARAM_NAME) final int balance) {
-		final RestfulData	value=_service.create(balance);
-		return Response.ok(value, MediaType.APPLICATION_XML_TYPE).build();
-	}
+    public static final String BALANCE_PARAM_NAME="balance", BALANCE_TEMPLATE="{" + BALANCE_PARAM_NAME + "}";
+    @POST
+    @Path(BALANCE_TEMPLATE)
+    public Response create (@PathParam(BALANCE_PARAM_NAME) final int balance) {
+        final RestfulData    value=_service.create(balance);
+        return Response.ok(value, MediaType.APPLICATION_XML_TYPE).build();
+    }
 
-	@PUT
-	@Path(BY_ID_TEMPLATE + "/" + BALANCE_TEMPLATE)
-	public Response update (@PathParam(ID_PARAM_NAME) final long id, @PathParam(BALANCE_PARAM_NAME) final int balance) {
-		final RestfulData	value=_service.setBalance(id, balance);
-		if (value== null) {
-			return Response.status(Response.Status.GONE).build();
-		}
+    @PUT
+    @Path(BY_ID_TEMPLATE + "/" + BALANCE_TEMPLATE)
+    public Response update (@PathParam(ID_PARAM_NAME) final long id, @PathParam(BALANCE_PARAM_NAME) final int balance) {
+        final RestfulData    value=_service.setBalance(id, balance);
+        if (value== null) {
+            return Response.status(Response.Status.GONE).build();
+        }
 
-		return Response.ok(value, MediaType.APPLICATION_XML_TYPE).build();
-	}
+        return Response.ok(value, MediaType.APPLICATION_XML_TYPE).build();
+    }
 
-	@DELETE
-	@Path(BY_ID_TEMPLATE)
-	public Response delete (@PathParam(ID_PARAM_NAME) final long id) {
-		final RestfulData	value=_service.removeData(id);
-		if (value== null) {
-			return Response.status(Response.Status.GONE).build();
-		}
+    @DELETE
+    @Path(BY_ID_TEMPLATE)
+    public Response delete (@PathParam(ID_PARAM_NAME) final long id) {
+        final RestfulData    value=_service.removeData(id);
+        if (value== null) {
+            return Response.status(Response.Status.GONE).build();
+        }
 
-		return Response.ok(value, MediaType.APPLICATION_XML_TYPE).build();
-	}
+        return Response.ok(value, MediaType.APPLICATION_XML_TYPE).build();
+    }
 
-	protected Content wrapInContent (final Object dto)
-	{
-		if (null == dto)
-			return null;
+    protected Content wrapInContent (final Object dto)
+    {
+        if (null == dto)
+            return null;
 
-		final Content content=new Content();
-		content.setType(MediaType.APPLICATION_XML_TYPE);
-		content.setJAXBObject(dto);
-		return content;
-	}
+        final Content content=new Content();
+        content.setType(MediaType.APPLICATION_XML_TYPE);
+        content.setJAXBObject(dto);
+        return content;
+    }
 
-	protected Entry wrapInFeedEntry (final Object dto, final URI dtoUri, final Date updated)
-	{
-		final Content	c=wrapInContent(dto);
-		if (null == c)
-			return null;
+    protected Entry wrapInFeedEntry (final Object dto, final URI dtoUri, final Date updated)
+    {
+        final Content    c=wrapInContent(dto);
+        if (null == c)
+            return null;
 
-		final Entry	entry=new Entry();
-		entry.setId(dtoUri);
-		entry.setUpdated(updated);
-		entry.setContent(c);
-		return entry;
-	}
+        final Entry    entry=new Entry();
+        entry.setId(dtoUri);
+        entry.setUpdated(updated);
+        entry.setContent(c);
+        return entry;
+    }
 
-	protected Feed wrapInFeed (final String								title,
-							   final Collection<? extends RestfulData> 	dtoList,
-							   final UriInfo							uriInfo,
-							   final String								urlTemplate)
-	{
-		final Feed	feed=new Feed();
-		final URI	absPath=uriInfo.getAbsolutePath();
-		final Date	now=new Date(System.currentTimeMillis());
-		feed.setId(absPath);
-		feed.setTitle(title);
-		feed.setUpdated(now);
-		feed.getAuthors().add(new Person("Lyor Goldstein"));
-	    feed.getLinks().add(new Link("edit", absPath, MediaType.TEXT_XML_TYPE));
+    protected Feed wrapInFeed (final String                                title,
+                               final Collection<? extends RestfulData>     dtoList,
+                               final UriInfo                            uriInfo,
+                               final String                                urlTemplate)
+    {
+        final Feed    feed=new Feed();
+        final URI    absPath=uriInfo.getAbsolutePath();
+        final Date    now=new Date(System.currentTimeMillis());
+        feed.setId(absPath);
+        feed.setTitle(title);
+        feed.setUpdated(now);
+        feed.getAuthors().add(new Person("Lyor Goldstein"));
+        feed.getLinks().add(new Link("edit", absPath, MediaType.TEXT_XML_TYPE));
 
-		if ((null == dtoList) || (dtoList.size() <= 0))
-			return feed;
-		
-		for (final RestfulData dto : dtoList)
-		{
-			final Long			dtoId=dto.getId();
-			final UriBuilder	ub=(null == dtoId) ? null : uriInfo.getBaseUriBuilder();
-			final URI 			dtoUri=(null == ub) ? null : ub.path(getClass()).path(urlTemplate).build(dtoId);
-			final Entry 		entry=wrapInFeedEntry(dto, dtoUri, now);
-			if (null == entry)
-				continue;
-			entry.setBase(absPath);
-			feed.getEntries().add(entry);
-		}
+        if ((null == dtoList) || (dtoList.size() <= 0))
+            return feed;
 
-		return feed;
-	}
+        for (final RestfulData dto : dtoList)
+        {
+            final Long            dtoId=dto.getId();
+            final UriBuilder    ub=(null == dtoId) ? null : uriInfo.getBaseUriBuilder();
+            final URI             dtoUri=(null == ub) ? null : ub.path(getClass()).path(urlTemplate).build(dtoId);
+            final Entry         entry=wrapInFeedEntry(dto, dtoUri, now);
+            if (null == entry)
+                continue;
+            entry.setBase(absPath);
+            feed.getEntries().add(entry);
+        }
 
-	protected Feed wrapInFeed (Entry entry, URI uri, Date updated)
-	{
-		final Feed	feed=new Feed();
-		feed.setId(uri);
-		feed.setUpdated(updated);
-		feed.getAuthors().add(new Person("Lyor Goldstein"));
-	    feed.getLinks().add(new Link("edit", uri, MediaType.TEXT_XML_TYPE));
-	    feed.getEntries().add(entry);
-		return feed;
-	}
+        return feed;
+    }
 
-	private static final Object[] createTemplateArguments (
-			final Long dtoId, final Object ... extraArgs)
-	{
-		final int		numExtra=(null == extraArgs) ? 0 : extraArgs.length;
-		final Object[]	ret=new Object[Math.max(0, numExtra) + 1];
+    protected Feed wrapInFeed (Entry entry, URI uri, Date updated)
+    {
+        final Feed    feed=new Feed();
+        feed.setId(uri);
+        feed.setUpdated(updated);
+        feed.getAuthors().add(new Person("Lyor Goldstein"));
+        feed.getLinks().add(new Link("edit", uri, MediaType.TEXT_XML_TYPE));
+        feed.getEntries().add(entry);
+        return feed;
+    }
 
-		ret[0] = dtoId;
-		if (numExtra > 0)
-			System.arraycopy(extraArgs, 0, ret, 1, numExtra);
-		return ret;
-	}
+    private static final Object[] createTemplateArguments (
+            final Long dtoId, final Object ... extraArgs)
+    {
+        final int        numExtra=(null == extraArgs) ? 0 : extraArgs.length;
+        final Object[]    ret=new Object[Math.max(0, numExtra) + 1];
 
-	private Response createResponse (final UriInfo 			uriInfo,
-									 final Object			dto,
-									 final Long				dtoId,
-									 final Response.Status 	stValue,
-									 final String 			template,
-									 final Object ...		extraArgs)
-	{
-		final UriBuilder 		ub=uriInfo.getBaseUriBuilder();
-		final Object[] 			buildArgs=
-			createTemplateArguments(dtoId, extraArgs);
-		final URI 				dtoUri=
-			ub.path(this.getClass()).path(template).build(buildArgs);
-		final ResponseBuilder 	rb=Response.status(stValue).location(dtoUri);
-		if (dto != null)
-		{
-			final Date	now=new Date(System.currentTimeMillis());
-			final Entry entry=wrapInFeedEntry(dto, dtoUri, now);
-			rb.entity(wrapInFeed(entry, null, now));
-		}
+        ret[0] = dtoId;
+        if (numExtra > 0)
+            System.arraycopy(extraArgs, 0, ret, 1, numExtra);
+        return ret;
+    }
 
-		return rb.build();
-	}
+    private Response createResponse (final UriInfo             uriInfo,
+                                     final Object            dto,
+                                     final Long                dtoId,
+                                     final Response.Status     stValue,
+                                     final String             template,
+                                     final Object ...        extraArgs)
+    {
+        final UriBuilder         ub=uriInfo.getBaseUriBuilder();
+        final Object[]             buildArgs=
+            createTemplateArguments(dtoId, extraArgs);
+        final URI                 dtoUri=
+            ub.path(this.getClass()).path(template).build(buildArgs);
+        final ResponseBuilder     rb=Response.status(stValue).location(dtoUri);
+        if (dto != null)
+        {
+            final Date    now=new Date(System.currentTimeMillis());
+            final Entry entry=wrapInFeedEntry(dto, dtoUri, now);
+            rb.entity(wrapInFeed(entry, null, now));
+        }
 
-	public static final Object[] EMPTY_OBJECT_ARGS=new Object[0];
-	protected Response createRetrievedResponse (final UriInfo 	uriInfo,
-			  									final Long		id,
-			  									final Object 	dto,
-			  									final String 	template)
-	{
-		// see http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.11
-		final Response.Status	stValue=
-			(null == dto) ? Response.Status.GONE : Response.Status.OK;
-		return createResponse(uriInfo, dto, id, stValue, template, EMPTY_OBJECT_ARGS);
-	}
+        return rb.build();
+    }
+
+    public static final Object[] EMPTY_OBJECT_ARGS=new Object[0];
+    protected Response createRetrievedResponse (final UriInfo     uriInfo,
+                                                  final Long        id,
+                                                  final Object     dto,
+                                                  final String     template)
+    {
+        // see http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.11
+        final Response.Status    stValue=
+            (null == dto) ? Response.Status.GONE : Response.Status.OK;
+        return createResponse(uriInfo, dto, id, stValue, template, EMPTY_OBJECT_ARGS);
+    }
 }

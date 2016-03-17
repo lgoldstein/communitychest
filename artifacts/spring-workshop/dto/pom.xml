@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.vmware.spring.workshop</groupId>
-		<artifactId>parent</artifactId>
-		<version>12.02.2012</version>
-		<relativePath>../parent</relativePath>
-	</parent>
-	<artifactId>workshop-dto</artifactId>
-	<name>com.vmware.spring.workshop:workshop-dto</name>
-	<packaging>jar</packaging>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.vmware.spring.workshop</groupId>
+        <artifactId>parent</artifactId>
+        <version>12.02.2012</version>
+        <relativePath>../parent</relativePath>
+    </parent>
+    <artifactId>workshop-dto</artifactId>
+    <name>com.vmware.spring.workshop:workshop-dto</name>
+    <packaging>jar</packaging>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<scope>test</scope>
-		</dependency>		
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
-	<build>
-		<plugins>
-			<!-- plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>axistools-maven-plugin</artifactId>
-				<configuration>
-					<filename>${project.build.outputDirectory}/META-INF/wsdl/Workshop.wsdl</filename>
-					<mappings>
-						<mapping>
-							<namespace>http://www.vmware.com/spring/workshop/services/WebService</namespace>
-							<targetPackage>com.vmware.spring.workshop.dto</targetPackage>
-						</mapping>
-					</mappings>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>java2wsdl</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin -->
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <!-- plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>axistools-maven-plugin</artifactId>
+                <configuration>
+                    <filename>${project.build.outputDirectory}/META-INF/wsdl/Workshop.wsdl</filename>
+                    <mappings>
+                        <mapping>
+                            <namespace>http://www.vmware.com/spring/workshop/services/WebService</namespace>
+                            <targetPackage>com.vmware.spring.workshop.dto</targetPackage>
+                        </mapping>
+                    </mappings>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java2wsdl</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin -->
+        </plugins>
+    </build>
 </project>

@@ -17,50 +17,50 @@ import com.vmware.spring.workshop.dto.LocatedDTO;
 @XmlType(name="branch")
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class BranchDTO extends AbstractNamedIdentifiedDTO implements LocatedDTO, Cloneable {
-	private static final long serialVersionUID = 2940429393498337775L;
+    private static final long serialVersionUID = 2940429393498337775L;
 
-	private String	_location;
-	private int		_branchCode;
-	private Long	_bankId;
+    private String    _location;
+    private int        _branchCode;
+    private Long    _bankId;
 
-	public BranchDTO() {
-		super();
-	}
+    public BranchDTO() {
+        super();
+    }
 
-	@XmlAttribute(name="bankId",required=true)
-	public Long getBankId () {
-		return _bankId;
-	}
+    @XmlAttribute(name="bankId",required=true)
+    public Long getBankId () {
+        return _bankId;
+    }
 
-	public void setBankId(Long bankId) {
-		_bankId = bankId;
-	}
+    public void setBankId(Long bankId) {
+        _bankId = bankId;
+    }
 
-	@XmlAttribute(name="branchCode",required=true)
-	public int getBranchCode() {
-		return _branchCode;
-	}
+    @XmlAttribute(name="branchCode",required=true)
+    public int getBranchCode() {
+        return _branchCode;
+    }
 
-	public void setBranchCode(int branchCode) {
-		_branchCode = branchCode;
-	}
+    public void setBranchCode(int branchCode) {
+        _branchCode = branchCode;
+    }
 
-	@XmlElement(name="location",required=true,nillable=false)
-	public String getLocation() {
-		return _location;
-	}
+    @XmlElement(name="location",required=true,nillable=false)
+    public String getLocation() {
+        return _location;
+    }
 
-	@Override
-	public void setLocation(String location) {
-		_location = location;
-	}
+    @Override
+    public void setLocation(String location) {
+        _location = location;
+    }
 
-	@Override
-	public BranchDTO clone() {
-		try {
-			return getClass().cast(super.clone());
-		} catch(CloneNotSupportedException e) {
-			throw new RuntimeException("Failed to clone " + this + ": " + e.getMessage(), e);
-		}
-	}
+    @Override
+    public BranchDTO clone() {
+        try {
+            return getClass().cast(super.clone());
+        } catch(CloneNotSupportedException e) {
+            throw new RuntimeException("Failed to clone " + this + ": " + e.getMessage(), e);
+        }
+    }
 }

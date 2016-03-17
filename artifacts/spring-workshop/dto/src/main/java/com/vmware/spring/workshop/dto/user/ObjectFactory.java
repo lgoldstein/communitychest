@@ -7,15 +7,15 @@ import javax.xml.bind.annotation.XmlRegistry;
  */
 @XmlRegistry
 public final class ObjectFactory {
-	public ObjectFactory() {
-		super();
-	}
+    public ObjectFactory() {
+        super();
+    }
 
-	public UserDTO createUserDTO () {
-		return new UserDTO();
-	}
-	
-	public UserDTOList createUserDTOList () {
-		return new UserDTOList();
-	}
+    public UserDTO createUserDTO () {
+        return new UserDTO();
+    }
+
+    public UserDTOList createUserDTOList () {
+        return new UserDTOList();
+    }
 }

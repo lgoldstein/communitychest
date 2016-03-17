@@ -9,8 +9,8 @@ import com.vmware.spring.workshop.dto.user.UserDTO;
  * @author lgoldstein
  */
 public interface UsersFacade
-		extends CommonFacadeActions<UserDTO>,
-				AuthenticationManager,
-				AuthenticationProvider {
-	UserDTO	findByLoginName (String loginName);
+        extends CommonFacadeActions<UserDTO>,
+                AuthenticationManager,
+                AuthenticationProvider {
+    UserDTO    findByLoginName (String loginName);
 }

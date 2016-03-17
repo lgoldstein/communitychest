@@ -30,30 +30,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="data-list")
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class RestfulDataList extends ArrayList<RestfulData> {
-	private static final long serialVersionUID = -8672870945043644748L;
+    private static final long serialVersionUID = -8672870945043644748L;
 
-	public RestfulDataList() {
-		super();
-	}
+    public RestfulDataList() {
+        super();
+    }
 
-	public RestfulDataList(int initialCapacity) {
-		super(initialCapacity);
-	}
+    public RestfulDataList(int initialCapacity) {
+        super(initialCapacity);
+    }
 
-	public RestfulDataList(Collection<? extends RestfulData> c) {
-		super(c);
-	}
+    public RestfulDataList(Collection<? extends RestfulData> c) {
+        super(c);
+    }
 
-	@XmlElement(name="restful-data", nillable=true)
-	public List<RestfulData> getInstances () {
-		return this;
-	}
+    @XmlElement(name="restful-data", nillable=true)
+    public List<RestfulData> getInstances () {
+        return this;
+    }
 
-	public void setInstances (List<RestfulData> l)	{
-		if (size() > 0) {
-			clear();
-		}
+    public void setInstances (List<RestfulData> l)    {
+        if (size() > 0) {
+            clear();
+        }
 
-		addAll(l);
-	}
+        addAll(l);
+    }
 }

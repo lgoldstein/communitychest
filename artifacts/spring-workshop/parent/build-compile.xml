@@ -1,108 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="compile-base" default="compile-base">
-	<description>
-    	Holds common imported definitions for ANT build.xml file(s)
-    	that build/generate artifacts
+    <description>
+        Holds common imported definitions for ANT build.xml file(s)
+        that build/generate artifacts
     </description>
 
-	<dirname property="module.root.folder" file="${ant.file}" />
-	<basename property="module.artifact.id" file="${module.root.folder}" />
-	<property name="application.parent.folder" value="${module.root.folder}" />
-	<import file="${application.parent.folder}${file.separator}build-base.xml" />
+    <dirname property="module.root.folder" file="${ant.file}" />
+    <basename property="module.artifact.id" file="${module.root.folder}" />
+    <property name="application.parent.folder" value="${module.root.folder}" />
+    <import file="${application.parent.folder}${file.separator}build-base.xml" />
 
-	<!-- ++++++++++++ Maven related properties definitions +++++++++++++ -->
-	<property name="maven.base.name" value="maven" />
-	<property name="maven.archiver.sub.folder.name" value="${maven.base.name}-archiver" />
-	<property name="maven.repository.root.folder.name" value=".m2" />
-	<property name="maven.repository.sub.folder.name" value="repository" />
-	<property name="maven.pom.file.name" value="pom.xml" />
-	<property name="maven.install.location" value="${env.M2_HOME}" />
-	<condition property="mvn.exe.script.name" value="mvn.bat" else="mvn">
-		<istrue value="${win32.local.shell}" />
-	</condition>
+    <!-- ++++++++++++ Maven related properties definitions +++++++++++++ -->
+    <property name="maven.base.name" value="maven" />
+    <property name="maven.archiver.sub.folder.name" value="${maven.base.name}-archiver" />
+    <property name="maven.repository.root.folder.name" value=".m2" />
+    <property name="maven.repository.sub.folder.name" value="repository" />
+    <property name="maven.pom.file.name" value="pom.xml" />
+    <property name="maven.install.location" value="${env.M2_HOME}" />
+    <condition property="mvn.exe.script.name" value="mvn.bat" else="mvn">
+        <istrue value="${win32.local.shell}" />
+    </condition>
 
-	<property name="mvn.executable" value="${maven.install.location}${file.separator}bin${file.separator}${mvn.exe.script.name}" />
-	<property name="maven.opts" value="-Xmx512m" />
-	<condition property="maven.local.repository.folder" value="${env.M2_REPO}" else="${user.home}${file.separator}${maven.repository.root.folder.name}${file.separator}${maven.repository.sub.folder.name}">
-		<isset property="env.M2_REPO" />
-	</condition>
+    <property name="mvn.executable" value="${maven.install.location}${file.separator}bin${file.separator}${mvn.exe.script.name}" />
+    <property name="maven.opts" value="-Xmx512m" />
+    <condition property="maven.local.repository.folder" value="${env.M2_REPO}" else="${user.home}${file.separator}${maven.repository.root.folder.name}${file.separator}${maven.repository.sub.folder.name}">
+        <isset property="env.M2_REPO" />
+    </condition>
 
-		<!-- this is the default -->
-	<property name="maven.packaging.type" value="${jar.file.suffix}" />
-	<property name="maven.artifact.name" value="${module.artifact.id}-${project.version}" />
-	<property name="maven.artifact.file" value="${maven.artifact.name}.${maven.packaging.type}" />
-	<property name="maven.artifact.path" value="${module.target.folder}${file.separator}${maven.artifact.file}" />
+        <!-- this is the default -->
+    <property name="maven.packaging.type" value="${jar.file.suffix}" />
+    <property name="maven.artifact.name" value="${module.artifact.id}-${project.version}" />
+    <property name="maven.artifact.file" value="${maven.artifact.name}.${maven.packaging.type}" />
+    <property name="maven.artifact.path" value="${module.target.folder}${file.separator}${maven.artifact.file}" />
 
-	<!-- Procedure to execute the Maven script - SYNPOSIS:
+    <!-- Procedure to execute the Maven script - SYNPOSIS:
 
-			<antcall target='run-mvn'>
-				<param name='mvn.run.dir' value='wwww' />
-				<param name='mvn.run.opts' value='xxxxxx'/>
-				<param name='mvn.arg.line' value='yyyyy'/>
-			</antcall>
-			
-			Where:
-			
-				mvn.run.dir - folder to be used as CWD when running the script
-				mvn.run.opts - options to be set to MAVEN_OPTS (e.g., -Xmx128)
-				mvn.arg.line - line to be passed as argument to the invocation
-		-->
-	<target name="run-mvn">
-		<fail message="Cannot find ${mvn.executable} - check that M2_HOME environment variable set">
-			<condition>
-				<not>
-					<available file="${mvn.executable}" type="file" />
-				</not>
-			</condition>
-		</fail>
+            <antcall target='run-mvn'>
+                <param name='mvn.run.dir' value='wwww' />
+                <param name='mvn.run.opts' value='xxxxxx'/>
+                <param name='mvn.arg.line' value='yyyyy'/>
+            </antcall>
 
-		<exec executable="${mvn.executable}" failonerror="true" dir="${mvn.run.dir}">
-			<env key="MAVEN_OPTS" value="${mvn.run.opts}" />
-			<arg line="${mvn.arg.line}" />
-		</exec>
-	</target>
+            Where:
 
-	<property name="maven.module.options" value="-Xmx728m -XX:MaxPermSize=276m" />
-	<property name="maven.full.test.options" value="-Dmaven.test.haltafterfailure=true -Dmaven.test.failure.ignore=false -Dmaven.test.error.ignore=false" />
-	<target name="run-module-mvn">
-		<antcall target='run-mvn'>
-			<param name='mvn.run.dir' value='${module.root.folder}' />
-			<param name='mvn.run.opts' value='${maven.module.options}'/>
-			<param name='mvn.arg.line' value='${maven.full.test.options} install'/>
-		</antcall>
-	</target>
-	<target name="clean-module-mvn">
-		<antcall target='run-mvn'>
-			<param name='mvn.run.dir' value='${module.root.folder}' />
-			<param name='mvn.run.opts' value='${maven.module.options}'/>
-			<param name='mvn.arg.line' value='build-helper:remove-project-artifact -DremoveAll=true clean'/>
-		</antcall>
-	</target>
+                mvn.run.dir - folder to be used as CWD when running the script
+                mvn.run.opts - options to be set to MAVEN_OPTS (e.g., -Xmx128)
+                mvn.arg.line - line to be passed as argument to the invocation
+        -->
+    <target name="run-mvn">
+        <fail message="Cannot find ${mvn.executable} - check that M2_HOME environment variable set">
+            <condition>
+                <not>
+                    <available file="${mvn.executable}" type="file" />
+                </not>
+            </condition>
+        </fail>
 
-	<property name="module.unpack.root.folder" value="${module.target.folder}" />
-	<property name="module.unpack.target.folder" value="${module.unpack.root.folder}${file.separator}${maven.artifact.name}" />
-	<target name="unpack-maven-artifact">
-		<mkdir dir="${module.unpack.target.folder}" />
-		<unzip  src="${maven.artifact.path}" overwrite="true" failOnEmptyArchive="true"
-				dest="${module.unpack.target.folder}" />
-	</target>
+        <exec executable="${mvn.executable}" failonerror="true" dir="${mvn.run.dir}">
+            <env key="MAVEN_OPTS" value="${mvn.run.opts}" />
+            <arg line="${mvn.arg.line}" />
+        </exec>
+    </target>
 
-	<target name="compile-base" depends="workspace-base" />
+    <property name="maven.module.options" value="-Xmx728m -XX:MaxPermSize=276m" />
+    <property name="maven.full.test.options" value="-Dmaven.test.haltafterfailure=true -Dmaven.test.failure.ignore=false -Dmaven.test.error.ignore=false" />
+    <target name="run-module-mvn">
+        <antcall target='run-mvn'>
+            <param name='mvn.run.dir' value='${module.root.folder}' />
+            <param name='mvn.run.opts' value='${maven.module.options}'/>
+            <param name='mvn.arg.line' value='${maven.full.test.options} install'/>
+        </antcall>
+    </target>
+    <target name="clean-module-mvn">
+        <antcall target='run-mvn'>
+            <param name='mvn.run.dir' value='${module.root.folder}' />
+            <param name='mvn.run.opts' value='${maven.module.options}'/>
+            <param name='mvn.arg.line' value='build-helper:remove-project-artifact -DremoveAll=true clean'/>
+        </antcall>
+    </target>
+
+    <property name="module.unpack.root.folder" value="${module.target.folder}" />
+    <property name="module.unpack.target.folder" value="${module.unpack.root.folder}${file.separator}${maven.artifact.name}" />
+    <target name="unpack-maven-artifact">
+        <mkdir dir="${module.unpack.target.folder}" />
+        <unzip  src="${maven.artifact.path}" overwrite="true" failOnEmptyArchive="true"
+                dest="${module.unpack.target.folder}" />
+    </target>
+
+    <target name="compile-base" depends="workspace-base" />
     <target name="compile" depends="run-module-mvn" description="Runs the mvn install command - including all the tests" />
     <target name="uncompile" depends="clean-module-mvn" description="Runs the mvn clean command - including un-install the artifact from Maven local repository" />
     <target name="recompile" depends="uncompile,compile" description="Re-compiles the module" />
-	
-	<property name="tomcat.webapps" value="${tomcat.home}${file.separator}webapps" />
-	<target name="undeploy" description="Un-deploys the artifact">
-		<delete dir="${tomcat.webapps}${file.separator}${module.artifact.id}" quiet="true" verbose="false" />
-		<delete file="${tomcat.webapps}${file.separator}${module.artifact.id}.${war.file.suffix}" quiet="true" verbose="true" />
-			<!-- just making sure -->
-		<delete dir="${tomcat.home}${file.separator}work${file.separator}Catalina" quiet="true" verbose="false" />
-	</target>
 
-	<target name="deploy" depends="undeploy" description="Deploys the artifact">
-		<copy file="${maven.artifact.path}"
-			  tofile="${tomcat.webapps}${file.separator}${module.artifact.id}.${war.file.suffix}"
-			  verbose="true" />
-	</target>
+    <property name="tomcat.webapps" value="${tomcat.home}${file.separator}webapps" />
+    <target name="undeploy" description="Un-deploys the artifact">
+        <delete dir="${tomcat.webapps}${file.separator}${module.artifact.id}" quiet="true" verbose="false" />
+        <delete file="${tomcat.webapps}${file.separator}${module.artifact.id}.${war.file.suffix}" quiet="true" verbose="true" />
+            <!-- just making sure -->
+        <delete dir="${tomcat.home}${file.separator}work${file.separator}Catalina" quiet="true" verbose="false" />
+    </target>
+
+    <target name="deploy" depends="undeploy" description="Deploys the artifact">
+        <copy file="${maven.artifact.path}"
+              tofile="${tomcat.webapps}${file.separator}${module.artifact.id}.${war.file.suffix}"
+              verbose="true" />
+    </target>
 </project>

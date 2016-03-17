@@ -11,13 +11,13 @@ import com.vmware.spring.workshop.dto.user.UserDTO;
  * @author lgoldstein
  */
 public interface AccountsFacade {
-	List<AccountDTO> findUserAccounts (UserDTO user);
-	List<AccountDTO> findUserAccountsById (Long userId);
+    List<AccountDTO> findUserAccounts (UserDTO user);
+    List<AccountDTO> findUserAccountsById (Long userId);
 
-	List<AccountDTO> findBranchAccounts (BranchDTO branch);
-	List<AccountDTO> findBranchAccountsById (Long branchId);
+    List<AccountDTO> findBranchAccounts (BranchDTO branch);
+    List<AccountDTO> findBranchAccountsById (Long branchId);
 
-	List<AccountDTO> findBankAccounts (BankDTO bank);
-	List<AccountDTO> findBankAccountsById (Long bankId);
+    List<AccountDTO> findBankAccounts (BankDTO bank);
+    List<AccountDTO> findBankAccountsById (Long bankId);
 
 }

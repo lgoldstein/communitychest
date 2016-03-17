@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,7 +39,7 @@ import org.xml.sax.SAXException;
 class PomDependenciesParser extends IgnoringSAXHandler {
     private enum HuntState {
         START, PROPERTIES, REPOS, DEPENDENCIES;
-        
+
 //        static final Set<HuntState> ALL=Collections.unmodifiableSet(EnumSet.allOf(HuntState.class));
     }
 
@@ -76,7 +76,7 @@ class PomDependenciesParser extends IgnoringSAXHandler {
         if (huntState != null) {
             throw new SAXException("Duplicate document start");
         }
-        
+
         huntState = HuntState.START;
         processedStates.add(huntState);
     }
@@ -86,7 +86,7 @@ class PomDependenciesParser extends IgnoringSAXHandler {
         if (huntState == null) {
             throw new SAXException("No document start signalled on document end");
         }
-        
+
         huntState = null;
     }
 
@@ -163,7 +163,7 @@ class PomDependenciesParser extends IgnoringSAXHandler {
             default             :
                 throw new SAXException("endElement(" + uri + ")[" + localName + "][" + qName + "] unknown state: " + huntState);
         }
-        
+
         // clear any accumulated data at end of element
         if (sb.length() > 0) {
             sb.setLength(0);
@@ -180,7 +180,7 @@ class PomDependenciesParser extends IgnoringSAXHandler {
             if (prev != PROP_VALUE_PLACEHOLDER) {
                 throw new SAXException("updateProperty(" + uri + ")[" + localName + "][" + qName + "] multiple values for property");
             }
-            
+
             if (logger.isDebugEnabled()) {
                 logger.debug(huntState + "[" + localName + "]: " + value);
             }
@@ -193,7 +193,7 @@ class PomDependenciesParser extends IgnoringSAXHandler {
             huntState = HuntState.START;
             return;
         }
-        
+
         if (curRepo == null) {
             throw new SAXException("updateRepository(" + uri + ")[" + localName + "][" + qName + "] no current repo");
         }
@@ -203,11 +203,11 @@ class PomDependenciesParser extends IgnoringSAXHandler {
                 throw new SAXException("updateRepository(" + uri + ")[" + localName + "][" + qName + "] incomplete current repository: " + curRepo);
 
             }
-            
+
             if (PropertiesUtil.isEmpty(curRepo.getId())) {
                 curRepo.setId(curRepo.getUrl());
             }
-            
+
             repos.add(curRepo);
             if (logger.isDebugEnabled()) {
                 logger.debug(huntState +  ": " + curRepo);
@@ -247,7 +247,7 @@ class PomDependenciesParser extends IgnoringSAXHandler {
              || PropertiesUtil.isEmpty(curDependency.getVersion())) {
                 throw new SAXException("updateDependency(" + uri + ")[" + localName + "][" + qName + "] incomplete current dependency: " + curDependency);
             }
-            
+
             String  scope=curDependency.getScope();
             if ("system".equalsIgnoreCase(scope)
              || "test".equalsIgnoreCase(scope)

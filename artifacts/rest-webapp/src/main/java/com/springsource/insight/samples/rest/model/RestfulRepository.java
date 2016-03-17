@@ -21,10 +21,10 @@ import java.util.List;
  * @author lgoldstein
  */
 public interface RestfulRepository {
-	List<RestfulData> findAll ();
-	RestfulData getData (long id);	// returns null if no such ID found
-	RestfulData create (int balance);
-	RestfulData setBalance (long id, int balance); // returns non-null if found and updated
-	RestfulData removeData (long id);	// return non-null if successful
-	List<RestfulData> removeAll ();
+    List<RestfulData> findAll ();
+    RestfulData getData (long id);    // returns null if no such ID found
+    RestfulData create (int balance);
+    RestfulData setBalance (long id, int balance); // returns non-null if found and updated
+    RestfulData removeData (long id);    // return non-null if successful
+    List<RestfulData> removeAll ();
 }

@@ -15,11 +15,11 @@ import org.springframework.util.StringUtils;
  * This is a wrapper class for SLF4J. It is used when messages need to be logged
  * through SLF4J.
  * </p>
- * 
+ *
  * Para usar SLF4j para los logs de EclipseLink configuramos la propiedad
  * <code>eclipselink.logging.logger</code> con el valor
  * <code>org.eclipse.persistence.logging.Slf4jSessionLogger</code> </code>
- * 
+ *
  * La configuración del nivel de los logs no se realiza en EclipseLink (con la
  * propiedad eclipselink.logging.level), sino en la implementación de SLF4J.
  * <p>
@@ -60,169 +60,169 @@ import org.springframework.util.StringUtils;
  * </ul>
  * </p>
  * <p>
- * 
+ *
  * @author Miguel Angel Sosvilla Luis.
- * 
+ *
  */
 public class Slf4jSessionLogger extends AbstractSessionLog {
 
-	public static final String ECLIPSELINK_NAMESPACE = "org.eclipse.persistence.logging";
-	public static final String DEFAULT_CATEGORY = "default";
+    public static final String ECLIPSELINK_NAMESPACE = "org.eclipse.persistence.logging";
+    public static final String DEFAULT_CATEGORY = "default";
 
-	public static final String DEFAULT_ECLIPSELINK_NAMESPACE = ECLIPSELINK_NAMESPACE
-			+ "." + DEFAULT_CATEGORY;
+    public static final String DEFAULT_ECLIPSELINK_NAMESPACE = ECLIPSELINK_NAMESPACE
+            + "." + DEFAULT_CATEGORY;
 
-	private Map<Integer, LogLevel> mapLevels;
-	private Map<String, Logger> categoryLoggers = new HashMap<String, Logger>();
+    private Map<Integer, LogLevel> mapLevels;
+    private Map<String, Logger> categoryLoggers = new HashMap<String, Logger>();
 
-	public Slf4jSessionLogger() {
-		createCategoryLoggers();
-		initMapLevels();
-	}
+    public Slf4jSessionLogger() {
+        createCategoryLoggers();
+        initMapLevels();
+    }
 
-	@Override
-	public void log(SessionLogEntry entry) {
-		if (!shouldLog(entry.getLevel(), entry.getNameSpace())) {
-			return;
-		}
+    @Override
+    public void log(SessionLogEntry entry) {
+        if (!shouldLog(entry.getLevel(), entry.getNameSpace())) {
+            return;
+        }
 
-		Logger logger = getLogger(entry.getNameSpace());
-		LogLevel logLevel = getLogLevel(entry.getLevel());
+        Logger logger = getLogger(entry.getNameSpace());
+        LogLevel logLevel = getLogLevel(entry.getLevel());
 
-		StringBuilder message = new StringBuilder();
+        StringBuilder message = new StringBuilder();
 
-		message.append(getSupplementDetailString(entry));
-		message.append(formatMessage(entry));
+        message.append(getSupplementDetailString(entry));
+        message.append(formatMessage(entry));
 
-		switch (logLevel) {
-		case TRACE:
-			logger.trace(message.toString());
-			break;
-		case DEBUG:
-			logger.debug(message.toString());
-			break;
-		case INFO:
-			logger.info(message.toString());
-			break;
-		case WARN:
-			logger.warn(message.toString());
-			break;
-		case ERROR:
-			logger.error(message.toString());
-			break;
-		case OFF:
-			break;
-		}
-	}
+        switch (logLevel) {
+        case TRACE:
+            logger.trace(message.toString());
+            break;
+        case DEBUG:
+            logger.debug(message.toString());
+            break;
+        case INFO:
+            logger.info(message.toString());
+            break;
+        case WARN:
+            logger.warn(message.toString());
+            break;
+        case ERROR:
+            logger.error(message.toString());
+            break;
+        case OFF:
+            break;
+        }
+    }
 
-	@Override
-	public boolean shouldLog(int level, String category) {
-		Logger logger = getLogger(category);
-		LogLevel logLevel = getLogLevel(level);
+    @Override
+    public boolean shouldLog(int level, String category) {
+        Logger logger = getLogger(category);
+        LogLevel logLevel = getLogLevel(level);
 
-		switch (logLevel) {
-		case TRACE:
-			return logger.isTraceEnabled();
-		case DEBUG:
-			return logger.isDebugEnabled();
-		case INFO:
-			return logger.isInfoEnabled();
-		case WARN:
-			return logger.isWarnEnabled();
-		case ERROR:
-			return logger.isErrorEnabled();
-		default:
-			return false;
-		}
-	}
+        switch (logLevel) {
+        case TRACE:
+            return logger.isTraceEnabled();
+        case DEBUG:
+            return logger.isDebugEnabled();
+        case INFO:
+            return logger.isInfoEnabled();
+        case WARN:
+            return logger.isWarnEnabled();
+        case ERROR:
+            return logger.isErrorEnabled();
+        default:
+            return false;
+        }
+    }
 
-	@Override
-	public boolean shouldLog(int level) {
-		return shouldLog(level, "default");
-	}
+    @Override
+    public boolean shouldLog(int level) {
+        return shouldLog(level, "default");
+    }
 
-	/**
-	 * Return true if SQL logging should log visible bind parameters. If the
-	 * shouldDisplayData is not set, return false.
-	 */
-	@Override
-	public boolean shouldDisplayData() {
-		if (this.shouldDisplayData != null) {
-			return shouldDisplayData.booleanValue();
-		} else {
-			return false;
-		}
-	}
+    /**
+     * Return true if SQL logging should log visible bind parameters. If the
+     * shouldDisplayData is not set, return false.
+     */
+    @Override
+    public boolean shouldDisplayData() {
+        if (this.shouldDisplayData != null) {
+            return shouldDisplayData.booleanValue();
+        } else {
+            return false;
+        }
+    }
 
-	/**
-	 * Initialize loggers eagerly
-	 */
-	private void createCategoryLoggers() {
-		for (String category : SessionLog.loggerCatagories) {
-			addLogger(category, ECLIPSELINK_NAMESPACE + "." + category);
-		}
-		// Logger default para cuando no hay categoría.
-		addLogger(DEFAULT_CATEGORY, DEFAULT_ECLIPSELINK_NAMESPACE);
-	}
+    /**
+     * Initialize loggers eagerly
+     */
+    private void createCategoryLoggers() {
+        for (String category : SessionLog.loggerCatagories) {
+            addLogger(category, ECLIPSELINK_NAMESPACE + "." + category);
+        }
+        // Logger default para cuando no hay categoría.
+        addLogger(DEFAULT_CATEGORY, DEFAULT_ECLIPSELINK_NAMESPACE);
+    }
 
-	/**
-	 * INTERNAL: Add Logger to the categoryLoggers.
-	 */
-	private void addLogger(String loggerCategory, String loggerNameSpace) {
-		categoryLoggers.put(loggerCategory,
-				LoggerFactory.getLogger(loggerNameSpace));
-	}
+    /**
+     * INTERNAL: Add Logger to the categoryLoggers.
+     */
+    private void addLogger(String loggerCategory, String loggerNameSpace) {
+        categoryLoggers.put(loggerCategory,
+                LoggerFactory.getLogger(loggerNameSpace));
+    }
 
-	/**
-	 * INTERNAL: Return the Logger for the given category
-	 */
-	private Logger getLogger(String category) {
+    /**
+     * INTERNAL: Return the Logger for the given category
+     */
+    private Logger getLogger(String category) {
 
-		if (!StringUtils.hasText(category)
-				|| !this.categoryLoggers.containsKey(category)) {
-			category = DEFAULT_CATEGORY;
-		}
+        if (!StringUtils.hasText(category)
+                || !this.categoryLoggers.containsKey(category)) {
+            category = DEFAULT_CATEGORY;
+        }
 
-		return categoryLoggers.get(category);
+        return categoryLoggers.get(category);
 
-	}
+    }
 
-	/**
-	 * Return the corresponding Slf4j Level for a given EclipseLink level.
-	 */
-	private LogLevel getLogLevel(Integer level) {
-		LogLevel logLevel = mapLevels.get(level);
+    /**
+     * Return the corresponding Slf4j Level for a given EclipseLink level.
+     */
+    private LogLevel getLogLevel(Integer level) {
+        LogLevel logLevel = mapLevels.get(level);
 
-		if (logLevel == null)
-			logLevel = LogLevel.OFF;
+        if (logLevel == null)
+            logLevel = LogLevel.OFF;
 
-		return logLevel;
-	}
+        return logLevel;
+    }
 
-	/**
-	 * SLF4J log levels.
-	 * 
-	 * @author Miguel Angel Sosvilla Luis
-	 * 
-	 */
-	static enum LogLevel {
-		TRACE, DEBUG, INFO, WARN, ERROR, OFF
-	}
+    /**
+     * SLF4J log levels.
+     *
+     * @author Miguel Angel Sosvilla Luis
+     *
+     */
+    static enum LogLevel {
+        TRACE, DEBUG, INFO, WARN, ERROR, OFF
+    }
 
-	/**
-	 * Relación de los niveles de log de EclipseLink y los de SLF4J
-	 */
-	private void initMapLevels() {
-		mapLevels = new HashMap<Integer, LogLevel>();
+    /**
+     * Relación de los niveles de log de EclipseLink y los de SLF4J
+     */
+    private void initMapLevels() {
+        mapLevels = new HashMap<Integer, LogLevel>();
 
-		mapLevels.put(SessionLog.ALL, LogLevel.TRACE);
-		mapLevels.put(SessionLog.FINEST, LogLevel.TRACE);
-		mapLevels.put(SessionLog.FINER, LogLevel.TRACE);
-		mapLevels.put(SessionLog.FINE, LogLevel.DEBUG);
-		mapLevels.put(SessionLog.CONFIG, LogLevel.INFO);
-		mapLevels.put(SessionLog.INFO, LogLevel.INFO);
-		mapLevels.put(SessionLog.WARNING, LogLevel.WARN);
-		mapLevels.put(SessionLog.SEVERE, LogLevel.ERROR);
-	}
+        mapLevels.put(SessionLog.ALL, LogLevel.TRACE);
+        mapLevels.put(SessionLog.FINEST, LogLevel.TRACE);
+        mapLevels.put(SessionLog.FINER, LogLevel.TRACE);
+        mapLevels.put(SessionLog.FINE, LogLevel.DEBUG);
+        mapLevels.put(SessionLog.CONFIG, LogLevel.INFO);
+        mapLevels.put(SessionLog.INFO, LogLevel.INFO);
+        mapLevels.put(SessionLog.WARNING, LogLevel.WARN);
+        mapLevels.put(SessionLog.SEVERE, LogLevel.ERROR);
+    }
 
 }

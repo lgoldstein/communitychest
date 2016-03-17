@@ -18,34 +18,34 @@ public class HotelsController {
 
     @Autowired
     public HotelsController(BookingService bookingService) {
-	this.bookingService = bookingService;
+    this.bookingService = bookingService;
     }
 
     @RequestMapping(value = "/hotels/search", method = RequestMethod.GET)
     public void search(@SuppressWarnings("unused") SearchCriteria searchCriteria, Principal currentUser, Model model) {
-	if (currentUser != null) {
-	    List<Booking> booking = bookingService.findBookings(currentUser.getName());
-	    model.addAttribute(booking);
-	}
+    if (currentUser != null) {
+        List<Booking> booking = bookingService.findBookings(currentUser.getName());
+        model.addAttribute(booking);
+    }
     }
 
     @RequestMapping(value = "/hotels", method = RequestMethod.GET)
     public String list(SearchCriteria criteria, Model model) {
-	List<Hotel> hotels = bookingService.findHotels(criteria);
-	model.addAttribute(hotels);
-	return "hotels/list";
+    List<Hotel> hotels = bookingService.findHotels(criteria);
+    model.addAttribute(hotels);
+    return "hotels/list";
     }
 
     @RequestMapping(value = "/hotels/{id}", method = RequestMethod.GET)
     public String show(@PathVariable Long id, Model model) {
-	model.addAttribute(bookingService.findHotelById(id));
-	return "hotels/show";
+    model.addAttribute(bookingService.findHotelById(id));
+    return "hotels/show";
     }
 
     @RequestMapping(value = "/bookings/{id}", method = RequestMethod.DELETE)
     public String deleteBooking(@PathVariable Long id) {
-	bookingService.cancelBooking(id);
-	return "redirect:../hotels/search";
+    bookingService.cancelBooking(id);
+    return "redirect:../hotels/search";
     }
 
 }

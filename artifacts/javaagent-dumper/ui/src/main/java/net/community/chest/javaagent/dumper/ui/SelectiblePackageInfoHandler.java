@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.javaagent.dumper.ui;
 
@@ -12,6 +12,6 @@ import net.community.chest.javaagent.dumper.ui.data.SelectiblePackageInfo;
  *
  */
 interface SelectiblePackageInfoHandler {
-	void processSelectiblePackageInfo (SelectiblePackageInfo pkgInfo);
-	void doneLoadingDumperData (DumperDataLoaderThread loader);
+    void processSelectiblePackageInfo (SelectiblePackageInfo pkgInfo);
+    void doneLoadingDumperData (DumperDataLoaderThread loader);
 }

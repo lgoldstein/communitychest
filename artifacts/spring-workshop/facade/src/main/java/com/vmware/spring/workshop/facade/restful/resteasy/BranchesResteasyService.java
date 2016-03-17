@@ -21,15 +21,15 @@ import com.vmware.spring.workshop.services.facade.BranchesFacade;
 @Produces({ MediaType.APPLICATION_XML })
 @Service("branchesResteasyService")
 public class BranchesResteasyService
-		extends AbstractResteasyRestfulService<BranchDTO, BranchesFacade> {
+        extends AbstractResteasyRestfulService<BranchDTO, BranchesFacade> {
 
-	@Inject
-	public BranchesResteasyService (final BranchesFacade facade) {
-		super(BranchDTO.class, facade);
-	}
+    @Inject
+    public BranchesResteasyService (final BranchesFacade facade) {
+        super(BranchDTO.class, facade);
+    }
 
-	@Override
-	protected List<BranchDTO> wrapAsDTOList(Collection<? extends BranchDTO> dtoList) {
-		return new BranchDTOList(dtoList);
-	}
+    @Override
+    protected List<BranchDTO> wrapAsDTOList(Collection<? extends BranchDTO> dtoList) {
+        return new BranchDTOList(dtoList);
+    }
 }

@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<project name="build-cl-helper" default="build-cl-helper" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
-		<description>
-			Builds JMX servlet WAR $Rev: 740 $
-		</description>
+    <project name="build-cl-helper" default="build-cl-helper" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+        <description>
+            Builds JMX servlet WAR $Rev: 740 $
+        </description>
 
-			<!-- Preamble definitions -->
-		<dirname property="project.root.dir" file="${ant.file}"/>
-		<dirname property="artifacts.root.dir" file="${project.root.dir}"/>
-		<property name="module.root.folder" value="${project.root.dir}"/>
-		<property name="module.base.target.name" value="cl-helper"/>
-		<property name="default.classpath.ref.name" value="cl.helper.path"/>
-		<import file="${artifacts.root.dir}${file.separator}build-base.xml"/>
+            <!-- Preamble definitions -->
+        <dirname property="project.root.dir" file="${ant.file}"/>
+        <dirname property="artifacts.root.dir" file="${project.root.dir}"/>
+        <property name="module.root.folder" value="${project.root.dir}"/>
+        <property name="module.base.target.name" value="cl-helper"/>
+        <property name="default.classpath.ref.name" value="cl.helper.path"/>
+        <import file="${artifacts.root.dir}${file.separator}build-base.xml"/>
 
-	    	<!-- define dependencies -->
-		<mvn:dependencies 	pathId="cl.helper.dependencies.path" useScope="compile"
-							settingsFile="${maven.settings.file.path}"
-				>
-	        <localRepository path="${maven.local.repository.folder}" layout="default"/>
-	
-			<dependency groupId="javax.servlet"
-						artifactId="servlet-api"
-						version="${servlet.api.jar.version}"
-						scope="compile"/>
-		</mvn:dependencies>
+            <!-- define dependencies -->
+        <mvn:dependencies     pathId="cl.helper.dependencies.path" useScope="compile"
+                            settingsFile="${maven.settings.file.path}"
+                >
+            <localRepository path="${maven.local.repository.folder}" layout="default"/>
 
-	    <path id="cl.helper.path">
-	    	<path refid="community.modules.jars"/>
-			<path refid="cl.helper.dependencies.path"/>
-		</path>
+            <dependency groupId="javax.servlet"
+                        artifactId="servlet-api"
+                        version="${servlet.api.jar.version}"
+                        scope="compile"/>
+        </mvn:dependencies>
 
-		<property name="target.war.file.name" value="${module.base.target.name}.${war.file.suffix}"/>
-		<property name="target.war.file.path" value="${community.bin.folder}${file.separator}${target.war.file.name}"/>
+        <path id="cl.helper.path">
+            <path refid="community.modules.jars"/>
+            <path refid="cl.helper.dependencies.path"/>
+        </path>
 
-		<target name="check-cl-helper-uptodate" unless="cl.helper.war.uptodate">
-			<condition property="cl.helper.war.uptodate" value="true">
-				<and>
-						<!-- is there a WAR file ? -->
-					<available file="${target.war.file.path}"/>
+        <property name="target.war.file.name" value="${module.base.target.name}.${war.file.suffix}"/>
+        <property name="target.war.file.path" value="${community.bin.folder}${file.separator}${target.war.file.name}"/>
 
-						<!-- are any Web class files newer than the WAR ? -->
-					<uptodate>
-						<srcfiles dir="${module.classes.folder}" includes="**${file.separator}/*"/>
-		  				<mapper type="merge" to="${target.war.file.path}"/>
-					</uptodate>
+        <target name="check-cl-helper-uptodate" unless="cl.helper.war.uptodate">
+            <condition property="cl.helper.war.uptodate" value="true">
+                <and>
+                        <!-- is there a WAR file ? -->
+                    <available file="${target.war.file.path}"/>
 
-						<!-- are any Web application files newer than the WAR ? -->
-					<uptodate>
-						<srcfiles dir="${module.webapp.folder}" includes="**${file.separator}/*"/>
-		  				<mapper type="merge" to="${target.war.file.path}"/>
-					</uptodate>
-				</and>
-			</condition>
-		</target>
+                        <!-- are any Web class files newer than the WAR ? -->
+                    <uptodate>
+                        <srcfiles dir="${module.classes.folder}" includes="**${file.separator}/*"/>
+                          <mapper type="merge" to="${target.war.file.path}"/>
+                    </uptodate>
 
-		<target name="build-cl-helper" depends="check-cl-helper-uptodate" unless="cl.helper.war.uptodate"
-				description="Build Class-Load helper Tomcat servlet">
-			<antcall target="create-module-manifest-file"/>
+                        <!-- are any Web application files newer than the WAR ? -->
+                    <uptodate>
+                        <srcfiles dir="${module.webapp.folder}" includes="**${file.separator}/*"/>
+                          <mapper type="merge" to="${target.war.file.path}"/>
+                    </uptodate>
+                </and>
+            </condition>
+        </target>
 
-			<war	destfile="${target.war.file.path}"
-					webxml="${module.webinf.folder}${file.separator}web.xml"
-					manifest="${module.manifest.file.path}"
-					duplicate="fail">
-				<classes dir="${module.classes.folder}" includes="**${file.separator}/*"/>
-			</war>
-		</target>
+        <target name="build-cl-helper" depends="check-cl-helper-uptodate" unless="cl.helper.war.uptodate"
+                description="Build Class-Load helper Tomcat servlet">
+            <antcall target="create-module-manifest-file"/>
 
-		<target name="clean-cl-helper" depends="clean-module-target-build" description="Cleans the Class-Load helper Tomcat servlet">
-			<delete file="${target.war.file.path}"/>
-		</target>
-	</project>
+            <war    destfile="${target.war.file.path}"
+                    webxml="${module.webinf.folder}${file.separator}web.xml"
+                    manifest="${module.manifest.file.path}"
+                    duplicate="fail">
+                <classes dir="${module.classes.folder}" includes="**${file.separator}/*"/>
+            </war>
+        </target>
+
+        <target name="clean-cl-helper" depends="clean-module-target-build" description="Cleans the Class-Load helper Tomcat servlet">
+            <delete file="${target.war.file.path}"/>
+        </target>
+    </project>

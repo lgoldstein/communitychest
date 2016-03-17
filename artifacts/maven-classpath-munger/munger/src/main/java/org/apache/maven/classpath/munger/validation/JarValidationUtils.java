@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -96,7 +96,7 @@ public final class JarValidationUtils {
              *  regardless of whether we can think of a security issue for such a
              *  manipulation
              */
-            
+
             try {
                 final String  digestValue;
                 if (entry.isDirectory()) {
@@ -123,17 +123,17 @@ public final class JarValidationUtils {
         }
 
         assertEquals("Mismatched signature sizes", expNames.size(), actNames.size());
-        
+
         for (String name : expNames) {
             String  expValue=expSignature.getProperty(name), actValue=actSignature.getProperty(name);
             assertEquals("Mismatched signature value for " + name, expValue, actValue);
         }
     }
-    
+
     private static final void assertEquals(String message, int expected, int actual) throws SecurityException {
         assertEquals(message, Integer.valueOf(expected), Integer.valueOf(actual));
     }
-    
+
     private static final void assertEquals(String message, Object expected, Object actual) throws SecurityException {
         if (!Objects.equals(expected, actual)) {
             throw new SecurityException(message + ": expected=" + expected + ", actual=" + actual);
@@ -149,7 +149,7 @@ public final class JarValidationUtils {
 
         return getDigestValue(digest);
     }
-    
+
     private static String updateDigest(MessageDigest digest, String value) throws UnsupportedEncodingException {
         return updateDigest(digest, value.getBytes("UTF-8"));
     }
@@ -158,7 +158,7 @@ public final class JarValidationUtils {
         digest.update(data);
         return getDigestValue(digest);
     }
-    
+
     private static String getDigestValue(MessageDigest digest) {
         byte[]  digestValue=digest.digest();
         return DatatypeConverter.printBase64Binary(digestValue);

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.adm.config;
 
@@ -13,19 +13,19 @@ import net.community.chest.ui.helpers.table.EnumTableColumnReflectiveProxy;
  * @since Oct 15, 2009 10:51:47 AM
  */
 public class ValuesTableColInfoReflectiveProxy<C extends ValuesTableColInfo>
-		extends EnumTableColumnReflectiveProxy<ValuesTableColumn,C> {
-	protected ValuesTableColInfoReflectiveProxy (Class<C> objClass, boolean registerAsDefault)
-			throws IllegalArgumentException, IllegalStateException
-	{
-		super(ValuesTableColumn.class, objClass, registerAsDefault);
-	}
+        extends EnumTableColumnReflectiveProxy<ValuesTableColumn,C> {
+    protected ValuesTableColInfoReflectiveProxy (Class<C> objClass, boolean registerAsDefault)
+            throws IllegalArgumentException, IllegalStateException
+    {
+        super(ValuesTableColumn.class, objClass, registerAsDefault);
+    }
 
-	public ValuesTableColInfoReflectiveProxy (Class<C> objClass) throws IllegalArgumentException
-	{
-		this(objClass, false);
-	}
+    public ValuesTableColInfoReflectiveProxy (Class<C> objClass) throws IllegalArgumentException
+    {
+        this(objClass, false);
+    }
 
-	public static final ValuesTableColInfoReflectiveProxy<ValuesTableColInfo>	VALSTBLCOLS=
-		new ValuesTableColInfoReflectiveProxy<ValuesTableColInfo>(ValuesTableColInfo.class);
+    public static final ValuesTableColInfoReflectiveProxy<ValuesTableColInfo>    VALSTBLCOLS=
+        new ValuesTableColInfoReflectiveProxy<ValuesTableColInfo>(ValuesTableColInfo.class);
 
 }

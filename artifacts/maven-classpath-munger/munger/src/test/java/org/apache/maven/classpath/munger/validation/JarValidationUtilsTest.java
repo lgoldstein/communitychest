@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -54,7 +54,7 @@ public class JarValidationUtilsTest extends AbstractTestSupport {
     public void testSignatureOnSameJar() throws Exception {
         URL orgData=getClassContainerLocationURL(Assert.class);
         assertNotNull("Cannot find source URL", orgData);
-        
+
         File    cpyData=createTempFile(getCurrentTestName(), ".jar");
         try(InputStream input=orgData.openStream()) {
             try(OutputStream output=new FileOutputStream(cpyData)) {
@@ -62,7 +62,7 @@ public class JarValidationUtilsTest extends AbstractTestSupport {
                 logger.info("Copy(" + orgData.toExternalForm() + ")[" + cpyData.getAbsolutePath() + "]: " + cpySize + " bytes");
             }
         }
-        
+
         NamedPropertySource  expected=JarValidationUtils.createJarSignature(orgData);
         NamedPropertySource  actual=JarValidationUtils.createJarSignature(cpyData);
         JarValidationUtils.validateJarSignature(expected, actual);
@@ -75,7 +75,7 @@ public class JarValidationUtilsTest extends AbstractTestSupport {
             }
         }
     }
-    
+
     @Test
     public void testSignatureOnModifiedOneByte() throws Exception {
         byte[]              TEST_DATA="the quick brown fox jumps over the lazy dog back".getBytes("UTF-8");
@@ -102,7 +102,7 @@ public class JarValidationUtilsTest extends AbstractTestSupport {
             }
         }
     }
-    
+
     @Test
     public void testSignatureOnShuffledContents() throws Exception {
         byte[]              TEST_DATA=(getClass().getName() + "#" + getCurrentTestName()).getBytes("UTF-8");
@@ -168,7 +168,7 @@ public class JarValidationUtilsTest extends AbstractTestSupport {
         } finally {
             baos.close();
         }
-        
+
         return baos.toByteArray();
     }
 
@@ -180,26 +180,26 @@ public class JarValidationUtilsTest extends AbstractTestSupport {
             if (index < (path.length - 1)) {
                 curPath.append('/');
             }
-            
+
             entriesList.add(new ZipEntry(curPath.toString()));
         }
-        
+
         return entriesList;
     }
     /////////////////////////////////////////
-    
+
     public static final byte[] shuffle(Random rnd, byte ... vals) {
         if ((vals == null) || (vals.length <= 1)) {
             return vals;
         }
-        
+
         for (int i=vals.length; i>1; i--) {
             swap(vals, i-1, rnd.nextInt(i));
         }
-        
+
         return vals;
     }
-    
+
     public static final byte[] swap(byte[] arr, int i, int j) {
         byte tmp = arr[i];
         arr[i] = arr[j];

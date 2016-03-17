@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -82,7 +82,7 @@ public class PomDependenciesLoader extends AbstractDependeciesLoader {
     @Override
     public void load(InputStream inputStream) throws IOException {
         InputSource             source=new InputSource(inputStream);
-        PomDependenciesParser   parser=new PomDependenciesParser(logger);   
+        PomDependenciesParser   parser=new PomDependenciesParser(logger);
         SAXParserFactory        factory=SAXParserFactory.newInstance();
         factory.setNamespaceAware(true);
         factory.setValidating(false);
@@ -97,7 +97,7 @@ public class PomDependenciesLoader extends AbstractDependeciesLoader {
             logger.error("Failed (" + e.getClass().getSimpleName() + ") to instantiate parser: " + e.getMessage(), e);
             throw new IOException(e);
         }
-        
+
         Map<String,String>  propsMap=parser.getProperties();
         propsNames = Collections.unmodifiableSet(new TreeSet<String>(propsMap.keySet()));
         properties = PropertiesUtil.asPropertySource(propsMap);

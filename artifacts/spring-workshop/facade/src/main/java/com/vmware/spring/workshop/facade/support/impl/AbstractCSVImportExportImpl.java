@@ -31,238 +31,238 @@ import com.vmware.spring.workshop.model.ModelUtils;
  * @author lgoldstein
  */
 public abstract class AbstractCSVImportExportImpl<DTO> implements CSVImportExport<DTO> {
-	private final Class<DTO>	_dtoClass;
-	private final Map<String,PropertyDescriptor>	_propsMap;
-	private final List<String> _defaultPropsOrder;
-	@Inject private ConversionService	_svcConvert;
-	protected final Logger	_logger=LoggerFactory.getLogger(getClass());
+    private final Class<DTO>    _dtoClass;
+    private final Map<String,PropertyDescriptor>    _propsMap;
+    private final List<String> _defaultPropsOrder;
+    @Inject private ConversionService    _svcConvert;
+    protected final Logger    _logger=LoggerFactory.getLogger(getClass());
 
-	protected AbstractCSVImportExportImpl(final Class<DTO> dtoClass) throws IntrospectionException {
-		Assert.state((_dtoClass=dtoClass) != null, "No DTO class provided");
-		_propsMap = Collections.unmodifiableMap(ModelUtils.createPropertiesMap(dtoClass));
-		_defaultPropsOrder = Collections.unmodifiableList(new ArrayList<String>(_propsMap.keySet()));
-	}
+    protected AbstractCSVImportExportImpl(final Class<DTO> dtoClass) throws IntrospectionException {
+        Assert.state((_dtoClass=dtoClass) != null, "No DTO class provided");
+        _propsMap = Collections.unmodifiableMap(ModelUtils.createPropertiesMap(dtoClass));
+        _defaultPropsOrder = Collections.unmodifiableList(new ArrayList<String>(_propsMap.keySet()));
+    }
 
-	@Override
-	public final Class<DTO> getDTOClass() {
-		return _dtoClass;
-	}
+    @Override
+    public final Class<DTO> getDTOClass() {
+        return _dtoClass;
+    }
 
-	@Override
-	public DTO toDTO(BufferedReader reader, List<String> propsOrder) throws IOException {
-		Assert.notNull(reader, "No reader");
-		Assert.isTrue(!CollectionUtils.isEmpty(propsOrder), "No properties order specified");
+    @Override
+    public DTO toDTO(BufferedReader reader, List<String> propsOrder) throws IOException {
+        Assert.notNull(reader, "No reader");
+        Assert.isTrue(!CollectionUtils.isEmpty(propsOrder), "No properties order specified");
 
-		for (String	lineData=reader.readLine(); lineData != null; lineData=reader.readLine())
-		{
-			lineData = StringUtils.strip(lineData);
-			if (StringUtils.isBlank(lineData))
-				continue;	// skip blank lines
+        for (String    lineData=reader.readLine(); lineData != null; lineData=reader.readLine())
+        {
+            lineData = StringUtils.strip(lineData);
+            if (StringUtils.isBlank(lineData))
+                continue;    // skip blank lines
 
-			return toDTO(lineData, propsOrder);
-		}
+            return toDTO(lineData, propsOrder);
+        }
 
-		return null;	// reached if exhausted all non empty lines
-	}
+        return null;    // reached if exhausted all non empty lines
+    }
 
-	@Override
-	public <A extends Appendable> A appendTitleLine(final A sb) throws IOException {
+    @Override
+    public <A extends Appendable> A appendTitleLine(final A sb) throws IOException {
 
-		return appendTitleLine(sb, getPropertiesOrder());
-	}
+        return appendTitleLine(sb, getPropertiesOrder());
+    }
 
-	@Override
-	public <A extends Appendable> A appendTitleLine(A sb, List<String> propsOrder) throws IOException {
-		Assert.notNull(sb, "No appender provided");
-		Assert.isTrue(!CollectionUtils.isEmpty(propsOrder), "No title properties order");
+    @Override
+    public <A extends Appendable> A appendTitleLine(A sb, List<String> propsOrder) throws IOException {
+        Assert.notNull(sb, "No appender provided");
+        Assert.isTrue(!CollectionUtils.isEmpty(propsOrder), "No title properties order");
 
-		boolean	isFirst=true;
-		for (final String name : propsOrder) {
-			if (isFirst)
-				isFirst = false;
-			else
-				sb.append(',');
-			sb.append(name);
-		}
+        boolean    isFirst=true;
+        for (final String name : propsOrder) {
+            if (isFirst)
+                isFirst = false;
+            else
+                sb.append(',');
+            sb.append(name);
+        }
 
-		return sb;
-	}
+        return sb;
+    }
 
-	@Override
-	public <A extends Appendable> A appendDTOList(final A sb, final Collection<? extends DTO> dtoList) throws IOException {
-		return appendDTOList(sb, getPropertiesOrder(), dtoList);
-	}
+    @Override
+    public <A extends Appendable> A appendDTOList(final A sb, final Collection<? extends DTO> dtoList) throws IOException {
+        return appendDTOList(sb, getPropertiesOrder(), dtoList);
+    }
 
-	@Override
-	public <A extends Appendable> A appendDTOList(A sb, List<String> propsOrder, Collection<? extends DTO> dtoList)
-			throws IOException {
-		if (CollectionUtils.isEmpty(dtoList))
-			return sb;
+    @Override
+    public <A extends Appendable> A appendDTOList(A sb, List<String> propsOrder, Collection<? extends DTO> dtoList)
+            throws IOException {
+        if (CollectionUtils.isEmpty(dtoList))
+            return sb;
 
-		for (final DTO dto : dtoList)
-		{
-			sb.append(LINE_SEP);	// separate from previous line
-			appendDTO(sb, dto, propsOrder);
-		}
+        for (final DTO dto : dtoList)
+        {
+            sb.append(LINE_SEP);    // separate from previous line
+            appendDTO(sb, dto, propsOrder);
+        }
 
-		return sb;
-	}
+        return sb;
+    }
 
-	@Override
-	public DTO toDTO(final String data, final List<String> propsOrder) throws IOException {
-		Assert.isTrue(!CollectionUtils.isEmpty(propsOrder), "No properties order provided");
+    @Override
+    public DTO toDTO(final String data, final List<String> propsOrder) throws IOException {
+        Assert.isTrue(!CollectionUtils.isEmpty(propsOrder), "No properties order provided");
 
-		final List<String> valsList=breakdownLineData(StringUtils.trimToEmpty(data));
-		if (CollectionUtils.isEmpty(valsList))
-			throw new StreamCorruptedException("No values extracted from " + data);
-		if (valsList.size() != propsOrder.size())
-			throw new StreamCorruptedException("Mismatched values size"
-											 + " (got=" + valsList.size() + ")"
-											 + "/(expected=" + propsOrder.size() + ")"
-											 + " for data=" + data);
+        final List<String> valsList=breakdownLineData(StringUtils.trimToEmpty(data));
+        if (CollectionUtils.isEmpty(valsList))
+            throw new StreamCorruptedException("No values extracted from " + data);
+        if (valsList.size() != propsOrder.size())
+            throw new StreamCorruptedException("Mismatched values size"
+                                             + " (got=" + valsList.size() + ")"
+                                             + "/(expected=" + propsOrder.size() + ")"
+                                             + " for data=" + data);
 
-		final Class<DTO>	dtoClass=getDTOClass();
-		final DTO			dto;
-		try {
-			if ((dto=dtoClass.newInstance()) == null)
-				throw new IllegalStateException("Failed to instantiate");
-		} catch(Exception e) {
-			throw new StreamCorruptedException("Failed to create instance for " + data + ": " + e.getMessage());
-		}
+        final Class<DTO>    dtoClass=getDTOClass();
+        final DTO            dto;
+        try {
+            if ((dto=dtoClass.newInstance()) == null)
+                throw new IllegalStateException("Failed to instantiate");
+        } catch(Exception e) {
+            throw new StreamCorruptedException("Failed to create instance for " + data + ": " + e.getMessage());
+        }
 
-		for (int	vIndex=0; vIndex < propsOrder.size(); vIndex++) {
-			final String	name=propsOrder.get(vIndex),
-							value=valsList.get(vIndex);
-			final PropertyDescriptor	desc=_propsMap.get(name);
-			if (desc == null)
-				throw new IllegalStateException("toDTO(" + data + ") missing descriptor for property=" + name);
+        for (int    vIndex=0; vIndex < propsOrder.size(); vIndex++) {
+            final String    name=propsOrder.get(vIndex),
+                            value=valsList.get(vIndex);
+            final PropertyDescriptor    desc=_propsMap.get(name);
+            if (desc == null)
+                throw new IllegalStateException("toDTO(" + data + ") missing descriptor for property=" + name);
 
-			final Object	dtoValue=toDTOValue(name, value, desc.getPropertyType());
-			if (dtoValue == null)
-				continue;
+            final Object    dtoValue=toDTOValue(name, value, desc.getPropertyType());
+            if (dtoValue == null)
+                continue;
 
-			final Method	sMethod=desc.getWriteMethod();
-			ReflectionUtils.invokeMethod(sMethod, dto, dtoValue);
-		}
+            final Method    sMethod=desc.getWriteMethod();
+            ReflectionUtils.invokeMethod(sMethod, dto, dtoValue);
+        }
 
-		return dto;
-	}
+        return dto;
+    }
 
-	@Override
-	public <A extends Appendable> A appendDTO(final A sb, final DTO dto) throws IOException {
+    @Override
+    public <A extends Appendable> A appendDTO(final A sb, final DTO dto) throws IOException {
 
-		return appendDTO(sb, dto, getPropertiesOrder());
-	}
+        return appendDTO(sb, dto, getPropertiesOrder());
+    }
 
-	@Override
-	public <A extends Appendable> A appendDTO(A sb, DTO dto, List<String> propsOrder) throws IOException {
-		Assert.notNull(sb, "No appender provided");
-		Assert.notNull(dto, "No DTO provided");
-		Assert.isTrue(!CollectionUtils.isEmpty(propsOrder), "No properties order");
+    @Override
+    public <A extends Appendable> A appendDTO(A sb, DTO dto, List<String> propsOrder) throws IOException {
+        Assert.notNull(sb, "No appender provided");
+        Assert.notNull(dto, "No DTO provided");
+        Assert.isTrue(!CollectionUtils.isEmpty(propsOrder), "No properties order");
 
-		boolean	isFirst=true;
-		for (final String name : propsOrder) {
-			final PropertyDescriptor	desc=_propsMap.get(name);
-			if (desc == null)
-				throw new IllegalStateException("No descriptor for property=" + name + " of DTO=" + dto);
+        boolean    isFirst=true;
+        for (final String name : propsOrder) {
+            final PropertyDescriptor    desc=_propsMap.get(name);
+            if (desc == null)
+                throw new IllegalStateException("No descriptor for property=" + name + " of DTO=" + dto);
 
-			final Method	gMethod=desc.getReadMethod();
-			final Object	value=ReflectionUtils.invokeMethod(gMethod, dto, ArrayUtils.EMPTY_OBJECT_ARRAY);
-			final String	strValue=toDTOStringValue(name, value);
-			if (isFirst)
-				isFirst = false;
-			else
-				sb.append(',');
+            final Method    gMethod=desc.getReadMethod();
+            final Object    value=ReflectionUtils.invokeMethod(gMethod, dto, ArrayUtils.EMPTY_OBJECT_ARRAY);
+            final String    strValue=toDTOStringValue(name, value);
+            if (isFirst)
+                isFirst = false;
+            else
+                sb.append(',');
 
-			if (StringUtils.isBlank(strValue))
-				continue;
+            if (StringUtils.isBlank(strValue))
+                continue;
 
-			if (value instanceof String)	// quote strings to avoid comma issues
-				sb.append('\'').append(strValue).append('\'');
-			else
-				sb.append(strValue);
-		}
+            if (value instanceof String)    // quote strings to avoid comma issues
+                sb.append('\'').append(strValue).append('\'');
+            else
+                sb.append(strValue);
+        }
 
-		return sb;
-	}
+        return sb;
+    }
 
-	protected Object toDTOValue (final String name, final String value, final Class<?> propType)
-	{
-		Assert.notNull(propType, "No property type");
-		if (StringUtils.isBlank(value))
-			return null;
-		
-		if (_svcConvert.canConvert(String.class, propType))
-			return _svcConvert.convert(value, propType);
-		throw new IllegalStateException("toDTOValue(" + name + ")[" + propType.getSimpleName() + "] cannot convert " + value);
-	}
+    protected Object toDTOValue (final String name, final String value, final Class<?> propType)
+    {
+        Assert.notNull(propType, "No property type");
+        if (StringUtils.isBlank(value))
+            return null;
 
-	private static List<String> breakdownLineData (final String lineData) {
-		if (StringUtils.isBlank(lineData))
-			return Collections.emptyList();
+        if (_svcConvert.canConvert(String.class, propType))
+            return _svcConvert.convert(value, propType);
+        throw new IllegalStateException("toDTOValue(" + name + ")[" + propType.getSimpleName() + "] cannot convert " + value);
+    }
 
-		final List<String>	result=new ArrayList<String>();
-		int	lastPos=0;
-		boolean	inQuotes=false;
-		for (int	curPos=0; curPos < lineData.length(); curPos++) {
-			final char	ch=lineData.charAt(curPos);
-			switch(ch) {
-				case ','	:
-					if (!inQuotes) {
-						final int		cpyLen=curPos - lastPos;
-						final String	cpyValue=(cpyLen <= 0) ? "" : StringUtils.trimToEmpty(lineData.substring(lastPos, curPos));
-						result.add(stripDelims(cpyValue));
-						lastPos = curPos + 1;
-					}
-					break;
+    private static List<String> breakdownLineData (final String lineData) {
+        if (StringUtils.isBlank(lineData))
+            return Collections.emptyList();
 
-				case '\'':
-					inQuotes = !inQuotes;
-					break;
-				
-				default	:	// do nothing
-			}
-		}
-		
-		if (lastPos < lineData.length()) {
-			final String	cpyValue=lineData.substring(lastPos);
-			result.add(stripDelims(cpyValue));
-		}
+        final List<String>    result=new ArrayList<String>();
+        int    lastPos=0;
+        boolean    inQuotes=false;
+        for (int    curPos=0; curPos < lineData.length(); curPos++) {
+            final char    ch=lineData.charAt(curPos);
+            switch(ch) {
+                case ','    :
+                    if (!inQuotes) {
+                        final int        cpyLen=curPos - lastPos;
+                        final String    cpyValue=(cpyLen <= 0) ? "" : StringUtils.trimToEmpty(lineData.substring(lastPos, curPos));
+                        result.add(stripDelims(cpyValue));
+                        lastPos = curPos + 1;
+                    }
+                    break;
 
-		return result;
-	}
+                case '\'':
+                    inQuotes = !inQuotes;
+                    break;
 
-	private static String stripDelims (final String value) {
-		if (StringUtils.isBlank(value))
-			return "";
+                default    :    // do nothing
+            }
+        }
 
-		if (value.charAt(0) != '\'')
-			return value;
+        if (lastPos < lineData.length()) {
+            final String    cpyValue=lineData.substring(lastPos);
+            result.add(stripDelims(cpyValue));
+        }
 
-		if ((value.length() <= 1) || (value.charAt(value.length() - 1) != '\''))
-			throw new IllegalArgumentException("Imbalanced delimiter in " + value);
+        return result;
+    }
 
-		return StringUtils.trimToEmpty(value.substring(1, value.length() - 1));
-	}
+    private static String stripDelims (final String value) {
+        if (StringUtils.isBlank(value))
+            return "";
 
-	protected String toDTOStringValue (final String name, final Object value) {
-		final String	strValue=StringUtils.trimToEmpty((value == null) ? null : value.toString());
-		if (StringUtils.isBlank(strValue))
-			return strValue;
-		else
-			return strValue.replace('\'', '-');
-	}
+        if (value.charAt(0) != '\'')
+            return value;
 
-	@Override
-	public String toString ()
-	{
-		final Class<?>		clazz=getClass();
-		final Component		ctrl=clazz.getAnnotation(Component.class);
-		final String		name=(ctrl == null) ? null : ctrl.value();
-		return StringUtils.isBlank(name) ? clazz.getSimpleName() : name;
-	}
+        if ((value.length() <= 1) || (value.charAt(value.length() - 1) != '\''))
+            throw new IllegalArgumentException("Imbalanced delimiter in " + value);
 
-	protected List<String> getPropertiesOrder () {
-		return _defaultPropsOrder;
-	}
+        return StringUtils.trimToEmpty(value.substring(1, value.length() - 1));
+    }
+
+    protected String toDTOStringValue (final String name, final Object value) {
+        final String    strValue=StringUtils.trimToEmpty((value == null) ? null : value.toString());
+        if (StringUtils.isBlank(strValue))
+            return strValue;
+        else
+            return strValue.replace('\'', '-');
+    }
+
+    @Override
+    public String toString ()
+    {
+        final Class<?>        clazz=getClass();
+        final Component        ctrl=clazz.getAnnotation(Component.class);
+        final String        name=(ctrl == null) ? null : ctrl.value();
+        return StringUtils.isBlank(name) ? clazz.getSimpleName() : name;
+    }
+
+    protected List<String> getPropertiesOrder () {
+        return _defaultPropsOrder;
+    }
 }

@@ -40,102 +40,102 @@ import com.springsource.insight.samples.rest.model.RestfulRepository;
  */
 @ContextConfiguration(locations={ "classpath:/META-INF/spring/application-context.xml" })
 public class RestfulRepositoryImplTest extends AbstractJUnit4SpringContextTests {
-	public RestfulRepositoryImplTest() {
-		super();
-	}
+    public RestfulRepositoryImplTest() {
+        super();
+    }
 
-	@Inject	protected SessionFactory	_sessionFactory;
-	protected SessionFactory getSessionFactory ()
-	{
-		return _sessionFactory;
-	}
+    @Inject    protected SessionFactory    _sessionFactory;
+    protected SessionFactory getSessionFactory ()
+    {
+        return _sessionFactory;
+    }
 
-	private boolean	_txParticipating;
-	protected void manuallyStartDaoSession () {
-		// simulate open session in view
-		final SessionFactory	sessFac=getSessionFactory();
-		if (TransactionSynchronizationManager.hasResource(sessFac))	{
-			// Do not modify the Session: just set the participate flag.
-			_txParticipating = true;
-		} else {
-			// NOTE: the session factory interceptor is overridden by an empty one, because the
-			// real interceptor may not function correctly in this test-specific setup. 
-			final Session session=
-				SessionFactoryUtils.getSession(sessFac, EmptyInterceptor.INSTANCE, null);
-			session.setFlushMode(FlushMode.AUTO);
-			TransactionSynchronizationManager.bindResource(sessFac, new SessionHolder(session));
-			logger.info("Started transaction context");
-		}
-	}
+    private boolean    _txParticipating;
+    protected void manuallyStartDaoSession () {
+        // simulate open session in view
+        final SessionFactory    sessFac=getSessionFactory();
+        if (TransactionSynchronizationManager.hasResource(sessFac))    {
+            // Do not modify the Session: just set the participate flag.
+            _txParticipating = true;
+        } else {
+            // NOTE: the session factory interceptor is overridden by an empty one, because the
+            // real interceptor may not function correctly in this test-specific setup.
+            final Session session=
+                SessionFactoryUtils.getSession(sessFac, EmptyInterceptor.INSTANCE, null);
+            session.setFlushMode(FlushMode.AUTO);
+            TransactionSynchronizationManager.bindResource(sessFac, new SessionHolder(session));
+            logger.info("Started transaction context");
+        }
+    }
 
-	protected void manuallyEndDaoSession ()	{
-		// simulate open session in view
-		final SessionFactory	sessFac=getSessionFactory();
-		if (!_txParticipating) {
-			final SessionHolder sessionHolder=
-				(SessionHolder) TransactionSynchronizationManager.unbindResource(sessFac);
-			SessionFactoryUtils.releaseSession(sessionHolder.getSession(), sessFac);
-			logger.info("Ended transaction context");
-		}
-	}
+    protected void manuallyEndDaoSession ()    {
+        // simulate open session in view
+        final SessionFactory    sessFac=getSessionFactory();
+        if (!_txParticipating) {
+            final SessionHolder sessionHolder=
+                (SessionHolder) TransactionSynchronizationManager.unbindResource(sessFac);
+            SessionFactoryUtils.releaseSession(sessionHolder.getSession(), sessFac);
+            logger.info("Ended transaction context");
+        }
+    }
 
-	@Inject private RestfulRepository	_repository;
+    @Inject private RestfulRepository    _repository;
 
-	// define same names as for jUnit 3.x
-	@Before
-	public void setUp () {
-		manuallyStartDaoSession();
-		_repository.removeAll();	// make sure starting with a clean database
-	}
+    // define same names as for jUnit 3.x
+    @Before
+    public void setUp () {
+        manuallyStartDaoSession();
+        _repository.removeAll();    // make sure starting with a clean database
+    }
 
-	@After
-	public void tearDown ()	{
-		_repository.removeAll();	// clean up the database
-		manuallyEndDaoSession();
-	}
-	
-	private static final int	TEST_BALANCE=7031965;
-	@Test
-	public void testBalanceCreation () {
-		final RestfulData	value=createTestValue("testBalanceCreation", TEST_BALANCE),
-							item=_repository.getData(value.getId().longValue());
-		Assert.assertNotNull("No item persisted", item);
-		Assert.assertEquals("Mismatched persisted data", value, item);
-	}
+    @After
+    public void tearDown ()    {
+        _repository.removeAll();    // clean up the database
+        manuallyEndDaoSession();
+    }
 
-	@Test
-	public void testBalanceUpdate () {
-		final int			NEW_BALANCE=1704169;
-		final RestfulData	value=createTestValue("testBalanceUpdate", TEST_BALANCE);
-		final Long			itemId=value.getId();
-		final RestfulData	updated=_repository.setBalance(itemId.longValue(), NEW_BALANCE);
-		Assert.assertNotNull("No balance updated", updated);
-		Assert.assertEquals("Mismatched updated balance", NEW_BALANCE, updated.getBalance());
+    private static final int    TEST_BALANCE=7031965;
+    @Test
+    public void testBalanceCreation () {
+        final RestfulData    value=createTestValue("testBalanceCreation", TEST_BALANCE),
+                            item=_repository.getData(value.getId().longValue());
+        Assert.assertNotNull("No item persisted", item);
+        Assert.assertEquals("Mismatched persisted data", value, item);
+    }
 
-		final Long	updId=updated.getId();
-		Assert.assertNotNull("No ID assigned for updated instance", itemId);
-		Assert.assertEquals("Mismatched updated instance ID", itemId, updId);
-	}
+    @Test
+    public void testBalanceUpdate () {
+        final int            NEW_BALANCE=1704169;
+        final RestfulData    value=createTestValue("testBalanceUpdate", TEST_BALANCE);
+        final Long            itemId=value.getId();
+        final RestfulData    updated=_repository.setBalance(itemId.longValue(), NEW_BALANCE);
+        Assert.assertNotNull("No balance updated", updated);
+        Assert.assertEquals("Mismatched updated balance", NEW_BALANCE, updated.getBalance());
 
-	@Test
-	public void testValidationFailure () {
-		final RestfulData	value=createTestValue("testBalanceUpdate", TEST_BALANCE);
-		try {
-			_repository.setBalance(value.getId().longValue(), Integer.MIN_VALUE);
-			Assert.fail("Unexpected success of illegal balance value update");
-		} catch(ConstraintViolationException e) {
-			// ignored since expected
-			if (logger.isDebugEnabled()) {
-				logger.debug("testValidationFailure() ignored exception", e);
-			}
-		}
-	}
+        final Long    updId=updated.getId();
+        Assert.assertNotNull("No ID assigned for updated instance", itemId);
+        Assert.assertEquals("Mismatched updated instance ID", itemId, updId);
+    }
 
-	private RestfulData createTestValue (final String identifier, final int balance) {
-		final RestfulData	value=_repository.create(balance);
-		Assert.assertNotNull(identifier + "[No balance created]", value);
-		Assert.assertEquals(identifier + "[Mismatched created balance]", balance, value.getBalance());
-		Assert.assertNotNull(identifier + "[No ID assigned for created instance]", value.getId());
-		return value;
-	}
+    @Test
+    public void testValidationFailure () {
+        final RestfulData    value=createTestValue("testBalanceUpdate", TEST_BALANCE);
+        try {
+            _repository.setBalance(value.getId().longValue(), Integer.MIN_VALUE);
+            Assert.fail("Unexpected success of illegal balance value update");
+        } catch(ConstraintViolationException e) {
+            // ignored since expected
+            if (logger.isDebugEnabled()) {
+                logger.debug("testValidationFailure() ignored exception", e);
+            }
+        }
+    }
+
+    private RestfulData createTestValue (final String identifier, final int balance) {
+        final RestfulData    value=_repository.create(balance);
+        Assert.assertNotNull(identifier + "[No balance created]", value);
+        Assert.assertEquals(identifier + "[Mismatched created balance]", balance, value.getBalance());
+        Assert.assertNotNull(identifier + "[No ID assigned for created instance]", value.getId());
+        return value;
+    }
 }

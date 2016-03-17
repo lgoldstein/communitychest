@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ public final class UrlUtil {
     private UrlUtil() {
         throw new UnsupportedOperationException("No instance");
     }
-   
+
     /**
      * @param url The {@link URL} value - ignored if <code>null</code>
      * @return The URL(s) source path where {@link #JAR_URL_PREFIX} and
@@ -64,7 +64,7 @@ public final class UrlUtil {
         if (PropertiesUtil.isEmpty(url)){
             return url;
         }
-        
+
         int sepPos=url.indexOf(RESOURCE_SUBPATH_SEPARATOR);
         if (sepPos < 0) {
             return UrlUtil.adjustURLPathValue(url);
@@ -72,7 +72,7 @@ public final class UrlUtil {
             return UrlUtil.adjustURLPathValue(url.substring(0, sepPos));
         }
     }
-    
+
     /**
      * URL/URI scheme that refers to a JAR
      */
@@ -90,8 +90,8 @@ public final class UrlUtil {
 
         if (url.startsWith(JAR_URL_PREFIX)) {
             return url.substring(JAR_URL_PREFIX.length());
-        }       
-        
+        }
+
         return url;
     }
 
@@ -120,7 +120,7 @@ public final class UrlUtil {
         if (PropertiesUtil.isEmpty(extension)) {
             return base;
         }
-        
+
         char    endChar=base.charAt(base.length() - 1), startChar=extension.charAt(0);
         if (endChar == '/') {
             if (startChar == '/') {
@@ -160,7 +160,7 @@ public final class UrlUtil {
             return path.substring(0, pathLen - 1);
         }
     }
-    
+
     public static final URL toURL(File file) throws MalformedURLException {
         URI uri=file.toURI();
         return uri.toURL();

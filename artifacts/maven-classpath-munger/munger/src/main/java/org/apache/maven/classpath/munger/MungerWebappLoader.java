@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -60,7 +60,7 @@ public class MungerWebappLoader extends VirtualWebappLoader {
     @Override
     public void setContainer(Container container) {
         super.setContainer(container);
-        
+
         if (container == null) {
             return;
         }
@@ -82,7 +82,7 @@ public class MungerWebappLoader extends VirtualWebappLoader {
         }
 
         log.info("setContext(" + context.getBaseName() + ")[" + context.getDocBase() + "]: " + urlValue);
-        
+
         int     lastPos=urlValue.lastIndexOf('/');
         // TODO allow for non-Maven locations
         String  baseUrl=UrlUtil.adjustURLPathValue(urlValue.substring(0, lastPos)) + "/maven";
@@ -90,7 +90,7 @@ public class MungerWebappLoader extends VirtualWebappLoader {
             log.warn("setContext(" + context.getBaseName() + ")[" + context.getDocBase() + "]: no dependencies specification");
             return;
         }
-        
+
         try {
             // TODO allow for non-Maven locations
             addContextDependencies(context, configFile, new URL(UrlUtil.concat(baseUrl, "/repository")));
@@ -102,7 +102,7 @@ public class MungerWebappLoader extends VirtualWebappLoader {
             throw (e instanceof RuntimeException) ? (RuntimeException) e : new RuntimeException(e);
         }
     }
-    
+
     protected void addContextDependencies(final Context context, final URL configFile, final URL signaturesBase) throws Exception {
         NamedPropertySource  processProps=
                 new AggregateNamedPropertySource(
@@ -120,21 +120,21 @@ public class MungerWebappLoader extends VirtualWebappLoader {
                         }
                         return;
                     }
-                    
+
                     for (URL url : urls) {
                         URI uri=url.toURI();
                         if (!"file".equalsIgnoreCase(uri.getScheme())) {
                             throw new UnsupportedOperationException("Non file URL: " + uri.toString());
                         }
-    
+
                         File    file=new File(uri);
                         String  location=file.getAbsolutePath();
                         if (sb.length() > 0) {
                             sb.append(';');
                         }
-                        
+
                         sb.append(location);
-    
+
                         if (logger.isTraceEnabled()) {
                             logger.trace("addContextDependencies(" + context.getBaseName() + ")[" + context.getDocBase() + "] appended " + location);
                         }
@@ -142,7 +142,7 @@ public class MungerWebappLoader extends VirtualWebappLoader {
                 }
             };
         munger.processDependencies(configFile, signaturesBase, processProps);
-        
+
         if (sb.length() > 0) {
             super.setVirtualClasspath(sb.toString());
         }
@@ -154,12 +154,12 @@ public class MungerWebappLoader extends VirtualWebappLoader {
         for (String configFileName : DEFAULT_CONFIG_FILE_NAMES) {
             String  urlCandidate=sb.append(configFileName).toString();
             try {
-               URL          url=new URL(urlCandidate); 
+               URL          url=new URL(urlCandidate);
                InputStream  input=url.openStream();
                if (input == null) {
                    throw new FileNotFoundException("No stream opened");
                }
-               
+
                // TODO close it inside a special try-catch-loop to avoid confusion
                input.close();
                return url;
@@ -174,10 +174,10 @@ public class MungerWebappLoader extends VirtualWebappLoader {
                 sb.setLength(sbLen);    // prepare for next iteration
             }
         }
-        
+
         return null;
     }
-    
+
     public static final Log wrapJuliLogger(final org.apache.juli.logging.Log logger) {
         return new AbstractLog() {
             @Override

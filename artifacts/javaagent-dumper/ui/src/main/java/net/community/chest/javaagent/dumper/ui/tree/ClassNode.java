@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.javaagent.dumper.ui.tree;
 
@@ -15,31 +15,31 @@ import net.community.chest.javaagent.dumper.ui.data.SelectibleClassInfo;
  *
  */
 public class ClassNode extends AbstractInfoNode<SelectibleClassInfo> {
-	private static final long serialVersionUID = 6804536071532121317L;
+    private static final long serialVersionUID = 6804536071532121317L;
 
-	public ClassNode (SelectibleClassInfo info)
-	{
-		this(info, true);
-	}
+    public ClassNode (SelectibleClassInfo info)
+    {
+        this(info, true);
+    }
 
-	public ClassNode (SelectibleClassInfo info, boolean withChildren)
-	{
-		super(SelectibleClassInfo.class, info, info.getSimpleName(), withChildren);
-	}
+    public ClassNode (SelectibleClassInfo info, boolean withChildren)
+    {
+        super(SelectibleClassInfo.class, info, info.getSimpleName(), withChildren);
+    }
 
-	public Collection<MethodNode> getSelectedNodes ()
-	{
-		final int						childCount=getChildCount();
-		final Collection<MethodNode>	nodes=
-			(childCount > 0) ? new ArrayList<MethodNode>(childCount) : null;
-		for (int	cIndex=0; cIndex < childCount; cIndex++)
-		{
-			final MethodNode	childNode=(MethodNode) getChildAt(cIndex);
-			if (!childNode.isSelected())
-				continue;
-			nodes.add(childNode);
-		}
+    public Collection<MethodNode> getSelectedNodes ()
+    {
+        final int                        childCount=getChildCount();
+        final Collection<MethodNode>    nodes=
+            (childCount > 0) ? new ArrayList<MethodNode>(childCount) : null;
+        for (int    cIndex=0; cIndex < childCount; cIndex++)
+        {
+            final MethodNode    childNode=(MethodNode) getChildAt(cIndex);
+            if (!childNode.isSelected())
+                continue;
+            nodes.add(childNode);
+        }
 
-		return nodes;
-	}
+        return nodes;
+    }
 }

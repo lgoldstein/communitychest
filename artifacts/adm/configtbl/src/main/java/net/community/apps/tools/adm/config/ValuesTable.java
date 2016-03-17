@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tools.adm.config;
 
@@ -15,19 +15,19 @@ import net.community.chest.ui.helpers.table.EnumColumnTypedTable;
  * @since Oct 15, 2009 10:55:13 AM
  */
 public class ValuesTable extends
-		EnumColumnTypedTable<ValuesTableColumn,ValueTableEntry> {
-	public ValuesTable (EnumColumnAbstractTableModel<ValuesTableColumn,ValueTableEntry> tbModel, TableColumnModel tcModel)
-	{
-		super(tbModel, tcModel);
-	}
+        EnumColumnTypedTable<ValuesTableColumn,ValueTableEntry> {
+    public ValuesTable (EnumColumnAbstractTableModel<ValuesTableColumn,ValueTableEntry> tbModel, TableColumnModel tcModel)
+    {
+        super(tbModel, tcModel);
+    }
 
-	public ValuesTable (EnumColumnAbstractTableModel<ValuesTableColumn,ValueTableEntry> model)
-	{
-		super(model, (null == model) ? null : model.getTableColumnModel());
-	}
+    public ValuesTable (EnumColumnAbstractTableModel<ValuesTableColumn,ValueTableEntry> model)
+    {
+        super(model, (null == model) ? null : model.getTableColumnModel());
+    }
 
-	public ValuesTable ()
-	{
-		this(new ValuesTableModel());
-	}
+    public ValuesTable ()
+    {
+        this(new ValuesTableModel());
+    }
 }

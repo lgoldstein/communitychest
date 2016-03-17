@@ -9,5 +9,5 @@ import com.vmware.spring.workshop.model.user.User;
  * @author lgoldstein
  */
 public interface CleartextAuthenticationProvider extends AuthenticationProvider {
-	User authenticate (String username, String password) throws AuthenticationException;
+    User authenticate (String username, String password) throws AuthenticationException;
 }

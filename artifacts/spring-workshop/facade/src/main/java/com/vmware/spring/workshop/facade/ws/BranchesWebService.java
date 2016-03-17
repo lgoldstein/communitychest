@@ -17,15 +17,15 @@ import com.vmware.spring.workshop.services.facade.BranchesFacade;
  */
 @Endpoint("branchesWebService")
 public class BranchesWebService {
-	private final BranchesFacade	_facade;
-	@Inject
-	public BranchesWebService(final BranchesFacade facade) {
-		_facade = facade;
-	}
+    private final BranchesFacade    _facade;
+    @Inject
+    public BranchesWebService(final BranchesFacade facade) {
+        _facade = facade;
+    }
 
-	@ResponsePayload
-	@PayloadRoot(localPart="queryBankBranches", namespace=AbstractSOAPMessage.SOAP_NAMESPACE)
-	public BankBranchesResponse queryBankBranches (@RequestPayload final BankBranchesRequest request) {
-		return new BankBranchesResponse(_facade.findAllBranchesById(request.getBankId()));
-	}
+    @ResponsePayload
+    @PayloadRoot(localPart="queryBankBranches", namespace=AbstractSOAPMessage.SOAP_NAMESPACE)
+    public BankBranchesResponse queryBankBranches (@RequestPayload final BankBranchesRequest request) {
+        return new BankBranchesResponse(_facade.findAllBranchesById(request.getBankId()));
+    }
 }

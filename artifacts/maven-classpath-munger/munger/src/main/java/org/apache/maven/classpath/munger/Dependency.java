@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,7 +34,7 @@ public class Dependency implements Cloneable, Serializable, Comparable<Dependenc
                 @Override
                 public int compare(Dependency d1, Dependency d2) {
                     int nRes=0;
-                    
+
                     if (d1 == d2) {
                         return 0;
                     }
@@ -146,7 +146,7 @@ public class Dependency implements Cloneable, Serializable, Comparable<Dependenc
             return true;
         if (getClass() != obj.getClass())
             return false;
-        
+
         if (compareTo((Dependency) obj) == 0) {
             return true;
         } else {
@@ -171,7 +171,7 @@ public class Dependency implements Cloneable, Serializable, Comparable<Dependenc
              + ":" + getVersion()
              ;
     }
-    
+
     public String buildArtifactPath(char separatorChar) {
         return buildArtifactPath(separatorChar, "");
     }
@@ -184,7 +184,7 @@ public class Dependency implements Cloneable, Serializable, Comparable<Dependenc
          || PropertiesUtil.isEmpty(v)) {
             throw new IllegalStateException("Incomplete specification: " + toString());
         }
-        
+
         StringBuilder   sb=new StringBuilder(gid.length() + 1   /* separator */
                                            + aid.length() + 1   /* separator */
                                            + v.length() + 1     /* separator */
@@ -196,11 +196,11 @@ public class Dependency implements Cloneable, Serializable, Comparable<Dependenc
         sb.append(separatorChar).append(v);
         sb.append(separatorChar).append(aid).append('-').append(v);
         sb.append('.').append(p);
-        
+
         if (!PropertiesUtil.isEmpty(suffix)) {
             sb.append(suffix);
         }
-        
+
         return sb.toString();
     }
 }

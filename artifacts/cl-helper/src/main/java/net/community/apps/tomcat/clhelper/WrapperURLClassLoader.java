@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.apps.tomcat.clhelper;
 
@@ -12,9 +12,9 @@ import java.net.URLClassLoader;
  * @since Aug 29, 2011 9:35:56 AM
  */
 public class WrapperURLClassLoader extends URLClassLoader {
-	private static final URL[]	EMPTY_URLS=new URL[0];
-	public WrapperURLClassLoader (ClassLoader parent)
-	{
-		super(EMPTY_URLS, parent);
-	}
+    private static final URL[]    EMPTY_URLS=new URL[0];
+    public WrapperURLClassLoader (ClassLoader parent)
+    {
+        super(EMPTY_URLS, parent);
+    }
 }

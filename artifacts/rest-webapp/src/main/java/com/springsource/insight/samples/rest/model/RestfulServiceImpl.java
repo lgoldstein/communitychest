@@ -26,72 +26,72 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RestfulServiceImpl implements RestfulService {
-	private final RestfulRepository	_repo;
+    private final RestfulRepository    _repo;
 
-	@Inject
-	public RestfulServiceImpl(final RestfulRepository repo) {
-		_repo = repo;
-	}
-	/*
-	 * @see com.springsource.insight.samples.rest.RestfulService#findAll()
-	 */
-	@Override
-	public RestfulDataList findAll() {
-		final Collection<? extends RestfulData>	values=_repo.findAll();
-		if ((values == null) || values.isEmpty()) {
-			return new RestfulDataList();
-		}
+    @Inject
+    public RestfulServiceImpl(final RestfulRepository repo) {
+        _repo = repo;
+    }
+    /*
+     * @see com.springsource.insight.samples.rest.RestfulService#findAll()
+     */
+    @Override
+    public RestfulDataList findAll() {
+        final Collection<? extends RestfulData>    values=_repo.findAll();
+        if ((values == null) || values.isEmpty()) {
+            return new RestfulDataList();
+        }
 
-		final RestfulDataList	list=new RestfulDataList(values);
-		for (int	i=0; i < list.size(); i++) {
-			final RestfulData	val=list.get(i);
-			list.set(i, val.clone());
-		}
+        final RestfulDataList    list=new RestfulDataList(values);
+        for (int    i=0; i < list.size(); i++) {
+            final RestfulData    val=list.get(i);
+            list.set(i, val.clone());
+        }
 
-		return list;
-	}
-	/*
-	 * @see com.springsource.insight.samples.rest.RestfulService#getData(long)
-	 */
-	@Override
-	public RestfulData getData(long id) {
-		final RestfulData	value=_repo.getData(id);
-		if (value != null) {
-			return value.clone();
-		}
+        return list;
+    }
+    /*
+     * @see com.springsource.insight.samples.rest.RestfulService#getData(long)
+     */
+    @Override
+    public RestfulData getData(long id) {
+        final RestfulData    value=_repo.getData(id);
+        if (value != null) {
+            return value.clone();
+        }
 
-		return null;
-	}
-	/*
-	 * @see com.springsource.insight.samples.rest.RestfulService#create(int)
-	 */
-	@Override
-	public RestfulData create(int balance) {
-		final RestfulData	value=_repo.create(balance);
-		if (value != null) {
-			return value.clone();
-		}
+        return null;
+    }
+    /*
+     * @see com.springsource.insight.samples.rest.RestfulService#create(int)
+     */
+    @Override
+    public RestfulData create(int balance) {
+        final RestfulData    value=_repo.create(balance);
+        if (value != null) {
+            return value.clone();
+        }
 
-		return null;
-	}
-	/*
-	 * @see com.springsource.insight.samples.rest.RestfulService#setBalance(long, int)
-	 */
-	@Override
-	public RestfulData setBalance(long id, int balance) {
-		final RestfulData	value=_repo.setBalance(id, balance);
-		if (value != null) {
-			return value.clone();
-		}
+        return null;
+    }
+    /*
+     * @see com.springsource.insight.samples.rest.RestfulService#setBalance(long, int)
+     */
+    @Override
+    public RestfulData setBalance(long id, int balance) {
+        final RestfulData    value=_repo.setBalance(id, balance);
+        if (value != null) {
+            return value.clone();
+        }
 
-		return null;
-	}
-	/*
-	 * @see com.springsource.insight.samples.rest.RestfulService#removeData(long)
-	 */
-	@Override
-	public RestfulData removeData(long id) {
-		return _repo.removeData(id);
-	}
+        return null;
+    }
+    /*
+     * @see com.springsource.insight.samples.rest.RestfulService#removeData(long)
+     */
+    @Override
+    public RestfulData removeData(long id) {
+        return _repo.removeData(id);
+    }
 
 }

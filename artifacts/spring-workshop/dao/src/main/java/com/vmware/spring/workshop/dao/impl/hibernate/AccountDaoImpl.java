@@ -27,52 +27,52 @@ import com.vmware.spring.workshop.model.user.InvestmentData;
 @Repository("accountDao")
 @Transactional
 public class AccountDaoImpl
-		extends AbstractIdentifiedHibernateDaoImpl<Account>
-		implements AccountDao {
-	private final NamedParameterJdbcOperations	_namedOperations;
-	@Inject
-	public AccountDaoImpl (DataSource dataSource) {
-		super(Account.class);
-		_namedOperations = new NamedParameterJdbcTemplate(dataSource);
-	}
+        extends AbstractIdentifiedHibernateDaoImpl<Account>
+        implements AccountDao {
+    private final NamedParameterJdbcOperations    _namedOperations;
+    @Inject
+    public AccountDaoImpl (DataSource dataSource) {
+        super(Account.class);
+        _namedOperations = new NamedParameterJdbcTemplate(dataSource);
+    }
 
-	@Override
-	@Transactional(readOnly=true)
-	public List<Account> findUserAccountsById(Long userId) {
-		return getNamedIdDefaultQueryResults("findUserAccountsById", userId);
-	}
+    @Override
+    @Transactional(readOnly=true)
+    public List<Account> findUserAccountsById(Long userId) {
+        return getNamedIdDefaultQueryResults("findUserAccountsById", userId);
+    }
 
-	@Override
-	@Transactional(readOnly=true)
-	public List<Account> findBranchAccountsById(Long branchId) {
-		return getNamedIdDefaultQueryResults("findBranchAccountsById", branchId);
-	}
+    @Override
+    @Transactional(readOnly=true)
+    public List<Account> findBranchAccountsById(Long branchId) {
+        return getNamedIdDefaultQueryResults("findBranchAccountsById", branchId);
+    }
 
-	@Override
-	@Transactional(readOnly=true)
-	public List<Account> findBankAccountsById(Long bankId) {
-		return getNamedIdDefaultQueryResults("findBankAccountsById", bankId);
-	}
+    @Override
+    @Transactional(readOnly=true)
+    public List<Account> findBankAccountsById(Long bankId) {
+        return getNamedIdDefaultQueryResults("findBankAccountsById", bankId);
+    }
 
-	@Override
-	@Transactional(readOnly=true)
-	public List<Map.Entry<Long, Integer>> findInvestedAmountsByBank(Long userId) {
-		Assert.notNull(userId, "No user id");
-		return _namedOperations.query("SELECT bnk.id, SUM(acc.amount) \n"
-									+ "FROM Account acc \n"
-									+ "INNER JOIN Branch brh ON brh.id = acc.branchId \n"
-									+ "INNER JOIN Bank bnk ON bnk.id = brh.bankId \n"
-									+ "WHERE acc.ownerId = :" + Identified.ID_COL_NAME + " \n"
-									+ "GROUP BY bnk.id",
-									  Collections.singletonMap(Identified.ID_COL_NAME, userId),
-									  MAPPER);
-	}
-	
-	private static final RowMapper<Map.Entry<Long,Integer>>	MAPPER=
-			new RowMapper<Map.Entry<Long,Integer>>() {
-				@Override
-				public InvestmentData mapRow(ResultSet rs, int rowNum) throws SQLException {
-					return new InvestmentData(rs.getLong(1), rs.getInt(2));
-				}
-		};
+    @Override
+    @Transactional(readOnly=true)
+    public List<Map.Entry<Long, Integer>> findInvestedAmountsByBank(Long userId) {
+        Assert.notNull(userId, "No user id");
+        return _namedOperations.query("SELECT bnk.id, SUM(acc.amount) \n"
+                                    + "FROM Account acc \n"
+                                    + "INNER JOIN Branch brh ON brh.id = acc.branchId \n"
+                                    + "INNER JOIN Bank bnk ON bnk.id = brh.bankId \n"
+                                    + "WHERE acc.ownerId = :" + Identified.ID_COL_NAME + " \n"
+                                    + "GROUP BY bnk.id",
+                                      Collections.singletonMap(Identified.ID_COL_NAME, userId),
+                                      MAPPER);
+    }
+
+    private static final RowMapper<Map.Entry<Long,Integer>>    MAPPER=
+            new RowMapper<Map.Entry<Long,Integer>>() {
+                @Override
+                public InvestmentData mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return new InvestmentData(rs.getLong(1), rs.getInt(2));
+                }
+        };
 }

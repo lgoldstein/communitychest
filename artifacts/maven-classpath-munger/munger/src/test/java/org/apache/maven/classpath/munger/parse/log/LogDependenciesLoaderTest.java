@@ -1,12 +1,12 @@
 /*
  * Copyright 2013 Lyor Goldstein
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -59,9 +59,9 @@ public class LogDependenciesLoaderTest extends AbstractTestSupport {
         PrintStream out=writeLogFilePreamble(new PrintStream(file, "UTF-8"));
         try {
             out.append("[INFO] --- maven-dependency-plugin:2.8:list ").append(getClass().getSimpleName()).append(" @ ").append(getCurrentTestName()).println(" ---");
-            out.println("[INFO]");                                                                         
+            out.println("[INFO]");
             out.println("[INFO] The following files have been resolved:");
-            out.println("[INFO]");                                                                         
+            out.println("[INFO]");
             for (MavenDependency d : expected) {
                 appendDependency(out, d);
             }
@@ -78,7 +78,7 @@ public class LogDependenciesLoaderTest extends AbstractTestSupport {
         } finally {
             out.close();
         }
-        
+
         LogDependenciesLoader   loader=new LogDependenciesLoader(getCurrentTestLogger());
         loader.load(file);
 
@@ -99,7 +99,7 @@ public class LogDependenciesLoaderTest extends AbstractTestSupport {
             ;
         return out;
     }
-       
+
     @Test
     public void testParseRepositories() throws IOException {
         List<Repository>    expected=
@@ -112,7 +112,7 @@ public class LogDependenciesLoaderTest extends AbstractTestSupport {
         final long  startTime=System.currentTimeMillis();
         PrintStream out=writeLogFilePreamble(new PrintStream(file, "UTF-8"));
         try {
-            out.println("[INFO]"); 
+            out.println("[INFO]");
             out.append("[INFO] --- maven-dependency-plugin:2.8:list-repositories ").append(getClass().getSimpleName()).append(" @ ").append(getCurrentTestName()).println(" ---");
             out.println("[INFO] Repositories Used by this build:");
 
@@ -153,23 +153,23 @@ public class LogDependenciesLoaderTest extends AbstractTestSupport {
         out.println("Some gibberish");
         out.println("[ERROR] Some non info data");
         out.println("[INFO] Scanning for projects...");
-        out.println("[INFO]");                                                                         
+        out.println("[INFO]");
         out.println("[INFO] ------------------------------------------------------------------------");
         out.println("[INFO] Test test test test test  test test test test test test test test test");
         out.println("[INFO] ------------------------------------------------------------------------");
-        out.println("[INFO]");                                                                         
+        out.println("[INFO]");
         return out;
     }
 
     private <P extends PrintStream> P writeLogFileEpilogue(P out, long startTime) {
-        out.println("[INFO]");                                                                         
+        out.println("[INFO]");
         out.println("[INFO] ------------------------------------------------------------------------");
         out.println("[INFO] BUILD SUCCESS");
         out.println("[INFO] ------------------------------------------------------------------------");
         out.append("[INFO] Total time: ").append(String.valueOf(System.currentTimeMillis() - startTime)).println(" msec");
         out.append("[INFO] [INFO] Finished at: ").println(new Date());
         out.println("[INFO] ------------------------------------------------------------------------");
-        out.println("[INFO]");                                                                         
+        out.println("[INFO]");
         return out;
     }
 }

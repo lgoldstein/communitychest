@@ -13,7 +13,7 @@ import com.vmware.spring.workshop.dao.impl.AbstractBranchDaoTestSupport;
 @ActiveProfiles("hibernate")
 public class BranchDaoImplTest extends AbstractBranchDaoTestSupport {
 
-	public BranchDaoImplTest() {
-		super();
-	}
+    public BranchDaoImplTest() {
+        super();
+    }
 }

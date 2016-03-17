@@ -17,13 +17,13 @@ import com.vmware.spring.workshop.services.facade.BanksFacade;
 @Controller("banksRestfulService")
 @RequestMapping(AbstractMVCRestfulService.MVC_ACCESS_ROOT + "/banks")
 public class BanksRestfulService extends AbstractMVCRestfulService<BankDTO, BanksFacade> {
-	@Inject
-	public BanksRestfulService (final BanksFacade facade) {
-		super(BankDTO.class, facade);
-	}
+    @Inject
+    public BanksRestfulService (final BanksFacade facade) {
+        super(BankDTO.class, facade);
+    }
 
-	@Override
-	protected BankDTOList wrapAsDTOList(Collection<? extends BankDTO> dtoList) {
-		return new BankDTOList(dtoList);
-	}
+    @Override
+    protected BankDTOList wrapAsDTOList(Collection<? extends BankDTO> dtoList) {
+        return new BankDTOList(dtoList);
+    }
 }

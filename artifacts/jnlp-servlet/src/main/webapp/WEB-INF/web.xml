@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-					 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-	<display-name>JNLP Protocol Servlet $Rev: 613 $</display-name>
-	<description>Provides the JNLP download protocol</description>
+    <display-name>JNLP Protocol Servlet $Rev: 613 $</display-name>
+    <description>Provides the JNLP download protocol</description>
 
     <servlet>
         <servlet-name>JnlpTestServlet</servlet-name>
         <servlet-class>jnlp.sample.test.JnlpTestServlet</servlet-class>
-    	<load-on-startup>1</load-on-startup>
-		<!-- init-param>
-      		<param-name>logLevel</param-name>
-	      	<param-value>DEBUG</param-value>
-    	</init-param -->
+        <load-on-startup>1</load-on-startup>
+        <!-- init-param>
+              <param-name>logLevel</param-name>
+              <param-value>DEBUG</param-value>
+        </init-param -->
     </servlet>
 
-  	<servlet-mapping>
-    	<servlet-name>JnlpTestServlet</servlet-name>
-    	<url-pattern>/JnlpTestServlet/*</url-pattern>
-  	</servlet-mapping>
+      <servlet-mapping>
+        <servlet-name>JnlpTestServlet</servlet-name>
+        <url-pattern>/JnlpTestServlet/*</url-pattern>
+      </servlet-mapping>
 </web-app>

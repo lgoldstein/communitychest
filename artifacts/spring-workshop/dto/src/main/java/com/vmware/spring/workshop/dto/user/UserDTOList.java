@@ -16,18 +16,18 @@ import com.vmware.spring.workshop.dto.DTOList;
 @XmlType(name="usersList")
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class UserDTOList extends DTOList<UserDTO> {
-	private static final long serialVersionUID = 8576659706059429436L;
+    private static final long serialVersionUID = 8576659706059429436L;
 
-	public UserDTOList() {
-		super();
-	}
+    public UserDTOList() {
+        super();
+    }
 
-	public UserDTOList(Collection<? extends UserDTO> c) {
-		super(c);
-	}
+    public UserDTOList(Collection<? extends UserDTO> c) {
+        super(c);
+    }
 
-	public UserDTOList(int initialCapacity) {
-		super(initialCapacity);
-	}
+    public UserDTOList(int initialCapacity) {
+        super(initialCapacity);
+    }
 
 }

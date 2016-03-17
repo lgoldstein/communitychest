@@ -16,29 +16,29 @@ import com.vmware.spring.workshop.model.user.User;
 @Repository("userDao")
 @Transactional
 public class UserDaoImpl extends AbstractIdentifiedHibernateDaoImpl<User> implements UserDao {
-	public UserDaoImpl ()
-	{
-		super(User.class);
-	}
+    public UserDaoImpl ()
+    {
+        super(User.class);
+    }
 
-	@Override
-	@Transactional(readOnly=true)
-	public User findByLoginName (String username)
-	{
-		Assert.hasText(username, "No username provided");
-		final Query	query=getNamedQuery("findByLoginName")
-						 .setParameter("loginName", username)
-						 ;
-		return getDefaultUniqueResult(query);
-	}
+    @Override
+    @Transactional(readOnly=true)
+    public User findByLoginName (String username)
+    {
+        Assert.hasText(username, "No username provided");
+        final Query    query=getNamedQuery("findByLoginName")
+                         .setParameter("loginName", username)
+                         ;
+        return getDefaultUniqueResult(query);
+    }
 
-	@Override
-	@Transactional(readOnly=true)
-	public List<User> findUserByLocation(String location) {
-		Assert.hasText(location, "No location provided");
-		final Query	query=getNamedQuery("findUserByLocation")
-				 .setParameter("location", "%" + location.toLowerCase() + "%")
-				 ;
-		return getDefaultQueryResults(query);
-	}
+    @Override
+    @Transactional(readOnly=true)
+    public List<User> findUserByLocation(String location) {
+        Assert.hasText(location, "No location provided");
+        final Query    query=getNamedQuery("findUserByLocation")
+                 .setParameter("location", "%" + location.toLowerCase() + "%")
+                 ;
+        return getDefaultQueryResults(query);
+    }
 }

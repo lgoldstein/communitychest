@@ -38,186 +38,186 @@ import com.vmware.spring.workshop.services.ExceptionUtils;
  */
 @Service("vmwareUserAuthenticator")
 public class VmwareUserAuthenticator extends AbstractCleartextAuthenticationProvider {
-	private final String	_ldapAccessURL,	_userSearchFilter;
+    private final String    _ldapAccessURL,    _userSearchFilter;
 
-	@Inject
-	public VmwareUserAuthenticator(
-			@Value("${vmware.ldap.accessURL}") 	 		final String ldapAccessURL,
-			@Value("${vmware.ldap.userSearchFilter}")	final String userSearchFilter){
-		Assert.state(StringUtils.hasText(ldapAccessURL), "No LDAP access URL provided");
-		Assert.state(StringUtils.hasText(userSearchFilter), "No user search filter provided");
+    @Inject
+    public VmwareUserAuthenticator(
+            @Value("${vmware.ldap.accessURL}")              final String ldapAccessURL,
+            @Value("${vmware.ldap.userSearchFilter}")    final String userSearchFilter){
+        Assert.state(StringUtils.hasText(ldapAccessURL), "No LDAP access URL provided");
+        Assert.state(StringUtils.hasText(userSearchFilter), "No user search filter provided");
 
-		_ldapAccessURL = ldapAccessURL;
-		_userSearchFilter = userSearchFilter;
-	}
+        _ldapAccessURL = ldapAccessURL;
+        _userSearchFilter = userSearchFilter;
+    }
 
-	@Override
-	public User authenticate(final String username, final String password)
-			throws AuthenticationException {
-		final String			authToken=username + "@vmware.com";
-		final LdapContextSource	ctxSource=
-				new DefaultSpringSecurityContextSource(_ldapAccessURL);
-		ctxSource.setAuthenticationStrategy(new SimpleDirContextAuthenticationStrategy() {
-				@Override
-				public void setupEnvironment (@SuppressWarnings("rawtypes") Hashtable env, String userDn, String bindPassword)
-				{
-					super.setupEnvironment(env, authToken, password);
-				}
-			});
-		ctxSource.setAuthenticationSource(new AuthenticationSource() {
-				@Override
-				public String getPrincipal ()
-				{
-					return authToken;
-				}
-				
-				@Override
-				public String getCredentials ()
-				{
-					return password;
-				}
-			});
-		try {
-			ctxSource.afterPropertiesSet();
-		} catch(Exception t) {
-			final RuntimeException e=ExceptionUtils.toRuntimeException(t);
-			_logger.error("Failed (" + e.getClass().getSimpleName() + " to initialized LDAP context: " + e.getMessage(), e);
-			throw e;
-		}
+    @Override
+    public User authenticate(final String username, final String password)
+            throws AuthenticationException {
+        final String            authToken=username + "@vmware.com";
+        final LdapContextSource    ctxSource=
+                new DefaultSpringSecurityContextSource(_ldapAccessURL);
+        ctxSource.setAuthenticationStrategy(new SimpleDirContextAuthenticationStrategy() {
+                @Override
+                public void setupEnvironment (@SuppressWarnings("rawtypes") Hashtable env, String userDn, String bindPassword)
+                {
+                    super.setupEnvironment(env, authToken, password);
+                }
+            });
+        ctxSource.setAuthenticationSource(new AuthenticationSource() {
+                @Override
+                public String getPrincipal ()
+                {
+                    return authToken;
+                }
 
-		final LdapUserSearch		userSearch=new FilterBasedLdapUserSearch("", _userSearchFilter, ctxSource);
-		final DirContextOperations	ops;
-		try {
-			if ((ops=userSearch.searchForUser(authToken)) == null)
-				throw new UsernameNotFoundException("Null context returned");
-		} catch(UsernameNotFoundException e) {
-			return null;
-		}
+                @Override
+                public String getCredentials ()
+                {
+                    return password;
+                }
+            });
+        try {
+            ctxSource.afterPropertiesSet();
+        } catch(Exception t) {
+            final RuntimeException e=ExceptionUtils.toRuntimeException(t);
+            _logger.error("Failed (" + e.getClass().getSimpleName() + " to initialized LDAP context: " + e.getMessage(), e);
+            throw e;
+        }
 
-		try {
-			return createUser(username, ops);
-		} catch(NamingException e) {
-			throw new AuthenticationServiceException("Failed to extract user attributes", e);
-		}
-	}
+        final LdapUserSearch        userSearch=new FilterBasedLdapUserSearch("", _userSearchFilter, ctxSource);
+        final DirContextOperations    ops;
+        try {
+            if ((ops=userSearch.searchForUser(authToken)) == null)
+                throw new UsernameNotFoundException("Null context returned");
+        } catch(UsernameNotFoundException e) {
+            return null;
+        }
 
-	User createUser (final String username, final DirContextOperations ops) throws NamingException {
-		Assert.notNull(ops, "No context provided");
-		return createUser(username, ops.getAttributes());
-	}
+        try {
+            return createUser(username, ops);
+        } catch(NamingException e) {
+            throw new AuthenticationServiceException("Failed to extract user attributes", e);
+        }
+    }
 
-	// attributes used to extract information form the LDAP response
-	static final String	ACCOUNT_ATTR="sAMAccountName",
-						DISPNAME_ATTR="displayName",
-						STREETADDR_ATTR="streetAddress",
-						CITY_ATTR="l",
-						COUNTRY_ATTR="co";
-	static final Long	DUMMY_USER_ID=Long.valueOf(-1L);
-	User createUser (final String username, final Attributes attrs) throws NamingException {
-		final User							user=new User();
-		final Map<LocationValues,String>	locVals=new EnumMap<LocationValues,String>(LocationValues.class);
-		for (final NamingEnumeration<? extends Attribute>	attrVals=attrs.getAll();
-			 (attrVals != null) && attrVals.hasMore(); ) {
-			final Attribute	a=attrVals.next();
-			final String	attrID=a.getID();
-			final Object	attrVal=a.get();
-			if (_logger.isDebugEnabled())
-				_logger.debug("createUser(" + username + "): " + attrID + " = " + attrVal);
-			if (attrVal == null)
-				continue;
+    User createUser (final String username, final DirContextOperations ops) throws NamingException {
+        Assert.notNull(ops, "No context provided");
+        return createUser(username, ops.getAttributes());
+    }
 
-			if (ACCOUNT_ATTR.equalsIgnoreCase(attrID))
-				user.setLoginName(attrVal.toString());
-			if (DISPNAME_ATTR.equalsIgnoreCase(attrID))
-				user.setName(attrVal.toString());
-			else if (STREETADDR_ATTR.equalsIgnoreCase(attrID))
-				updateStreetAddress(locVals, attrVal.toString());
-			else if (CITY_ATTR.equalsIgnoreCase(attrID))
-				updateCity(locVals, attrVal.toString());
-			else if (COUNTRY_ATTR.equalsIgnoreCase(attrID))
-				updateCountry(locVals, attrVal.toString());
-		}
+    // attributes used to extract information form the LDAP response
+    static final String    ACCOUNT_ATTR="sAMAccountName",
+                        DISPNAME_ATTR="displayName",
+                        STREETADDR_ATTR="streetAddress",
+                        CITY_ATTR="l",
+                        COUNTRY_ATTR="co";
+    static final Long    DUMMY_USER_ID=Long.valueOf(-1L);
+    User createUser (final String username, final Attributes attrs) throws NamingException {
+        final User                            user=new User();
+        final Map<LocationValues,String>    locVals=new EnumMap<LocationValues,String>(LocationValues.class);
+        for (final NamingEnumeration<? extends Attribute>    attrVals=attrs.getAll();
+             (attrVals != null) && attrVals.hasMore(); ) {
+            final Attribute    a=attrVals.next();
+            final String    attrID=a.getID();
+            final Object    attrVal=a.get();
+            if (_logger.isDebugEnabled())
+                _logger.debug("createUser(" + username + "): " + attrID + " = " + attrVal);
+            if (attrVal == null)
+                continue;
 
-		user.setId(DUMMY_USER_ID);
-		user.setRole(UserRoleType.GUEST);
-		user.setLocation(buildLocation(locVals));
+            if (ACCOUNT_ATTR.equalsIgnoreCase(attrID))
+                user.setLoginName(attrVal.toString());
+            if (DISPNAME_ATTR.equalsIgnoreCase(attrID))
+                user.setName(attrVal.toString());
+            else if (STREETADDR_ATTR.equalsIgnoreCase(attrID))
+                updateStreetAddress(locVals, attrVal.toString());
+            else if (CITY_ATTR.equalsIgnoreCase(attrID))
+                updateCity(locVals, attrVal.toString());
+            else if (COUNTRY_ATTR.equalsIgnoreCase(attrID))
+                updateCountry(locVals, attrVal.toString());
+        }
 
-		if (!StringUtils.hasText(user.getLoginName())) {
-			_logger.warn("createUser(" + username + ") no login name");
-			user.setLoginName(username);
-		}
+        user.setId(DUMMY_USER_ID);
+        user.setRole(UserRoleType.GUEST);
+        user.setLocation(buildLocation(locVals));
 
-		if (!StringUtils.hasText(user.getName())) {
-			_logger.warn("createUser(" + username + ") no display name");
-			user.setName(username);
-		}
+        if (!StringUtils.hasText(user.getLoginName())) {
+            _logger.warn("createUser(" + username + ") no login name");
+            user.setLoginName(username);
+        }
 
-		if (_logger.isDebugEnabled())
-			_logger.debug("createUser(" + username + "): name=" + user.getName() + ", location=" + user.getLocation());
+        if (!StringUtils.hasText(user.getName())) {
+            _logger.warn("createUser(" + username + ") no display name");
+            user.setName(username);
+        }
 
-		if (!StringUtils.hasText(user.getLocation())) {
-			_logger.warn("createUser(" + username + ") no location");
-		}
+        if (_logger.isDebugEnabled())
+            _logger.debug("createUser(" + username + "): name=" + user.getName() + ", location=" + user.getLocation());
 
-		return user;
-	}
+        if (!StringUtils.hasText(user.getLocation())) {
+            _logger.warn("createUser(" + username + ") no location");
+        }
 
-	static final String buildLocation (final Map<LocationValues,String> locVals) {
-		if (MapUtils.isEmpty(locVals))
-			return null;
+        return user;
+    }
 
-		final StringBuilder	sb=new StringBuilder(Byte.MAX_VALUE);
-		for (final LocationValues locVal : LocationValues.VALUES) {
-			final String	locString=locVals.get(locVal);
-			if (!StringUtils.hasText(locString))
-				continue;
-			if (sb.length() > 0)
-				sb.append(", ");
-			sb.append(locString);
-		}
+    static final String buildLocation (final Map<LocationValues,String> locVals) {
+        if (MapUtils.isEmpty(locVals))
+            return null;
 
-		if (sb.length() <= 0)
-			return null;
-		else
-			return sb.toString();
-	}
+        final StringBuilder    sb=new StringBuilder(Byte.MAX_VALUE);
+        for (final LocationValues locVal : LocationValues.VALUES) {
+            final String    locString=locVals.get(locVal);
+            if (!StringUtils.hasText(locString))
+                continue;
+            if (sb.length() > 0)
+                sb.append(", ");
+            sb.append(locString);
+        }
 
-	static final String updateCountry (final Map<LocationValues,String> locVals, final String country) {
-		return updateLocationValue(locVals, LocationValues.COUNTRY, country);
-	}
+        if (sb.length() <= 0)
+            return null;
+        else
+            return sb.toString();
+    }
 
-	static final String updateCity (final Map<LocationValues,String> locVals, final String city) {
-		return updateLocationValue(locVals, LocationValues.CITY, city);
-	}
+    static final String updateCountry (final Map<LocationValues,String> locVals, final String country) {
+        return updateLocationValue(locVals, LocationValues.COUNTRY, country);
+    }
 
-	static final String updateStreetAddress (final Map<LocationValues,String> locVals, final String streetAddress) {
-		if (!StringUtils.hasText(streetAddress))
-			return null;
+    static final String updateCity (final Map<LocationValues,String> locVals, final String city) {
+        return updateLocationValue(locVals, LocationValues.CITY, city);
+    }
 
-		int	lastPos=streetAddress.indexOf('\r');
-		if (lastPos < 0)
-			lastPos = streetAddress.indexOf('\n');
-		if (lastPos < 0)
-			lastPos = streetAddress.length();
+    static final String updateStreetAddress (final Map<LocationValues,String> locVals, final String streetAddress) {
+        if (!StringUtils.hasText(streetAddress))
+            return null;
 
-		return updateLocationValue(locVals, LocationValues.STREET, streetAddress.substring(0, lastPos));
-	}
+        int    lastPos=streetAddress.indexOf('\r');
+        if (lastPos < 0)
+            lastPos = streetAddress.indexOf('\n');
+        if (lastPos < 0)
+            lastPos = streetAddress.length();
 
-	static final String updateLocationValue (final Map<LocationValues,String>	locVals,
-											 final LocationValues				locIndex,
-											 final String						locString) {
-		if (StringUtils.hasText(locString))
-			return locVals.put(locIndex, locString);
-		else
-			return locVals.get(locIndex);
-	}
+        return updateLocationValue(locVals, LocationValues.STREET, streetAddress.substring(0, lastPos));
+    }
 
-	static enum LocationValues {
-		STREET,
-		CITY,
-		COUNTRY;
-		
-		public static final List<LocationValues>	VALUES=
-				Collections.unmodifiableList(Arrays.asList(values()));
-	}
+    static final String updateLocationValue (final Map<LocationValues,String>    locVals,
+                                             final LocationValues                locIndex,
+                                             final String                        locString) {
+        if (StringUtils.hasText(locString))
+            return locVals.put(locIndex, locString);
+        else
+            return locVals.get(locIndex);
+    }
+
+    static enum LocationValues {
+        STREET,
+        CITY,
+        COUNTRY;
+
+        public static final List<LocationValues>    VALUES=
+                Collections.unmodifiableList(Arrays.asList(values()));
+    }
 }

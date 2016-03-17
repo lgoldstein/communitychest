@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.javaagent.dumper.ui.tree;
 
@@ -34,132 +34,132 @@ import net.community.chest.javaagent.dumper.ui.data.SelectiblePackageInfo;
  * @since Aug 14, 2011 2:52:18 PM
  */
 public class NodeExpansionHandler extends MouseAdapter implements TreeWillExpandListener, TreeExpansionListener, TreeSelectionListener {
-	private final JTree	_tree;
-	public NodeExpansionHandler (final JTree tree)
-	{
-		_tree = tree;
-	}
-	/*
-	 * @see javax.swing.event.TreeWillExpandListener#treeWillExpand(javax.swing.event.TreeExpansionEvent)
-	 */
-	@Override
-	public void treeWillExpand (TreeExpansionEvent event) throws ExpandVetoException
-	{
-		handleExpansionEvent(event);
-	}
-	/*
-	 * @see javax.swing.event.TreeExpansionListener#treeExpanded(javax.swing.event.TreeExpansionEvent)
-	 */
-	@Override
-	public void treeExpanded (TreeExpansionEvent event)
-	{
-		handleExpansionEvent(event);
-	}
-	/*
-	 * @see javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event.TreeSelectionEvent)
-	 */
-	@Override
-	public void valueChanged (TreeSelectionEvent e)
-	{
-		handleExpansionEvent(e.getNewLeadSelectionPath());
-	}
-	/*
-	 * @see javax.swing.event.TreeWillExpandListener#treeWillCollapse(javax.swing.event.TreeExpansionEvent)
-	 */
-	@Override
-	public void treeWillCollapse (TreeExpansionEvent event) throws ExpandVetoException
-	{
-		// ignored
-	}
-	/*
-	 * @see javax.swing.event.TreeExpansionListener#treeCollapsed(javax.swing.event.TreeExpansionEvent)
-	 */
-	@Override
-	public void treeCollapsed (TreeExpansionEvent event)
-	{
-		// ignored
-	}
-	/* Interpret double click as collapse/expand - the opposite of whatever is
-	 * ths current state of the selected node
-	 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
-	 */
-	@Override
-	public void mouseClicked (final MouseEvent e)
-	{
-		if ((e == null) || (!SwingUtilities.isLeftMouseButton(e)) || (e.getClickCount() < 2))
-			return;
+    private final JTree    _tree;
+    public NodeExpansionHandler (final JTree tree)
+    {
+        _tree = tree;
+    }
+    /*
+     * @see javax.swing.event.TreeWillExpandListener#treeWillExpand(javax.swing.event.TreeExpansionEvent)
+     */
+    @Override
+    public void treeWillExpand (TreeExpansionEvent event) throws ExpandVetoException
+    {
+        handleExpansionEvent(event);
+    }
+    /*
+     * @see javax.swing.event.TreeExpansionListener#treeExpanded(javax.swing.event.TreeExpansionEvent)
+     */
+    @Override
+    public void treeExpanded (TreeExpansionEvent event)
+    {
+        handleExpansionEvent(event);
+    }
+    /*
+     * @see javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event.TreeSelectionEvent)
+     */
+    @Override
+    public void valueChanged (TreeSelectionEvent e)
+    {
+        handleExpansionEvent(e.getNewLeadSelectionPath());
+    }
+    /*
+     * @see javax.swing.event.TreeWillExpandListener#treeWillCollapse(javax.swing.event.TreeExpansionEvent)
+     */
+    @Override
+    public void treeWillCollapse (TreeExpansionEvent event) throws ExpandVetoException
+    {
+        // ignored
+    }
+    /*
+     * @see javax.swing.event.TreeExpansionListener#treeCollapsed(javax.swing.event.TreeExpansionEvent)
+     */
+    @Override
+    public void treeCollapsed (TreeExpansionEvent event)
+    {
+        // ignored
+    }
+    /* Interpret double click as collapse/expand - the opposite of whatever is
+     * ths current state of the selected node
+     * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
+     */
+    @Override
+    public void mouseClicked (final MouseEvent e)
+    {
+        if ((e == null) || (!SwingUtilities.isLeftMouseButton(e)) || (e.getClickCount() < 2))
+            return;
 
-		final TreePath	selPath=_tree.getSelectionPath();
-		final TreeNode	selNode=(TreeNode) ((selPath == null) ? null : selPath.getLastPathComponent());
+        final TreePath    selPath=_tree.getSelectionPath();
+        final TreeNode    selNode=(TreeNode) ((selPath == null) ? null : selPath.getLastPathComponent());
         if (selNode == null)
-        	return;
-        
+            return;
+
         if (!_tree.isExpanded(selPath))
-        	handleExpansionEvent(selPath);
-	}
+            handleExpansionEvent(selPath);
+    }
 
-	protected void handleExpansionEvent (TreeExpansionEvent event)
-	{
-		handleExpansionEvent(event.getPath());
-	}
+    protected void handleExpansionEvent (TreeExpansionEvent event)
+    {
+        handleExpansionEvent(event.getPath());
+    }
 
-	protected void handleExpansionEvent (final TreePath selPath)
-	{
-        final TreeNode	selNode=(TreeNode) ((selPath == null) ? null : selPath.getLastPathComponent());
+    protected void handleExpansionEvent (final TreePath selPath)
+    {
+        final TreeNode    selNode=(TreeNode) ((selPath == null) ? null : selPath.getLastPathComponent());
         if (selNode == null)
-        	return;
+            return;
 
-        final int		numChildren=selNode.getChildCount();
+        final int        numChildren=selNode.getChildCount();
         if ((numChildren > 0) || (selNode instanceof MethodNode))
-        	return;	// skip if already expanded or nothing to expand
+            return;    // skip if already expanded or nothing to expand
 
         if (selNode instanceof PackageNode)
-        	nodeStructureChanged(selPath, expandPackageNode((PackageNode) selNode));
+            nodeStructureChanged(selPath, expandPackageNode((PackageNode) selNode));
         else if (selNode instanceof ClassNode)
-        	nodeStructureChanged(selPath, expandClassNode((ClassNode) selNode));
-	}
+            nodeStructureChanged(selPath, expandClassNode((ClassNode) selNode));
+    }
 
-	protected PackageNode expandPackageNode (final PackageNode node)
-	{
-		final SelectiblePackageInfo		info=node.getAssignedValue();
-		final List<SelectibleClassInfo>	classes=new ArrayList<SelectibleClassInfo>(info);
-		Collections.sort(classes, SelectibleClassInfo.BY_SIMPLE_NAME_COMP);
+    protected PackageNode expandPackageNode (final PackageNode node)
+    {
+        final SelectiblePackageInfo        info=node.getAssignedValue();
+        final List<SelectibleClassInfo>    classes=new ArrayList<SelectibleClassInfo>(info);
+        Collections.sort(classes, SelectibleClassInfo.BY_SIMPLE_NAME_COMP);
 
-		for (final SelectibleClassInfo clsInfo : classes)
-		{
-			if (!clsInfo.isPublic())	// show only public classes
-				continue;
-			node.add(new ClassNode(clsInfo));
-		}
+        for (final SelectibleClassInfo clsInfo : classes)
+        {
+            if (!clsInfo.isPublic())    // show only public classes
+                continue;
+            node.add(new ClassNode(clsInfo));
+        }
 
-		return node;
-	}
+        return node;
+    }
 
-	protected ClassNode expandClassNode (final ClassNode node)
-	{
-		final SelectibleClassInfo			info=node.getAssignedValue();
-		@SuppressWarnings({ "rawtypes", "unchecked" })
-		final List<SelectibleMethodInfo>	methods=
-				new ArrayList<SelectibleMethodInfo>((Collection) info.getMethods());
-		Collections.sort(methods, AbstractInfo.BY_NAME_COMP);
+    protected ClassNode expandClassNode (final ClassNode node)
+    {
+        final SelectibleClassInfo            info=node.getAssignedValue();
+        @SuppressWarnings({ "rawtypes", "unchecked" })
+        final List<SelectibleMethodInfo>    methods=
+                new ArrayList<SelectibleMethodInfo>((Collection) info.getMethods());
+        Collections.sort(methods, AbstractInfo.BY_NAME_COMP);
 
-		for (final SelectibleMethodInfo mthdInfo : methods)
-		{
-			if ((!mthdInfo.isPublic()) || mthdInfo.isConstructor())
-				continue;	//skip constructors and non-public methods
-			node.add(new MethodNode(mthdInfo));
-		}
+        for (final SelectibleMethodInfo mthdInfo : methods)
+        {
+            if ((!mthdInfo.isPublic()) || mthdInfo.isConstructor())
+                continue;    //skip constructors and non-public methods
+            node.add(new MethodNode(mthdInfo));
+        }
 
-		return node;
-	}
-	
-	protected <S extends Selectible, N extends AbstractInfoNode<S>> N nodeStructureChanged (
-			final TreePath nodePath, final N node)
-	{
-		final DefaultTreeModel	model=(DefaultTreeModel) _tree.getModel();
-		model.nodeStructureChanged(node);
-		if (nodePath != null)
-			_tree.expandPath(nodePath);
-		return node;
-	}
+        return node;
+    }
+
+    protected <S extends Selectible, N extends AbstractInfoNode<S>> N nodeStructureChanged (
+            final TreePath nodePath, final N node)
+    {
+        final DefaultTreeModel    model=(DefaultTreeModel) _tree.getModel();
+        model.nodeStructureChanged(node);
+        if (nodePath != null)
+            _tree.expandPath(nodePath);
+        return node;
+    }
 }

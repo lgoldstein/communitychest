@@ -7,15 +7,15 @@ import javax.xml.bind.annotation.XmlRegistry;
  */
 @XmlRegistry
 public final class ObjectFactory {
-	public ObjectFactory() {
-		super();
-	}
+    public ObjectFactory() {
+        super();
+    }
 
-	public BankBranchesRequest createBankBranchesRequest () {
-		return new BankBranchesRequest();
-	}
-	
-	public BankBranchesResponse createBankBranchesResponse () {
-		return new BankBranchesResponse();
-	}
+    public BankBranchesRequest createBankBranchesRequest () {
+        return new BankBranchesRequest();
+    }
+
+    public BankBranchesResponse createBankBranchesResponse () {
+        return new BankBranchesResponse();
+    }
 }

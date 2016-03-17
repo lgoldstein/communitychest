@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 package net.community.chest.javaagent.dumper.filter;
 
@@ -19,136 +19,136 @@ import org.w3c.dom.Node;
  * @since Aug 11, 2011 3:33:14 PM
  */
 public class IncludeExcludeFilter implements XmlConvertibleClassFilter {
-	public IncludeExcludeFilter ()
-	{
-		this(null, null);
-	}
+    public IncludeExcludeFilter ()
+    {
+        this(null, null);
+    }
 
-	public IncludeExcludeFilter (ClassFilter inclFilter, ClassFilter exclFilter)
-	{
-		_inclFilter = inclFilter;
-		_exclFilter = exclFilter;
-	}
-	
-	public IncludeExcludeFilter (Element elem) throws Exception
-	{
-		final Object	filter=fromXml(elem);
-		if (filter != this)
-			throw new IllegalStateException("Mismatched reconstructed instances");
-	}
-	/*
-	 * @see net.community.chest.javaagent.dumper.filter.ClassFilter#accept(java.lang.String)
-	 */
-	@Override
-	public boolean accept (String className)
-	{
-		if (isExcluded(className))
-			return false;
-		if (!isIncluded(className))
-			return false;	// debug breakpoint
+    public IncludeExcludeFilter (ClassFilter inclFilter, ClassFilter exclFilter)
+    {
+        _inclFilter = inclFilter;
+        _exclFilter = exclFilter;
+    }
 
-		return true;
-	}
+    public IncludeExcludeFilter (Element elem) throws Exception
+    {
+        final Object    filter=fromXml(elem);
+        if (filter != this)
+            throw new IllegalStateException("Mismatched reconstructed instances");
+    }
+    /*
+     * @see net.community.chest.javaagent.dumper.filter.ClassFilter#accept(java.lang.String)
+     */
+    @Override
+    public boolean accept (String className)
+    {
+        if (isExcluded(className))
+            return false;
+        if (!isIncluded(className))
+            return false;    // debug breakpoint
 
-	public boolean isIncluded (String className)
-	{
-		final ClassFilter	filter=getInclusionFilter();
-		if (filter == null)
-			return true;
-		else
-			return filter.accept(className);
-	}
+        return true;
+    }
 
-	public boolean isExcluded (String className)
-	{
-		final ClassFilter	filter=getExclusionFilter();
-		if (filter == null)
-			return false;
-		else
-			return filter.accept(className);
-	}
+    public boolean isIncluded (String className)
+    {
+        final ClassFilter    filter=getInclusionFilter();
+        if (filter == null)
+            return true;
+        else
+            return filter.accept(className);
+    }
 
-	private ClassFilter	_inclFilter, _exclFilter;
-	public ClassFilter getInclusionFilter ()
-	{
-		return _inclFilter;
-	}
+    public boolean isExcluded (String className)
+    {
+        final ClassFilter    filter=getExclusionFilter();
+        if (filter == null)
+            return false;
+        else
+            return filter.accept(className);
+    }
 
-	public void setInclusionFilter (ClassFilter inclFilter)
-	{
-		_inclFilter = inclFilter;
-	}
+    private ClassFilter    _inclFilter, _exclFilter;
+    public ClassFilter getInclusionFilter ()
+    {
+        return _inclFilter;
+    }
 
-	public ClassFilter getExclusionFilter ()
-	{
-		return _exclFilter;
-	}
+    public void setInclusionFilter (ClassFilter inclFilter)
+    {
+        _inclFilter = inclFilter;
+    }
 
-	public void setExclusionFilter (ClassFilter exclFilter)
-	{
-		_exclFilter = exclFilter;
-	}
+    public ClassFilter getExclusionFilter ()
+    {
+        return _exclFilter;
+    }
 
-	public static final String	FILTERS_ELEMENT="filters", INCLUDE_ELEMENT="include", EXCLUDE_ELEMENT="exclude";
-	/*
-	 * @see net.community.chest.dom.transform.XmlConvertible#toXml(org.w3c.dom.Document)
-	 */
-	@Override
-	public Element toXml (Document doc) throws Exception
-	{
-		final Element	root=doc.createElement(FILTERS_ELEMENT);
-		appendFilter(doc, root, INCLUDE_ELEMENT, getInclusionFilter());
-		appendFilter(doc, root, EXCLUDE_ELEMENT, getExclusionFilter());
-		return root;
-	}
+    public void setExclusionFilter (ClassFilter exclFilter)
+    {
+        _exclFilter = exclFilter;
+    }
 
-	protected Element appendFilter (Document doc, Element root, String tagName, ClassFilter filter) throws Exception
-	{
-		final Element	filterElem=(filter instanceof XmlConvertibleClassFilter)
-				? ((XmlConvertibleClassFilter) filter).toXml(doc) : null;
-		if (filterElem == null)
-			return null;
+    public static final String    FILTERS_ELEMENT="filters", INCLUDE_ELEMENT="include", EXCLUDE_ELEMENT="exclude";
+    /*
+     * @see net.community.chest.dom.transform.XmlConvertible#toXml(org.w3c.dom.Document)
+     */
+    @Override
+    public Element toXml (Document doc) throws Exception
+    {
+        final Element    root=doc.createElement(FILTERS_ELEMENT);
+        appendFilter(doc, root, INCLUDE_ELEMENT, getInclusionFilter());
+        appendFilter(doc, root, EXCLUDE_ELEMENT, getExclusionFilter());
+        return root;
+    }
 
-		final Element	subRoot=doc.createElement(tagName);
-		subRoot.appendChild(filterElem);
-		root.appendChild(subRoot);
-		return subRoot;
-	}
-	/*
-	 * @see net.community.chest.dom.transform.XmlConvertible#fromXml(org.w3c.dom.Element)
-	 */
-	@Override
-	public IncludeExcludeFilter fromXml (Element root) throws Exception
-	{
-		final Collection<? extends Element>	elems=DOMUtils.extractAllNodes(Element.class, root, Node.ELEMENT_NODE);
-		if ((elems == null) || elems.isEmpty())
-			return this;
+    protected Element appendFilter (Document doc, Element root, String tagName, ClassFilter filter) throws Exception
+    {
+        final Element    filterElem=(filter instanceof XmlConvertibleClassFilter)
+                ? ((XmlConvertibleClassFilter) filter).toXml(doc) : null;
+        if (filterElem == null)
+            return null;
 
-		for (final Element elem : elems)
-		{
-			final String	tagName=elem.getTagName();
-			if (INCLUDE_ELEMENT.equals(tagName))
-				setInclusionFilter(elem);
-			else if (EXCLUDE_ELEMENT.endsWith(tagName))
-				setExclusionFilter(elem);
-			else
-				throw new DOMException(DOMException.NAMESPACE_ERR, "Unknown element: " + DOMUtils.toString(elem));
-		}
+        final Element    subRoot=doc.createElement(tagName);
+        subRoot.appendChild(filterElem);
+        root.appendChild(subRoot);
+        return subRoot;
+    }
+    /*
+     * @see net.community.chest.dom.transform.XmlConvertible#fromXml(org.w3c.dom.Element)
+     */
+    @Override
+    public IncludeExcludeFilter fromXml (Element root) throws Exception
+    {
+        final Collection<? extends Element>    elems=DOMUtils.extractAllNodes(Element.class, root, Node.ELEMENT_NODE);
+        if ((elems == null) || elems.isEmpty())
+            return this;
 
-		return this;
-	}
-	
-	protected XmlConvertibleClassFilter setInclusionFilter (Element elem) throws Exception
-	{
-		final XmlConvertibleClassFilter	filter=new MultiFilter(elem);
-		setInclusionFilter(filter);
-		return filter;
-	}
+        for (final Element elem : elems)
+        {
+            final String    tagName=elem.getTagName();
+            if (INCLUDE_ELEMENT.equals(tagName))
+                setInclusionFilter(elem);
+            else if (EXCLUDE_ELEMENT.endsWith(tagName))
+                setExclusionFilter(elem);
+            else
+                throw new DOMException(DOMException.NAMESPACE_ERR, "Unknown element: " + DOMUtils.toString(elem));
+        }
 
-	protected XmlConvertibleClassFilter setExclusionFilter (Element elem) throws Exception
-	{
-		final XmlConvertibleClassFilter	filter=new MultiFilter(elem);
-		setExclusionFilter(filter);
-		return filter;
-	}
+        return this;
+    }
+
+    protected XmlConvertibleClassFilter setInclusionFilter (Element elem) throws Exception
+    {
+        final XmlConvertibleClassFilter    filter=new MultiFilter(elem);
+        setInclusionFilter(filter);
+        return filter;
+    }
+
+    protected XmlConvertibleClassFilter setExclusionFilter (Element elem) throws Exception
+    {
+        final XmlConvertibleClassFilter    filter=new MultiFilter(elem);
+        setExclusionFilter(filter);
+        return filter;
+    }
 }

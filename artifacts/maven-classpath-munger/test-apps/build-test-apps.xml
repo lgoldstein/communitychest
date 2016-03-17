@@ -9,22 +9,22 @@
     <property name="munger.parent.folder" value="${munger.root.folder}${file.separator}parent" />
     <import file="${munger.parent.folder}${file.separator}build-munger.xml" />
 
-		<!-- Special definitions - must match the munger ... -->
-	<property name="munger.artifact.root.folder" value="${munger.root.folder}${file.separator}munger" />
-	<property name="munger.artifact.build.folder" value="${munger.artifact.root.folder}${file.separator}${module.artifacts.sub.folder}" />
-	<property name="munger.artifact.name" value="munger-${project.version}.${jar.file.suffix}" />
-	<property name="munger.artifact.path" value="${munger.artifact.build.folder}${file.separator}${munger.artifact.name}" />
+        <!-- Special definitions - must match the munger ... -->
+    <property name="munger.artifact.root.folder" value="${munger.root.folder}${file.separator}munger" />
+    <property name="munger.artifact.build.folder" value="${munger.artifact.root.folder}${file.separator}${module.artifacts.sub.folder}" />
+    <property name="munger.artifact.name" value="munger-${project.version}.${jar.file.suffix}" />
+    <property name="munger.artifact.path" value="${munger.artifact.build.folder}${file.separator}${munger.artifact.name}" />
 
-		<!-- NOTE: must match the POM -->
-	<property name="xmltask.version" value="1.16" />
+        <!-- NOTE: must match the POM -->
+    <property name="xmltask.version" value="1.16" />
     <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" uri="antlib:com.oopsconsultancy.xmltask">
         <classpath>
             <fileset dir="${maven.local.repository.folder}${file.separator}com${file.separator}oopsconsultancy${file.separator}xmltask${file.separator}${xmltask.version}" includes="xmltask-${xmltask.version}.${jar.file.suffix}" />
         </classpath>
     </taskdef>
 
-		<!-- NOTE: must match the POM -->
-	<property name="groovy.version" value="2.2.2" />
+        <!-- NOTE: must match the POM -->
+    <property name="groovy.version" value="2.2.2" />
         <!-- see http://groovy.codehaus.org/The+groovy+Ant+Task -->
     <taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy" uri="antlib:org.codehaus.groovy.ant">
         <classpath>
@@ -32,36 +32,36 @@
         </classpath>
     </taskdef>
 
-	    <property name="repackage.target.folder" value="${module.target.folder}${file.separator}re-packaged" />
+        <property name="repackage.target.folder" value="${module.target.folder}${file.separator}re-packaged" />
         <property name="repackage.artifact.name" value="munged-${module.artifact.name}"/>
         <property name="repackage.artifact.war.name" value="${repackage.artifact.name}-${project.version}.${war.file.suffix}" />
-	    <property name="repackage.artifact.war.path" value="${module.target.folder}${file.separator}${repackage.artifact.war.name}" />
+        <property name="repackage.artifact.war.path" value="${module.target.folder}${file.separator}${repackage.artifact.war.name}" />
     <target name="deploy-repackaged-war"  depends="warn-tomcat-not-found" if="tomcat.available"
-    	    description="Deploys the re-packaged WAR">
+            description="Deploys the re-packaged WAR">
         <copy file="${repackage.artifact.war.path}"
               tofile="${tomcat.webapps.folder}${file.separator}${repackage.artifact.name}.${war.file.suffix}"
               preservelastmodified="true" verbose="true" />
     </target>
-	<target name="undeploy-repackaged-artifact"  depends="warn-tomcat-not-found" if="tomcat.available"
+    <target name="undeploy-repackaged-artifact"  depends="warn-tomcat-not-found" if="tomcat.available"
                 description="Remove the re-packaged WAR for Tomcat">
         <delete dir="${tomcat.webapps.folder}${file.separator}${repackage.artifact.name}" />
         <delete file="${tomcat.webapps.folder}${file.separator}${repackage.artifact.name}.${war.file.suffix}" verbose="true" quiet="true" />
     </target>
     <target name="clean-repackaging" depends="undeploy-repackaged-artifact" description="Deletes the re-packaging staging artifacts">
         <delete dir="${repackage.target.folder}" quiet="true" />
-    	<delete file="${repackage.artifact.war.path}" verbose="true" quiet="true" />
-	</target>
-	
-	<macrodef name="create-project-dependencies-list">
-		<attribute name="target-file" />
-		<sequential>
-			<antcall target='run-build'>
-				<param name='build.run.dir' value='${module.root.folder}' />
-				<param name='build.run.opts' value='${build.run.opts.value}'/>
-				<param name='build.arg.line' value='-l @{target-file} dependency:list dependency:list-repositories'/>
-			</antcall>
-		</sequential>
-	</macrodef>
+        <delete file="${repackage.artifact.war.path}" verbose="true" quiet="true" />
+    </target>
+
+    <macrodef name="create-project-dependencies-list">
+        <attribute name="target-file" />
+        <sequential>
+            <antcall target='run-build'>
+                <param name='build.run.dir' value='${module.root.folder}' />
+                <param name='build.run.opts' value='${build.run.opts.value}'/>
+                <param name='build.arg.line' value='-l @{target-file} dependency:list dependency:list-repositories'/>
+            </antcall>
+        </sequential>
+    </macrodef>
 
     <macrodef name="create-dependencies-signatures">
         <attribute name="dependencies-list-file" />
@@ -77,80 +77,80 @@
                 <arg value="${maven.local.repository.folder}" />
                 <arg value="@{target-signatures-root}" />
             </groovy:groovy>
-		</sequential>
+        </sequential>
     </macrodef>
 
-		<property name="repackage.webinf.dir" value="${repackage.target.folder}${file.separator}${webinf.sub.folder.name}" />
-		<property name="repackage.metainf.dir" value="${repackage.target.folder}${file.separator}${metainf.sub.folder.name}" />
-		<property name="repackage.webxml.path" value="${repackage.webinf.dir}${file.separator}web.xml"/>
-		<property name="repackage.webinf.lib.dir" value="${repackage.webinf.dir}${file.separator}${lib.sub.folder.name}" />
-		<property name="repackage.munger.metainf.dir" value="${repackage.metainf.dir}${file.separator}maven" />
-		<property name="repackage.munger.webinf.dir" value="${repackage.webinf.dir}${file.separator}maven" />
-	<target name="repackage-base">
-		<mkdir dir="${repackage.target.folder}" />
-		<unwar src="${module.artifact.war.path}" dest="${repackage.target.folder}" />
-		<delete dir="${repackage.webinf.lib.dir}" quiet="true" />
-		<mkdir dir="${repackage.webinf.lib.dir}" />
-	</target>
+        <property name="repackage.webinf.dir" value="${repackage.target.folder}${file.separator}${webinf.sub.folder.name}" />
+        <property name="repackage.metainf.dir" value="${repackage.target.folder}${file.separator}${metainf.sub.folder.name}" />
+        <property name="repackage.webxml.path" value="${repackage.webinf.dir}${file.separator}web.xml"/>
+        <property name="repackage.webinf.lib.dir" value="${repackage.webinf.dir}${file.separator}${lib.sub.folder.name}" />
+        <property name="repackage.munger.metainf.dir" value="${repackage.metainf.dir}${file.separator}maven" />
+        <property name="repackage.munger.webinf.dir" value="${repackage.webinf.dir}${file.separator}maven" />
+    <target name="repackage-base">
+        <mkdir dir="${repackage.target.folder}" />
+        <unwar src="${module.artifact.war.path}" dest="${repackage.target.folder}" />
+        <delete dir="${repackage.webinf.lib.dir}" quiet="true" />
+        <mkdir dir="${repackage.webinf.lib.dir}" />
+    </target>
 
-		<property name="repackage.dependencies.list.file.name" value="dependencies-list.log" />
-	<target name="repackage-web-xml">
-		<mkdir dir="${repackage.webinf.lib.dir}" />
-		<copy file="${munger.artifact.path}" todir="${repackage.webinf.lib.dir}" preservelastmodified="true" verbose="true" />
-		<create-project-dependencies-list target-file="${repackage.munger.webinf.dir}${file.separator}${repackage.dependencies.list.file.name}" />
+        <property name="repackage.dependencies.list.file.name" value="dependencies-list.log" />
+    <target name="repackage-web-xml">
+        <mkdir dir="${repackage.webinf.lib.dir}" />
+        <copy file="${munger.artifact.path}" todir="${repackage.webinf.lib.dir}" preservelastmodified="true" verbose="true" />
+        <create-project-dependencies-list target-file="${repackage.munger.webinf.dir}${file.separator}${repackage.dependencies.list.file.name}" />
 
-		<xmltask:xmltask source="${repackage.webxml.path}" dest="${repackage.webxml.path}"
-			             preservetype="true" failWithoutMatch="true" encoding="UTF-8">
-				
-		       <!-- TODO not the best solution - what if there is no 'listener' element --> 
-			<cut path="/:web-app/:listener" buffer="repackaged.listeners.xml" />
-			<print comment="repackaged.listeners.xml" buffer="repackaged.listeners.xml" />
-			<insert path="/:web-app" position="under"> 
-			<![CDATA[
+        <xmltask:xmltask source="${repackage.webxml.path}" dest="${repackage.webxml.path}"
+                         preservetype="true" failWithoutMatch="true" encoding="UTF-8">
 
-				<context-param>
-					<param-name>classpath.munger.dependency.location</param-name>
-					<param-value>/WEB-INF/maven/dependencies-list.log</param-value>
-				</context-param>
+               <!-- TODO not the best solution - what if there is no 'listener' element -->
+            <cut path="/:web-app/:listener" buffer="repackaged.listeners.xml" />
+            <print comment="repackaged.listeners.xml" buffer="repackaged.listeners.xml" />
+            <insert path="/:web-app" position="under">
+            <![CDATA[
 
-			    <listener xmlns="http://java.sun.com/xml/ns/j2ee">
-			        <listener-class>org.apache.maven.classpath.munger.ClasspathMunger</listener-class>
-			    </listener>
+                <context-param>
+                    <param-name>classpath.munger.dependency.location</param-name>
+                    <param-value>/WEB-INF/maven/dependencies-list.log</param-value>
+                </context-param>
 
-			]]> 
-			</insert>			
-		</xmltask:xmltask>
+                <listener xmlns="http://java.sun.com/xml/ns/j2ee">
+                    <listener-class>org.apache.maven.classpath.munger.ClasspathMunger</listener-class>
+                </listener>
 
-			<!-- TODO find a better solution to create a well formed XML -->
-		<xmltask:xmltask sourcebuffer="repackaged.listeners.xml" dest="${repackage.webinf.dir}${file.separator}web-listeners.xml"
-						 encoding="UTF-8" report="true">
-		</xmltask:xmltask>
-	</target>
+            ]]>
+            </insert>
+        </xmltask:xmltask>
 
-	<target name="repackage-apache-context">
-		<mkdir dir="${repackage.munger.metainf.dir}" />
-		<create-project-dependencies-list target-file="${repackage.munger.metainf.dir}${file.separator}${repackage.dependencies.list.file.name}" />
+            <!-- TODO find a better solution to create a well formed XML -->
+        <xmltask:xmltask sourcebuffer="repackaged.listeners.xml" dest="${repackage.webinf.dir}${file.separator}web-listeners.xml"
+                         encoding="UTF-8" report="true">
+        </xmltask:xmltask>
+    </target>
+
+    <target name="repackage-apache-context">
+        <mkdir dir="${repackage.munger.metainf.dir}" />
+        <create-project-dependencies-list target-file="${repackage.munger.metainf.dir}${file.separator}${repackage.dependencies.list.file.name}" />
         <create-dependencies-signatures
             dependencies-list-file="${repackage.munger.metainf.dir}${file.separator}${repackage.dependencies.list.file.name}"
             target-signatures-root="${repackage.munger.metainf.dir}${file.separator}repository" />
-		<echoxml file="${repackage.target.folder}${file.separator}${metainf.sub.folder.name}${file.separator}context.xml" >
-			<Context> 
-			   <Loader className="org.apache.maven.classpath.munger.MungerWebappLoader" /> 
-			</Context> 
-		</echoxml>
-		<echo level="info" message="Created ${repackage.target.folder}${file.separator}${metainf.sub.folder.name}${file.separator}context.xml" />
-	</target>
+        <echoxml file="${repackage.target.folder}${file.separator}${metainf.sub.folder.name}${file.separator}context.xml" >
+            <Context>
+               <Loader className="org.apache.maven.classpath.munger.MungerWebappLoader" />
+            </Context>
+        </echoxml>
+        <echo level="info" message="Created ${repackage.target.folder}${file.separator}${metainf.sub.folder.name}${file.separator}context.xml" />
+    </target>
 
-	<target name="repackage-finalize">
-		<war destfile="${repackage.artifact.war.path}"
-		     basedir="${repackage.target.folder}"
-			 webxml="${repackage.webxml.path}"
-			/>
-	</target>
-	<target name="create-repackaging" depends="repackage-base,repackage-apache-context,repackage-finalize"
-			description="Re-packages the WAR file to use the classpath munger" />
-	
-	<target name="repackage-war-file" depends="clean-repackaging,create-repackaging" description="Re-creates the re-packaged WAR" />
-	<target name="redeploy-repackaged-artifact" depends="repackage-war-file,deploy-repackaged-war" description="Re-deploys re-packaged WAR" />
+    <target name="repackage-finalize">
+        <war destfile="${repackage.artifact.war.path}"
+             basedir="${repackage.target.folder}"
+             webxml="${repackage.webxml.path}"
+            />
+    </target>
+    <target name="create-repackaging" depends="repackage-base,repackage-apache-context,repackage-finalize"
+            description="Re-packages the WAR file to use the classpath munger" />
+
+    <target name="repackage-war-file" depends="clean-repackaging,create-repackaging" description="Re-creates the re-packaged WAR" />
+    <target name="redeploy-repackaged-artifact" depends="repackage-war-file,deploy-repackaged-war" description="Re-deploys re-packaged WAR" />
     <target name="test-apps-base" depends="munger-base" />
 </project>

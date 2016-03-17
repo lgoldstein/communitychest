@@ -7,5 +7,5 @@ import com.vmware.spring.workshop.model.banking.Account;
  * @author lgoldstein
  */
 public interface AccountDTOConverter extends DTOConverter<Account,AccountDTO> {
-	// nothing extra
+    // nothing extra
 }

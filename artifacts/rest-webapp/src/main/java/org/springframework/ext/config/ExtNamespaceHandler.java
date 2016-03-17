@@ -10,17 +10,17 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  * @since 3.0
  */
 public class ExtNamespaceHandler extends NamespaceHandlerSupport {
-	public ExtNamespaceHandler ()
-	{
-		super();
-	}
-	/*
-	 * @see org.springframework.beans.factory.xml.NamespaceHandler#init()
-	 */
-	@Override
-	public void init ()
-	{
-		registerBeanDefinitionParser("resources", new ResourcesBeanDefinitionParser());
-	}
+    public ExtNamespaceHandler ()
+    {
+        super();
+    }
+    /*
+     * @see org.springframework.beans.factory.xml.NamespaceHandler#init()
+     */
+    @Override
+    public void init ()
+    {
+        registerBeanDefinitionParser("resources", new ResourcesBeanDefinitionParser());
+    }
 }
 

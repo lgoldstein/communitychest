@@ -20,13 +20,13 @@ import com.vmware.spring.workshop.services.facade.UsersFacade;
 @Produces({ MediaType.APPLICATION_XML })
 @Service("usersResteasyService")
 public class UsersResteasyService extends AbstractResteasyRestfulService<UserDTO, UsersFacade> {
-	@Inject
-	public UsersResteasyService (final UsersFacade facade) {
-		super(UserDTO.class, facade);
-	}
+    @Inject
+    public UsersResteasyService (final UsersFacade facade) {
+        super(UserDTO.class, facade);
+    }
 
-	@Override
-	protected UserDTOList wrapAsDTOList(Collection<? extends UserDTO> dtoList) {
-		return new UserDTOList(dtoList);
-	}
+    @Override
+    protected UserDTOList wrapAsDTOList(Collection<? extends UserDTO> dtoList) {
+        return new UserDTOList(dtoList);
+    }
 }

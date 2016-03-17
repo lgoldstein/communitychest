@@ -20,14 +20,14 @@ import com.vmware.spring.workshop.services.facade.BanksFacade;
 @Produces({ MediaType.APPLICATION_XML })
 @Service("banksResteasyService")
 public class BanksResteasyService
-		extends AbstractResteasyRestfulService<BankDTO, BanksFacade> {
-	@Inject
-	public BanksResteasyService (final BanksFacade facade) {
-		super(BankDTO.class, facade);
-	}
+        extends AbstractResteasyRestfulService<BankDTO, BanksFacade> {
+    @Inject
+    public BanksResteasyService (final BanksFacade facade) {
+        super(BankDTO.class, facade);
+    }
 
-	@Override
-	protected BankDTOList wrapAsDTOList(Collection<? extends BankDTO> dtoList) {
-		return new BankDTOList(dtoList);
-	}
+    @Override
+    protected BankDTOList wrapAsDTOList(Collection<? extends BankDTO> dtoList) {
+        return new BankDTOList(dtoList);
+    }
 }

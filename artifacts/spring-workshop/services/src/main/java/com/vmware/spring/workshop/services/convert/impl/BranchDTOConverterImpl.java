@@ -20,34 +20,34 @@ import com.vmware.spring.workshop.services.convert.BranchDTOConverter;
 @Component("branchDTOConverter")
 @Transactional
 public class BranchDTOConverterImpl extends AbstractDTOConverter<Branch,BranchDTO>
-		implements BranchDTOConverter, ValueConverter<Long,Bank> {
-	private final BankDao _daoBank;
+        implements BranchDTOConverter, ValueConverter<Long,Bank> {
+    private final BankDao _daoBank;
 
-	@Inject
-	public BranchDTOConverterImpl (final BankDao daoBank) {
-		super(Branch.class, BranchDTO.class);
-		Assert.state((_daoBank=daoBank) != null, "No bank DAO provided");
-	}
+    @Inject
+    public BranchDTOConverterImpl (final BankDao daoBank) {
+        super(Branch.class, BranchDTO.class);
+        Assert.state((_daoBank=daoBank) != null, "No bank DAO provided");
+    }
 
-	@Override
-	protected ValueConverter<?, ?> resolveUnknownPropertyValueConverter(
-			Class<?> srcClass, Method srcGetter, Method srcSetter,
-			Class<?> dstClass, Method dstGetter, Method dstSetter) {
-		final Class<?>	dstType=dstGetter.getReturnType();
-		if (Bank.class.isAssignableFrom(dstType)) {
-			return this;
-		}
+    @Override
+    protected ValueConverter<?, ?> resolveUnknownPropertyValueConverter(
+            Class<?> srcClass, Method srcGetter, Method srcSetter,
+            Class<?> dstClass, Method dstGetter, Method dstSetter) {
+        final Class<?>    dstType=dstGetter.getReturnType();
+        if (Bank.class.isAssignableFrom(dstType)) {
+            return this;
+        }
 
-		return super.resolveUnknownPropertyValueConverter(srcClass, srcGetter, srcSetter,
-														  dstClass, dstGetter, dstSetter);
-	}
+        return super.resolveUnknownPropertyValueConverter(srcClass, srcGetter, srcSetter,
+                                                          dstClass, dstGetter, dstSetter);
+    }
 
-	@Override
-	@Transactional(readOnly=true)
-	public Bank convertValue(Long srcValue) {
-		if (srcValue == null)
-			return null;
-		else
-			return _daoBank.findOne(srcValue);
-	}
+    @Override
+    @Transactional(readOnly=true)
+    public Bank convertValue(Long srcValue) {
+        if (srcValue == null)
+            return null;
+        else
+            return _daoBank.findOne(srcValue);
+    }
 }

@@ -1,57 +1,57 @@
-<beans:beans	xmlns="http://www.springframework.org/schema/security"
-				xmlns:beans="http://www.springframework.org/schema/beans"
-				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				xsi:schemaLocation="http://www.springframework.org/schema/beans 
-									http://www.springframework.org/schema/beans/spring-beans.xsd
-									http://www.springframework.org/schema/security 
-									http://www.springframework.org/schema/security/spring-security.xsd">
+<beans:beans    xmlns="http://www.springframework.org/schema/security"
+                xmlns:beans="http://www.springframework.org/schema/beans"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://www.springframework.org/schema/beans
+                                    http://www.springframework.org/schema/beans/spring-beans.xsd
+                                    http://www.springframework.org/schema/security
+                                    http://www.springframework.org/schema/security/spring-security.xsd">
 
-		<!-- see HttpSecurityBeanDefinitionParser, HttpConfigurationBuilder -->
- 	<http use-expressions="true"
- 		  authentication-manager-ref="usersFacade">
- 			<!-- allow free access to the static resources -->
-		<intercept-url pattern="/resources/**" access="permitAll" />
+        <!-- see HttpSecurityBeanDefinitionParser, HttpConfigurationBuilder -->
+     <http use-expressions="true"
+           authentication-manager-ref="usersFacade">
+             <!-- allow free access to the static resources -->
+        <intercept-url pattern="/resources/**" access="permitAll" />
 
-			<!-- allow free access to the root, RESTful, login, logout and welcome pages -->
-		<intercept-url pattern="/" access="permitAll" />
-		<intercept-url pattern="/index.jsp" access="permitAll" />
-		<intercept-url pattern="/welcome.jsp" access="permitAll" />
-		<intercept-url pattern="/home" access="permitAll" />
-		<intercept-url pattern="/restful/**" access="permitAll" />
-		<intercept-url pattern="/ws/**" access="permitAll" />
-		
-		<intercept-url pattern="/login/**" access="permitAll" />
-		<intercept-url pattern="/logout" access="isAuthenticated()"/>
+            <!-- allow free access to the root, RESTful, login, logout and welcome pages -->
+        <intercept-url pattern="/" access="permitAll" />
+        <intercept-url pattern="/index.jsp" access="permitAll" />
+        <intercept-url pattern="/welcome.jsp" access="permitAll" />
+        <intercept-url pattern="/home" access="permitAll" />
+        <intercept-url pattern="/restful/**" access="permitAll" />
+        <intercept-url pattern="/ws/**" access="permitAll" />
 
-		<intercept-url pattern="/users" access="isAuthenticated()" />
-		<intercept-url pattern="/users/admin" access="hasRole('ADMIN')" />
-		<intercept-url pattern="/users/create" access="hasRole('ADMIN')" />
-		<intercept-url pattern="/users/edit/*" access="hasRole('ADMIN')" />
-		<intercept-url pattern="/users/guest" access="hasRole('GUEST')" />
-		<intercept-url pattern="/users/customer" access="hasRole('CUSTOMER')" />
+        <intercept-url pattern="/login/**" access="permitAll" />
+        <intercept-url pattern="/logout" access="isAuthenticated()"/>
 
-		<intercept-url pattern="/users/export" access="hasRole('ADMIN')" />
-		<intercept-url pattern="/users/import" access="hasRole('ADMIN')" />
+        <intercept-url pattern="/users" access="isAuthenticated()" />
+        <intercept-url pattern="/users/admin" access="hasRole('ADMIN')" />
+        <intercept-url pattern="/users/create" access="hasRole('ADMIN')" />
+        <intercept-url pattern="/users/edit/*" access="hasRole('ADMIN')" />
+        <intercept-url pattern="/users/guest" access="hasRole('GUEST')" />
+        <intercept-url pattern="/users/customer" access="hasRole('CUSTOMER')" />
 
-		<intercept-url pattern="/groovy/**" access="hasRole('ADMIN')" />
-		<intercept-url pattern="/sql/**" access="hasRole('ADMIN')" />
+        <intercept-url pattern="/users/export" access="hasRole('ADMIN')" />
+        <intercept-url pattern="/users/import" access="hasRole('ADMIN')" />
 
-			<!-- Allow authenticated access to the other URL(s) -->
-		<intercept-url pattern="/banks/**" access="isAuthenticated()" />
-		<intercept-url pattern="/banks/import" access="hasRole('ADMIN')" />
+        <intercept-url pattern="/groovy/**" access="hasRole('ADMIN')" />
+        <intercept-url pattern="/sql/**" access="hasRole('ADMIN')" />
 
-		<intercept-url pattern="/branches/**" access="isAuthenticated()" />
-		<intercept-url pattern="/branches/import" access="hasRole('ADMIN')" />
+            <!-- Allow authenticated access to the other URL(s) -->
+        <intercept-url pattern="/banks/**" access="isAuthenticated()" />
+        <intercept-url pattern="/banks/import" access="hasRole('ADMIN')" />
 
-			<!-- deny all other patterns not explicitly allowed -->
-		<intercept-url pattern="/**" access="denyAll" />
+        <intercept-url pattern="/branches/**" access="isAuthenticated()" />
+        <intercept-url pattern="/branches/import" access="hasRole('ADMIN')" />
 
-		<form-login authentication-failure-url="/index.jsp"
-					login-page="/index.jsp"
-					username-parameter="username"
-					password-parameter="password" />
+            <!-- deny all other patterns not explicitly allowed -->
+        <intercept-url pattern="/**" access="denyAll" />
 
-			<!-- see LogoutBeanDefinitionParser -->
-		<logout logout-url="/logout"/>
-  	</http>
+        <form-login authentication-failure-url="/index.jsp"
+                    login-page="/index.jsp"
+                    username-parameter="username"
+                    password-parameter="password" />
+
+            <!-- see LogoutBeanDefinitionParser -->
+        <logout logout-url="/logout"/>
+      </http>
 </beans:beans>

@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @SuppressWarnings("hiding")
 public class Hotel implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1148968929093044001L;
 
@@ -38,76 +38,76 @@ public class Hotel implements Serializable {
     @Id
     @GeneratedValue
     public Long getId() {
-	return id;
+    return id;
     }
 
     public void setId(Long id) {
-	this.id = id;
+    this.id = id;
     }
 
     public String getName() {
-	return name;
+    return name;
     }
 
     public void setName(String name) {
-	this.name = name;
+    this.name = name;
     }
 
     public String getAddress() {
-	return address;
+    return address;
     }
 
     public void setAddress(String address) {
-	this.address = address;
+    this.address = address;
     }
 
     public String getCity() {
-	return city;
+    return city;
     }
 
     public void setCity(String city) {
-	this.city = city;
+    this.city = city;
     }
 
     public String getZip() {
-	return zip;
+    return zip;
     }
 
     public void setZip(String zip) {
-	this.zip = zip;
+    this.zip = zip;
     }
 
     public String getState() {
-	return state;
+    return state;
     }
 
     public void setState(String state) {
-	this.state = state;
+    this.state = state;
     }
 
     public String getCountry() {
-	return country;
+    return country;
     }
 
     public void setCountry(String country) {
-	this.country = country;
+    this.country = country;
     }
 
     @Column(precision = 6, scale = 2)
     public BigDecimal getPrice() {
-	return price;
+    return price;
     }
 
     public void setPrice(BigDecimal price) {
-	this.price = price;
+    this.price = price;
     }
 
     public Booking createBooking(User user) {
-	return new Booking(this, user);
+    return new Booking(this, user);
     }
 
     @Override
     public String toString() {
-	return "Hotel(" + name + "," + address + "," + city + "," + zip + ")";
+    return "Hotel(" + name + "," + address + "," + city + "," + zip + ")";
     }
 }

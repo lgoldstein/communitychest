@@ -16,58 +16,58 @@ import com.vmware.spring.workshop.model.Located;
  */
 @Entity(name="Bank")
 @NamedQueries({
-	@NamedQuery(name="Bank.findBankByName",query="SELECT b FROM Bank b WHERE b.name = :name"),
-	@NamedQuery(name="Bank.findByBankCode",query="SELECT b FROM Bank b WHERE b.bankCode = :code"),
-	@NamedQuery(name="Bank.findByBankLocation",query="SELECT b FROM Bank b WHERE LOWER(b.hqAddress) LIKE LOWER(:location)")
+    @NamedQuery(name="Bank.findBankByName",query="SELECT b FROM Bank b WHERE b.name = :name"),
+    @NamedQuery(name="Bank.findByBankCode",query="SELECT b FROM Bank b WHERE b.bankCode = :code"),
+    @NamedQuery(name="Bank.findByBankLocation",query="SELECT b FROM Bank b WHERE LOWER(b.hqAddress) LIKE LOWER(:location)")
 })
 public class Bank extends AbstractNamedIdentified implements Located {
-	private static final long serialVersionUID = -2411126072852051556L;
-	private String	_hqAddress;
-	private int	_bankCode;
-	private GeoPosition	_position;
+    private static final long serialVersionUID = -2411126072852051556L;
+    private String    _hqAddress;
+    private int    _bankCode;
+    private GeoPosition    _position;
 
-	public Bank() {
-		super();
-	}
+    public Bank() {
+        super();
+    }
 
-	@Column(name="bankCode",unique=true,nullable=false)
-	public int getBankCode() {
-		return _bankCode;
-	}
+    @Column(name="bankCode",unique=true,nullable=false)
+    public int getBankCode() {
+        return _bankCode;
+    }
 
-	public void setBankCode(int bankCode) {
-		_bankCode = bankCode;
-	}
+    public void setBankCode(int bankCode) {
+        _bankCode = bankCode;
+    }
 
-	public static final int	MAX_HQ_ADDRESS_LENGTH=MAX_LOCATION_LENGTH;
-	@Column(name="hqAddress",unique=false,nullable=false,length=MAX_HQ_ADDRESS_LENGTH)
-	public String getHqAddress() {
-		return _hqAddress;
-	}
+    public static final int    MAX_HQ_ADDRESS_LENGTH=MAX_LOCATION_LENGTH;
+    @Column(name="hqAddress",unique=false,nullable=false,length=MAX_HQ_ADDRESS_LENGTH)
+    public String getHqAddress() {
+        return _hqAddress;
+    }
 
-	public void setHqAddress(String hqAddress) {
-		_hqAddress = hqAddress;
-	}
+    public void setHqAddress(String hqAddress) {
+        _hqAddress = hqAddress;
+    }
 
-	@Override
-	@Transient
-	public String getLocation() {
-		return getHqAddress();
-	}
+    @Override
+    @Transient
+    public String getLocation() {
+        return getHqAddress();
+    }
 
-	@Override
-	public void setLocation(String location) {
-		setHqAddress(location);
-	}
+    @Override
+    public void setLocation(String location) {
+        setHqAddress(location);
+    }
 
-	@Override
-	@Embedded
-	public GeoPosition getPosition() {
-		return _position;
-	}
+    @Override
+    @Embedded
+    public GeoPosition getPosition() {
+        return _position;
+    }
 
-	@Override
-	public void setPosition(GeoPosition position) {
-		_position = position;
-	}
+    @Override
+    public void setPosition(GeoPosition position) {
+        _position = position;
+    }
 }

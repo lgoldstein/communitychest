@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @SuppressWarnings("hiding")
 public class User implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -3652559447682574722L;
 
@@ -28,38 +28,38 @@ public class User implements Serializable {
     }
 
     public User(String username, String password, String name) {
-	this.username = username;
-	this.password = password;
-	this.name = name;
+    this.username = username;
+    this.password = password;
+    this.name = name;
     }
 
     @Id
     public String getUsername() {
-	return username;
+    return username;
     }
 
     public void setUsername(String username) {
-	this.username = username;
+    this.username = username;
     }
 
     public String getPassword() {
-	return password;
+    return password;
     }
 
     public void setPassword(String password) {
-	this.password = password;
+    this.password = password;
     }
 
     public String getName() {
-	return name;
+    return name;
     }
 
     public void setName(String name) {
-	this.name = name;
+    this.name = name;
     }
 
     @Override
     public String toString() {
-	return "User(" + username + ")";
+    return "User(" + username + ")";
     }
 }

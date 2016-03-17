@@ -9,5 +9,5 @@ import com.vmware.spring.workshop.dao.CommonOperationsDao;
  * @author lgoldstein
  */
 public interface ValuesListFinder<ID extends Serializable,T,DAO extends CommonOperationsDao<T,ID>,ARG> {
-	List<T> findMatches (DAO dao, ARG arg);
+    List<T> findMatches (DAO dao, ARG arg);
 }
