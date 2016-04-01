@@ -1,15 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys
-import os
-import signal
-
 """
 Renames downloaded Dailymotion files to a shorter format
 """
-
 # ----------------------------------------------------------------------------
+import os
+import signal
+import sys
+
 
 def log(msg,stream):
     stream.write("%s\n" % msg)
@@ -47,13 +46,23 @@ def getTargetName(name):
         return name
     
     comps = name.split(' ')
-    episode = int(comps[4])
-    if episode < 10:
-        comps[4] = "0%d" % episode
-    if comps[5] == '_':
-        comps[5] = '-'
-    elif comps[5] != '-':
-        comps.insert(5, '-')
+    episode = comps[1]
+    for index in range(len(episode), 1, -1):
+        ch = episode[index - 1]
+        if not ch.isdigit():
+            value = episode[index:]
+            if (int(value) < 10) and (episode[index] != '0'):
+                episode = "%s0%s" % (episode[0:index], value)
+                comps[1] = episode
+            break
+ 
+#     episode = int(comps[4])
+#     if episode < 10:
+#         comps[4] = "0%d" % episode
+#     if comps[5] == '_':
+#         comps[5] = '-'
+#     elif comps[5] != '-':
+#         comps.insert(5, '-')
     
     lastIndex = len(comps)
     lastComp = comps[lastIndex - 1]
@@ -65,7 +74,7 @@ def getTargetName(name):
         del comps[lastIndex - 2]
         lastIndex = lastIndex - 1
     
-    if comps[lastIndex - 2] == '-' and lastIndex > 7:
+    if comps[lastIndex - 2] == '-':
         del comps[lastIndex - 2]
         lastIndex = lastIndex - 1
 
