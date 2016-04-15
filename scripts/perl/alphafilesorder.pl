@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# This script scans a give folder and checks if the "native" order in
+# This script scans a given folder and checks if the "native" order in
 # which the files are listed matches their lexicographical order. If
 # not, it creates file copies according to the lexicographical order
 
