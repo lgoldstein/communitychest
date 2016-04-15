@@ -28,7 +28,6 @@ import org.codehaus.groovy.tools.shell.ExitNotification
 /*
  * Configures useful Eclipse workspace preferences
  *
- *
  * - .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.jdt.core.prefs
  *         org.eclipse.jdt.core.formatter.tabulation.char=space  [Java->Code style->Formatter->Tab policy]
  *         ...attached file... - [Java->Compiler->Errors and Warnings]
@@ -299,29 +298,23 @@ int updatePropertyValue(Path path, List lines, String propName, Map opts) {
     return 1
 }
 
-List openOrCreateFile(Path path, boolean dryRun, opts) {
+List openOrCreateFile(Path path, boolean dryRun, Map opts) {
     if (Files.exists(path)) {
         // TODO make read/write charset configurable
         return Files.readAllLines(path, StandardCharsets.UTF_8)
     }
 
-    String line = createLine('eclipse.preferences.version', opts['eclipse.preferences.version'])
+    List lines = [ createLine('eclipse.preferences.version', opts['eclipse.preferences.version']) ]
     if (dryRun) {
         info("Creating $path")
     } else {
         Files.createDirectories(path.getParent())
         // TODO make read/write charset configurable
-        Writer w = Files.newBufferedWriter(Files.createFile(path), StandardCharsets.UTF_8);
-        try {
-            w.write(line)
-        } finally {
-            w.close()
-        }
-
+        Files.write(Files.createFile(path), lines, StandardCharsets.UTF_8)
         info("Created $path")
     }
 
-    return [ line ]
+    return lines
 }
 
 static String createLine(String propName, Object propValue) {
