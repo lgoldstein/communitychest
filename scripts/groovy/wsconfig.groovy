@@ -17,6 +17,7 @@
  * limitations under the License.
  */
 
+import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -47,14 +48,6 @@ import org.codehaus.groovy.tools.shell.ExitNotification
  *          org.eclipse.jdt.ui.importorder=java;javax;org;com;  [Java->Editor->Save Actions->Organize Imports]
  *          sp_cleanup.remove_unused_imports=true       [Java->Editor->Save Actions->Configure->Unnecessary code->Remove unused imports]
  *          sp_cleanup.remove_unnecessary_casts=true    [Java->Editor->Save Actions->Configure->Unnecessary code->Remove unnecessary casts]
- *
- *  - .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.wst.xml.core.prefs
- *          indentationChar=space   [XML->Xml Files->Editor->Insert using spaces]
- *          indentationSize=4       [XML->Xml Files->Editor->Insert using spaces]
- *
- *  - .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.m2e.core.prefs
- *          eclipse.m2.downloadJavadoc=true [Maven->Download Artifacts JavaDoc]
- *          eclipse.m2.downloadSources=true [Maven->Download Artifacts Sources]
  *
  * - TODO
  *     [V] Maven - auto-download sources and javadocs
@@ -194,6 +187,32 @@ def processEclipseCoreRuntimeSettings(Path path, boolean ignoreExceptions, boole
             throw t
         }
     }
+
+    try {
+        processWstXmlCorePrefs(path.resolve("org.eclipse.wst.xml.core.prefs"), dryRun, opts)
+    } catch(Throwable t) {
+        error(t.getClass().getSimpleName() + ": " + t.getMessage())
+        if (!ignoreExceptions) {
+            throw t
+        }
+    }
+
+    try {
+        processM2ECorePrefs(path.resolve("org.eclipse.m2e.core.prefs"), dryRun, opts)
+    } catch(Throwable t) {
+        error(t.getClass().getSimpleName() + ": " + t.getMessage())
+        if (!ignoreExceptions) {
+            throw t
+        }
+    }
+}
+
+int processM2ECorePrefs(Path path, boolean dryRun, Map opts) {
+    return updateProperties(path, dryRun, opts, [ 'eclipse.m2.downloadJavadoc', 'eclipse.m2.downloadSources' ])
+}
+
+int processWstXmlCorePrefs(Path path, boolean dryRun, Map opts) {
+    return updateProperties(path, dryRun, opts, [ 'indentationChar', 'indentationSize' ])
 }
 
 int processCoreRuntimePrefs(Path path, boolean dryRun, Map opts) {
@@ -273,8 +292,11 @@ List openOrCreateFile(Path path, boolean dryRun, opts) {
     }
 
     String line = createLine('eclipse.preferences.version', opts['eclipse.preferences.version'])
-    if (!dryRun) {
+    if (dryRun) {
+        info("Creating $path")
+    } else {
         Files.createDirectories(path.getParent())
+        // TODO make read/write charset configurable
         Writer w = Files.newBufferedWriter(Files.createFile(path), StandardCharsets.UTF_8);
         try {
             w.write(line)
@@ -319,6 +341,22 @@ def populateDefaultOptions(opts) {
      *         line.separator=\n    [General->Workspace->Text file new line delimiter]
      */
     opts['line.separator'] = '\\n'
+
+    /*
+     *  - .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.wst.xml.core.prefs
+     *          indentationChar=space   [XML->Xml Files->Editor->Insert using spaces]
+     *          indentationSize=4       [XML->Xml Files->Editor->Insert using spaces]
+     */
+    opts['indentationChar'] = 'space'
+    opts['indentationSize'] = 4
+
+    /*
+     *  - .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.m2e.core.prefs
+     *          eclipse.m2.downloadJavadoc=true [Maven->Download Artifacts JavaDoc]
+     *          eclipse.m2.downloadSources=true [Maven->Download Artifacts Sources]
+     */
+    opts['eclipse.m2.downloadJavadoc'] = true
+    opts['eclipse.m2.downloadSources'] = true
 
     return opts
 }
