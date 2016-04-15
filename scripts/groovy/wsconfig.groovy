@@ -18,7 +18,6 @@
  */
 
 import java.nio.charset.StandardCharsets
-import java.nio.file.DirectoryStream
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -89,7 +88,7 @@ options = populateDefaultOptions([:])
 for (int index = 0; (args != null) && (index < args.length); index++) {
     String argVal = args[index]
     if (!argVal.startsWith("--")) {
-        execute(options, index, args)
+        execute(options, index, argVal)
         return
     }
 
@@ -132,93 +131,76 @@ for (int index = 0; (args != null) && (index < args.length); index++) {
     }
 }
 
-execute(options, (args == null) ? 0 : args.length, (args == null) ? new String[0] : args)
+dieWithMessage("Missing workspace location argument")
 
-def execute(opts, int startIndex, String ... args) {
-    List targets = []
-    for (int index = startIndex; index < args.length; index++) {
-        targets << args[index]
+def execute(opts, int startIndex, String workspaceLocation) {
+    Path path = Paths.get(workspaceLocation)
+    path = path.normalize()
+    path = path.toAbsolutePath()
+    path = path.toRealPath()
+
+    Path name = path.getFileName()
+    if (!".metadata".equals(name.toString())) {
+        path = path.resolve(".metadata")
     }
+    processWorkspace(path, opts['ignore-exceptions'].booleanValue(), opts['dry-run'].booleanValue(), opts)
+}
 
-    if (targets.size() <= 0) {
-        targets << System.getProperty("user.dir")
-    }
-
-    boolean ignoreException = opts['ignore-exceptions'].booleanValue()
-    boolean dryRun = opts['dry-run'].booleanValue()
-    List suffixes = opts['suffixes']
-    StringBuilder workBuf = new StringBuilder(Byte.MAX_VALUE)
-    targets.each {
-        try {
-            Path path = Paths.get(it)
-            path = path.normalize()
-            path = path.toAbsolutePath()
-            path = path.toRealPath()
-            processTarget(path, suffixes, dryRun, ignoreException, workBuf, opts)
-        } catch(Throwable t) {
-            error(t.getClass().getSimpleName() + " while processing " + it + ": " + t.getMessage())
-            if (!ignoreException) {
-                throw t
-            }
+def processWorkspace(Path path, boolean ignoreExceptions, boolean dryRun, opts) {
+    try {
+        processPlugins(path.resolve(".plugins"), ignoreExceptions, dryRun, opts)
+    } catch(Throwable t) {
+        error(t.getClass().getSimpleName() + ": " + t.getMessage())
+        if (!ignoreExceptions) {
+            throw t
         }
     }
 }
 
-def processTarget(Path path, List suffixes, boolean dryRun, boolean ignoreException, StringBuilder workBuf, opts) {
-    if (Files.isDirectory(path)) {
-        if (!opts['recursive'].booleanValue()) {
-            if (isDebugEnabled()) {
-                debug("Skip " + path + " - not recursive")
-            }
-            return
+def processPlugins(Path path, boolean ignoreExceptions, boolean dryRun, opts) {
+    try {
+        processEclipseCoreRuntime(path.resolve("org.eclipse.core.runtime"), ignoreExceptions, dryRun, opts)
+    } catch(Throwable t) {
+        error(t.getClass().getSimpleName() + ": " + t.getMessage())
+        if (!ignoreExceptions) {
+            throw t
         }
-
-        DirectoryStream<Path> ds = Files.newDirectoryStream(path)
-        try {
-            for (Path child : ds) {
-                try {
-                    processTarget(child, suffixes, dryRun, ignoreException, workBuf, opts)
-                } catch(Throwable t) {
-                    error(t.getClass().getSimpleName() + " while processing " + child + ": " + t.getMessage())
-                    if (!ignoreException) {
-                        throw t
-                    }
-                }
-            }
-        } finally {
-            ds.close()
-        }
-        return
     }
+}
 
-    String name = path.getFileName().toString()
-    int pos = name.lastIndexOf('.')
-    if ((pos <= 0) || (pos >= (name.length() - 1))) {
-        if (isDebugEnabled()) {
-            debug("Skip " + path + " - no suffix")
+def processEclipseCoreRuntime(Path path, boolean ignoreExceptions, boolean dryRun, opts) {
+    try {
+        processEclipseCoreRuntimeSettings(path.resolve(".settings"), ignoreExceptions, dryRun, opts)
+    } catch(Throwable t) {
+        error(t.getClass().getSimpleName() + ": " + t.getMessage())
+        if (!ignoreExceptions) {
+            throw t
         }
-        return
     }
+}
 
-    String sfx = name.substring(pos + 1)
-    if (!suffixes.contains(sfx)) {
-        if (isDebugEnabled()) {
-            debug("Skip " + path + " - suffix not listed")
+def processEclipseCoreRuntimeSettings(Path path, boolean ignoreExceptions, boolean dryRun, opts) {
+    try {
+        processUIEditorsPrefs(path.resolve("org.eclipse.ui.editors.prefs"), dryRun, opts)
+    } catch(Throwable t) {
+        error(t.getClass().getSimpleName() + ": " + t.getMessage())
+        if (!ignoreExceptions) {
+            throw t
         }
-        return
     }
+}
 
+def processUIEditorsPrefs(Path path, boolean dryRun, opts) {
+    info(path)
     // TODO make read/write charset configurable
     List lines = Files.readAllLines(path, StandardCharsets.UTF_8)
-    int numChanged = processContentLines(path, lines, workBuf, opts)
+    int numChanged = blahblah(path, lines, workBuf, opts)
     if (numChanged <= 0) {
         if (isDebugEnabled()) {
             debug("Skip " + path + " - no changes")
         }
         return
     }
-
-    info(path)
 
     if (!dryRun) {
         Files.write(path, lines, StandardCharsets.UTF_8)
@@ -229,89 +211,10 @@ def processTarget(Path path, List suffixes, boolean dryRun, boolean ignoreExcept
     }
 }
 
-int processContentLines(Path path, List lines, StringBuilder workBuf, opts) {
-    boolean stripWhitespace = opts['strip-trailing-whitespace'].booleanValue()
-    int tabLength = opts['tab-length'].intValue()
-    int numChanges = 0
-    for (int index = 0; index < lines.size(); index++) {
-        String l = lines[index]
-        String lineValue = l
-        if (stripWhitespace) {
-            lineValue = stripTrailingWhitespace(lineValue)
-        }
-
-        if (tabLength > 0) {
-            lineValue = replaceTabsWithSpaces(lineValue, tabLength, workBuf)
-        }
-
-        if (lineValue != l) {
-            lines[index] = lineValue
-            numChanges++
-        }
-    }
-
-    return numChanges
-}
-
-static String stripTrailingWhitespace(String s) {
-    if ((s == null) || (s.length() <= 0)) {
-        return s
-    }
-
-    for (int index = s.length() - 1; index >= 0; index--) {
-        char c = s.charAt(index) as char
-        if (" \t".indexOf(c as int) < 0) {
-            return (index < (s.length() - 1)) ? s.substring(0, index + 1) : s
-        }
-    }
-
-    // this point is reached if line contains only white space
-    return ""
-}
-
-static String replaceTabsWithSpaces(String line, int tabLength, StringBuilder workBuf) {
-    if ((tabLength <= 0) || (line == null) || (line.length() <= 0)) {
-        return line
-    }
-
-    int curPos = line.indexOf('\t')
-    if (curPos < 0) {
-        return line
-    }
-
-    int lastPos = 0
-    workBuf.setLength(0)    // start fresh
-    while(curPos >= lastPos) {
-        if (curPos > lastPos) {
-            String plainText = line.substring(lastPos, curPos)
-            workBuf.append(plainText)
-        }
-
-        for (int index = 0; index < tabLength; index++) {
-            workBuf.append(' ')
-        }
-
-        lastPos = curPos + 1
-        if (lastPos >= line.length()) {
-            break
-        }
-
-        curPos = line.indexOf('\t', lastPos)
-    }
-
-    if (lastPos < line.length()) {
-        String plainText = line.substring(lastPos)
-        workBuf.append(plainText)
-    }
-
-    return workBuf.toString()
-}
-
 /* ------------------------------------------------------------------------ */
 
 def populateDefaultOptions(opts) {
     opts['eclipse.preferences.version'] = 1
-    opts['strip-trailing-whitespace'] = Boolean.TRUE
     opts['verbose'] = Level.INFO
     opts['ignore-exceptions'] = Boolean.FALSE
     opts['dry-run'] = Boolean.FALSE
