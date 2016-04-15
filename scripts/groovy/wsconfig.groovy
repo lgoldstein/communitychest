@@ -17,7 +17,6 @@
  * limitations under the License.
  */
 
-import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -28,17 +27,6 @@ import org.codehaus.groovy.tools.shell.ExitNotification
 /*
  * Configures useful Eclipse workspace preferences
  *
- * - If NEW file created use:
- *      eclipse.preferences.version=1 (configurable)
- *
- * - .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.ui.editors.prefs
- *         spacesForTabs=true    [General->Editors->Text Editors->Spaces for tabs]
- *
- * - .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.core.resources.prefs
- *         encoding=UTF-8    [General->Workspace->Text file encoding]
- *
- * - .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.core.runtime.prefs
- *         line.separator=\n    [General->Workspace->Text file new line delimiter]
  *
  * - .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.jdt.core.prefs
  *         org.eclipse.jdt.core.formatter.tabulation.char=space  [Java->Code style->Formatter->Tab policy]
@@ -133,7 +121,7 @@ for (int index = 0; (args != null) && (index < args.length); index++) {
 
 dieWithMessage("Missing workspace location argument")
 
-def execute(opts, int startIndex, String workspaceLocation) {
+def execute(opts, String workspaceLocation) {
     Path path = Paths.get(workspaceLocation)
     path = path.normalize()
     path = path.toAbsolutePath()
@@ -146,7 +134,7 @@ def execute(opts, int startIndex, String workspaceLocation) {
     processWorkspace(path, opts['ignore-exceptions'].booleanValue(), opts['dry-run'].booleanValue(), opts)
 }
 
-def processWorkspace(Path path, boolean ignoreExceptions, boolean dryRun, opts) {
+def processWorkspace(Path path, boolean ignoreExceptions, boolean dryRun, Map opts) {
     try {
         processPlugins(path.resolve(".plugins"), ignoreExceptions, dryRun, opts)
     } catch(Throwable t) {
@@ -157,7 +145,7 @@ def processWorkspace(Path path, boolean ignoreExceptions, boolean dryRun, opts) 
     }
 }
 
-def processPlugins(Path path, boolean ignoreExceptions, boolean dryRun, opts) {
+def processPlugins(Path path, boolean ignoreExceptions, boolean dryRun, Map opts) {
     try {
         processEclipseCoreRuntime(path.resolve("org.eclipse.core.runtime"), ignoreExceptions, dryRun, opts)
     } catch(Throwable t) {
@@ -168,7 +156,7 @@ def processPlugins(Path path, boolean ignoreExceptions, boolean dryRun, opts) {
     }
 }
 
-def processEclipseCoreRuntime(Path path, boolean ignoreExceptions, boolean dryRun, opts) {
+def processEclipseCoreRuntime(Path path, boolean ignoreExceptions, boolean dryRun, Map opts) {
     try {
         processEclipseCoreRuntimeSettings(path.resolve(".settings"), ignoreExceptions, dryRun, opts)
     } catch(Throwable t) {
@@ -179,7 +167,7 @@ def processEclipseCoreRuntime(Path path, boolean ignoreExceptions, boolean dryRu
     }
 }
 
-def processEclipseCoreRuntimeSettings(Path path, boolean ignoreExceptions, boolean dryRun, opts) {
+def processEclipseCoreRuntimeSettings(Path path, boolean ignoreExceptions, boolean dryRun, Map opts) {
     try {
         processUIEditorsPrefs(path.resolve("org.eclipse.ui.editors.prefs"), dryRun, opts)
     } catch(Throwable t) {
@@ -188,18 +176,52 @@ def processEclipseCoreRuntimeSettings(Path path, boolean ignoreExceptions, boole
             throw t
         }
     }
+
+    try {
+        processCoreResourcesPrefs(path.resolve("org.eclipse.core.resources.prefs"), dryRun, opts)
+    } catch(Throwable t) {
+        error(t.getClass().getSimpleName() + ": " + t.getMessage())
+        if (!ignoreExceptions) {
+            throw t
+        }
+    }
+
+    try {
+        processCoreRuntimePrefs(path.resolve("org.eclipse.core.runtime.prefs"), dryRun, opts)
+    } catch(Throwable t) {
+        error(t.getClass().getSimpleName() + ": " + t.getMessage())
+        if (!ignoreExceptions) {
+            throw t
+        }
+    }
 }
 
-def processUIEditorsPrefs(Path path, boolean dryRun, opts) {
+int processCoreRuntimePrefs(Path path, boolean dryRun, Map opts) {
+    return updateProperties(path, dryRun, opts, [ 'line.separator' ])
+}
+
+int processCoreResourcesPrefs(Path path, boolean dryRun, Map opts) {
+    return updateProperties(path, dryRun, opts, [ 'encoding' ])
+}
+
+int processUIEditorsPrefs(Path path, boolean dryRun, Map opts) {
+    return updateProperties(path, dryRun, opts, [ 'spacesForTabs' ])
+}
+
+int updateProperties(Path path, boolean dryRun, Map opts, List props) {
     info(path)
 
     List lines = openOrCreateFile(path, dryRun, opts)
-    int numChanged = blahblah(path, lines, workBuf, opts)
+    int numChanged = 0
+    props.forEach {
+        numChanged += updatePropertyValue(path, line, it, opts)
+    }
+
     if (numChanged <= 0) {
         if (isDebugEnabled()) {
-            debug("Skip " + path + " - no changes")
+            debug("Skip $path - no changes")
         }
-        return
+        return 0
     }
 
     if (!dryRun) {
@@ -207,11 +229,14 @@ def processUIEditorsPrefs(Path path, boolean dryRun, opts) {
     }
 
     if (isDebugEnabled()) {
-        debug("Modified " + path + " - " + numChanged + " lines")
+        debug("Modified $path - $numChanged lines")
     }
+
+    return numChanged
 }
 
-int updatePropertyValue(Path path, List lines, String propName, Object propValue) {
+int updatePropertyValue(Path path, List lines, String propName, Map opts) {
+    Object propValue = opts[propName]
     for (int index = 0; index < lines.size(); index++) {
         String l = lines[index]
         l = l.trim()
@@ -269,10 +294,31 @@ static String createLine(String propName, Object propValue) {
 /* ------------------------------------------------------------------------ */
 
 def populateDefaultOptions(opts) {
-    opts['eclipse.preferences.version'] = 1
     opts['verbose'] = Level.INFO
-    opts['ignore-exceptions'] = Boolean.FALSE
-    opts['dry-run'] = Boolean.FALSE
+    opts['ignore-exceptions'] = false
+    opts['dry-run'] = false
+
+    /* - If NEW file created use:
+     *      eclipse.preferences.version=1 (configurable)
+     */
+    opts['eclipse.preferences.version'] = 1
+
+    /*
+     * - .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.ui.editors.prefs
+     *         spacesForTabs=true    [General->Editors->Text Editors->Spaces for tabs]
+     */
+    opts['spacesForTabs'] = true
+
+    /* - .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.core.resources.prefs
+     *         encoding=UTF-8    [General->Workspace->Text file encoding]
+     */
+    opts['encoding'] = 'UTF-8'
+
+    /*
+     * - .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.core.runtime.prefs
+     *         line.separator=\n    [General->Workspace->Text file new line delimiter]
+     */
+    opts['line.separator'] = '\\n'
 
     return opts
 }
