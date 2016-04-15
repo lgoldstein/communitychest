@@ -128,41 +128,53 @@ def execute(opts, String workspaceLocation) {
 }
 
 def processWorkspace(Path path, boolean ignoreExceptions, boolean dryRun, Map opts) {
+    int numChanges = 0
+
     try {
-        processPlugins(path.resolve(".plugins"), ignoreExceptions, dryRun, opts)
+        numChanges += processPlugins(path.resolve(".plugins"), ignoreExceptions, dryRun, opts)
     } catch(Throwable t) {
         error(t.getClass().getSimpleName() + ": " + t.getMessage())
         if (!ignoreExceptions) {
             throw t
         }
     }
+
+    return numChanges
 }
 
-def processPlugins(Path path, boolean ignoreExceptions, boolean dryRun, Map opts) {
+int processPlugins(Path path, boolean ignoreExceptions, boolean dryRun, Map opts) {
+    int numChanges = 0
     try {
-        processEclipseCoreRuntime(path.resolve("org.eclipse.core.runtime"), ignoreExceptions, dryRun, opts)
+        numChanges += processEclipseCoreRuntime(path.resolve("org.eclipse.core.runtime"), ignoreExceptions, dryRun, opts)
     } catch(Throwable t) {
         error(t.getClass().getSimpleName() + ": " + t.getMessage())
         if (!ignoreExceptions) {
             throw t
         }
     }
+
+    return numChanges
 }
 
-def processEclipseCoreRuntime(Path path, boolean ignoreExceptions, boolean dryRun, Map opts) {
+int processEclipseCoreRuntime(Path path, boolean ignoreExceptions, boolean dryRun, Map opts) {
+    int numChanges
     try {
-        processEclipseCoreRuntimeSettings(path.resolve(".settings"), ignoreExceptions, dryRun, opts)
+        numChanges +=  processEclipseCoreRuntimeSettings(path.resolve(".settings"), ignoreExceptions, dryRun, opts)
     } catch(Throwable t) {
         error(t.getClass().getSimpleName() + ": " + t.getMessage())
         if (!ignoreExceptions) {
             throw t
         }
     }
+
+    return numChanges
 }
 
-def processEclipseCoreRuntimeSettings(Path path, boolean ignoreExceptions, boolean dryRun, Map opts) {
+int processEclipseCoreRuntimeSettings(Path path, boolean ignoreExceptions, boolean dryRun, Map opts) {
+    int numChanges = 0
+
     try {
-        processUIEditorsPrefs(path.resolve("org.eclipse.ui.editors.prefs"), dryRun, opts)
+        numChanges += processUIEditorsPrefs(path.resolve("org.eclipse.ui.editors.prefs"), dryRun, opts)
     } catch(Throwable t) {
         error(t.getClass().getSimpleName() + ": " + t.getMessage())
         if (!ignoreExceptions) {
@@ -171,7 +183,7 @@ def processEclipseCoreRuntimeSettings(Path path, boolean ignoreExceptions, boole
     }
 
     try {
-        processCoreResourcesPrefs(path.resolve("org.eclipse.core.resources.prefs"), dryRun, opts)
+        numChanges += processCoreResourcesPrefs(path.resolve("org.eclipse.core.resources.prefs"), dryRun, opts)
     } catch(Throwable t) {
         error(t.getClass().getSimpleName() + ": " + t.getMessage())
         if (!ignoreExceptions) {
@@ -180,7 +192,7 @@ def processEclipseCoreRuntimeSettings(Path path, boolean ignoreExceptions, boole
     }
 
     try {
-        processCoreRuntimePrefs(path.resolve("org.eclipse.core.runtime.prefs"), dryRun, opts)
+        numChanges += processCoreRuntimePrefs(path.resolve("org.eclipse.core.runtime.prefs"), dryRun, opts)
     } catch(Throwable t) {
         error(t.getClass().getSimpleName() + ": " + t.getMessage())
         if (!ignoreExceptions) {
@@ -189,7 +201,7 @@ def processEclipseCoreRuntimeSettings(Path path, boolean ignoreExceptions, boole
     }
 
     try {
-        processWstXmlCorePrefs(path.resolve("org.eclipse.wst.xml.core.prefs"), dryRun, opts)
+        numChanges += processWstXmlCorePrefs(path.resolve("org.eclipse.wst.xml.core.prefs"), dryRun, opts)
     } catch(Throwable t) {
         error(t.getClass().getSimpleName() + ": " + t.getMessage())
         if (!ignoreExceptions) {
@@ -198,13 +210,15 @@ def processEclipseCoreRuntimeSettings(Path path, boolean ignoreExceptions, boole
     }
 
     try {
-        processM2ECorePrefs(path.resolve("org.eclipse.m2e.core.prefs"), dryRun, opts)
+        numChanges += processM2ECorePrefs(path.resolve("org.eclipse.m2e.core.prefs"), dryRun, opts)
     } catch(Throwable t) {
         error(t.getClass().getSimpleName() + ": " + t.getMessage())
         if (!ignoreExceptions) {
             throw t
         }
     }
+
+    return numChanges
 }
 
 int processM2ECorePrefs(Path path, boolean dryRun, Map opts) {
@@ -233,7 +247,7 @@ int updateProperties(Path path, boolean dryRun, Map opts, List props) {
     List lines = openOrCreateFile(path, dryRun, opts)
     int numChanged = 0
     props.forEach {
-        numChanged += updatePropertyValue(path, line, it, opts)
+        numChanged += updatePropertyValue(path, lines, it, opts)
     }
 
     if (numChanged <= 0) {
@@ -248,7 +262,7 @@ int updateProperties(Path path, boolean dryRun, Map opts, List props) {
     }
 
     if (isDebugEnabled()) {
-        debug("Modified $path - $numChanged lines")
+        debug("Modified $path - updated $numChanged lines")
     }
 
     return numChanged
