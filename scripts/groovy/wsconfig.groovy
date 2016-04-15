@@ -192,8 +192,8 @@ def processEclipseCoreRuntimeSettings(Path path, boolean ignoreExceptions, boole
 
 def processUIEditorsPrefs(Path path, boolean dryRun, opts) {
     info(path)
-    // TODO make read/write charset configurable
-    List lines = Files.readAllLines(path, StandardCharsets.UTF_8)
+
+    List lines = openOrCreateFile(path, dryRun, opts)
     int numChanged = blahblah(path, lines, workBuf, opts)
     if (numChanged <= 0) {
         if (isDebugEnabled()) {
@@ -211,6 +211,61 @@ def processUIEditorsPrefs(Path path, boolean dryRun, opts) {
     }
 }
 
+int updatePropertyValue(Path path, List lines, String propName, Object propValue) {
+    for (int index = 0; index < lines.size(); index++) {
+        String l = lines[index]
+        l = l.trim()
+        if (!l.startsWith(propName)) {
+            continue
+        }
+
+        int pos = l.indexOf('=')
+        String curValue = ((pos > 0) && (pos < (l.length() - 1))) ? l.substring(pos + 1).trim() : ""
+        if (curValue.equals(propValue.toString())) {
+            if (isDebugEnabled()) {
+                debug("$path: No change required - $l")
+            }
+            return 0
+        }
+
+        String newLine = createLine(propName, propValue)
+        info("$path: replace $l with $newLine")
+        lines[index] = newLine
+        return 1
+    }
+
+    // this point is reached if property not found
+    String l = createLine(propName, propValue)
+    lines << l
+    info("$path: Added $l")
+    return 1
+}
+
+List openOrCreateFile(Path path, boolean dryRun, opts) {
+    if (Files.exists(path)) {
+        // TODO make read/write charset configurable
+        return Files.readAllLines(path, StandardCharsets.UTF_8)
+    }
+
+    String line = createLine('eclipse.preferences.version', opts['eclipse.preferences.version'])
+    if (!dryRun) {
+        Files.createDirectories(path.getParent())
+        Writer w = Files.newBufferedWriter(Files.createFile(path), StandardCharsets.UTF_8);
+        try {
+            w.write(line)
+        } finally {
+            w.close()
+        }
+
+        info("Created $path")
+    }
+
+    return [ line ]
+}
+
+static String createLine(String propName, Object propValue) {
+    return propName + "=" + propValue
+}
 /* ------------------------------------------------------------------------ */
 
 def populateDefaultOptions(opts) {
