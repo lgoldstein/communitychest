@@ -28,14 +28,10 @@ import org.codehaus.groovy.tools.shell.ExitNotification
 /*
  * Configures useful Eclipse workspace preferences
  *
- * - .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.jdt.core.prefs
- *         org.eclipse.jdt.core.formatter.tabulation.char=space  [Java->Code style->Formatter->Tab policy]
- *         ...attached file... - [Java->Compiler->Errors and Warnings]
- *
  * - .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.jdt.ui.prefs
  *          org.eclipse.jdt.ui.formatterprofiles= ... <setting id\="org.eclipse.jdt.core.formatter.tabulation.char" value\="space"/>\r\n    [Java->Code style->Formatter->Tab policy]
  *          org.eclipse.jdt.ui.text.code_templates_migrated=true [Java->Code Style->Templates->Comments->Overriding methods]
- *          org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates><template autoinsert\="false" context\="overridecomment_context" deleted\="false" description\="Comment for overriding methods" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.overridecomment" name\="overridecomment"/></templates>
+ *          org.eclipse.jdt.ui.text.custom_code_templates=... <setting id\="org.eclipse.jdt.core.formatter.indentation.size" value\="4"/>\r\n - same as 'indentationSize'
  *          org.eclipse.jdt.ui.exception.name=e  [Java->Compiler->Errors and Warnings]
  *          org.eclipse.jdt.ui.gettersetter.use.is=true  [Java->Compiler->Errors and Warnings]
  *          org.eclipse.jdt.ui.overrideannotation=true  [Java->Compiler->Errors and Warnings]
@@ -217,7 +213,37 @@ int processEclipseCoreRuntimeSettings(Path path, boolean ignoreExceptions, boole
         }
     }
 
+    try {
+        numChanges += processJDTCorePrefs(path.resolve("org.eclipse.jdt.core.prefs"), dryRun, opts)
+    } catch(Throwable t) {
+        error(t.getClass().getSimpleName() + ": " + t.getMessage())
+        if (!ignoreExceptions) {
+            throw t
+        }
+    }
+
     return numChanges
+}
+
+int processJDTCorePrefs(Path path, boolean dryRun, Map opts) {
+    info(path)
+
+    List lines = openOrCreateFile(path, dryRun, opts)
+    int numChanged = 0
+
+    List versionProps = [ 'org.eclipse.jdt.core.compiler.codegen.targetPlatform', 'org.eclipse.jdt.core.compiler.compliance', 'org.eclipse.jdt.core.compiler.source' ]
+    numChanged += multiUpdatePropertyValue(path, lines, versionProps, opts['java.compatibility.version'], opts)
+    numChanged += replaceOrAddPropertyValue(path, lines, 'org.eclipse.jdt.core.formatter.tabulation.char', opts['indentationChar'], opts)
+
+    if (!dryRun) {
+        Files.write(path, lines, StandardCharsets.UTF_8)
+    }
+
+    if (isDebugEnabled()) {
+        debug("Modified $path - updated $numChanged lines")
+    }
+
+    return numChanged
 }
 
 int processM2ECorePrefs(Path path, boolean dryRun, Map opts) {
@@ -225,6 +251,21 @@ int processM2ECorePrefs(Path path, boolean dryRun, Map opts) {
 }
 
 int processWstXmlCorePrefs(Path path, boolean dryRun, Map opts) {
+    info(path)
+
+    List lines = openOrCreateFile(path, dryRun, opts)
+    int numChanged = 0
+
+    if (!dryRun) {
+        Files.write(path, lines, StandardCharsets.UTF_8)
+    }
+
+    if (isDebugEnabled()) {
+        debug("Modified $path - updated $numChanged lines")
+    }
+
+    return numChanged
+
     return updateProperties(path, dryRun, opts, [ 'indentationChar', 'indentationSize' ])
 }
 
@@ -268,7 +309,19 @@ int updateProperties(Path path, boolean dryRun, Map opts, List props) {
 }
 
 int updatePropertyValue(Path path, List lines, String propName, Map opts) {
-    Object propValue = opts[propName]
+    return replaceOrAddPropertyValue(path, lines, propName, opts[propName], opts)
+}
+
+// same value for ALL properties in list
+int multiUpdatePropertyValue(Path path, List lines, List props, Object propValue, Map opts) {
+    int numChanged = 0
+    props.forEach {
+        numChanged += replaceOrAddPropertyValue(path, lines, it, propValue, opts)
+    }
+    return numChanged
+}
+
+int replaceOrAddPropertyValue(Path path, List lines, String propName, Object propValue, Map opts) {
     for (int index = 0; index < lines.size(); index++) {
         String l = lines[index]
         l = l.trim()
@@ -368,11 +421,31 @@ def populateDefaultOptions(opts) {
     opts['eclipse.m2.downloadJavadoc'] = true
     opts['eclipse.m2.downloadSources'] = true
 
+    /*
+    // .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.jdt.core.prefs
+     *         ...attached file... - [Java->Compiler->Errors and Warnings]
+     */
+
+    // org.eclipse.jdt.core.formatter.tabulation.char=space  [Java->Code style->Formatter->Tab policy]
+    // opts['org.eclipse.jdt.core.formatter.tabulation.char'] = same as 'indentationChar'
+
+     /* Version selection
+      *
+      * org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.8
+      * org.eclipse.jdt.core.compiler.compliance=1.8
+      * org.eclipse.jdt.core.compiler.source=1.8
+      */
+    opts['java.compatibility.version'] = getCoreJavaVersion()
     return opts
 }
 
 //////////////////////////////////////////////////////////////////////////////
 
+static String getCoreJavaVersion() {
+    String version = System.properties['java.version']
+    List comps = version.split('\\.')
+    return comps[0] + '.' + comps[1]
+}
 static String stripQuotes(String v) {
     char delim = v.charAt(0) as char
     if ((delim != ('"' as char)) && (delim != ('\'' as char))) {
