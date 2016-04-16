@@ -276,13 +276,15 @@ int updatePropertyValue(Path path, List lines, String propName, Map opts) {
             continue
         }
 
-        int pos = l.indexOf('=')
-        String curValue = ((pos > 0) && (pos < (l.length() - 1))) ? l.substring(pos + 1).trim() : ""
-        if (curValue.equals(propValue.toString())) {
-            if (isDebugEnabled()) {
-                debug("$path: No change required - $l")
+        if (!opts['forced'].booleanValue()) {
+            int pos = l.indexOf('=')
+            String curValue = ((pos > 0) && (pos < (l.length() - 1))) ? l.substring(pos + 1).trim() : ""
+            if (curValue.equals(propValue.toString())) {
+                if (isDebugEnabled()) {
+                    debug("$path: No change required - $l")
+                }
+                return 0
             }
-            return 0
         }
 
         String newLine = createLine(propName, propValue)
@@ -326,6 +328,7 @@ def populateDefaultOptions(opts) {
     opts['verbose'] = Level.INFO
     opts['ignore-exceptions'] = false
     opts['dry-run'] = false
+    opts['forced'] = false
 
     /* - If NEW file created use:
      *      eclipse.preferences.version=1 (configurable)
